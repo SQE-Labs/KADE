@@ -1,0 +1,3 @@
+Customer No,Alternative Customer No,Transaction Type,Payment Method,Card Type,Amount,Transaction Date,Comments,Auto Allocate,Batch No
+
+231101,,P,CH,,150,06/02/2023,cheque payment,TRUE,23t45

@@ -1,0 +1,3 @@
+Customer Number,Alternative Customer Number,*Plan Number,*Meter Number,*Meter Configuration [1-Flat / 2-Peak/OffPeak/Shoulder],*Prorata Date,*Meter Read Type [R-Reads/C-Consumption],*Kfactor,Master Meter,Walk Order,SubAddress Type,SubAddress Number,Street Number,Street Name,Street type,Suburb,State/County,Post/Zip Code,Route,High Reading,Low Reading,Heating Value,Pressure Factor,conversion Factor,*Unit[GAC-Cubic meter(m3)/GAB-Cubic feet(ft3)/GAA-British thermal unit(btu)/GAD-Kilowatt hour(kWh)/GAE-Mega joules(MJ)/GAF-Therms(th)]
+225994,,3122,importMeter5,1,5/30/2017,R,1,,,APT,Apartment 7,24,Hermit Park,APT,Mount Louisa,AUSTRALIA,4814,,,,2,3,2,GAC
+225994,,3122,importMeter6,2,5/30/2017,R,12,,33,FLAT,30,146,Castle Hill,FLAT,Mount Louisa,AUSTRALIA,4814,,,,2,5,2,GAC
