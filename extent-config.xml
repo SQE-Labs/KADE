@@ -2,13 +2,13 @@
 <extentreports>
     <configuration>
 
-        <theme>dark</theme>
+        <theme>light</theme>
 
         <encoding>UTF-8</encoding>
 
         <protocol>https</protocol>
 
-        <documentTitle>MarketBilling</documentTitle>
+        <documentTitle>Kade-Report</documentTitle>
 
         <reportName>ExtentReport</reportName>
 
