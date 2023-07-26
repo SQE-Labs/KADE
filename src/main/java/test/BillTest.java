@@ -410,10 +410,8 @@ public class BillTest extends BaseTest{
 		update.switchOnMoreDetailsToggle();
 		Assert.assertTrue(update.isCustomerNameDisplayed());
 		Assert.assertTrue(update.isMemoTbxDisplayed());
-		update.clickOnClose();
-		
+		update.clickOnClose();	
 	}
-	
 	
 }
 
