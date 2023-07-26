@@ -21,6 +21,7 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
+import java.util.List;
 
 
 public class ActionEngine extends BaseTest {
@@ -143,7 +144,7 @@ public class ActionEngine extends BaseTest {
     
     public void moveToWebElement(By element) {
     	Actions a=new Actions(getDriver());
-    	a.moveToElement(getDriver().findElement(element)).perform();;
+    	a.moveToElement(getDriver().findElement(element)).perform();
     }
 
     public String getElementText(By element) {
@@ -228,6 +229,28 @@ public class ActionEngine extends BaseTest {
         return text;
     }
 
+  //Get text from webelement
+    public <List>String getText_List(By path) {
+        String text = "";
+        try {
+
+            Element element = new Element("", path);
+            text = element.getText();
+            Log.info("Text for " + path + " is " + text);
+            extentTest.log(PASS, "Text retrieved is: " + text);
+            return text;
+        } catch (Exception e) {
+            extentTest.log(FAIL, "Unable to get text due to exception : \n" + e);
+
+        }
+        return text;
+    }
+
+    
+    public long getAllMatchingCount(By element,String string) {
+    	List<WebElement> allElements = getDriver().findElements(element);
+    	return allElements.stream().map(a->a.getText().equalsIgnoreCase(string)).count();
+    }
 
     public void selectCheckBox(By path, String... fieldName) {
         try {
@@ -264,6 +287,7 @@ public class ActionEngine extends BaseTest {
             return null;
         }
     }
+   
     public boolean isElementPresent(By path,String fieldName) {
         boolean flag = false;
         try {
@@ -274,6 +298,7 @@ public class ActionEngine extends BaseTest {
             extentTest.log(FAIL, "****Checking for presence of element : " + fieldName + " not tested due to exception: " + e);
             return flag;
         }
+        
     }
     public boolean isExceptionOrErrorPresent() {
         boolean flag = false;
@@ -293,6 +318,7 @@ public class ActionEngine extends BaseTest {
         }
     }
     
+    //get attribute value
     public String getAttribute(By element,String attribute) {
     	return getDriver().findElement(element).getAttribute(attribute);
     }
@@ -336,5 +362,31 @@ public class ActionEngine extends BaseTest {
         rb.keyRelease(KeyEvent.VK_ENTER);
     }
     
+    
+    //code to execute javaScript code
+    public void sendKeysUsingJavaScript(By element , String jsScript) {
+    	JavascriptExecutor js= (JavascriptExecutor) getDriver();
+    	js.executeScript(jsScript, getDriver().findElement(element));
+    }
+    
+    //code to check element is enabled
+    public boolean isElementEnabled(By element) {
+    	return getDriver().findElement(element).isEnabled();
+    }
+    
+    //click on element with text
+    public void clickOnElementByText(By element, String text) {
+    	List<WebElement> allElements = getDriver().findElements(element);
+    	for(WebElement we:allElements) {
+    		if(we.getText().equalsIgnoreCase(text))
+    			WebdriverWaits.waitForElementClickable(element, 5);
+    			click(we);
+    		break;
+    	}
+    }
+    
+    public void clickOnFirstElement(By element) {
+    	getDriver().findElements(element).get(0).click();
+    	}
     
 }

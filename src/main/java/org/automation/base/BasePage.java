@@ -4,10 +4,10 @@ package org.automation.base;
 import org.automation.elements.Element;
 import org.automation.logger.Log;
 import org.automation.utilities.ActionEngine;
+import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchWindowException;
-import org.openqa.selenium.WebElement;
 
 public class BasePage extends ActionEngine {
 
@@ -164,18 +164,34 @@ public class BasePage extends ActionEngine {
 
     public void ScrollDownThePageMax() {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
-        js.executeScript("window.scrollBy(0,document.body.scrollHeight)", "");
+        js.executeScript("window.scrollTo(0, document.body.scrollHeight);", "");
     }
-
-
-    public void scrollIntoView(By element) {
-        JavascriptExecutor jse = (JavascriptExecutor) getDriver();
-        WebElement ele = getDriver().findElement(element);
-        jse.executeScript("arguments[0].scrollIntoView(true);", ele);
-
+//
+//    public void scrollIntoView(By element) {
+//        JavascriptExecutor jse = (JavascriptExecutor) getDriver();
+//        WebElement ele = getDriver().findElement(element);
+//        jse.executeScript("arguments[0].scrollIntoView(true);", ele);
+//
+//    }
+    
+    public static void scrollToElement( By element) {
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) getDriver();
+        jsExecutor.executeScript("arguments[0].scrollIntoView(true);", getDriver().findElement(element));
+    }
+    
+    
+    public void scrollToPageTop(By element) {
+    		WebdriverWaits.waitForElementVisible(element, 5);
+    	  JavascriptExecutor js = (JavascriptExecutor) getDriver();
+          js.executeScript("window.scrollTo(0,0);");
     }
     
     public void goBackToPreviousPage() {
     	getDriver().navigate().back();
     }
+    
+    public int countWebElements(By element) {
+    	return getDriver().findElements(element).size();
+    }
+    
 }
