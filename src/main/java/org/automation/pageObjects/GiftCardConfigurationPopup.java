@@ -14,6 +14,7 @@ By maxGiftCardAmtTbx=By.xpath("//input[@name='maximumGCAmount']");
 By closeBtn= By.xpath("//button[@class='btn-close']");
 By fundingSourceTbx=By.xpath("//textarea[@name='fundSourceList']");
 
+
 	public void switchOnIssueGiftCardToggle(){
 		if(getAttribute(issueGiftCardToggle, "class").equalsIgnoreCase("custom-checkbox mb-3")) {
 		click(issueGiftCardToggle);}
@@ -84,8 +85,23 @@ By fundingSourceTbx=By.xpath("//textarea[@name='fundSourceList']");
 		return getText_custom(By.id(id));
 	}
 
+	public String getFundingSourceToolTipMessage() {
+		moveToWebElement(fundingSourceTbx);
+		String id=getAttribute(fundingSourceTbx, "aria-describedby");
+		return getText_custom(By.id(id));
+	}
+	
 	public void enterMaxGiftCardAmount(int i) {
 		clearMaxGiftCardTbx();
 		sendKeysUsingJavaScript(maxGiftCardAmtTbx, "document.getElementsByName('maximumGCAmount')[0].value="+i);
+	}
+	
+	public void clearFundingSource() {
+		clear_custom(fundingSourceTbx);
+	}
+
+	public String getToastMessage() {
+		By toastMessage=By.xpath("//div[contains(text(),'Gift card configuration for store has been updated.')]");
+		return getText_custom(toastMessage);
 	}
 }

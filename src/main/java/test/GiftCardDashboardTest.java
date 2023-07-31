@@ -1,6 +1,7 @@
 package test;
 
 import org.automation.base.BaseTest;
+import org.automation.pageObjects.CreateAGiftCardPopup;
 import org.automation.pageObjects.DashBoardPage;
 import org.automation.pageObjects.GiftCardConfigurationPopup;
 import org.automation.pageObjects.GiftCardDashboardPage;
@@ -14,6 +15,7 @@ public class GiftCardDashboardTest extends BaseTest {
 	DashBoardPage dashboard=new DashBoardPage();
 	GiftCardDashboardPage giftCardDashboard=new GiftCardDashboardPage();
 	GiftCardConfigurationPopup giftCardConfiguration = new GiftCardConfigurationPopup();
+	CreateAGiftCardPopup createGiftCard=new CreateAGiftCardPopup();
 	
 	@Test(priority =0, enabled = true, description="Verify that Gift Cards Dashboard page opens after clicking on Gift Cards Dashboard Tab")
 	public void verifyGiftCardsDashboardPage() {
@@ -68,7 +70,7 @@ public class GiftCardDashboardTest extends BaseTest {
 	}
 	
 	@Test(priority =5, enabled = true, description="Verify validation message of Max Gift Card Ammount")
-	public void validationMaxGiftCardAmountBlank() {
+	public void validationMaxGiftCardAmount() {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnConfigurationLink();
 		giftCardConfiguration.switchOnIssueGiftCardToggle();
@@ -84,6 +86,86 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardConfiguration.clickOnClose();
 	}
 	
+	@Test(priority =6, enabled = true, description="Verify validation message of Max Gift Card Amount")
+	public void validationFundingSourceTextBox() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnConfigurationLink();
+		giftCardConfiguration.switchOnIssueGiftCardToggle();
+		giftCardConfiguration.switchOnFundingSourceToggle();
+		giftCardConfiguration.clearFundingSource();
+		giftCardConfiguration.clickOnSaveConfigurationBtn();
+		Assert.assertEquals(giftCardConfiguration.getFundingSourceToolTipMessage(), "This field is required.");
+		giftCardConfiguration.clickOnClose();
+	}
+	
+	@Test(priority =7, enabled = true, description="Verify successfull configuration of gift card.")
+	public void verifySuccessfullConfiguration() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnConfigurationLink();
+		giftCardConfiguration.switchOnIssueGiftCardToggle();
+		giftCardConfiguration.enterMaxGiftCardAmount(4999);
+		giftCardConfiguration.clickOnSaveConfigurationBtn();
+		//Assert.assertEquals(giftCardConfiguration.getToastMessage(), "Gift card configuration for store has been updated.");   // Get Toast Message Xpath and update.
+		Assert.assertTrue(giftCardDashboard.isIssueAGiftCardLinkPresent());
+		Assert.assertTrue(giftCardDashboard.isGiftCardForSaleLinkPresent());
+	}
+	
+
+	@Test(priority =8, enabled = true, description="Verify Issue A Gift Card Link")
+	public void createAGiftCardPopup() {
+		giftCardDashboard.clickOnIssueAGiftCard();
+		Assert.assertEquals(createGiftCard.getPopupTitle(),"Create gift card");
+		createGiftCard.clickOnCloseBtn();
+		
+	}
+	
+	@Test(priority =9, enabled = true, description="Validation of Customer Phone Number Text Box")
+	public void validationOfCustomerPhoneNumber() {
+		giftCardDashboard.clickOnIssueAGiftCard();
+		createGiftCard.clickOnFind();
+		Assert.assertEquals(createGiftCard.getCustomerPhoneNumberToolTipMessage(), "This field is required.");
+		createGiftCard.clickOnCloseBtn();
+		}
+	
+	@Test(priority =10, enabled = true, description="Validation when non existing Customer Phone Number entered in Customer Phone Number Text Box")
+	public void validationForNonExsistingCustomerPhoneNumber() {
+		giftCardDashboard.clickOnIssueAGiftCard();
+		createGiftCard.enterCustomerPhoneNumber("+911236547890");
+		createGiftCard.clickOnFind();
+		Assert.assertEquals(createGiftCard.getWariningMessage(), "Customer not found");
+		Assert.assertTrue(createGiftCard.isContinueBtnPresent());
+		createGiftCard.clickOnCloseBtn();
+	}
+	
+	@Test(priority =11, enabled = true, description="Validation when Invalid Customer Phone Number entered in Customer Phone Number Text Box")
+	public void validationOfInvalidCustomerPhoneNumber() {
+		giftCardDashboard.clickOnIssueAGiftCard();
+		createGiftCard.enterCustomerPhoneNumber("987456112");
+		createGiftCard.clickOnFind();
+		Assert.assertEquals(createGiftCard.getCustomerPhoneNumberToolTipMessage(), "Invalid value");
+		createGiftCard.clickOnCloseBtn();
+		}
+	
+	@Test(priority =12, enabled = true, description="Validation when non existing Customer Phone Number entered in Customer Phone Number Text Box")
+	public void verifyforExsistingCustomerPhoneNumber() {
+		giftCardDashboard.clickOnIssueAGiftCard();
+		createGiftCard.enterCustomerPhoneNumber("+918877070727");
+		createGiftCard.clickOnFind();
+		Assert.assertTrue(createGiftCard.isInitialAmountPresent());
+		Assert.assertTrue(createGiftCard.isMessageBoxPresent());
+		Assert.assertTrue(createGiftCard.isRefNoTextBoxPresent());
+		createGiftCard.clickOnCloseBtn();
+	}
+	
+	@Test(priority =13, enabled = true, description="Verify Continue without search button")
+	public void verifyContinueWithoutSearch() {
+		giftCardDashboard.clickOnIssueAGiftCard();
+		createGiftCard.clickOnContinueWithoutSearch();
+		Assert.assertTrue(createGiftCard.isInitialAmountPresent());
+		Assert.assertTrue(createGiftCard.isMessageBoxPresent());
+	    Assert.assertTrue(createGiftCard.isRefNoTextBoxPresent());
+		createGiftCard.clickOnCloseBtn();
+	}
 	
 	
 	
