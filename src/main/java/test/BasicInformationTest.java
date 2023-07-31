@@ -67,7 +67,7 @@ public class BasicInformationTest extends BaseTest{
 	
 	@Test(priority =5, enabled = true, description="upload Invalid Profile Image Formate")
 	public void uploadInvalidFileFormate() throws AWTException, InterruptedException {
-		infoPage.uploadImage(System.getProperty("user.dir")+"\\src\\main\\resources\\File\\demo.txt");
+		infoPage.uploadImage(System.getProperty("user.dir")+"\\src\\main\\resources\\demo.txt");
 		String actualAleart = infoPage.getAleartMessage();
 		String expectedAleart = "Invalid image file";
 		Assert.assertEquals(actualAleart, expectedAleart);

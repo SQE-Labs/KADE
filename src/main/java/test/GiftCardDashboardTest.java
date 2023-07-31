@@ -78,8 +78,12 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardConfiguration.enterMaxGiftCardAmount(0);
 		giftCardConfiguration.clickOnSaveConfigurationBtn();
 		Assert.assertEquals(giftCardConfiguration.getMaxGiftCardToolTipMessage(), "Please enter a value greater than or equal to 1.");
+		giftCardConfiguration.enterMaxGiftCardAmount(100000);
+		giftCardConfiguration.clickOnSaveConfigurationBtn();
+		Assert.assertEquals(giftCardConfiguration.getMaxGiftCardToolTipMessage(), "Please enter a value less than or equal to 99999.");
 		giftCardConfiguration.clickOnClose();
 	}
+	
 	
 	
 	
