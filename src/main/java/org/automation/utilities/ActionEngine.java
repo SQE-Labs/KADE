@@ -92,6 +92,11 @@ public class ActionEngine extends BaseTest {
         }
     }
 
+    
+    public void sendkeysClear(By element,String string) {
+    	getDriver().findElement(element).clear();
+    	getDriver().findElement(element).sendKeys(string);
+    }
 
     //custom click method to log evey click action in to extent report
     public void clickBtn(By path, String... label) {
