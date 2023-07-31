@@ -59,17 +59,17 @@ public class BasicInformationTest extends BaseTest{
 	
 	@Test(priority = 4, enabled = true, description="Upload Profile Image")
 	public void uploadProfileImage() throws AWTException {
-		infoPage.uploadImage("C:\\Users\\HP\\Downloads\\dummy-image.jpg");
+		infoPage.uploadImage(System.getProperty("user.dir")+"\\src\\main\\resources\\image\\dummy-image.jpg");
 		String actualMessage=infoPage.getSuccessMessage();
 		String expectedMessage="Image updated.";
 		Assert.assertEquals(actualMessage, expectedMessage);
 	}
 	
-//	@Test(priority =5, enabled = true, description="upload Invalid Profile Image Formate")
-//	public void uploadInvalidFileFormate() throws AWTException, InterruptedException {
-//		infoPage.uploadImage("‪C:\\Users\\HP\\Downloads\\demo.txt");
-//		String actualAleart = infoPage.getAleartMessage();
-//		String expectedAleart = "Invalid image file";
-//		Assert.assertEquals(actualAleart, expectedAleart);
-//	}
+	@Test(priority =5, enabled = true, description="upload Invalid Profile Image Formate")
+	public void uploadInvalidFileFormate() throws AWTException, InterruptedException {
+		infoPage.uploadImage(System.getProperty("user.dir")+"\\src\\main\\resources\\File\\demo.txt");
+		String actualAleart = infoPage.getAleartMessage();
+		String expectedAleart = "Invalid image file";
+		Assert.assertEquals(actualAleart, expectedAleart);
+	}
 }
