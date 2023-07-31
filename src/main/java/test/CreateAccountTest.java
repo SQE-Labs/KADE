@@ -4,6 +4,7 @@ import org.automation.base.BaseTest;
 import org.automation.pageObjects.CreateNewAccountPage;
 import org.automation.pageObjects.SetYourPasswordPage;
 import org.automation.pageObjects.VerifyYourAccountPage;
+import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.RandomGenerator;
 import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
@@ -16,19 +17,14 @@ public class CreateAccountTest extends BaseTest {
     VerifyYourAccountPage verifyYourAccountPage = new VerifyYourAccountPage();
     SetYourPasswordPage setYourPasswordPage = new SetYourPasswordPage();
 
-    // Test Data
-    String createNewAccountPageUrl = "https://sibtestenv.azurewebsites.net/Account/Register";
-    String expectedVerifyYourAccountPageTitle = "Verify Account";
-    String expectedSetYourPasswordPAgeTitle = "Configure Password";
-
     @BeforeMethod
     public void beforeTestMethod() {
         // Navigate to 'Create a new account' page
-        getDriver().navigate().to(createNewAccountPageUrl);
+        getDriver().navigate().to(PropertiesUtil.getPropertyValue("createNewAccountPageUrl"));
     }
 
     @Test(priority = 0, enabled = true, description = "1. Verify that user get directed to 'Create New Account' page, after clicking on 'Sign up' link, on 'Login' page.")
-    public void validateSignUpLink() throws InterruptedException {
+    public void validateSignUpLink() {
 
         // Verify app Logo name heading - 'Kade'
         Assert.assertTrue(createNewAccountPage.checkPresenceOfappLogoNameHeading());
@@ -51,7 +47,7 @@ public class CreateAccountTest extends BaseTest {
     }
 
     @Test(priority = 1, enabled = true, description = "2. Verify that 'Email or Phone' field appears highlighted, when user clicks on 'Sign Up' button, after leaving  'Email or Phone' field blank, on 'Create New Account' page.")
-    public void validateEmailOrPhoneFieldGetHighlighted() throws InterruptedException {
+    public void validateEmailOrPhoneFieldGetHighlighted() {
 
         // Verify 'Email or Phone' label
         Assert.assertTrue(createNewAccountPage.checkPresenceOfEmailOrPhoneLabel());
@@ -65,7 +61,7 @@ public class CreateAccountTest extends BaseTest {
     }
 
     @Test(priority = 2, enabled = true, description = "3. Verify that appropriate validation message appears on entering invalid Email or Phone in 'Email or Phone' field, on 'Create New Account' page.")
-    public void validateValidationMessageOnEnteringInvalidEmailOrPhone() throws InterruptedException {
+    public void validateValidationMessageOnEnteringInvalidEmailOrPhone() {
 
         // Enter invalid Email or Phone
         createNewAccountPage.enterEmailOrPhone("User22");
@@ -76,7 +72,7 @@ public class CreateAccountTest extends BaseTest {
 }
 
     @Test(priority = 3, enabled = true, description = "5. Verify that 'Security Code' field appears after entering valid email  in 'Email or Phone' field, on 'Verify your account' page.")
-    public void validateSecurityCodeFieldOnEnteringValidEmail() throws InterruptedException {
+    public void validateSecurityCodeFieldOnEnteringValidEmail() {
 
         // Enter valid email in 'Email or Phone' field
         createNewAccountPage.enterEmailOrPhone("user" + new RandomGenerator().requiredString(6) + "@yopmail.com");
@@ -86,7 +82,7 @@ public class CreateAccountTest extends BaseTest {
     }
 
     @Test(priority = 4, enabled = true, description = "6. Verify that 'Security Code' field appears after entering valid phone number in 'Email or Phone' field, on 'Verify your account' page.")
-    public void validateSecurityCodeFieldOnEnteringValidPhone() throws InterruptedException {
+    public void validateSecurityCodeFieldOnEnteringValidPhone() {
 
         // Enter valid phone in 'Email or Phone' field
         createNewAccountPage.enterEmailOrPhone("919158501408");
@@ -97,20 +93,21 @@ public class CreateAccountTest extends BaseTest {
     }
 
     @Test(priority = 5, enabled = true, description = "7. Verify that Security Code is resent after clicking on the 'Resend security code' link, on 'Verify your account' page.")
-    public void validateSecurityCodeIsResent () throws InterruptedException {
+    public void validateSecurityCodeIsResent (){
 
         // Enter valid email in 'Email or Phone' field
         createNewAccountPage.enterEmailOrPhone("user" + new RandomGenerator().requiredString(6) + "@yopmail.com");
+        createNewAccountPage.checkRecieveTextEmailNotificationCheckBox();
 
         // Click 'Sign up' button
         createNewAccountPage.clickSignUpButton();
-
+       
         // Verify 'Email or Phone' field on 'Verify your account' page
         Assert.assertTrue(verifyYourAccountPage.checkPresenceOfEmailOrPhoneFieldOnVerifyAccountPage());
 
         // Verify 'Verify your account' page title - 'Verify Account'
         String actualVerifyYourAccountPageTitle = verifyYourAccountPage.getPageTitle();
-        Assert.assertEquals(actualVerifyYourAccountPageTitle,expectedVerifyYourAccountPageTitle);
+        Assert.assertEquals(actualVerifyYourAccountPageTitle,"Verify Account");
 
         // Verify 'Security Code' field
         Assert.assertTrue(verifyYourAccountPage.checkPresenceOfSecurityCodeField());
@@ -124,11 +121,11 @@ public class CreateAccountTest extends BaseTest {
     }
 
     @Test(priority = 6, enabled = true, description = "8. Verify that 'Set your Password' page opens up after entering valid Security Code in 'Security Code' field on 'Verify your account' page.")
-    public void validateSetYourPasswordPageOpensUpAfterEnteringSecurityCode() throws InterruptedException {
+    public void validateSetYourPasswordPageOpensUpAfterEnteringSecurityCode(){
 
         // Enter valid email in 'Email or Phone' field
         createNewAccountPage.enterEmailOrPhone( "user" + new RandomGenerator().requiredString(6) + "@yopmail.com");
-
+        createNewAccountPage.checkRecieveTextEmailNotificationCheckBox();
         // Click 'Sign up' button
         createNewAccountPage.clickSignUpButton();
 
@@ -146,7 +143,7 @@ public class CreateAccountTest extends BaseTest {
 
         // Verify 'Set Your Password' page title - 'Configure Password'
         String actualSetYourPasswordPageTitle = setYourPasswordPage.getPageTitle();
-        Assert.assertEquals(actualSetYourPasswordPageTitle,expectedSetYourPasswordPAgeTitle);
+        Assert.assertEquals(actualSetYourPasswordPageTitle,"Configure Password");
 
         // Verify 'Confirm Password' on Set your password page
         Assert.assertTrue(setYourPasswordPage.checkPresenceOfConfirmPasswordField());
@@ -157,11 +154,11 @@ public class CreateAccountTest extends BaseTest {
     }
 
     @Test(priority = 7, enabled = true, description = "9. Verify that 'Password' field appears highlighted, when user clicks on 'Submit' button, after entering less than 8 characters in  'Password and Confirm Password' field, on 'Set your password' page.")
-    public void validatePasswordFieldGetHighlightedOnEnteringLessThanEightCharacters() throws InterruptedException {
+    public void validatePasswordFieldGetHighlightedOnEnteringLessThanEightCharacters() {
 
         // Enter valid email in 'Email or Phone' field
         createNewAccountPage.enterEmailOrPhone( "user"+ new RandomGenerator().requiredString(5)+"@yopmail.com");
-
+        createNewAccountPage.checkRecieveTextEmailNotificationCheckBox();
         // Click 'Sign up' button
         createNewAccountPage.clickSignUpButton();
 
@@ -184,11 +181,11 @@ public class CreateAccountTest extends BaseTest {
     }
 
     @Test(priority = 8, enabled = true, description = "10. Verify that 'Password' field appears highlighted, when user clicks on 'Submit' button, after leaving  'Password and Confirm Password' field blank, on 'Set your password' page.")
-    public void validatePasswordFieldGetHighlightedOnLeavingPasswordAndConfirmPasswordFieldBlank() throws InterruptedException {
+    public void validatePasswordFieldGetHighlightedOnLeavingPasswordAndConfirmPasswordFieldBlank() {
 
         // Enter valid email in 'Email or Phone' field
         createNewAccountPage.enterEmailOrPhone( "user"+new RandomGenerator().requiredString(4)+"@yopmail.com");
-
+        createNewAccountPage.checkRecieveTextEmailNotificationCheckBox();
         // Click 'Sign up' button
         createNewAccountPage.clickSignUpButton();
 
@@ -204,11 +201,11 @@ public class CreateAccountTest extends BaseTest {
     }
 
     @Test(priority = 9, enabled = true, description = "11. Verify that appropriate validation message appears on entering invalid Password 'Password  or Confirm Password' field, on 'Set your password' page.")
-    public void VerifyValidationMessageOnEnteringInvalidPassword() throws InterruptedException {
+    public void VerifyValidationMessageOnEnteringInvalidPassword() {
 
         // Enter valid email in 'Email or Phone' field
         createNewAccountPage.enterEmailOrPhone( "user"+new RandomGenerator().requiredString(7)+"@yopmail.com");
-
+        createNewAccountPage.checkRecieveTextEmailNotificationCheckBox();
         // Click 'Sign up' button
         createNewAccountPage.clickSignUpButton();
 

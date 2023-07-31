@@ -42,8 +42,8 @@ public class BaseTest {
 	}
 
 	public static void closeDriver() {
-		//getDriver().close();
-		// driver.remove();
+		getDriver().close();
+		driver.remove();
 	}
 
 	@BeforeSuite
@@ -53,7 +53,7 @@ public class BaseTest {
 		extent.loadConfig(new File(System.getProperty("user.dir") + "/extent-config.xml"));
 	}
 
-	@BeforeTest(alwaysRun = true)
+	@BeforeClass(alwaysRun = true)
 	public void beforeClass() throws MalformedURLException {
 		String browser = PropertiesUtil.getPropertyValue("browser");
 		String url = PropertiesUtil.getPropertyValue("url");

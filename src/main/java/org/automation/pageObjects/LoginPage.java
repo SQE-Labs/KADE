@@ -15,7 +15,7 @@ public class LoginPage extends BasePage {
     By validation = By.xpath("//p[@class='alert-content']");
     By termsOfUse = By.linkText("Terms Of Use");
     // Methods
-    /**
+    /**C:\Users\HP\Downloads\stretched-1920-1080-413842.jpg
      * Method to Enter UserName
      * @param userNameText need to be set
      */
@@ -43,10 +43,11 @@ public class LoginPage extends BasePage {
      * Method to perform Sign In
      * @param userName need to be set
      * @param password need to be set
+     * @throws InterruptedException 
      */
     public void performSignIn(String userName, String password) {
     	sendKeys_withClear(userNameField, userName);
-        sendKeys_withClear(passwordField,password);
+    	sendKeys_withClear(passwordField,password);
         clickSignInButton();
     }
 

@@ -1,10 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
-    <test thread-count="1" parallel="classes" name="Test">
+    <test name="Test">
 
-        <packages>
-            <package name="test.*"></package>
-        </packages>
+        <classes>
+            <class name="test.BillTest"></class>
+            <class name="test.CreateAccountTest"></class>
+            <class name="test.GiftCardDashboardTest"></class>
+            <class name="test.MyStoreTest"></class>
+            <class name="test.SecurityAndPasswordTest"></class>
+            <class name="test.LoginTest"></class>
+            <class name="test.BasicInformationTest"></class>
+        </classes>
     </test>
 </suite>

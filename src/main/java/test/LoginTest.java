@@ -60,9 +60,9 @@ public class LoginTest extends BaseTest{
 	}
 	
 	@Test(priority = 4, enabled = true, description = "Successfull Login" ,groups="Regression")
-	public void successfullLogin() {
+	public void successfullLogin() throws InterruptedException {
 		login.performSignIn(PropertiesUtil.getPropertyValue("userName"), PropertiesUtil.getPropertyValue("password"));
-		String actualTitle = dashboard.getPageTitle();
+		String actualTitle = dashboard.getPageHeader();
 		String expectedTitle = "Dashboard";
 		System.out.println(actualTitle);
 		Assert.assertEquals(actualTitle, expectedTitle);

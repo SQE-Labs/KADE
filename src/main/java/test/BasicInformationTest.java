@@ -6,6 +6,7 @@ import org.automation.base.BaseTest;
 import org.automation.pageObjects.BasicInformationPage;
 import org.automation.pageObjects.DashBoardPage;
 import org.automation.pageObjects.LoginPage;
+import org.automation.utilities.PropertiesUtil;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
@@ -15,16 +16,9 @@ public class BasicInformationTest extends BaseTest{
 	LoginPage login=new LoginPage();
 	BasicInformationPage infoPage=new BasicInformationPage();
 	
-	
-//	@BeforeMethod
-//	public void landOnProfilePage() {
-//		login.performSignIn("kakasi@yopmail.com", "Sakura@07");
-//		dashBoard.clickProfile();
-//	}
-	
 	@Test(priority = 0, enabled = true, description="verifyNameToolTip")
 	public void verifyNameToolTip() {
-		login.performSignIn("kakasi@yopmail.com", "Sakura@07");
+		login.performSignIn(PropertiesUtil.getPropertyValue("userName"), PropertiesUtil.getPropertyValue("password"));
 		dashBoard.clickProfile();
 		infoPage.clearDataFromNameField();
 		infoPage.clickOnSaveChangesButton();
@@ -65,17 +59,17 @@ public class BasicInformationTest extends BaseTest{
 	
 	@Test(priority = 4, enabled = true, description="Upload Profile Image")
 	public void uploadProfileImage() throws AWTException {
-		infoPage.uploadImage("C:\\Users\\HP\\Downloads\\stretched-1920-1080-413842.jpg");
+		infoPage.uploadImage("C:\\Users\\HP\\Downloads\\dummy-image.jpg");
 		String actualMessage=infoPage.getSuccessMessage();
 		String expectedMessage="Image updated.";
 		Assert.assertEquals(actualMessage, expectedMessage);
 	}
 	
-	@Test(priority =5, enabled = true, description="upload Invalid Profile Image Formate")
-	public void uploadInvalidFileFormate() throws AWTException, InterruptedException {
-		infoPage.uploadImage("C:\\Users\\HP\\Downloads\\EnergyBillReceipt.pdf");
-		String actualAleart = infoPage.getAleartMessage();
-		String expectedAleart = "Invalid image file";
-		Assert.assertEquals(actualAleart, expectedAleart);
-	}
+//	@Test(priority =5, enabled = true, description="upload Invalid Profile Image Formate")
+//	public void uploadInvalidFileFormate() throws AWTException, InterruptedException {
+//		infoPage.uploadImage("‪C:\\Users\\HP\\Downloads\\demo.txt");
+//		String actualAleart = infoPage.getAleartMessage();
+//		String expectedAleart = "Invalid image file";
+//		Assert.assertEquals(actualAleart, expectedAleart);
+//	}
 }

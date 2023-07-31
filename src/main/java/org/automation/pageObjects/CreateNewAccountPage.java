@@ -13,6 +13,7 @@ public class CreateNewAccountPage extends BasePage {
     By signUpButton = By.xpath("//button[@class='btn-lg btn btn-primary']");
     By alreadyHaveAnAccountLabel = By.xpath("//p[contains(text(),'Already have an account?')]");
     By signInLink = By.xpath("//a[@class='ms-2']");
+    By checkBox=By.xpath("//i[@class='fal fa-square custom-check-off ']");
 
     // Methods
     /**
@@ -83,10 +84,13 @@ public class CreateNewAccountPage extends BasePage {
     /**
      * Method for click 'Sign up' button
      */
-    public void clickSignUpButton() throws InterruptedException {
+    public void clickSignUpButton() {
         clickBtn(signUpButton);
     }
 
+   public void checkRecieveTextEmailNotificationCheckBox() {
+	   click(checkBox);
+   }
 
 
 

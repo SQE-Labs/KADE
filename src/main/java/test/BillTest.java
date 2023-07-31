@@ -27,8 +27,8 @@ public class BillTest extends BaseTest{
 	RefundPage refund=new RefundPage();
 	UpdateBillPopUp update = new UpdateBillPopUp();
 	
-	@Test(priority = -1, enabled = true, description="")
-    public void verifyBillButton() {
+	@Test(priority = 0, enabled = true, description="verifyBillButton")
+    public void verifyBillButton(){
 		login.performSignIn(PropertiesUtil.getPropertyValue("userName"), PropertiesUtil.getPropertyValue("password"));
 		dashboard.clickOnBill();
 	 	Assert.assertEquals(bill.getPageTitle(), "Bills");		//Verify page title
@@ -106,7 +106,7 @@ public class BillTest extends BaseTest{
 		newBill.clickOnCloseBtn();
 	}
 	
-	@Test(priority = 9, enabled = true, description="")
+	@Test(priority = 9, enabled = true, description="Verify that tooltip message appears on hovering over memo icon")
 	public void memoToolTipMessage() throws InterruptedException {
 		String memoMsg = "Lorem ipsum dolor sit amet";
 		bill.clickOnNewBill();
@@ -176,7 +176,7 @@ public class BillTest extends BaseTest{
 		Assert.assertEquals(actualCount, expectedCount);
 	}
 	
-	@Test(priority = 15, enabled = true, description = "Verify customer name filter Functionality")
+	@Test(priority = 15, enabled = true, description = "Verify partial customer name filter Functionality")
 	public void verifyPartialCustomerNameFilter() {
 		long expectedCount = bill.countOfCustNamePresent("An");
 		bill.clickOnFilter();
@@ -196,7 +196,7 @@ public class BillTest extends BaseTest{
 		Assert.assertEquals(actualCount, expectedCount);
 	}
 	
-	@Test(priority = 17, enabled = true, description = "Verify User Phone filter Functionality")
+	@Test(priority = 17, enabled = true, description = "Verify invalid User Phone validation message")
 	public void invalidUserPhoneFilterValidation() throws InterruptedException {
 		dashboard.clickOnBill();
 		bill.clickOnFilter();
@@ -256,7 +256,7 @@ public class BillTest extends BaseTest{
 		Assert.assertTrue(bill.isTransactionDisplayed());
 	}
 	
-	@Test(priority = 23, enabled = true, description = "Verify Bill gets deleted")
+	@Test(priority = 23, enabled = true, description = "Verify successfull Bill deletion")
 	public void deleteBill() {
 		String refNo = bill.getFirstRefNoBillDisplayed();
 		bill.clickOnFirstUnPaidBills();
@@ -297,7 +297,7 @@ public class BillTest extends BaseTest{
 		dashboard.clickOnBill();
 	}
 		
-	@Test(priority = 27, enabled = true, description = "Verify filter Functionality")
+	@Test(priority = 27, enabled = true, description = "Veriy paid bill appears on the bill grid")
 	public void verifyPaidBills() {
 		dashboard.refreshPage();
 		bill.clickOnFirstPaidBills();
@@ -306,7 +306,7 @@ public class BillTest extends BaseTest{
 		billView.clickOnCloseBtn();
 	}
 	
-	@Test(priority = 28, enabled = true, description = "Verify filter Functionality")
+	@Test(priority = 28, enabled = true, description = "Verify refund page")
 	public void refundPage() {
 		bill.clickOnFirstPaidBills();
 		billView.clickOnAmountLink();
@@ -316,7 +316,7 @@ public class BillTest extends BaseTest{
 		Assert.assertTrue(refund.isReasonTextBoxPresent());
 	}
 	
-	@Test(priority = 29, enabled = true, description = "Verify filter Functionality")
+	@Test(priority = 29, enabled = true, description = "Verify message when reason field is left blank")
 	public void validationWhenReasonFieldLeftBlank() {
 		refund.refreshPage();
 		refund.clickOnRefund();
@@ -325,7 +325,7 @@ public class BillTest extends BaseTest{
 		refund.closeValidationMessage();
 	}
 	
-	@Test(priority = 30, enabled = true, description = "Verify filter Functionality")
+	@Test(priority = 30, enabled = true, description = "Verify partial refund button behavior")
 	public void verifyPartialRefundLink() {
 		refund.refreshPage();
 		refund.clickOnRefund();
@@ -335,7 +335,7 @@ public class BillTest extends BaseTest{
 		Assert.assertTrue(refund.isRefundAmountTextBoxPresent());
 	}
 	
-	@Test(priority = 31, enabled = true, description = "Verify filter Functionality")
+	@Test(priority = 31, enabled = true, description = "Varify Refund Amount text box validation when value more than configurerd amount")
 	public void RefundAmountTextBox() {
 		refund.refreshPage();
 		refund.clickOnRefund();
@@ -348,7 +348,7 @@ public class BillTest extends BaseTest{
 		refund.removeMouseFromTextBox();
 	}
 	
-	@Test(priority = 32, enabled = true, description = "Verify filter Functionality")
+	@Test(priority = 32, enabled = true, description = "Verify validation message when ")
 	public void validationWhenZeroRefundAmount() {
 		refund.refreshPage();
 		refund.clickOnRefund();
@@ -360,7 +360,7 @@ public class BillTest extends BaseTest{
 		Assert.assertEquals(refund.getRefundToolTipMessage(), "Please enter a value greater than or equal to 0.01.");
 	}
 	
-	@Test(priority = 33, enabled = true, description = "Verify filter Functionality")
+	@Test(priority = 33, enabled = true, description = "Verify Update Popup")
 	public void verifyUpdatePopup() {
 		dashboard.clickOnBill();
 		bill.clickOnFirstUnPaidBills();
@@ -369,7 +369,7 @@ public class BillTest extends BaseTest{
 		update.clickOnClose();
 	}
 	
-	@Test(priority = 34, enabled = true, description = "Verify filter Functionality")
+	@Test(priority = 34, enabled = true, description = "Verify Bill amount textbox")
 	public void updateBillAmount() {
 		dashboard.clickOnBill();
 		bill.clickOnFirstUnPaidBills();
@@ -380,7 +380,7 @@ public class BillTest extends BaseTest{
 		bill.closeToastBtn(); 
 	}
 	
-	@Test(priority = 35, enabled = true, description = "Verify filter Functionality")
+	@Test(priority = 35, enabled = true, description = "Verify Edit bill button")
 	public void validationSubTotalAmountUpdate() {
 		dashboard.clickOnBill();
 		bill.clickOnFirstUnPaidBills();
@@ -391,7 +391,7 @@ public class BillTest extends BaseTest{
 		update.clickOnClose();
 	}
 	
-	@Test(priority = 36, enabled = true, description = "Verify filter Functionality")
+	@Test(priority = 36, enabled = true, description = "Verify add bill detail link")
 	public void addBillDetailLinkUpdatePopup() {
 		dashboard.clickOnBill();
 		bill.clickOnFirstUnPaidBills();
@@ -402,7 +402,7 @@ public class BillTest extends BaseTest{
 		update.clickOnClose();
 	}
 	
-	@Test(priority = 37, enabled = true, description = "Verify filter Functionality")
+	@Test(priority = 37, enabled = true, description = "Verify more details toggle button")
 	public void moreDetailToggleUpdatePopup() {
 		dashboard.clickOnBill();
 		bill.clickOnFirstUnPaidBills();

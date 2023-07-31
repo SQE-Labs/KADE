@@ -1,6 +1,7 @@
 package org.automation.pageObjects;
 
 import org.automation.base.BasePage;
+import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 
 public class DashBoardPage extends BasePage {
@@ -9,6 +10,9 @@ public class DashBoardPage extends BasePage {
 	By validationMessage=By.xpath("//p[@class='alert-content']");
 	By billBtn = By.xpath("//i[@class='align-middle me-2 fa-fw fas fa-file-alt']");
 	By myStoreBtn=By.xpath("//i[@class='align-middle me-2 fa-fw fas fa-store']");
+	By giftCardsDashboardTab=By.xpath("(//a[@class='sidebar-link'])[9]");
+	By pageHeader=By.xpath("//h1[@class='header-title mb-0']");
+	
 	
 	public void clickProfile() {
 		clickBtn(profileLink);
@@ -25,6 +29,16 @@ public class DashBoardPage extends BasePage {
 	public void clickOnMyStore() {
 		click(myStoreBtn);
 		
+	}
+
+	public void clickOnGiftCardsDashboard() {
+		WebdriverWaits.waitForElementUntilVisible(giftCardsDashboardTab, 5);
+		WebdriverWaits.waitForElementClickable(giftCardsDashboardTab, 5);
+		click(giftCardsDashboardTab);
+	}
+	
+	public String getPageHeader() {
+		return getText_custom(pageHeader);
 	}
 }
 
