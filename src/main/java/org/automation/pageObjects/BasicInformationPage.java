@@ -82,7 +82,7 @@ public class BasicInformationPage extends BasePage {
 		uploadImageFile(location);
 	}
 	
-	public String getAleartMessage() throws InterruptedException {
+	public String getAleartMessage() {
 		WebdriverWaits.waitForElementUntilVisible(alertHeader, 5);
 		return getText_custom(aleartMessage);
 	}

@@ -22,7 +22,7 @@ public class BillPage extends BasePage {
 	By filterBtn = By.xpath("//a[@class='collapsed']");
 	By fromDatePicker = By.cssSelector("[name='dateRange']");
 	By customerName = By.cssSelector("[name='custName']");
-	By UserPhoneField = By.cssSelector("[name=userPhone]");
+	By UserPhoneField = By.xpath("//input[@name='userPhone']");
 	By UserEmailField = By.cssSelector("[name='email']");
 	By applyBtn = By.cssSelector("button.btn.btn-outline-primary.btn-sm");
 	By customerNumberResult = By.xpath("//td[@class='text-nowrap']/p");
@@ -225,6 +225,7 @@ public class BillPage extends BasePage {
 	
 	public void clickOnFirstPaidBills() {
 		scrollToElement(paidBill1);
+		WebdriverWaits.waitForElementClickable(paidBill1, 5);
 		click(paidBill1);
 	}
 
@@ -236,9 +237,9 @@ public class BillPage extends BasePage {
 		return getText_custom(id);
 	}
 
-	public String getToolTipUserPhone() throws InterruptedException {
-		Thread.sleep(500);
+	public String getToolTipUserPhone() {
 		moveToWebElement(UserPhoneField);
+		WebdriverWaits.waitForElementUntilVisible(UserPhoneField, 5);
 		String id=getAttribute(UserPhoneField, "aria-describedby");
 		By tipId=By.id(id);
 		return getText_custom(tipId);

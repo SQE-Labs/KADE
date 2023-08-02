@@ -16,8 +16,8 @@ public class BasicInformationTest extends BaseTest{
 	LoginPage login=new LoginPage();
 	BasicInformationPage infoPage=new BasicInformationPage();
 	
-	@Test(priority = 0, enabled = true, description="verifyNameToolTip")
-	public void verifyNameToolTip() {
+	@Test(enabled = true, description="verifyNameToolTip")
+	public void tc01_verifyNameToolTip() {
 		login.performSignIn(PropertiesUtil.getPropertyValue("userName"), PropertiesUtil.getPropertyValue("password"));
 		dashBoard.clickProfile();
 		infoPage.clearDataFromNameField();
@@ -28,8 +28,8 @@ public class BasicInformationTest extends BaseTest{
 		Assert.assertEquals(validationMessage, expectedValidation);
 	}
 	
-	@Test(priority = 1, enabled = true, description="Input alphaNumrical value in name field and verify SuccessMessage")
-	public void verifyNameInput() {
+	@Test(enabled = true, description="Input alphaNumrical value in name field and verify SuccessMessage")
+	public void tc02_verifyNameInput() {
 		infoPage.enterUserName("Tester123");
 		infoPage.clickOnSaveChangesButton();
 		String actualMessage = infoPage.getSuccessMessage();
@@ -37,8 +37,8 @@ public class BasicInformationTest extends BaseTest{
 		Assert.assertEquals(actualMessage, expectedMessage);
 	}
 	
-	@Test(priority = 2, enabled = true, description="ToolTip validation message when invalid Address")
-	public void invalidAddress() {
+	@Test(enabled = true, description="ToolTip validation message when invalid Address")
+	public void tc03_invalidAddress() {
 		infoPage.enterAddress("1234TestLocation");
 		infoPage.clickOnSaveChangesButton();
 		infoPage.moveToAddressField();
@@ -47,8 +47,8 @@ public class BasicInformationTest extends BaseTest{
 		Assert.assertEquals(actualValidation, expectedValidation);
 		}
 
-	@Test(priority = 3, enabled = true, description="valid Name and Address")
-	public void validNameAndAddress() {
+	@Test(enabled = true, description="valid Name and Address")
+	public void tc04_validNameAndAddress() {
 		infoPage.enterUserName("Tester");
 		infoPage.selectFirstAddress("160062");
 		infoPage.clickOnSaveChangesButton();
@@ -57,19 +57,20 @@ public class BasicInformationTest extends BaseTest{
 		Assert.assertEquals(actualMessage, expectedMessage);
 	}
 	
-	@Test(priority = 4, enabled = true, description="Upload Profile Image")
-	public void uploadProfileImage() throws AWTException {
+	@Test(enabled = true, description="Upload Profile Image")
+	public void tc05_uploadProfileImage() throws AWTException {
 		infoPage.uploadImage(System.getProperty("user.dir")+"\\src\\main\\resources\\image\\dummy-image.jpg");
 		String actualMessage=infoPage.getSuccessMessage();
 		String expectedMessage="Image updated.";
 		Assert.assertEquals(actualMessage, expectedMessage);
 	}
 	
-	@Test(priority =5, enabled = true, description="upload Invalid Profile Image Formate")
-	public void uploadInvalidFileFormate() throws AWTException, InterruptedException {
+	@Test(enabled = true, description="upload Invalid Profile Image Formate")
+	public void tc06_uploadInvalidFileFormate() throws AWTException, InterruptedException {
+		infoPage.refreshPage();
 		infoPage.uploadImage(System.getProperty("user.dir")+"\\src\\main\\resources\\demo.txt");
-		String actualAleart = infoPage.getAleartMessage();
 		String expectedAleart = "Invalid image file";
+		String actualAleart = infoPage.getAleartMessage();
 		Assert.assertEquals(actualAleart, expectedAleart);
 	}
 }

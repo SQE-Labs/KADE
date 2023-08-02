@@ -1,7 +1,13 @@
 package org.automation.pageObjects;
 
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 import org.automation.base.BasePage;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.ui.Select;
 
 public class CreateAGiftCardPopup extends BasePage{
 	By popupHeader=By.xpath("//h4[@class='modal-title']");
@@ -14,6 +20,14 @@ public class CreateAGiftCardPopup extends BasePage{
 	By messageBox=By.xpath("//textarea[@name='greetingMessage']");   
 	By refNoBox=By.xpath("//input[@name='referenceNo']"); 
 	By continueWithoutSearchBox=By.xpath("//button[@class='btn btn-outline-primary']");	
+	By createBtn=By.xpath("(//button[@class='btn btn-outline-primary ms-auto'])[2]");
+	By advancedLink=By.xpath("//button[@class='p-0 mb-1 btn btn-link collapsed']");
+	By cardNoTbx=By.xpath("//input[@name='cardNo'] [@class='form-control']");
+	By fundingSourceTbx=By.cssSelector("[name='fundSource']");
+	By memoTbx=By.xpath("//textarea[@name='memo'] [@class='form-control']");
+	By startDate=By.xpath("//input[@name='startDate']");
+	By expDate=By.xpath("//input[@name='startDate']");
+	By selectList=By.xpath("//select[@name='status']");
 	
 	public String getPopupTitle() {
 		return getText_custom(popupHeader);
@@ -60,5 +74,60 @@ public class CreateAGiftCardPopup extends BasePage{
 	public void clickOnContinueWithoutSearch() {
 		click(continueWithoutSearchBox);
 	}
+
+	public void clickOnCreate() {
+		click(createBtn);
+	}
 	
+	public String getInitialAmountToolTipMessage() {
+		moveToWebElement(initialAmountTbx);
+		String id=getAttribute(initialAmountTbx, "aria-describedby");
+		return getText_custom(By.id(id));
+	}
+	
+	public void enterInitialAmt(String amt) {
+		sendKeys(initialAmountTbx, amt);
+	}
+
+	public void clickOnAdvancedLink() {
+		click(advancedLink);
+	}
+
+	public boolean isCardNoFieldPresent() {
+		return isElementPresent(cardNoTbx, "Card no. Textbox");
+	}
+
+	public boolean isFundingSourceFieldPresent() {
+		return isElementPresent(fundingSourceTbx, "Funding Source Textbox");
+	}
+
+	public boolean isMemoFieldPresent() {
+		return isElementPresent(memoTbx, "Memo Textbox");
+	}
+
+	public boolean isStartDateFieldPresent() {
+		return isElementPresent(startDate, "Start Date datepicker");
+	}
+
+	public boolean isExpDateFieldPresent() {
+		return isElementPresent(expDate, "Exp date datepicker");
+	}
+
+	public void enterCardNo(String string) {
+		sendKeys(cardNoTbx, string);
+	}
+
+	public String getCardNo() {
+		return getAttributevalue(cardNoTbx, "value");
+	}
+
+	public String getTagOfFundingSource() {
+		return getTag(fundingSourceTbx);
+	}
+	
+	public List<String> getSelectList() {
+		WebElement selectElement = getDriver().findElement(selectList);
+		Select select = new Select(selectElement);
+		return select.getOptions().stream().map(m->m.getText()).collect(Collectors.toList());
+	}
 }

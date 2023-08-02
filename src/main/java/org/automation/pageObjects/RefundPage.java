@@ -73,6 +73,7 @@ public class RefundPage extends BasePage{
 
 	public String getRefundToolTipMessage() {
 		moveToWebElement(refundAmountTextBox);
+		WebdriverWaits.waitForElementUntilVisible(refundAmountTextBox, 5);
 		String toolTipId=getAttribute(refundAmountTextBox, "aria-describedby");
         By toolTipMessage =By.id(toolTipId);
     		return getElementText(toolTipMessage);

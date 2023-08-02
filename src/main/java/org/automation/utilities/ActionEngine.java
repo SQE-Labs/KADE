@@ -328,6 +328,11 @@ public class ActionEngine extends BaseTest {
     	return getDriver().findElement(element).getAttribute(attribute);
     }
     
+    //get The tag of element
+    public String getTag(By element) {
+    	return getDriver().findElement(element).getTagName();
+    }
+    
     public boolean isExceptionOrErrorPresent(int exceptionTextCount) {
         boolean flag = false;
         By exception= By.xpath("(//*[contains( text(),'Exception')])["+exceptionTextCount+"]");
