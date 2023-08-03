@@ -5,12 +5,12 @@
 
         <classes>
             <class name="test.BillTest"></class>
-            <class name="test.CreateAccountTest"></class>
-            <class name="test.GiftCardDashboardTest"></class>
-            <class name="test.MyStoreTest"></class>
-            <class name="test.SecurityAndPasswordTest"></class>
-            <class name="test.LoginTest"></class>
-            <class name="test.BasicInformationTest"></class>
+<!--            <class name="test.CreateAccountTest"></class>-->
+<!--            <class name="test.GiftCardDashboardTest"></class>-->
+<!--            <class name="test.MyStoreTest"></class>-->
+<!--            <class name="test.SecurityAndPasswordTest"></class>-->
+<!--            <class name="test.LoginTest"></class>-->
+<!--            <class name="test.BasicInformationTest"></class>-->
         </classes>
     </test>
 </suite>

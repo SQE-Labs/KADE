@@ -36,9 +36,18 @@ public class DashBoardPage extends BasePage {
 		WebdriverWaits.waitForElementClickable(giftCardsDashboardTab, 5);
 		click(giftCardsDashboardTab);
 	}
-	
+
 	public String getPageHeader() {
 		return getText_custom(pageHeader);
+	}
+
+	/**
+	 * Method for check presence and clickable operation
+	 */
+	public void clickOnMyStoreTab(){
+		WebdriverWaits.waitForElementUntilVisible(myStoreBtn, 5);
+		WebdriverWaits.waitForElementClickable(myStoreBtn, 5);
+		click(myStoreBtn);
 	}
 }
 

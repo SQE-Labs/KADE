@@ -5,9 +5,18 @@ import org.openqa.selenium.By;
 
 public class MyStorePage extends BasePage {
 
-	By registerNewBuissnessBtn = By.xpath("//a[@class='btn btn-primary']");
-	
-	public void clickOnRegisterNewBuissnessBtn() {
-		click(registerNewBuissnessBtn);
+	// Locators
+	By registerNewBusinessBtn = By.xpath("//a[@class='btn btn-primary']");
+
+
+	// Methods
+	/**
+	 * Method to click on 'Register new Business' button
+	 */
+	public void clickOnRegisterNewBusinessBtn() {
+		click(registerNewBusinessBtn);
 	}
+
+
+
 }
