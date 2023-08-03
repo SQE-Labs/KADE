@@ -1,14 +1,17 @@
 package test;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
+import org.apache.bcel.generic.CALOAD;
 import org.automation.base.BaseTest;
 import org.automation.pageObjects.CreateAGiftCardPopup;
 import org.automation.pageObjects.DashBoardPage;
 import org.automation.pageObjects.GiftCardConfigurationPopup;
 import org.automation.pageObjects.GiftCardDashboardPage;
 import org.automation.pageObjects.LoginPage;
+import org.automation.pageObjects.UserPage;
 import org.automation.utilities.PropertiesUtil;
 import org.openqa.selenium.Keys;
 import org.testng.Assert;
@@ -20,6 +23,8 @@ public class GiftCardDashboardTest extends BaseTest {
 	GiftCardDashboardPage giftCardDashboard=new GiftCardDashboardPage();
 	GiftCardConfigurationPopup giftCardConfiguration = new GiftCardConfigurationPopup();
 	CreateAGiftCardPopup createGiftCard=new CreateAGiftCardPopup();	
+	CardNoPopup cardNo=new CardNoPopup();
+	UserPage user=new UserPage();
 	
 	@Test(enabled = true, description="Verify that Gift Cards Dashboard page opens after clicking on Gift Cards Dashboard Tab")
 	public void tc01_verifyGiftCardsDashboardPage() {
@@ -125,7 +130,7 @@ public class GiftCardDashboardTest extends BaseTest {
 	
 	@Test(enabled = true, description="Validation of Customer Phone Number Text Box")
 	public void tc10_validationOfCustomerPhoneNumber() {
-		
+		giftCardDashboard.refreshPage();
 		giftCardDashboard.clickOnIssueAGiftCard();
 		createGiftCard.clickOnFind();
 		Assert.assertEquals(createGiftCard.getCustomerPhoneNumberToolTipMessage(), "This field is required.");
@@ -221,7 +226,6 @@ public class GiftCardDashboardTest extends BaseTest {
 		createGiftCard.clickOnContinueWithoutSearch();
 		createGiftCard.clickOnAdvancedLink();
 		createGiftCard.enterCardNo("1234567891234567890000");
-		System.out.println("hello"+ createGiftCard.getCardNo());
 		Assert.assertTrue(createGiftCard.getCardNo().length()==18);
 		Assert.assertEquals(createGiftCard.getCardNo(), "123456789123456789");
 		createGiftCard.clickOnCloseBtn();
@@ -254,14 +258,14 @@ public class GiftCardDashboardTest extends BaseTest {
 	}
 	
 	@Test(enabled = true, description="Verify that all the added Funding source during  Gift Cards Configuration appears in 'Funding source' dropdown list")
-	 public void tc21_verifyRestrictedFundinSourceBehavior() {
+	 public void tc22_verifyRestrictedFundinSourceBehavior() {
 		giftCardDashboard.clickOnConfigurationLink();
 		giftCardConfiguration.switchOnFundingSourceToggle();
 		giftCardConfiguration.clearFundingSource();
 		List<String> fundingSourceOption=new ArrayList<String>();
-		fundingSourceOption.add("Option1");
-		fundingSourceOption.add("Option2");
-		fundingSourceOption.add("Option3");
+		fundingSourceOption.add("Outsource");
+		fundingSourceOption.add("Individual");
+		fundingSourceOption.add("Private");
 		fundingSourceOption.add("");
 		for(String s:fundingSourceOption) {
 			giftCardConfiguration.enterFundingSource(s+Keys.ENTER );	
@@ -271,10 +275,92 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnIssueAGiftCard();
 		createGiftCard.clickOnContinueWithoutSearch();
 		createGiftCard.clickOnAdvancedLink();
+		Collections.sort(fundingSourceOption);
 		Assert.assertTrue(createGiftCard.getTagOfFundingSource().equalsIgnoreCase("select"));
 		Assert.assertTrue(createGiftCard.getSelectList().equals(fundingSourceOption));
 		createGiftCard.clickOnCloseBtn();
 	}
+	
+	@Test(enabled = true, description="Verify that validation message appears on entering character in 'Start Date' or 'Exp. Date' field")
+	public void tc23_verifyValidationForStartAndExpDate() {
+		giftCardDashboard.clickOnIssueAGiftCard();
+		createGiftCard.clickOnContinueWithoutSearch();
+		createGiftCard.clickOnAdvancedLink();
+		createGiftCard.enterStartDate("Start date");
+		createGiftCard.clickOnCreate();
+		Assert.assertEquals(createGiftCard.getStartDateToolTipMessage(), "Invalid date");
+		createGiftCard.enterExpDate("Exp date");
+		createGiftCard.clickOnCreate();
+		Assert.assertEquals(createGiftCard.getExpDateToolTipMessage(), "Invalid date");
+		createGiftCard.clickOnCloseBtn();
+	}
+	
+	@Test(enabled = true, description="Verify successfull creation of Gift Card after finding a phone number")
+	public void tc24_verifySuccessfullCreationOfGiftCardForExsistingNumber() {
+		giftCardDashboard.clickOnIssueAGiftCard();
+		createGiftCard.enterCustomerPhoneNumber("+918877070727");
+		createGiftCard.clickOnFind();
+		createGiftCard.enterInitialAmt("499");
+		createGiftCard.enterRefNo("RefNo-969");
+		createGiftCard.clickOnCreate();
+		createGiftCard.closeToastMessage();
+		Assert.assertEquals(createGiftCard.getToastMesssage(), "Gift card created!");
+	}
+	
+	@Test(enabled = true, description="Verify successfull creation of Gift Card without finding phone number")
+	public void tc25_verifySuccessfullCreationOfGiftCard() {
+		giftCardDashboard.clickOnIssueAGiftCard();
+		createGiftCard.clickOnContinueWithoutSearch();
+		createGiftCard.enterInitialAmt("999");
+		createGiftCard.enterRefNo("RefNo-1265");
+		createGiftCard.clickOnCreate();
+		Assert.assertEquals(createGiftCard.getAleartMesssage(), "Attention! Anyone who has access to this link can claim this gift card.");
+		Assert.assertEquals(createGiftCard.getToastMesssage(), "Gift card created!");
+		createGiftCard.clickOnCloseBtn();
+		createGiftCard.closeToastMessage();
+	}
+	
+	@Test(enabled = true, description="Verify that 'Gift Card Details' popup opens up after clicking on any card number listed under 'Card No' ")
+	public void tc26_verifyGiftCardDetailsPopup() {
+		String giftCardNo=giftCardDashboard.getGiftCard();
+		giftCardDashboard.clickOnGiftCard();
+		Assert.assertEquals("Card No: "+giftCardNo, cardNo.getCardNo());
+		cardNo.clickOnInfoIcon();
+		Assert.assertTrue(cardNo.isStartDatePresent());
+		Assert.assertTrue(cardNo.isIssueOnDatePresent());
+		Assert.assertTrue(cardNo.isIssueByDatePresent());
+		Assert.assertTrue(cardNo.isFundingSourcePresent());
+		Assert.assertTrue(cardNo.isRefNoPresent());
+		Assert.assertTrue(cardNo.isIssueAmtPresent());
+		cardNo.clickOnClose();
+	}
+	
+	@Test(enabled = true, description="Verify'User-Profile' page opens afetr clicking on any customer name under 'Card holder' column.")
+	public void tc27_verifyUserProfilePage() {
+		giftCardDashboard.clickOnGiftCard();
+		String userName=cardNo.getUserName();
+		cardNo.clickOnUserName();
+		cardNo.switchToWindow("User Profile Window");
+		Assert.assertEquals(userName, user.getPageTitle());
+		
+	}
+	
+	@Test(enabled = true, description="Verify'Message' page opens afetr clicking on message icon ")
+	public void tc28_verifyMessagePage() {
+		user.clickOnMessage();
+		Assert.assertEquals(user.getHeader() ,"Messages");
+		user.goBackToPreviousPage();
+	}
+	
+	@Test(enabled = true, description="Verify 'Reward Point' page opens afetr clicking on Reward point count ")
+	public void tc29_verifRewardPointPage() {
+		user.clickOnRewardPoint();
+		Assert.assertEquals(user.getHeader() ,"Reward Points Detail");
+		cardNo.switchToWindow("Card Details Page");
+		cardNo.clickOnClose();
+	}
+	
+	
 	
 	}
 	

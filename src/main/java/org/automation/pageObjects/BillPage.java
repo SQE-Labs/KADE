@@ -239,7 +239,6 @@ public class BillPage extends BasePage {
 
 	public String getToolTipUserPhone() {
 		moveToWebElement(UserPhoneField);
-		WebdriverWaits.waitForElementUntilVisible(UserPhoneField, 5);
 		String id=getAttribute(UserPhoneField, "aria-describedby");
 		By tipId=By.id(id);
 		return getText_custom(tipId);

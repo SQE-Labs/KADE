@@ -5,6 +5,7 @@ import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 import org.automation.base.BasePage;
+import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
@@ -26,9 +27,12 @@ public class CreateAGiftCardPopup extends BasePage{
 	By fundingSourceTbx=By.cssSelector("[name='fundSource']");
 	By memoTbx=By.xpath("//textarea[@name='memo'] [@class='form-control']");
 	By startDate=By.xpath("//input[@name='startDate']");
-	By expDate=By.xpath("//input[@name='startDate']");
-	By selectList=By.xpath("//select[@name='status']");
-	
+	By expDate=By.xpath("//input[@name='expDate']");
+	By selectList=By.xpath("//select[@name='fundSource']");
+	By alertMessage=By.xpath("//div[@class='alert-message']");
+	By toastMessage=By.xpath("//div[@class='toast-message']");
+	By closeToast=By.xpath("//button[@class='toast-close-button']");
+		
 	public String getPopupTitle() {
 		return getText_custom(popupHeader);
 	}
@@ -129,5 +133,43 @@ public class CreateAGiftCardPopup extends BasePage{
 		WebElement selectElement = getDriver().findElement(selectList);
 		Select select = new Select(selectElement);
 		return select.getOptions().stream().map(m->m.getText()).collect(Collectors.toList());
+	}
+
+	public void enterStartDate(String date) {
+		sendKeys(startDate, date);
+	}
+
+	public String getStartDateToolTipMessage() {
+		moveToWebElement(startDate);
+		String id=getAttribute(startDate, "aria-describedby");
+		return getText_custom(By.id(id));
+	}
+
+	public void enterExpDate(String date) {
+		scrollToElement(expDate);
+	sendKeys(expDate, date);
+	}
+
+	public String getExpDateToolTipMessage() {
+		scrollToElement(expDate);
+		moveToWebElement(expDate);
+		String id=getAttribute(expDate, "aria-describedby");
+		return getText_custom(By.id(id));
+	}
+
+	public void enterRefNo(String string) {
+		sendKeys(refNoBox, string);
+	}
+
+	public String getAleartMesssage() {
+		return getText_custom(alertMessage);
+	}
+
+	public String getToastMesssage() {
+		return getText_custom(toastMessage);
+	}
+
+	public void closeToastMessage() {
+		click(closeToast);
 	}
 }

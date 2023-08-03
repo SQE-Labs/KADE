@@ -27,6 +27,7 @@ By fundingSourceTbx=By.xpath("//textarea[@name='fundSourceList']");
 	}
 	
 	public void clickOnSaveConfigurationBtn() {
+		WebdriverWaits.waitForElementClickable(saveConfigurationBtn, 5);
 		click(saveConfigurationBtn);
 	}
 
