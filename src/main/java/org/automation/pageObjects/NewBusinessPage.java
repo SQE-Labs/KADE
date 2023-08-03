@@ -1,7 +1,6 @@
 package org.automation.pageObjects;
 
 import org.automation.base.BasePage;
-import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 
 public class NewBusinessPage extends BasePage {
@@ -24,6 +23,12 @@ public class NewBusinessPage extends BasePage {
 	By TellUsMoreAboutHeading = By.xpath("//h4[contains(text(),'Tell us more about ')]");
 	By DeleteTheStoreButton = By.xpath("//button[@class='btn btn-outline-danger ms-3 btn-lg fw-bold']");
 	By ConfirmationButton = By.xpath("//button[@class='btn btn-outline-success']");
+	By SoleProprietorshipOption = By.xpath("//li[@id='select2-profilebusinesstype-o3-result-1h72-soleProprietorship']");
+	By IndividualOption = By.xpath("//li[@id='select2-profilebusinesstype-o3-result-yku8-individual']");
+	By CorporationOption = By.xpath("//li[@id='select2-profilebusinesstype-o3-result-abcs-Corporation']");
+	By LLCOption = By.xpath("//li[@id='select2-profilebusinesstype-o3-result-xfhm-LLC']");
+	By PartnershipOption = By.xpath("//li[@id='select2-profilebusinesstype-o3-result-rz33-Partnership']");
+	By PleaseReviewHighlightedField = By.xpath("//p[@class='alert-content']");
 
 	
 	public void enterBusinessLegalName(String string) {
@@ -43,11 +48,15 @@ public class NewBusinessPage extends BasePage {
 		sendKeys(locationDescription, string);
 	}
 
-	public void enterStoreAddress(String string) {
+	public void enterStoreAddressClickFirst(String string) {
 		sendKeys(storeAddressComboBox, string);
 		clickOnFirstElement(storeAddressOptions);
-		
 	}
+
+	public void enterStoreAddress(String string) {
+		sendKeys(storeAddressComboBox, string);
+	}
+
 
 	public void enterPhone(String string) {
 		sendKeys(phoneTbx, string);
@@ -69,6 +78,8 @@ public class NewBusinessPage extends BasePage {
 	public void clickBackArrowBtn(){
 	if(isElementPresent(backBtn,"Back Button")){
 		click(backBtn);
+		clearAllFields();
+
 	}
 	}
 
@@ -80,15 +91,40 @@ public class NewBusinessPage extends BasePage {
 		clear_custom(nameOfStoreField);
 	}
 
+	public void clearAllFields(){
+		clear_custom(businessLegalNameTbx);
+		clear_custom((nameOfStoreField));
+		clear_custom((locationDescription));
+		clear_custom(storeAddressComboBox);
+		clear_custom(phoneTbx);
+	}
+
 	public void enterNameOfStore(String string) {
 		sendKeys(nameOfStoreField, string);
 	}
 
-	public boolean checkPresenceOfIndividualOption() {
+	public void clickOnTypeOfBusinessField(){
+		click(typeOfBusinessField);
+	}
+
+	public boolean checkPresenceOfDefaultIndividualOption() {
 		return getText_custom(typeOfBusinessField).equalsIgnoreCase("Individual");
 	}
-	public void clickOnTypeOfBusiness(){
-		click(typeOfBusinessField);
+
+	public boolean checkPresenceOfSoleProprietorship() {
+		return isElementPresent(SoleProprietorshipOption, "Type of business");
+	}
+
+	public boolean checkPresenceOfCorporation(){
+		return isElementPresent(CorporationOption,"Type of business");
+	}
+
+	public boolean checkPresenceOfLLC(){
+		return isElementPresent(LLCOption,"Type of business");
+	}
+
+	public boolean checkPresenceOfPartnership(){
+		return isElementPresent(PartnershipOption,"Type of business");
 	}
 
 	public String getDropdownOption(){
