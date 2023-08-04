@@ -299,7 +299,7 @@ public class BillTest extends BaseTest{
 		
 	@Test(enabled = true, description = "Veriy paid bill appears on the bill grid")
 	public void tc28_verifyPaidBills() {
-		dashboard.refreshPage();
+		dashboard.clickOnBill();
 		bill.clickOnFirstPaidBills();
 		Assert.assertTrue(billView.isLinkPresent());
 		Assert.assertEquals(billView.getLableText(), "Paid");
@@ -412,6 +412,8 @@ public class BillTest extends BaseTest{
 		Assert.assertTrue(update.isMemoTbxDisplayed());
 		update.clickOnClose();	
 	}
+	
+	
 	
 }
 

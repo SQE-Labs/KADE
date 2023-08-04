@@ -10,6 +10,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+import org.openqa.selenium.support.ui.Select;
 
 import static com.relevantcodes.extentreports.LogStatus.FAIL;
 import static com.relevantcodes.extentreports.LogStatus.PASS;
@@ -19,9 +20,8 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.util.List;
+import java.util.stream.Collectors;
 
 
 public class ActionEngine extends BaseTest {
@@ -398,5 +398,20 @@ public class ActionEngine extends BaseTest {
     public void clickOnFirstElement(By element) {
     	getDriver().findElements(element).get(0).click();
     	}
+    
+    // This method will getText from element and compare to string passed in parameter.
+    public boolean areAllELementTextMatches(By element,String text) {
+    	return getDriver().findElements(element).stream().allMatch(status->status.getText().equalsIgnoreCase(text));
+    }
+    
+    public String getSelectedOptionOfDropdown(By element) {
+    	Select s=new Select(getDriver().findElement(element));
+    	return s.getFirstSelectedOption().getText();	
+    }
+    
+    public List<String> getAllOptionsOfDropDown(By element){
+    	Select s=new Select(getDriver().findElement(element));
+    	return s.getOptions().stream().map(option->option.getText()).collect(Collectors.toList());	
+    }
     
 }

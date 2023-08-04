@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import org.apache.bcel.generic.CALOAD;
 import org.automation.base.BaseTest;
 import org.automation.pageObjects.CreateAGiftCardPopup;
 import org.automation.pageObjects.DashBoardPage;
@@ -359,6 +358,107 @@ public class GiftCardDashboardTest extends BaseTest {
 		cardNo.switchToWindow("Card Details Page");
 		cardNo.clickOnClose();
 	}
+	
+	@Test(enabled = true, description="Verify that all fields appears afetr clicking on filter link")
+	public void tc30_verifyFilterButtonBehaviour() {
+		giftCardDashboard.clickOnFilter();
+		Assert.assertTrue(giftCardDashboard.isUserNameFieldPresent());
+		Assert.assertTrue(giftCardDashboard.isUserPhoneEmailFieldPresent());
+		Assert.assertTrue(giftCardDashboard.isDateFieldPresent());
+		Assert.assertTrue(giftCardDashboard.isGiftCardStatusPresent());
+		Assert.assertTrue(giftCardDashboard.isMinAmountFieldPresent());
+		Assert.assertTrue(giftCardDashboard.isMaxAmountFieldPresent());
+		Assert.assertTrue(giftCardDashboard.isCardNoFieldPresent());
+	}
+	
+	@Test(enabled = true, description="Verify that all the issued gift cards with 'Active' status appear listed on Gift Card Dashboard page")
+	public void tc31_verifyAllActiveGiftCard() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.ScrollDownThePageMax();
+		Assert.assertTrue(giftCardDashboard.isAllGiftCardStatus("Active"));
+	}
+	
+	@Test(enabled = true, description="Verify relevant gift cards appear listed after entering existing card holder name in User Name")
+	public void tc32_verifyUserNameFilter() {
+		giftCardDashboard.clickOnFilter();
+		String userName="Lucas";
+		giftCardDashboard.enterUserName(userName);
+		giftCardDashboard.clickOnApply();
+		Assert.assertTrue(giftCardDashboard.isAllCardHolderName(userName));
+	}
+	
+	@Test(enabled = true, description="Verify information message appear after entering non existing number in User Number/Email")
+	public void tc33_verifyUserNameFilterNonExsisting() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		giftCardDashboard.enterUserPhoneEmail("+918547659428");
+		giftCardDashboard.clickOnApply();
+		Assert.assertEquals(giftCardDashboard.getResultNotFoundMessage(),"There are no results");
+	}
+	
+	@Test(enabled = true, description="Verify information message appear after entering non existing email in User Number/Email")
+	public void tc34_verifyUserEmialFilterNonExsisting() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		giftCardDashboard.enterUserPhoneEmail("demo@yopmail.com");
+		giftCardDashboard.clickOnApply();
+		Assert.assertEquals(giftCardDashboard.getResultNotFoundMessage(),"There are no results");
+	}
+	
+	@Test(enabled = true, description="Verify relevant gift cards appear listed after entering date in date field")
+	public void tc35_verifyDateRangeField() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		String startDate="07/01/2023";
+		String endDate="07/31/2023";
+		giftCardDashboard.enterDate(startDate+" - "+endDate);
+		giftCardDashboard.clickOnApply();
+		Assert.assertTrue(giftCardDashboard.areAllGiftCardOfRange(giftCardDashboard.getGiftIssuedate(),startDate,endDate));
+		}
+	
+	@Test(enabled = true, description="Verify infromation message appear after non exsisting entering date in date field")
+	public void tc36_verifyDateRangeFieldNonExsisting() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		String startDate="05/01/2022";
+		String endDate="12/31/2022";
+		giftCardDashboard.enterDate(startDate+" - "+endDate);
+		giftCardDashboard.clickOnApply();
+		Assert.assertEquals(giftCardDashboard.getResultNotFoundMessage(),"There are no results");
+		}
+	
+	@Test(enabled = true, description="Verify validation message appears after entering characters in 'Date' field")
+	public void tc37_verifyValidationDateRange() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		giftCardDashboard.enterDate("date");
+		giftCardDashboard.clickOnApply();
+		giftCardDashboard.clickOnCloseValidation();
+		Assert.assertEquals(giftCardDashboard.getDateRangeToolTipMessage(),"Invalid date range");
+		}
+	
+	@Test(enabled = true, description="Verify 'Gift card status' dropdown appears 'Active' by default")
+	public void tc38_verifyGiftCardStatusDefaultSelection() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		Assert.assertEquals(giftCardDashboard.getSelectedGiftCardStatus(),"Active");
+		}
+	
+	@Test(enabled = true, description="Verify all options appear in 'Gift card status' dropdown, after clicking 'Gift card status' dropdown")
+	public void tc39_verifyGiftCardStatusAllOptions() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		giftCardDashboard.clickOnGiftCardStatusField();
+		List<String> options=new ArrayList();
+		options.add("");
+		options.add("Active");
+		options.add("Blocked");
+		options.add("Expired");
+		options.add("No Balance");
+		options.add("Pending transfer");
+		Assert.assertTrue(options.equals(giftCardDashboard.getAllGiftCardStatusOptions()));
+		}
+	
 	
 	
 	
