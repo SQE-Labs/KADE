@@ -31,6 +31,8 @@ public class GiftCardDashboardPage extends BasePage{
 	By resultMessage = By.xpath("//div[@class='w-100 align-items-center d-flex flex-column']/p");
 	By issueDate =By.xpath("//*[@class=\"tb006 table table-striped table-hover sortable_table\"]/tbody/tr/td[2]");
 	By validationClose=By.xpath("//button[@class='btn-close']");
+	By status=By.xpath("//tbody/tr/td[9]");
+	By amount=By.xpath("//tbody/tr/td[6]");
 	
 	public void clickOnConfigurationLink() {
 		click(configurationLink);
@@ -176,7 +178,60 @@ public class GiftCardDashboardPage extends BasePage{
 		return getAllOptionsOfDropDown(giftCardStatus);
 	}
 
-	
-	
-	
+	public void selectGiftCardStatues(String string) {
+		selectByText(giftCardStatus,string);
+	}
+
+	public boolean checkStatus(String text) {
+		WebdriverWaits.sleep(2000);
+		return getListOfString(status).stream().allMatch(m->m.equalsIgnoreCase(text));
+	}
+
+	public void enterMinAmount(String string) {
+		sendKeys(minAmount, string);
+	}
+
+	public boolean checkAmtGreaterThanMinAmt(String string) {
+		WebdriverWaits.sleep(2000);
+		int amt=Integer.valueOf(string);
+		List<String> amtList=getListOfString(amount).stream().map(m->m.replace("$", "")).map(a->a.substring(0,a.indexOf("."))).collect(Collectors.toList());
+		for (int i=0;i<amtList.size();i++) {
+			String value =amtList.get(i);
+			if(value.contains(",")) {
+				String updatedVal=value.replace(",", "");
+				amtList.set(i,updatedVal);
+			}}
+		return amtList.stream().map(a->Integer.valueOf(a)).allMatch(m->m>=amt);
+}
+
+	public void enterMaxAmount(String string) {
+		sendKeys(maxAmount, string);
+	}
+
+	public boolean checkAmtLessThanMaxAmt(String string) {
+		WebdriverWaits.sleep(2000);
+		int amt=Integer.valueOf(string);
+		List<String> amtList=getListOfString(amount).stream().map(m->m.replace("$", "")).map(a->a.substring(0,a.indexOf("."))).collect(Collectors.toList());
+		for (int i=0;i<amtList.size();i++) {
+			String value =amtList.get(i);
+			if(value.contains(",")) {
+				String updatedVal=value.replace(",", "");
+				amtList.set(i,updatedVal);
+			}}
+		return amtList.stream().map(a->Integer.valueOf(a)).allMatch(m->m<=amt);
+	}
+
+	public boolean checkAmtBetweenMinAndMaxAmt(String string1, String string2) {
+		WebdriverWaits.sleep(2000);
+		int min=Integer.valueOf(string1);
+		int max=Integer.valueOf(string2);
+		List<String> amtList=getListOfString(amount).stream().map(m->m.replace("$", "")).map(a->a.substring(0,a.indexOf("."))).collect(Collectors.toList());
+		for (int i=0;i<amtList.size();i++) {
+			String value =amtList.get(i);
+			if(value.contains(",")) {
+				String updatedVal=value.replace(",", "");
+				amtList.set(i,updatedVal);
+			}}
+		return amtList.stream().map(a->Integer.valueOf(a)).allMatch(m->m>=min && m<=max);
+	}
 }

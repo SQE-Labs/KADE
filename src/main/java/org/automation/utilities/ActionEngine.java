@@ -413,5 +413,13 @@ public class ActionEngine extends BaseTest {
     	Select s=new Select(getDriver().findElement(element));
     	return s.getOptions().stream().map(option->option.getText()).collect(Collectors.toList());	
     }
+   
+    public void selectByText(By element, String string) {
+		Select s=new Select(getDriver().findElement(element));
+		s.selectByVisibleText(string);
+	}
     
+    public List<String> getListOfString(By element) {
+    	return getDriver().findElements(element).stream().map(m->m.getText()).collect(Collectors.toList());
+    }
 }

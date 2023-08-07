@@ -449,7 +449,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnFilter();
 		giftCardDashboard.clickOnGiftCardStatusField();
-		List<String> options=new ArrayList();
+		List<String> options=new ArrayList<String>();
 		options.add("");
 		options.add("Active");
 		options.add("Blocked");
@@ -459,8 +459,88 @@ public class GiftCardDashboardTest extends BaseTest {
 		Assert.assertTrue(options.equals(giftCardDashboard.getAllGiftCardStatusOptions()));
 		}
 	
+	@Test(enabled = true, description="Verify all existing active gift cards appear listed, after selecting 'Active' option from 'Gift card status' dropdown")
+	public void tc40_verifyGiftCardStatusFilterActive() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		giftCardDashboard.clickOnGiftCardStatusField();
+		giftCardDashboard.selectGiftCardStatues("Active");
+		giftCardDashboard.clickOnApply();
+		Assert.assertTrue(giftCardDashboard.checkStatus("Active"));
+		}
+	
+	@Test(enabled = true, description="Verify all existing blocked gift cards appear listed, after selecting 'Blocked' option from 'Gift card status' dropdown")
+	public void tc41_verifyGiftCardStatusFilterBlocked() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		giftCardDashboard.clickOnGiftCardStatusField();
+		giftCardDashboard.selectGiftCardStatues("Blocked");
+		giftCardDashboard.clickOnApply();
+		Assert.assertTrue(giftCardDashboard.checkStatus("Blocked"));
+		}
+	
+	@Test(enabled = true, description="Verify all existing expired gift cards appear listed, after selecting 'Expired' option from 'Gift card status' dropdown")
+	public void tc42_verifyGiftCardStatusFilterExpired() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		giftCardDashboard.clickOnGiftCardStatusField();
+		giftCardDashboard.selectGiftCardStatues("Expired");
+		giftCardDashboard.clickOnApply();
+		Assert.assertTrue(giftCardDashboard.checkStatus("Expired"));
+		}
+	
+	@Test(enabled = true, description="Verify all existing pending transfer gift cards appear listed, after selecting 'Pending Activation' option from 'Gift card status' dropdown")
+	public void tc43_verifyGiftCardStatusFilterPendingActivation() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		giftCardDashboard.clickOnGiftCardStatusField();
+		giftCardDashboard.selectGiftCardStatues("Pending transfer");
+		giftCardDashboard.clickOnApply();
+		Assert.assertTrue(giftCardDashboard.checkStatus("Pending transfer"));
+		}
+	
+	@Test(enabled = true, description="Verify all existing No Balance gift cards appear listed, after selecting 'Pending Activation' option from 'Gift card status' dropdown")
+	public void tc44_verifyGiftCardStatusFilterNoBalance() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		giftCardDashboard.clickOnGiftCardStatusField();
+		giftCardDashboard.selectGiftCardStatues("No Balance");
+		giftCardDashboard.clickOnApply();
+		Assert.assertTrue(giftCardDashboard.checkStatus("No Balance"));
+		}
 	
 	
+	@Test(enabled = true, description="Verify that relevant gift cards appear listed after entering value in 'Min Amount' under 'Filter' link, on 'Gift Cards Dashboard' page.")
+	public void tc45_verifyMinAmountFilter() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		String minAmt="500";
+		giftCardDashboard.enterMinAmount(minAmt);
+		giftCardDashboard.clickOnApply();
+		Assert.assertTrue(giftCardDashboard.checkAmtGreaterThanMinAmt(minAmt));
+		}
+	
+	@Test(enabled = true, description="Verify that relevant gift cards appear listed after entering value in 'Min Amount' under 'Filter' link, on 'Gift Cards Dashboard' page.")
+	public void tc46_verifyMaxAmountFilter() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		String maxAmt="2000";
+		giftCardDashboard.enterMaxAmount(maxAmt);
+		giftCardDashboard.clickOnApply();
+		Assert.assertTrue(giftCardDashboard.checkAmtLessThanMaxAmt(maxAmt));
+		}
+	
+	@Test(enabled = true, description="Verify that relevant gift cards appear listed after entering value in 'Min Amount' and 'Max Amount' 'under 'Filter' link, on 'Gift Cards Dashboard' page.")
+	public void tc47_verifyMinAndMaxAmountFilter() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		String minAmt="800";
+		String maxAmt="4000";
+		giftCardDashboard.enterMinAmount(minAmt);
+		giftCardDashboard.enterMaxAmount(maxAmt);
+		giftCardDashboard.clickOnApply();
+		Assert.assertTrue(giftCardDashboard.checkAmtBetweenMinAndMaxAmt(minAmt,maxAmt));
+		}
 	
 	}
 	
