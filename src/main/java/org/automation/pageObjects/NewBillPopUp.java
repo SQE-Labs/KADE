@@ -88,13 +88,15 @@ public class NewBillPopUp extends BasePage {
 	}
 
 	public void switchOnMoreToggleBtn() {
-		if(getDriver().findElement(By.xpath("(//div[@class='d-flex align-items-center'])[2]/../..")).getAttribute("class").equalsIgnoreCase("mb-2 link-check checked"))
+		By moreClass=By.xpath("(//div[@class='d-flex align-items-center'])[2]/../..");
+		if(getAttribute(moreClass, "class").equalsIgnoreCase("mb-2 link-check checked"))
 		click(moreToggleBtn);
 	}
 	
 	public void switchOffMoreToggleBtn() {
-		if(!getDriver().findElement(By.xpath("(//div[@class='d-flex align-items-center'])[2]/../..")).getAttribute("class").equalsIgnoreCase("mb-2 link-check checked"))
-			click(moreToggleBtn);
+		By moreClass=By.xpath("(//div[@class='d-flex align-items-center'])[2]/../..");
+		if(!getAttribute(moreClass, "class").equalsIgnoreCase("mb-2 link-check checked"))
+		click(moreToggleBtn);
 	}
 	
 	public boolean isCustNamePresent() {
@@ -147,17 +149,11 @@ public class NewBillPopUp extends BasePage {
 	}
 
 	public String getToolTipMessagePhoneNumber() {
-		moveToWebElement(customerNumber);
-		String tipId = getAttributevalue(customerNumber, "aria-describedby");
-		By id=By.id(tipId);
-		return getText_custom(id);
+		return getToolTipMessage(customerNumber);
 	}
 
 	public String getToolTipMessageEmail() {
-		moveToWebElement(customerEmail);
-		String tipId = getAttributevalue(customerEmail, "aria-describedby");
-		By id=By.id(tipId);
-		return getText_custom(id);
+		return getToolTipMessage(customerEmail);
 	}
 
 	public void enterBillDetailValue1(String description,int price) {

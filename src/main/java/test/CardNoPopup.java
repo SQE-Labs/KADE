@@ -14,6 +14,7 @@ public class CardNoPopup extends BasePage{
 	By RefNo=By.xpath("//div[@class='d-flex justify-content-between'][3]/span[2]");
 	By issueAmt=By.xpath("//div[@class='d-flex justify-content-between'][4]/span[1]");
 	By userProfileName=By.xpath("//a[@class='text-truncate']");
+	By externalLink=By.xpath("//i[@class='fas fa-external-link']");
 	
 	public String getCardNo(){
 		return getText_custom(cardNo);
@@ -57,5 +58,9 @@ public class CardNoPopup extends BasePage{
 
 	public void clickOnUserName() {
 		click(userProfileName);
+	}
+
+	public void clickOnExternalLink() {
+		click(externalLink);
 	}
 }

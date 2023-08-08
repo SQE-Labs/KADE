@@ -33,6 +33,8 @@ public class GiftCardDashboardPage extends BasePage{
 	By validationClose=By.xpath("//button[@class='btn-close']");
 	By status=By.xpath("//tbody/tr/td[9]");
 	By amount=By.xpath("//tbody/tr/td[6]");
+	By cardNoViewed=By.xpath("//tbody/tr/td[1]/a");
+	By totalCountAndAmt=By.xpath("//h6/span");
 	
 	public void clickOnConfigurationLink() {
 		click(configurationLink);
@@ -121,7 +123,7 @@ public class GiftCardDashboardPage extends BasePage{
 	}
 	
 	public String getResultNotFoundMessage() {
-		WebdriverWaits.waitForElementUntilVisible(resultMessage, 10);
+		WebdriverWaits.sleep(2000);
 		return getText_custom(resultMessage);
 	}
 
@@ -130,7 +132,7 @@ public class GiftCardDashboardPage extends BasePage{
 	}
 
 	public List<String> getGiftIssuedate() {
-		WebdriverWaits.sleep(3000);
+		WebdriverWaits.sleep(2000);
 		List<WebElement> allDates = getDriver().findElements(issueDate);
 		List<String> date = allDates.stream().map(str->str.getText()).collect(Collectors.toList());
 		return date;
@@ -156,10 +158,7 @@ public class GiftCardDashboardPage extends BasePage{
 
 	public String getDateRangeToolTipMessage() {
 		WebdriverWaits.waitForElementUntilVisible(datePicker, 5);
-		moveToWebElement(datePicker);
-		String id=getAttribute(datePicker, "aria-describedby");
-		By tipId=By.id(id);
-		return getText_custom(tipId);
+		return getToolTipMessage(datePicker);
 	}
 
 	public void clickOnCloseValidation() {
@@ -233,5 +232,27 @@ public class GiftCardDashboardPage extends BasePage{
 				amtList.set(i,updatedVal);
 			}}
 		return amtList.stream().map(a->Integer.valueOf(a)).allMatch(m->m>=min && m<=max);
+	}
+
+	public void enterCardNo(String card) {
+		sendKeys(cardNo, card);
+	}
+
+	public boolean checkCardNo(String cardNo2) {
+		WebdriverWaits.sleep(3000);
+		return getListOfString(cardNoViewed).stream().allMatch(a->a.equalsIgnoreCase(cardNo2));
+	}
+
+	public String getCardNoToolTipMessage() {
+		clickOnCloseValidation();
+		return getToolTipMessage(cardNo);
+	}
+
+	public boolean isotalCountAndTotalAmtDisplayed() {
+		return isElementPresent(totalCountAndAmt, "Total Count and Total Amount");
+	}
+
+	public void clickOnGiftCardForSaleLink() {
+		click(giftCardForSaleLink);
 	}
 }

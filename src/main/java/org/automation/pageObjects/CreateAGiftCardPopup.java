@@ -50,9 +50,7 @@ public class CreateAGiftCardPopup extends BasePage{
 	}
 	
 	public String getCustomerPhoneNumberToolTipMessage() {
-		moveToWebElement(custPhoneNumber);
-		String id=getAttribute(custPhoneNumber, "aria-describedby");
-		return getText_custom(By.id(id));
+		return getToolTipMessage(custPhoneNumber);
 	}
 	
 	public String getWariningMessage() {
@@ -84,9 +82,7 @@ public class CreateAGiftCardPopup extends BasePage{
 	}
 	
 	public String getInitialAmountToolTipMessage() {
-		moveToWebElement(initialAmountTbx);
-		String id=getAttribute(initialAmountTbx, "aria-describedby");
-		return getText_custom(By.id(id));
+		return getToolTipMessage(initialAmountTbx);
 	}
 	
 	public void enterInitialAmt(String amt) {
@@ -130,9 +126,7 @@ public class CreateAGiftCardPopup extends BasePage{
 	}
 	
 	public List<String> getSelectList() {
-		WebElement selectElement = getDriver().findElement(selectList);
-		Select select = new Select(selectElement);
-		return select.getOptions().stream().map(m->m.getText()).collect(Collectors.toList());
+		return getListOfString(selectList);
 	}
 
 	public void enterStartDate(String date) {
@@ -140,9 +134,7 @@ public class CreateAGiftCardPopup extends BasePage{
 	}
 
 	public String getStartDateToolTipMessage() {
-		moveToWebElement(startDate);
-		String id=getAttribute(startDate, "aria-describedby");
-		return getText_custom(By.id(id));
+		return getToolTipMessage(startDate);
 	}
 
 	public void enterExpDate(String date) {
@@ -152,9 +144,7 @@ public class CreateAGiftCardPopup extends BasePage{
 
 	public String getExpDateToolTipMessage() {
 		scrollToElement(expDate);
-		moveToWebElement(expDate);
-		String id=getAttribute(expDate, "aria-describedby");
-		return getText_custom(By.id(id));
+		return getToolTipMessage(expDate);
 	}
 
 	public void enterRefNo(String string) {

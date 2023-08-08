@@ -43,6 +43,7 @@ public class BillPage extends BasePage {
 	By billViewPopupTitleHeader = By.xpath("//h4[@class='modal-title']");
 	By paidBill1= By.xpath("//tr//td//div//div[not(contains(text(),'NOT PAID')) and not(@class='text-danger') and not(contains(text(),'PARTIAL')) and not(@class='text-warning')]/../../..");
 	By memoNote=By.xpath("(//tr[@class='none-workingEffect']/td[2]/a)[1]");
+	By name=By.xpath("//td[@class='text-nowrap']/p[1]");
 	
 	public boolean isAleartMessageDisplayed() {
 		return isElementPresent(alertMessage, "Alert Message Section");
@@ -202,12 +203,9 @@ public class BillPage extends BasePage {
 		return getText_custom(infoMessage);
 	}
 
-	public String getEmailToolTiptMessage() throws InterruptedException {
-		Thread.sleep(500);
-		moveToWebElement(UserEmailField);
-		String toolTipId=getAttribute(UserEmailField, "aria-describedby");
-        By toolTipMessage =By.id(toolTipId);
-    		return getElementText(toolTipMessage);
+	public String getEmailToolTiptMessage(){
+		WebdriverWaits.sleep(500);
+		return getToolTipMessage(UserEmailField);
 	}
 
 	public void clickOnBill() {
@@ -231,25 +229,19 @@ public class BillPage extends BasePage {
 
 	public String getToolTipMemo() throws InterruptedException {
 		WebdriverWaits.waitForElementUntilVisible(memoNote, 5);
-		moveToWebElement(memoNote);
-		String tipId = getAttributevalue(memoNote, "aria-describedby");
-		By id=By.id(tipId);
-		return getText_custom(id);
+		return getToolTipMessage(memoNote);
 	}
 
 	public String getToolTipUserPhone() {
-		moveToWebElement(UserPhoneField);
-		String id=getAttribute(UserPhoneField, "aria-describedby");
-		By tipId=By.id(id);
-		return getText_custom(tipId);
+		return getToolTipMessage(UserPhoneField);
 	}
 
 	public long countOfPartialCustName(String string) {
-		By name=By.xpath("//td[@class='text-nowrap']/p[1]");
-		List<WebElement> elements = getDriver().findElements(name);
-		return elements.stream().filter(str->str.getText().equalsIgnoreCase(string)).count();
+		return getAllMatchingCount(name,string);
+//		List<WebElement> elements = getDriver().findElements(name);
+//		return elements.stream().filter(str->str.getText().equalsIgnoreCase(string)).count();
 	}
-
+	
 	public boolean verifyRecordsDateRange(List<String> billDate,String fromDate, String toDate) {
 		for(String s:billDate) {
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
@@ -269,7 +261,7 @@ public class BillPage extends BasePage {
 
 	public List<String> getDateOfBill() {
 		By billDate=By.xpath("//tr[@class='none-workingEffect']/td[2]/p[2]");
-		List<WebElement> allDates = getDriver().findElements(billDate);
+		List<WebElement> allDates = getListOfWebElements(billDate);
 		List<String> date = allDates.stream().map(str->str.getText().split(" ")[0]).collect(Collectors.toList());
 		return date;
 	}

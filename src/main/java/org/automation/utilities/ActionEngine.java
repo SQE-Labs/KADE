@@ -422,4 +422,16 @@ public class ActionEngine extends BaseTest {
     public List<String> getListOfString(By element) {
     	return getDriver().findElements(element).stream().map(m->m.getText()).collect(Collectors.toList());
     }
+    
+    public String getToolTipMessage(By element){
+    	moveToWebElement(element);
+		String toolTipId=getAttribute(element, "aria-describedby");
+        By toolTipMessage =By.id(toolTipId);
+    	return getElementText(toolTipMessage);
+    }
+    
+    public List<WebElement> getListOfWebElements(By element) {
+    	return getDriver().findElements(element);
+    }
+
 }

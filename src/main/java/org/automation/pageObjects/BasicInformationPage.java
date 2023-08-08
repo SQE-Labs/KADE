@@ -44,9 +44,7 @@ public class BasicInformationPage extends BasePage {
     }
     
     public String getAddressToolTipMessage() {
-    	String toolTipId=getAttribute(addressField, "aria-describedby");
-        By toolTipMessage =By.id(toolTipId);
-    		return getElementText(toolTipMessage);
+   		return getToolTipMessage(addressField);
     }
     
     

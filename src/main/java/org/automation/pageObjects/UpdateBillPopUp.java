@@ -39,10 +39,7 @@ public class UpdateBillPopUp extends BasePage{
 	}
 	
 	public String getSubTotalToolTipMsg() {
-		moveToWebElement(subTotalTextBox);
-		String id=getAttributevalue(subTotalTextBox, "aria-describedby");
-		By tipMessage=By.id(id);
-		return getText_custom(tipMessage);
+		return getToolTipMessage(subTotalTextBox);
 	}
 	
 	public void clickOnAddBillDetailLink() {
