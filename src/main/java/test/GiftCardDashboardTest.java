@@ -1,10 +1,13 @@
 package test;
 
+import static org.testng.Assert.assertTrue;
+
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
 import org.automation.base.BaseTest;
+import org.automation.pageObjects.AddGiftCardPage;
 import org.automation.pageObjects.CreateAGiftCardPopup;
 import org.automation.pageObjects.DashBoardPage;
 import org.automation.pageObjects.GiftCardConfigurationPopup;
@@ -633,9 +636,47 @@ public class GiftCardDashboardTest extends BaseTest {
 		Assert.assertTrue(giftCardForSale.areStatusOptionMatching(options));
 	}
 	
-	
-	
-	
+	@Test(enabled = true, description="Verify that all exsisting gift cards appear after clicking on 'Apply' button, when 'All' option is selected from 'Status' dropdown")
+	public void tc57_verifyAllGiftAppearWhenAllStatusIsSelected() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnGiftCardForSaleLink();
+		giftCardForSale.clickOnFilterLink();
+		giftCardForSale.selectStatusByText("All");
+		Assert.assertTrue(giftCardForSale.areQuantityMoreThanEqualToZero());
 	}
 	
-
+	@Test(enabled = true, description="Verify that all exsisting gift cards appear after clicking on 'Apply' button, when 'All' option is selected from 'Status' dropdown")
+	public void tc58_verifyAllGiftAppearWhenAllStatusIsSelected() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnGiftCardForSaleLink();
+		giftCardForSale.clickOnFilterLink();
+		giftCardForSale.selectStatusByText("Available");
+		Assert.assertTrue(giftCardForSale.areQuantityMoreThanZero());
+	}
+	
+	@Test(enabled = true, description="Verify that 'Copied' tooltip message appear after clicking on 'Copy the URL' link, on 'Gift Cards For Sale' page.")
+	public void tc59_verifyCopyUrlLink() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnGiftCardForSaleLink();
+		giftCardForSale.clickOnCopyUrl();
+		Assert.assertEquals(giftCardForSale.getCopyUrlToolTipMessage(), "Copied");
+	}
+	@Test(enabled = true, description="Verify that 'Add Gift Card' page opens afeter clicking on 'Add' link , on 'Gift Cards For Sale' page.")
+	public void tc60_verifyAddLink() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnGiftCardForSaleLink();
+		giftCardForSale.clickOnAddLink();
+		Assert.assertEquals(giftCardForSale.getPageTitle(), "Gift Cards For Sale");
+		}
+	
+//	@Test(enabled = true, description="Verify that 'Add Gift Card' page opens afeter clicking on 'Add' link , on 'Gift Cards For Sale' page.")
+//	public void tc61_verifyGiftCardForSalePageValidationMessage() {
+//		dashboard.clickOnGiftCardsDashboard();
+//		giftCardDashboard.clickOnGiftCardForSaleLink();
+//		giftCardForSale.clickOnAddLink();
+//		AddGiftCardPage addGiftCard=new AddGiftCardPage();
+//		addGiftCard.clickOnSaveChange();
+//	}
+	
+	
+}

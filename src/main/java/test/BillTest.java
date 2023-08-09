@@ -26,6 +26,7 @@ public class BillTest extends BaseTest{
 	BillViewPopup billView=new BillViewPopup();
 	RefundPage refund=new RefundPage();
 	UpdateBillPopUp update = new UpdateBillPopUp();
+	TransactionsPage transactions=new TransactionsPage();
 	
 	@Test(enabled = true, description="verifyBillButton")
     public void tc01_verifyBillButton(){
@@ -55,9 +56,6 @@ public class BillTest extends BaseTest{
 		newBill.switchOnMoreToggleBtn();
 		Assert.assertTrue(newBill.isCustNamePresent());
 		Assert.assertTrue(newBill.isMemoPresent());
-//		newBill.switchOffMoreToggleBtn();
-//		Assert.asserttrue(newBill.isCustNamePresent());
-//		Assert.asserttrue(newBill.isMemoPresent());
 	}
 	
 	@Test(enabled = true, description="Verify RefNo. textbox appears after AutoGenarate toggle button is turned Off")
@@ -65,9 +63,6 @@ public class BillTest extends BaseTest{
 		newBill.switchOffAutoGenToggle();
 		Assert.assertTrue(newBill.isRefNoTextFieldPresent());
 		newBill.clickOnCloseBtn();
-//		newBill.switchOnAutoGenToggle();
-//		Assert.asserttrue(newBill.isRefNoTextFieldPresent());
-//		newBill.clickOnCloseBtn();
 	}
 	
 	@Test(enabled = true, description="Verify validation message appears after entering amount more than configured amount") 
@@ -168,21 +163,18 @@ public class BillTest extends BaseTest{
 		
 	@Test(enabled = true, description = "Verify customer name filter Functionality")
 	public void tc15_verifyCustomerNameFilter() {
-		long expectedCount = bill.countOfCustNamePresent("Ana");
 		bill.clickOnFilter();
 		bill.enterCustomerName("Ana");
 		bill.clickOnApply();
-		long actualCount=bill.countOfCustNamePresent("Ana");
-		Assert.assertEquals(actualCount, expectedCount);
+		Assert.assertTrue(bill.checkFieldContains("Ana"));
 	}
 	
 	@Test(enabled = true, description = "Verify partial customer name filter Functionality")
 	public void tc16_verifyPartialCustomerNameFilter() {
-		long expectedCount = bill.countOfCustNamePresent("An");
 		bill.clickOnFilter();
 		bill.enterCustomerName("An");
 		bill.clickOnApply();
-		Assert.assertEquals(bill.countOfPartialCustName("An"), expectedCount);
+		Assert.assertTrue(bill.checkFieldContains("An"));
 	}
 	
 	@Test(enabled = true, description = "Verify User Phone filter Functionality")
@@ -292,7 +284,6 @@ public class BillTest extends BaseTest{
 	@Test(enabled = true, description = "Verify Transaction page opens on clicking Transactions link")
 	public void tc27_transactionPage() {
 		bill.clickOnTransactions();
-		TransactionsPage transactions=new TransactionsPage();
 		Assert.assertEquals(transactions.getPageTitle(), "Transactions");
 		dashboard.clickOnBill();
 	}
@@ -308,6 +299,7 @@ public class BillTest extends BaseTest{
 	
 	@Test(enabled = true, description = "Verify refund page")
 	public void tc29_refundPage() {
+		dashboard.clickOnBill();
 		bill.clickOnFirstPaidBills();
 		billView.clickOnAmountLink();
 		Assert.assertTrue(refund.isRefundBtnPresent());
@@ -318,7 +310,9 @@ public class BillTest extends BaseTest{
 	
 	@Test(enabled = true, description = "Verify message when reason field is left blank")
 	public void tc30_validationWhenReasonFieldLeftBlank() {
-		refund.refreshPage();
+		dashboard.clickOnBill();
+		bill.clickOnFirstPaidBills();
+		billView.clickOnAmountLink();
 		refund.clickOnRefund();
 		refund.clickOnProcessFullRefund();
 		Assert.assertEquals(refund.getReasonToolTip(), "This field is required.");
@@ -327,7 +321,9 @@ public class BillTest extends BaseTest{
 	
 	@Test(enabled = true, description = "Verify partial refund button behavior")
 	public void tc31_verifyPartialRefundLink() {
-		refund.refreshPage();
+		dashboard.clickOnBill();
+		bill.clickOnFirstPaidBills();
+		billView.clickOnAmountLink();
 		refund.clickOnRefund();
 		refund.clickOnPartialRefundLink();
 		Assert.assertTrue(refund.isCheckBoxPresent());
@@ -337,7 +333,9 @@ public class BillTest extends BaseTest{
 	
 	@Test(enabled = true, description = "Varify Refund Amount text box validation when value more than configurerd amount")
 	public void tc32_RefundAmountTextBox() {
-		refund.refreshPage();
+		dashboard.clickOnBill();
+		bill.clickOnFirstPaidBills();
+		billView.clickOnAmountLink();
 		refund.clickOnRefund();
 		refund.clickOnPartialRefundLink();
 		refund.checkCheckBox();
@@ -350,7 +348,9 @@ public class BillTest extends BaseTest{
 	
 	@Test(enabled = true, description = "Verify validation message when ")
 	public void tc33_validationWhenZeroRefundAmount() {
-		refund.refreshPage();
+		dashboard.clickOnBill();
+		bill.clickOnFirstPaidBills();
+		billView.clickOnAmountLink();
 		refund.clickOnRefund();
 		refund.clickOnPartialRefundLink();
 		refund.checkCheckBox();

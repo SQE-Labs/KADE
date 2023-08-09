@@ -69,6 +69,7 @@ public class RefundPage extends BasePage{
 	}
 
 	public String getRefundToolTipMessage() {
+		WebdriverWaits.waitForElementUntilVisible(refundAmountTextBox, 5);
     		return getToolTipMessage(refundAmountTextBox);
 	}
 

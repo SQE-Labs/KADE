@@ -44,6 +44,8 @@ public class BillPage extends BasePage {
 	By paidBill1= By.xpath("//tr//td//div//div[not(contains(text(),'NOT PAID')) and not(@class='text-danger') and not(contains(text(),'PARTIAL')) and not(@class='text-warning')]/../../..");
 	By memoNote=By.xpath("(//tr[@class='none-workingEffect']/td[2]/a)[1]");
 	By name=By.xpath("//td[@class='text-nowrap']/p[1]");
+	By customerNames=By.xpath("//td[@class='text-nowrap']/p[1]");
+	By bill=By.xpath("(//tr[@class='none-workingEffect'])[1]");
 	
 	public boolean isAleartMessageDisplayed() {
 		return isElementPresent(alertMessage, "Alert Message Section");
@@ -152,9 +154,11 @@ public class BillPage extends BasePage {
 
 	public int getCountOfAllBill() {
 		ScrollDownThePageMax();
+		WebdriverWaits.sleep(2000);
 		int count = countWebElements(billGrid);
 		scrollToPageTop(newBillBtn);
 			return count;
+		//return getListOfWebElements(billGrid).stream().allMatch(a->a.isDisplayed());
 	}
 
 	public void enterCustomerName(String string) {
@@ -165,13 +169,6 @@ public class BillPage extends BasePage {
 		return isElementPresent(transactionsLink, "Transactions Link");
 	}
 
-	public long countOfCustNamePresent(String string) {
-		ScrollDownThePageMax();
-		By custNameOnBill = By.xpath("//td[@class='text-nowrap']/p[text()='" + string + "']");
-		long count=getAllMatchingCount(custNameOnBill, string);
-		scrollToPageTop(newBillBtn);
-		return count;
-	}
 
 	public long countOfUserPhonePresent(String string) {
 		ScrollDownThePageMax();
@@ -222,24 +219,25 @@ public class BillPage extends BasePage {
 	}
 	
 	public void clickOnFirstPaidBills() {
-		scrollToElement(paidBill1);
-		WebdriverWaits.waitForElementClickable(paidBill1, 5);
-		click(paidBill1);
+		clickOnFilter();
+		enterCustomerName("Ana");
+		clickOnApply();
+		click(bill);
+		
 	}
 
-	public String getToolTipMemo() throws InterruptedException {
+	public String getToolTipMemo(){
 		WebdriverWaits.waitForElementUntilVisible(memoNote, 5);
 		return getToolTipMessage(memoNote);
 	}
 
 	public String getToolTipUserPhone() {
+		WebdriverWaits.sleep(2000);
 		return getToolTipMessage(UserPhoneField);
 	}
 
 	public long countOfPartialCustName(String string) {
 		return getAllMatchingCount(name,string);
-//		List<WebElement> elements = getDriver().findElements(name);
-//		return elements.stream().filter(str->str.getText().equalsIgnoreCase(string)).count();
 	}
 	
 	public boolean verifyRecordsDateRange(List<String> billDate,String fromDate, String toDate) {
@@ -264,6 +262,12 @@ public class BillPage extends BasePage {
 		List<WebElement> allDates = getListOfWebElements(billDate);
 		List<String> date = allDates.stream().map(str->str.getText().split(" ")[0]).collect(Collectors.toList());
 		return date;
+	}
+
+	public boolean checkFieldContains(String string) {
+		List<String> custList = getListOfString(customerNames).stream().map(m->m.toLowerCase()).collect(Collectors.toList());
+		String str = string.toLowerCase();
+		return custList.stream().allMatch(a->a.contains(str));
 	}
 
 	}

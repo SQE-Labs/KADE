@@ -34,7 +34,6 @@ public class BillViewPopup extends BasePage
 	
 	public void clickOnCloseBtn() {
 		WebdriverWaits.waitForElementUntilVisible(closeBtn, 10);
-		WebdriverWaits.waitForElementClickable(closeBtn, 10);
 		click(closeBtn);
 	}
 
