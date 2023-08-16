@@ -19,7 +19,7 @@ public class AddGiftCardPage extends BasePage{
 	By closeValidation=By.xpath("(//button[@class='btn-close'])[2]");
 	By currentDate=By.xpath("//td[@class='today active start-date available']");
 	By nextMonthDay=By.xpath("(//div[@class='drp-calendar right'] //td[@class='available'])[15]");
-	By aleartMessage=By.xpath("//div[@class='alert-message']");
+	By alertMessage=By.xpath("//div[@class='alert-message']");
 	
 	
 	public void clickOnSaveChange() {
@@ -82,10 +82,10 @@ public class AddGiftCardPage extends BasePage{
 	}
 
 	public void isAleartMessagePresent() {
-			isElementPresent(aleartMessage, "Aleart Message");
+			isElementPresent(alertMessage, "Aleart Message");
 	}
 	
-	public String getAleartMessage() {
-		return getText_custom(aleartMessage);
+	public String getAlertMessage() {
+		return getText_custom(alertMessage);
 	}
 	}

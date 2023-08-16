@@ -788,7 +788,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnGiftCardForSaleLink();
 		giftCardForSale.clickOnAddLink();
 		addGiftCard.isAleartMessagePresent();
-		Assert.assertEquals(addGiftCard.getAleartMessage(), "There are 3.00 % fee on all sold gift cards.");
+		Assert.assertEquals(addGiftCard.getAlertMessage(), "There are 3.00 % fee on all sold gift cards.");
 		}
 	
 

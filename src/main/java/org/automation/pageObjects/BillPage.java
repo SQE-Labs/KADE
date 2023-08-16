@@ -103,6 +103,7 @@ public class BillPage extends BasePage {
 	}
 
 	public void clickOnApply() {
+		WebdriverWaits.waitForElementUntilVisible(applyBtn, 5);
 		click(applyBtn);
 	}
 

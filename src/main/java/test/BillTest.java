@@ -163,6 +163,7 @@ public class BillTest extends BaseTest{
 		
 	@Test(enabled = true, description = "Verify customer name filter Functionality")
 	public void tc15_verifyCustomerNameFilter() {
+		dashboard.clickOnBill();
 		bill.clickOnFilter();
 		bill.enterCustomerName("Ana");
 		bill.clickOnApply();

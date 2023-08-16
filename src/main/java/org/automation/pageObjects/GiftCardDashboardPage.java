@@ -131,9 +131,9 @@ public class GiftCardDashboardPage extends BasePage{
 		sendKeys(datePicker, dateRange);
 	}
 
-	public List<String> getGiftIssuedate() { // remove getDrive() from here 
+	public List<String> getGiftIssuedate() {
 		WebdriverWaits.sleep(2000);
-		List<WebElement> allDates = getDriver().findElements(issueDate);
+		List<WebElement> allDates = getListOfWebElements(issueDate);
 		List<String> date = allDates.stream().map(str->str.getText()).collect(Collectors.toList());
 		return date;
 	}
