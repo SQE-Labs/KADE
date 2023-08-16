@@ -126,9 +126,10 @@ public class CreateAGiftCardPopup extends BasePage{
 	}
 	
 	public List<String> getSelectList() {
+		click(selectList);
 		return getListOfString(selectList);
 	}
-
+	
 	public void enterStartDate(String date) {
 		sendKeys(startDate, date);
 	}
