@@ -18,7 +18,7 @@ public class SecurityAndPasswordTest extends BaseTest{
 	
 	
 	@Test
-	public void verifyUpdateEmailPopup() {
+	public void tc01_verifyUpdateEmailPopup() {
 		login.performSignIn(PropertiesUtil.getPropertyValue("userName"), PropertiesUtil.getPropertyValue("password"));
 		dashboard.clickProfile();
 		info.clickOnSecurityAndPassword();

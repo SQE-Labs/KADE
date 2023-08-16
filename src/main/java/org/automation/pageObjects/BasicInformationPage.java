@@ -44,9 +44,7 @@ public class BasicInformationPage extends BasePage {
     }
     
     public String getAddressToolTipMessage() {
-    	String toolTipId=getAttribute(addressField, "aria-describedby");
-        By toolTipMessage =By.id(toolTipId);
-    		return getElementText(toolTipMessage);
+   		return getToolTipMessage(addressField);
     }
     
     
@@ -82,7 +80,7 @@ public class BasicInformationPage extends BasePage {
 		uploadImageFile(location);
 	}
 	
-	public String getAleartMessage() throws InterruptedException {
+	public String getAleartMessage() {
 		WebdriverWaits.waitForElementUntilVisible(alertHeader, 5);
 		return getText_custom(aleartMessage);
 	}

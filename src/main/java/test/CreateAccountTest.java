@@ -23,8 +23,8 @@ public class CreateAccountTest extends BaseTest {
         getDriver().navigate().to(PropertiesUtil.getPropertyValue("createNewAccountPageUrl"));
     }
 
-    @Test(priority = 0, enabled = true, description = "1. Verify that user get directed to 'Create New Account' page, after clicking on 'Sign up' link, on 'Login' page.")
-    public void validateSignUpLink() {
+    @Test(enabled = true, description = "1. Verify that user get directed to 'Create New Account' page, after clicking on 'Sign up' link, on 'Login' page.")
+    public void tc01_validateSignUpLink() {
 
         // Verify app Logo name heading - 'Kade'
         Assert.assertTrue(createNewAccountPage.checkPresenceOfappLogoNameHeading());
@@ -46,8 +46,8 @@ public class CreateAccountTest extends BaseTest {
 
     }
 
-    @Test(priority = 1, enabled = true, description = "2. Verify that 'Email or Phone' field appears highlighted, when user clicks on 'Sign Up' button, after leaving  'Email or Phone' field blank, on 'Create New Account' page.")
-    public void validateEmailOrPhoneFieldGetHighlighted() {
+    @Test( enabled = true, description = "2. Verify that 'Email or Phone' field appears highlighted, when user clicks on 'Sign Up' button, after leaving  'Email or Phone' field blank, on 'Create New Account' page.")
+    public void tc02_validateEmailOrPhoneFieldGetHighlighted() {
 
         // Verify 'Email or Phone' label
         Assert.assertTrue(createNewAccountPage.checkPresenceOfEmailOrPhoneLabel());
@@ -60,8 +60,8 @@ public class CreateAccountTest extends BaseTest {
 
     }
 
-    @Test(priority = 2, enabled = true, description = "3. Verify that appropriate validation message appears on entering invalid Email or Phone in 'Email or Phone' field, on 'Create New Account' page.")
-    public void validateValidationMessageOnEnteringInvalidEmailOrPhone() {
+    @Test(enabled = true, description = "3. Verify that appropriate validation message appears on entering invalid Email or Phone in 'Email or Phone' field, on 'Create New Account' page.")
+    public void tc03_validateValidationMessageOnEnteringInvalidEmailOrPhone() {
 
         // Enter invalid Email or Phone
         createNewAccountPage.enterEmailOrPhone("User22");
@@ -71,8 +71,8 @@ public class CreateAccountTest extends BaseTest {
 
 }
 
-    @Test(priority = 3, enabled = true, description = "5. Verify that 'Security Code' field appears after entering valid email  in 'Email or Phone' field, on 'Verify your account' page.")
-    public void validateSecurityCodeFieldOnEnteringValidEmail() {
+    @Test(enabled = true, description = "5. Verify that 'Security Code' field appears after entering valid email  in 'Email or Phone' field, on 'Verify your account' page.")
+    public void tc04_validateSecurityCodeFieldOnEnteringValidEmail() {
 
         // Enter valid email in 'Email or Phone' field
         createNewAccountPage.enterEmailOrPhone("user" + new RandomGenerator().requiredString(6) + "@yopmail.com");
@@ -81,8 +81,8 @@ public class CreateAccountTest extends BaseTest {
         createNewAccountPage.clickSignUpButton();
     }
 
-    @Test(priority = 4, enabled = true, description = "6. Verify that 'Security Code' field appears after entering valid phone number in 'Email or Phone' field, on 'Verify your account' page.")
-    public void validateSecurityCodeFieldOnEnteringValidPhone() {
+    @Test(enabled = true, description = "6. Verify that 'Security Code' field appears after entering valid phone number in 'Email or Phone' field, on 'Verify your account' page.")
+    public void tc05_validateSecurityCodeFieldOnEnteringValidPhone() {
 
         // Enter valid phone in 'Email or Phone' field
         createNewAccountPage.enterEmailOrPhone("919158501408");
@@ -92,8 +92,8 @@ public class CreateAccountTest extends BaseTest {
 
     }
 
-    @Test(priority = 5, enabled = true, description = "7. Verify that Security Code is resent after clicking on the 'Resend security code' link, on 'Verify your account' page.")
-    public void validateSecurityCodeIsResent (){
+    @Test(enabled = true, description = "7. Verify that Security Code is resent after clicking on the 'Resend security code' link, on 'Verify your account' page.")
+    public void tc06_validateSecurityCodeIsResent (){
 
         // Enter valid email in 'Email or Phone' field
         createNewAccountPage.enterEmailOrPhone("user" + new RandomGenerator().requiredString(6) + "@yopmail.com");
@@ -120,8 +120,8 @@ public class CreateAccountTest extends BaseTest {
 
     }
 
-    @Test(priority = 6, enabled = true, description = "8. Verify that 'Set your Password' page opens up after entering valid Security Code in 'Security Code' field on 'Verify your account' page.")
-    public void validateSetYourPasswordPageOpensUpAfterEnteringSecurityCode(){
+    @Test(enabled = true, description = "8. Verify that 'Set your Password' page opens up after entering valid Security Code in 'Security Code' field on 'Verify your account' page.")
+    public void tc07_validateSetYourPasswordPageOpensUpAfterEnteringSecurityCode(){
 
         // Enter valid email in 'Email or Phone' field
         createNewAccountPage.enterEmailOrPhone( "user" + new RandomGenerator().requiredString(6) + "@yopmail.com");
@@ -153,8 +153,8 @@ public class CreateAccountTest extends BaseTest {
 
     }
 
-    @Test(priority = 7, enabled = true, description = "9. Verify that 'Password' field appears highlighted, when user clicks on 'Submit' button, after entering less than 8 characters in  'Password and Confirm Password' field, on 'Set your password' page.")
-    public void validatePasswordFieldGetHighlightedOnEnteringLessThanEightCharacters() {
+    @Test(enabled = true, description = "9. Verify that 'Password' field appears highlighted, when user clicks on 'Submit' button, after entering less than 8 characters in  'Password and Confirm Password' field, on 'Set your password' page.")
+    public void tc08_validatePasswordFieldGetHighlightedOnEnteringLessThanEightCharacters() {
 
         // Enter valid email in 'Email or Phone' field
         createNewAccountPage.enterEmailOrPhone( "user"+ new RandomGenerator().requiredString(5)+"@yopmail.com");
@@ -180,8 +180,8 @@ public class CreateAccountTest extends BaseTest {
 
     }
 
-    @Test(priority = 8, enabled = true, description = "10. Verify that 'Password' field appears highlighted, when user clicks on 'Submit' button, after leaving  'Password and Confirm Password' field blank, on 'Set your password' page.")
-    public void validatePasswordFieldGetHighlightedOnLeavingPasswordAndConfirmPasswordFieldBlank() {
+    @Test(enabled = true, description = "10. Verify that 'Password' field appears highlighted, when user clicks on 'Submit' button, after leaving  'Password and Confirm Password' field blank, on 'Set your password' page.")
+    public void tc09_validatePasswordFieldGetHighlightedOnLeavingPasswordAndConfirmPasswordFieldBlank() {
 
         // Enter valid email in 'Email or Phone' field
         createNewAccountPage.enterEmailOrPhone( "user"+new RandomGenerator().requiredString(4)+"@yopmail.com");
@@ -200,8 +200,8 @@ public class CreateAccountTest extends BaseTest {
 
     }
 
-    @Test(priority = 9, enabled = true, description = "11. Verify that appropriate validation message appears on entering invalid Password 'Password  or Confirm Password' field, on 'Set your password' page.")
-    public void VerifyValidationMessageOnEnteringInvalidPassword() {
+    @Test(enabled = true, description = "11. Verify that appropriate validation message appears on entering invalid Password 'Password  or Confirm Password' field, on 'Set your password' page.")
+    public void tc10_VerifyValidationMessageOnEnteringInvalidPassword() {
 
         // Enter valid email in 'Email or Phone' field
         createNewAccountPage.enterEmailOrPhone( "user"+new RandomGenerator().requiredString(7)+"@yopmail.com");

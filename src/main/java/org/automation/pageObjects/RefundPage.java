@@ -36,10 +36,7 @@ public class RefundPage extends BasePage{
 	}
 
 	public String getReasonToolTip() {
-		moveToWebElement(reasonTextBox);
-		String toolTipId=getAttribute(reasonTextBox, "aria-describedby");
-        By toolTipMessage =By.id(toolTipId);
-    		return getElementText(toolTipMessage);
+    		return getToolTipMessage(reasonTextBox);
 	}
 
 	public void clickOnPartialRefundLink() {
@@ -72,10 +69,8 @@ public class RefundPage extends BasePage{
 	}
 
 	public String getRefundToolTipMessage() {
-		moveToWebElement(refundAmountTextBox);
-		String toolTipId=getAttribute(refundAmountTextBox, "aria-describedby");
-        By toolTipMessage =By.id(toolTipId);
-    		return getElementText(toolTipMessage);
+		WebdriverWaits.waitForElementUntilVisible(refundAmountTextBox, 5);
+    		return getToolTipMessage(refundAmountTextBox);
 	}
 
 	public void clickOnProcessRefund() {
