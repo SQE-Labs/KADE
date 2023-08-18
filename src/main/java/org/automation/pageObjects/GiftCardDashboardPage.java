@@ -45,7 +45,7 @@ public class GiftCardDashboardPage extends BasePage{
 	}
 	
 	public void clickOnIssueAGiftCard() {
-		WebdriverWaits.waitForElementClickable(issueGiftCardBtn, 5);
+		WebdriverWaits.fluentWait_ElementIntactable(5, 100, issueGiftCardBtn);
 		click(issueGiftCardBtn);
 	}
 
@@ -106,7 +106,8 @@ public class GiftCardDashboardPage extends BasePage{
 	public void clickOnApply() {
 		scrollToElement(applyBtn);
 		WebdriverWaits.waitForElementUntilVisible(applyBtn, 5);
-		click(applyBtn, "Apply Button");
+		WebdriverWaits.fluentWait_ElementIntactable(10, 100, applyBtn);
+		click(applyBtn);
 	}
 	
 	public void enterUserName(String name) {
@@ -245,6 +246,7 @@ public class GiftCardDashboardPage extends BasePage{
 
 	public String getCardNoToolTipMessage() {
 		clickOnCloseValidation();
+		WebdriverWaits.waitForElementUntilVisible(cardNo, 5);
 		return getToolTipMessage(cardNo);
 	}
 

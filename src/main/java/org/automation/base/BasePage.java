@@ -80,14 +80,14 @@ public class BasePage extends ActionEngine {
      * @param description description of the new window
      * @param urlText     URL text that the window contains
      */
-    public void switchToWindowContainingUrlText(String description, String urlText) {
-        Log.info("Switch to window [" + description + "] which contains URL text [" + urlText + "]");
-        parentWindow = getDriver().getWindowHandle();
-        getDriver().getWindowHandles().stream().map(getDriver().switchTo()::window)
-                .filter(driver -> getDriver().getCurrentUrl().contains(urlText)).findFirst()
-                .orElseThrow(() -> new NoSuchWindowException(
-                        "Unable to find window [" + description + "] which contains URL text [" + urlText + "]"));
-    }
+//    public void switchToWindowContainingUrlText(String description, String urlText) {
+//        Log.info("Switch to window [" + description + "] which contains URL text [" + urlText + "]");
+//        parentWindow = getDriver().getWindowHandle();
+//        getDriver().getWindowHandles().stream().map(getDriver().switchTo()::window)
+//                .filter(driver -> getDriver().getCurrentUrl().contains(urlText)).findFirst()
+//                .orElseThrow(() -> new NoSuchWindowException(
+//                        "Unable to find window [" + description + "] which contains URL text [" + urlText + "]"));
+//    }
 
     /**
      * Switch to the window containing the specified title.
@@ -177,6 +177,11 @@ public class BasePage extends ActionEngine {
     public static void scrollToElement( By element) {
         JavascriptExecutor jsExecutor = (JavascriptExecutor) getDriver();
         jsExecutor.executeScript("arguments[0].scrollIntoView(true);", getDriver().findElement(element));
+    }
+    
+    public static void scrollByPixel( int x,int y) {
+        JavascriptExecutor jsExecutor = (JavascriptExecutor) getDriver();
+        jsExecutor.executeScript("window.scrollTo("+x+","+y+")");
     }
     
     

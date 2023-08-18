@@ -32,6 +32,7 @@ public class RefundPage extends BasePage{
 	}
 
 	public void clickOnProcessFullRefund() {
+		WebdriverWaits.fluentWait_ElementIntactable(10, 100, processFullRefundBtn);
 		click(processFullRefundBtn);
 	}
 
@@ -74,8 +75,8 @@ public class RefundPage extends BasePage{
 	}
 
 	public void clickOnProcessRefund() {
-		scrollToElement(processRefundBtn);
-		WebdriverWaits.waitForElementUntilVisible(processRefundBtn, 5);
+		scrollByPixel(0,400);
+		WebdriverWaits.fluentWait_ElementIntactable(10,100, processRefundBtn);
 		click(processRefundBtn);
 	}
 

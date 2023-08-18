@@ -49,9 +49,9 @@ public class newBusinessPage extends BasePage {
 		sendKeys_withClear(taxRate, string);
 	}
 
-	public void clickOnSave() throws InterruptedException {
+	public void clickOnSave(){
 		ScrollDownThePageMax();
-		WebdriverWaits.fluentWait_ElementIntactable(10, 500, saveBtn);
+		WebdriverWaits.waitForElementUntilVisible(saveBtn, 5);
 		click(saveBtn);
 	}
 	

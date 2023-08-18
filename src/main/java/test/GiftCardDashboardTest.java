@@ -10,6 +10,7 @@ import org.automation.pageObjects.CreateAGiftCardPopup;
 import org.automation.pageObjects.DashBoardPage;
 import org.automation.pageObjects.GiftCardConfigurationPopup;
 import org.automation.pageObjects.GiftCardDashboardPage;
+import org.automation.pageObjects.GiftCardDetailsPage;
 import org.automation.pageObjects.LoginPage;
 import org.automation.pageObjects.UserPage;
 import org.automation.utilities.GiftCardsForSalePage;
@@ -24,7 +25,7 @@ public class GiftCardDashboardTest extends BaseTest {
 	GiftCardDashboardPage giftCardDashboard=new GiftCardDashboardPage();
 	GiftCardConfigurationPopup giftCardConfiguration = new GiftCardConfigurationPopup();
 	CreateAGiftCardPopup createGiftCard=new CreateAGiftCardPopup();	
-	CardNoPopup cardNo=new CardNoPopup();
+	GiftCardDetailsPage giftCardDetails=new GiftCardDetailsPage();
 	UserPage user=new UserPage();
 	GiftCardsForSalePage giftCardForSale=new GiftCardsForSalePage();
 	AddGiftCardPage addGiftCard=new AddGiftCardPage();
@@ -279,8 +280,8 @@ public class GiftCardDashboardTest extends BaseTest {
 		createGiftCard.clickOnAdvancedLink();
 		Collections.sort(fundingSourceOption);
 		Assert.assertTrue(createGiftCard.getTagOfFundingSource().equalsIgnoreCase("select"));
-		//Assert.assertTrue(createGiftCard.getSelectList().equals(fundingSourceOption));
 		createGiftCard.clickOnCloseBtn();
+		
 	}
 	
 	@Test(enabled = true, description="Verify that validation message appears on entering character in 'Start Date' or 'Exp. Date' field")
@@ -326,23 +327,23 @@ public class GiftCardDashboardTest extends BaseTest {
 	public void tc26_verifyGiftCardDetailsPopup() {
 		String giftCardNo=giftCardDashboard.getGiftCard();
 		giftCardDashboard.clickOnGiftCard();
-		Assert.assertEquals("Card No: "+giftCardNo, cardNo.getCardNo());
-		cardNo.clickOnInfoIcon();
-		Assert.assertTrue(cardNo.isStartDatePresent());
-		Assert.assertTrue(cardNo.isIssueOnDatePresent());
-		Assert.assertTrue(cardNo.isIssueByDatePresent());
-		Assert.assertTrue(cardNo.isFundingSourcePresent());
-		Assert.assertTrue(cardNo.isRefNoPresent());
-		Assert.assertTrue(cardNo.isIssueAmtPresent());
-		cardNo.clickOnClose();
+		Assert.assertEquals("Card No: "+giftCardNo, giftCardDetails.getCardNo());
+		giftCardDetails.clickOnInfoIcon();
+		Assert.assertTrue(giftCardDetails.isStartDatePresent());
+		Assert.assertTrue(giftCardDetails.isIssueOnDatePresent());
+		Assert.assertTrue(giftCardDetails.isIssueByDatePresent());
+		Assert.assertTrue(giftCardDetails.isFundingSourcePresent());
+		Assert.assertTrue(giftCardDetails.isRefNoPresent());
+		Assert.assertTrue(giftCardDetails.isIssueAmtPresent());
+		giftCardDetails.clickOnClose();
 	}
 	
 	@Test(enabled = true, description="Verify'User-Profile' page opens afetr clicking on any customer name under 'Card holder' column.")
 	public void tc27_verifyUserProfilePage() {
 		giftCardDashboard.clickOnGiftCard();
-		String userName=cardNo.getUserName();
-		cardNo.clickOnUserName();
-		cardNo.switchToWindow("User Profile Window");
+		String userName=giftCardDetails.getUserName();
+		giftCardDetails.clickOnUserName();
+		giftCardDetails.switchToWindow("User Profile Window");
 		Assert.assertEquals(userName, user.getPageTitle());
 		
 	}
@@ -358,8 +359,8 @@ public class GiftCardDashboardTest extends BaseTest {
 	public void tc29_verifRewardPointPage() {
 		user.clickOnRewardPoint();
 		Assert.assertEquals(user.getHeader() ,"Reward Points Detail");
-		cardNo.switchToWindow("Card Details Page");
-		cardNo.clickOnClose();
+		giftCardDetails.switchToWindow("Card Details Page");
+		giftCardDetails.clickOnClose();
 	}
 	
 	@Test(enabled = true, description="Verify that all fields appears afetr clicking on filter link")
@@ -549,10 +550,10 @@ public class GiftCardDashboardTest extends BaseTest {
 	public void tc48_verifyExsistingCardNoFilter() {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnFilter();
-		String cardNo="123654789663252145";
-		giftCardDashboard.enterCardNo(cardNo);
+		String giftCardDetails="123654789663252145";
+		giftCardDashboard.enterCardNo(giftCardDetails);
 		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.checkCardNo(cardNo));
+		Assert.assertTrue(giftCardDashboard.checkCardNo(giftCardDetails));
 		
 	}
 	
@@ -560,8 +561,8 @@ public class GiftCardDashboardTest extends BaseTest {
 	public void tc49_verifyNonExsistingCardNoFilter() {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnFilter();
-		String cardNo="9874569844584";
-		giftCardDashboard.enterCardNo(cardNo);
+		String giftCardDetails="9874569844584";
+		giftCardDashboard.enterCardNo(giftCardDetails);
 		giftCardDashboard.clickOnApply();
 		Assert.assertTrue(giftCardDashboard.getResultNotFoundMessage().equalsIgnoreCase("There are no results"));
 	}
@@ -570,8 +571,8 @@ public class GiftCardDashboardTest extends BaseTest {
 	public void tc50_verifyValidationCardNoFilter() {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnFilter();
-		String cardNo="123";
-		giftCardDashboard.enterCardNo(cardNo);
+		String giftCardDetails="123";
+		giftCardDashboard.enterCardNo(giftCardDetails);
 		giftCardDashboard.clickOnApply();
 		Assert.assertEquals(giftCardDashboard.getCardNoToolTipMessage(),"Please enter at least 4 characters.");
 	}
@@ -600,10 +601,10 @@ public class GiftCardDashboardTest extends BaseTest {
 	public void tc53_verifyExternalLink() {
 		dashboard.clickOnGiftCardsDashboard(); 
 		giftCardDashboard.clickOnGiftCard();
-		cardNo.clickOnExternalLink();
-		cardNo.switchToWindow("Gift Card Detail Page");
-		Assert.assertEquals(cardNo.getPageTitle(), "Gift Card Detail");
-		cardNo.switchToWindow("Parent Window");
+		giftCardDetails.clickOnExternalLink();
+		giftCardDetails.switchToWindow("Gift Card Detail Page");
+		Assert.assertEquals(giftCardDetails.getPageTitle(), "Gift Card Detail");
+		giftCardDetails.switchToWindow("Parent Window");
 	}
 	
 	@Test(enabled = true, description="Verify that 'Gift Cards For Sale' page opens up after clicking on 'Gift card for sale' link on 'Gift Cards Dashboard' page.")
@@ -637,7 +638,9 @@ public class GiftCardDashboardTest extends BaseTest {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnGiftCardForSaleLink();
 		giftCardForSale.clickOnFilterLink();
+		giftCardForSale.clickOnStatus();
 		giftCardForSale.selectStatusByText("All");
+		giftCardForSale.clickOnApply();
 		Assert.assertTrue(giftCardForSale.areQuantityMoreThanEqualToZero());
 	}
 	
@@ -646,7 +649,9 @@ public class GiftCardDashboardTest extends BaseTest {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnGiftCardForSaleLink();
 		giftCardForSale.clickOnFilterLink();
+		giftCardForSale.clickOnStatus();
 		giftCardForSale.selectStatusByText("Available");
+		giftCardForSale.clickOnApply();
 		Assert.assertTrue(giftCardForSale.areQuantityMoreThanZero());
 	}
 	
@@ -791,12 +796,34 @@ public class GiftCardDashboardTest extends BaseTest {
 		Assert.assertEquals(addGiftCard.getAlertMessage(), "There are 3.00 % fee on all sold gift cards.");
 		}
 	
-
+	
 	@Test(enabled = true, description="Verify that 'Edit Gift Card' page opens after clicking on a record from grid, on 'Gift Cards Dashboard' page. ")
-	public void tc73_verifyInformationMessage() {
+	public void tc73_verifyEditIcon() {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnGiftCard();
+		giftCardDetails.clickOnInfoIcon();
+		giftCardDetails.clickOnEditIcon();
+		Assert.assertTrue(giftCardDetails.isFundingSourceTbxPresent());
+		Assert.assertTrue(giftCardDetails.isRefNoTbxPresent());
+		Assert.assertTrue(giftCardDetails.isMemoTbxPresent());
+		Assert.assertTrue(giftCardDetails.isStartDateTbxPresent());
+		Assert.assertTrue(giftCardDetails.isExpDateTbxPresent());
+		giftCardDetails.clickOnClose();
 		}
 	
-	
+	@Test(enabled = true, description="Verify that 'Blocked' button appear after clicking on 'Active' button, on 'Card Details' popup.")
+	public void tc74_verifyBlockButton() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnGiftCard();
+		giftCardDetails.clickOnActiveBtn();
+		Assert.assertTrue(giftCardDetails.isBlockBtnPresent());
+		giftCardDetails.clickOnClose();
+}
+
+//	@Test(enabled = true, description="")
+//	public void tc75_verifyUserPhoneFilterField() {
+//		dashboard.clickOnGiftCardsDashboard();
+//		giftCardDashboard.clickOnFilter();
+//		giftCardDashboard.enterUserPhoneEmail("");
+//	}
 }

@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.time.Duration;
 import java.util.NoSuchElementException;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
@@ -34,7 +35,7 @@ public class WebdriverWaits extends BaseTest {
      * @param e      element to wait for
      */
     public static void waitForElementVisible(By locator, int waitTime) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), waitTime);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
     }
@@ -47,7 +48,7 @@ public class WebdriverWaits extends BaseTest {
      * @param locator By of the element to wait for
      */
     public static void waitForElementSelected(By locator, int waitTime) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), waitTime);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
         Boolean bool = wait.until(ExpectedConditions.elementToBeSelected(locator));
     }
 
@@ -59,12 +60,12 @@ public class WebdriverWaits extends BaseTest {
      * @param locator By to locate element to wait for
      */
     public static void waitForElementClickable(By locator, int waitTime) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), waitTime);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
         wait.until(ExpectedConditions.elementToBeClickable(locator));
     }
 
     public static WebElement waitForElementUntilVisible(By locator, int waitTime) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), waitTime);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
         WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
         return e;
     }
@@ -80,7 +81,7 @@ public class WebdriverWaits extends BaseTest {
      * @param title  title the page should have
      */
     public static boolean waitForPageTitle(String title, int waitTime) {
-        WebDriverWait wait = new WebDriverWait(getDriver(), waitTime);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
         return wait.until(ExpectedConditions.titleContains(title));
     }
 
@@ -103,17 +104,16 @@ public class WebdriverWaits extends BaseTest {
 
     public static void fluentWait_ElementLocated(long waitTimeForTimeout, long waitTimeForPolling, By locator) {
         Wait<WebDriver> wait = new FluentWait<>(getDriver())
-                .withTimeout(waitTimeForTimeout, TimeUnit.SECONDS)
-                .pollingEvery(waitTimeForPolling, TimeUnit.SECONDS)
+                .withTimeout(Duration.ofSeconds(waitTimeForTimeout))
+                .pollingEvery(Duration.ofSeconds(waitTimeForPolling))
                 .ignoring(NoSuchElementException.class);
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
     }
     
     public static void fluentWait_ElementIntactable(long waitTimeForTimeout, long waitTimeForPolling, By locator) {
-        Wait<WebDriver> wait = new FluentWait<>(getDriver())
-                .withTimeout(waitTimeForTimeout, TimeUnit.SECONDS)
-                .pollingEvery(waitTimeForPolling, TimeUnit.SECONDS)
+        Wait<WebDriver> wait = new FluentWait<>(getDriver()).withTimeout(Duration.ofSeconds(waitTimeForTimeout))
+                .pollingEvery(Duration.ofMillis(waitTimeForPolling))
                 .ignoring(ElementNotInteractableException.class);
         wait.until(ExpectedConditions.elementToBeClickable(locator));
 

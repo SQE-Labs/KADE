@@ -12,6 +12,7 @@ public class GiftCardsForSalePage extends BasePage {
 	By copyUrl=By.xpath("(//button[@class='btn btn-link mx-2'])[1]");
 	By addLink=By.xpath("//a[@class='btn btn-link']");
 	By toastMessage=By.xpath("//div[@class='toast-message']");
+	By applyBtn=By.xpath("//button[@class='btn-sm btn btn-outline-primary']");
 	
 	public void clickOnFilterLink() {
 		WebdriverWaits.waitForElementVisible(filterBtn, 5);
@@ -62,6 +63,11 @@ public class GiftCardsForSalePage extends BasePage {
 
 	public String getToastMessage() {
 		return getText_custom(toastMessage);
+	}
+
+	public void clickOnApply() {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

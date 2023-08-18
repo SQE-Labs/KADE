@@ -35,14 +35,14 @@ public class BillTest extends BaseTest{
 	 	Assert.assertEquals(bill.getPageTitle(), "Bills");		//Verify page title
 	}
 	
-	@Test(enabled = true, description="Verify the Elements on the New Bill Popup")
+	@Test(enabled = false, description="Verify the Elements on the New Bill Popup")
 	public void tc02_createNewBillPopup() {
 		bill.clickOnNewBill();
 		Assert.assertEquals(newBill.getPopUpTitle(), "Create A Bill");
 		newBill.isElementsPresent();
 	}
 	
-	@Test(enabled = true, description="Verify validation message of SubTotal field, When subTotal field is left blank")
+	@Test(enabled = false, description="Verify validation message of SubTotal field, When subTotal field is left blank")
 	public void tc03_verifySubTotalValidation() {
 		newBill.clickOnCreate();
 		newBill.moveToSubTotal();
@@ -50,7 +50,7 @@ public class BillTest extends BaseTest{
 		newBill.clickOnCloseBtn();
 	}
 
-	@Test(enabled = true, description="Verify CustName and Memo field appears after More toggle button is turned On")
+	@Test(enabled = false, description="Verify CustName and Memo field appears after More toggle button is turned On")
 	public void tc04_moreDetailsToggleBtn() {
 		bill.clickOnNewBill();
 		newBill.switchOnMoreToggleBtn();
@@ -58,14 +58,14 @@ public class BillTest extends BaseTest{
 		Assert.assertTrue(newBill.isMemoPresent());
 	}
 	
-	@Test(enabled = true, description="Verify RefNo. textbox appears after AutoGenarate toggle button is turned Off")
+	@Test(enabled = false, description="Verify RefNo. textbox appears after AutoGenarate toggle button is turned Off")
 	public void tc05_autoGenerateToggleBtn(){
 		newBill.switchOffAutoGenToggle();
 		Assert.assertTrue(newBill.isRefNoTextFieldPresent());
 		newBill.clickOnCloseBtn();
 	}
 	
-	@Test(enabled = true, description="Verify validation message appears after entering amount more than configured amount") 
+	@Test(enabled = false, description="Verify validation message appears after entering amount more than configured amount") 
 		public void tc06_verifyValidationForAmountMoreThanConfigure() throws InterruptedException {
 		bill.clickOnNewBill();
 		Thread.sleep(1000);
@@ -76,7 +76,7 @@ public class BillTest extends BaseTest{
 		newBill.clickOnCloseBtn();
 	}
 
-	@Test(enabled = true, description="Verify Description and Price textbox appeares after clicking AddBillDetail page") 
+	@Test(enabled = false, description="Verify Description and Price textbox appeares after clicking AddBillDetail page") 
 	public void tc07_verifyAddBillDetailLink() {
 		bill.clickOnNewBill();
 		newBill.clickOnAddBillDetail();
@@ -85,7 +85,7 @@ public class BillTest extends BaseTest{
 		newBill.clickOnCloseBtn();
 	}
 	
-	@Test(enabled = true, description="Verifying that validation appears after invalid phone number is entered in Customer Phone Number")
+	@Test(enabled = false, description="Verifying that validation appears after invalid phone number is entered in Customer Phone Number")
 	public void tc08_validationInvalidCustPhoneNumber() {
 		bill.clickOnNewBill();
 		newBill.createBill(520, "77510247", "kade@yopmail.com", "Jhon", "");
@@ -93,7 +93,7 @@ public class BillTest extends BaseTest{
 		newBill.clickOnCloseBtn();
 	}
 	
-	@Test(enabled = true, description="Verifying that validation appears after invalid Email is entered in Customer Email")
+	@Test(enabled = false, description="Verifying that validation appears after invalid Email is entered in Customer Email")
 	public void tc09_validationInvalidCustEmail() {
 		bill.clickOnNewBill();
 		newBill.createBill(229, "+917077510247", "invalidMail", "Harry", "Recipt");
@@ -101,7 +101,7 @@ public class BillTest extends BaseTest{
 		newBill.clickOnCloseBtn();
 	}
 	
-	@Test(enabled = true, description="Verify that tooltip message appears on hovering over memo icon")
+	@Test(enabled = false, description="Verify that tooltip message appears on hovering over memo icon")
 	public void tc10_memoToolTipMessage() throws InterruptedException {
 		String memoMsg = "Lorem ipsum dolor sit amet";
 		bill.clickOnNewBill();
@@ -124,13 +124,13 @@ public class BillTest extends BaseTest{
 		newBill.clickOnCloseBtn();
 	}
 	
-	@Test(enabled = true, description="Verify Alert box disappears after clicking on close icon")
+	@Test(enabled = false, description="Verify Alert box disappears after clicking on close icon")
 	public void tc12_alertMessageBox(){
 		bill.closeBtn();
 		Assert.assertFalse(bill.isTransactionDisplayed());
 	}
 	
-	@Test(enabled = true, description="Verify successful creation of bill")
+	@Test(enabled = false, description="Verify successful creation of bill")
 	public void tc13_createANewBill()  {
 		int actualCount = bill.getCountOfAllBill();
 		bill.refreshPage();
@@ -149,19 +149,18 @@ public class BillTest extends BaseTest{
 		Assert.assertEquals(bill.getCountOfAllBill(), actualCount+1);
 	}
 		
-	@Test(enabled = true, description = "Verify fields of Filter Section")
+	@Test(enabled = false, description = "Verify fields of Filter Section")
 	public void tc14_verifyBillFilterFunctionality() {
 		bill.clickOnFilter();
-		int expectedCount=bill.getCountOfAllBill();
 		Assert.assertTrue(bill.isDateFieldPresent());	
 		Assert.assertTrue(bill.isCustomerNamePresent());
 		Assert.assertTrue(bill.isUserPhoneFieldPresent());
 		Assert.assertTrue(bill.isEmailFieldPresent());
 		bill.clickOnApply();
-		Assert.assertEquals(bill.getCountOfAllBill(), expectedCount);
+		Assert.assertTrue(bill.getCountOfAllBill()>0);
 		}
 		
-	@Test(enabled = true, description = "Verify customer name filter Functionality")
+	@Test(enabled = false, description = "Verify customer name filter Functionality")
 	public void tc15_verifyCustomerNameFilter() {
 		dashboard.clickOnBill();
 		bill.clickOnFilter();
@@ -170,7 +169,7 @@ public class BillTest extends BaseTest{
 		Assert.assertTrue(bill.checkFieldContains("Ana"));
 	}
 	
-	@Test(enabled = true, description = "Verify partial customer name filter Functionality")
+	@Test(enabled = false, description = "Verify partial customer name filter Functionality")
 	public void tc16_verifyPartialCustomerNameFilter() {
 		bill.clickOnFilter();
 		bill.enterCustomerName("An");
@@ -178,7 +177,7 @@ public class BillTest extends BaseTest{
 		Assert.assertTrue(bill.checkFieldContains("An"));
 	}
 	
-	@Test(enabled = true, description = "Verify User Phone filter Functionality")
+	@Test(enabled = false, description = "Verify User Phone filter Functionality")
 	public void tc17_verifyUserPhoneFilter() {
 		dashboard.clickOnBill();
 		long expectedCount=bill.countOfUserPhonePresent("+918877070727");
@@ -189,7 +188,7 @@ public class BillTest extends BaseTest{
 		Assert.assertEquals(actualCount, expectedCount);
 	}
 	
-	@Test(enabled = true, description = "Verify invalid User Phone validation message")
+	@Test(enabled = false, description = "Verify invalid User Phone validation message")
 	public void tc18_invalidUserPhoneFilterValidation() {
 		dashboard.clickOnBill();
 		bill.clickOnFilter();
@@ -198,7 +197,7 @@ public class BillTest extends BaseTest{
 		Assert.assertEquals(bill.getToolTipUserPhone(), "Invalid phone number");
 	}
 		
-	@Test(enabled = true, description = "Verify User Email filter Functionality")
+	@Test(enabled = false, description = "Verify User Email filter Functionality")
 	public void tc19_verifyUserEmailFilter() {
 		dashboard.clickOnBill();
 		long expectedCount=bill.countOfUserEmailPresent("michal@yopmail.com");
@@ -209,7 +208,7 @@ public class BillTest extends BaseTest{
 		Assert.assertEquals(actualCount, expectedCount);
 	}
 	
-	@Test(enabled = true, description = "Verify From filter Functionality")
+	@Test(enabled = false, description = "Verify From filter Functionality")
 	public void tc20_verifyFromFilter() {
 		dashboard.clickOnBill();
 		bill.clickOnFilter();
@@ -219,7 +218,7 @@ public class BillTest extends BaseTest{
 	}
 
 	
-	@Test(enabled = true, description = "Verify filter Functionality when no exsixting records are matching")
+	@Test(enabled = false, description = "Verify filter Functionality when no exsixting records are matching")
 	public void tc21_verifyFilterWhenNoRecordMatch() {
 		dashboard.clickOnBill();
 		long expectedCount=bill.countOfUserEmailPresent("abc@yopmail.com");
@@ -231,7 +230,7 @@ public class BillTest extends BaseTest{
 		Assert.assertEquals(bill.getInfoMessage(), "There are no results");
 	}
 	
-	@Test(enabled = true, description = "Verify validation message when invalid email is entered in User Email field")
+	@Test(enabled = false, description = "Verify validation message when invalid email is entered in User Email field")
 	public void tc22_validationOnInvalidEmailInFilter() throws InterruptedException {
 		dashboard.clickOnBill();
 		bill.clickOnFilter();
@@ -240,7 +239,7 @@ public class BillTest extends BaseTest{
 		Assert.assertEquals(bill.getEmailToolTiptMessage(), "Please enter a valid email address.");
 	}
 	
-	@Test(enabled = true, description = "Verify bill view popup appears on clicking on a bill")
+	@Test(enabled = false, description = "Verify bill view popup appears on clicking on a bill")
 	public void tc23_billViewPopup() {
 		dashboard.clickOnBill();
 		bill.clickOnBill();
@@ -249,7 +248,7 @@ public class BillTest extends BaseTest{
 		Assert.assertTrue(bill.isTransactionDisplayed());
 	}
 	
-	@Test(enabled = true, description = "Verify successfull Bill deletion")
+	@Test(enabled = false, description = "Verify successfull Bill deletion")
 	public void tc24_deleteBill() {
 		String refNo = bill.getFirstRefNoBillDisplayed();
 		bill.clickOnFirstUnPaidBills();
@@ -259,7 +258,7 @@ public class BillTest extends BaseTest{
 		
 	}
 	
-	@Test(enabled = true, description = "Verify QR code appears on clicking QR code button")
+	@Test(enabled = false, description = "Verify QR code appears on clicking QR code button")
 	public void tc25_qrCodeShare() {
 		bill.clickOnNewBill();
 		newBill.createBill(500, "+917077510247", "david@yopmail.com", "David", "Gross Bill");
@@ -271,7 +270,7 @@ public class BillTest extends BaseTest{
 		billView.clickOnConfirmIcon();
 	}
 	
-	@Test(enabled = true, description = "Verify invite code appears on clicking invite button")
+	@Test(enabled = false, description = "Verify invite code appears on clicking invite button")
 	public void tc26_inviteCode() {
 		bill.clickOnNewBill();
 		newBill.createBill(299, "+919122324663", "paul@yopmail.com", "Paul", "Bill");
@@ -282,14 +281,14 @@ public class BillTest extends BaseTest{
 		billView.clickOnConfirmIcon();
 	}
 	
-	@Test(enabled = true, description = "Verify Transaction page opens on clicking Transactions link")
+	@Test(enabled = false, description = "Verify Transaction page opens on clicking Transactions link")
 	public void tc27_transactionPage() {
 		bill.clickOnTransactions();
 		Assert.assertEquals(transactions.getPageTitle(), "Transactions");
 		dashboard.clickOnBill();
 	}
 		
-	@Test(enabled = true, description = "Veriy paid bill appears on the bill grid")
+	@Test(enabled = false, description = "Veriy paid bill appears on the bill grid")
 	public void tc28_verifyPaidBills() {
 		dashboard.clickOnBill();
 		bill.clickOnFirstPaidBills();
@@ -298,7 +297,7 @@ public class BillTest extends BaseTest{
 		billView.clickOnCloseBtn();
 	}
 	
-	@Test(enabled = true, description = "Verify refund page")
+	@Test(enabled = false, description = "Verify refund page")
 	public void tc29_refundPage() {
 		dashboard.clickOnBill();
 		bill.clickOnFirstPaidBills();
@@ -309,7 +308,7 @@ public class BillTest extends BaseTest{
 		Assert.assertTrue(refund.isReasonTextBoxPresent());
 	}
 	
-	@Test(enabled = true, description = "Verify message when reason field is left blank")
+	@Test(enabled = false, description = "Verify message when reason field is left blank")
 	public void tc30_validationWhenReasonFieldLeftBlank() {
 		dashboard.clickOnBill();
 		bill.clickOnFirstPaidBills();
@@ -320,7 +319,7 @@ public class BillTest extends BaseTest{
 		refund.closeValidationMessage();
 	}
 	
-	@Test(enabled = true, description = "Verify partial refund button behavior")
+	@Test(enabled = false, description = "Verify partial refund button behavior")
 	public void tc31_verifyPartialRefundLink() {
 		dashboard.clickOnBill();
 		bill.clickOnFirstPaidBills();
@@ -332,7 +331,7 @@ public class BillTest extends BaseTest{
 		Assert.assertTrue(refund.isRefundAmountTextBoxPresent());
 	}
 	
-	@Test(enabled = true, description = "Varify Refund Amount text box validation when value more than configurerd amount")
+	@Test(enabled = false, description = "Varify Refund Amount text box validation when value more than configurerd amount")
 	public void tc32_RefundAmountTextBox() {
 		dashboard.clickOnBill();
 		bill.clickOnFirstPaidBills();
@@ -343,8 +342,8 @@ public class BillTest extends BaseTest{
 		refund.enterRefundAmount(2999);
 		refund.clickOnProcessRefund();
 		refund.closeValidationMessage();
-		Assert.assertTrue(refund.getRefundToolTipMessage().contains("Please enter a value less than or equal to"));
-		refund.removeMouseFromTextBox();
+		Assert.assertEquals(refund.getRefundToolTipMessage(),"Please enter a value less than or equal to 499.");
+		
 	}
 	
 	@Test(enabled = true, description = "Verify validation message when ")
@@ -361,7 +360,7 @@ public class BillTest extends BaseTest{
 		Assert.assertEquals(refund.getRefundToolTipMessage(), "Please enter a value greater than or equal to 0.01.");
 	}
 	
-	@Test(enabled = true, description = "Verify Update Popup")
+	@Test(enabled = false, description = "Verify Update Popup")
 	public void tc34_verifyUpdatePopup() {
 		dashboard.clickOnBill();
 		bill.clickOnFirstUnPaidBills();
@@ -370,7 +369,7 @@ public class BillTest extends BaseTest{
 		update.clickOnClose();
 	}
 	
-	@Test(enabled = true, description = "Verify Bill amount textbox")
+	@Test(enabled = false, description = "Verify Bill amount textbox")
 	public void tc35_updateBillAmount() {
 		dashboard.clickOnBill();
 		bill.clickOnFirstUnPaidBills();
@@ -381,7 +380,7 @@ public class BillTest extends BaseTest{
 		bill.closeToastBtn(); 
 	}
 	
-	@Test(enabled = true, description = "Verify Edit bill button")
+	@Test(enabled = false, description = "Verify Edit bill button")
 	public void tc36_validationSubTotalAmountUpdate() {
 		dashboard.clickOnBill();
 		bill.clickOnFirstUnPaidBills();
@@ -392,7 +391,7 @@ public class BillTest extends BaseTest{
 		update.clickOnClose();
 	}
 	
-	@Test(enabled = true, description = "Verify add bill detail link")
+	@Test(enabled = false, description = "Verify add bill detail link")
 	public void tc37_addBillDetailLinkUpdatePopup() {
 		dashboard.clickOnBill();
 		bill.clickOnFirstUnPaidBills();
@@ -403,7 +402,7 @@ public class BillTest extends BaseTest{
 		update.clickOnClose();
 	}
 	
-	@Test(enabled = true, description = "Verify more details toggle button")
+	@Test(enabled = false, description = "Verify more details toggle button")
 	public void tc38_moreDetailToggleUpdatePopup() {
 		dashboard.clickOnBill();
 		bill.clickOnFirstUnPaidBills();

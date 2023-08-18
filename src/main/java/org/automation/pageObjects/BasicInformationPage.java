@@ -16,7 +16,6 @@ public class BasicInformationPage extends BasePage {
     By addressList = By.xpath("//div[@class='pac-item']");
     By editIcon = By.cssSelector("i.fal.fa-edit");
     By aleartMessage = By.xpath("//div[@class='alert-message']/p");
-    
     By alertHeader = By.cssSelector("h4.alert-heading");
     By securityAndPasswordBtn = By.xpath("//a[text()='Security and Password']");
     

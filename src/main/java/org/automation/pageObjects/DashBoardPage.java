@@ -32,8 +32,7 @@ public class DashBoardPage extends BasePage {
 	}
 
 	public void clickOnGiftCardsDashboard() {
-		WebdriverWaits.waitForElementUntilVisible(giftCardsDashboardTab, 5);
-		WebdriverWaits.waitForElementClickable(giftCardsDashboardTab, 5);
+		WebdriverWaits.fluentWait_ElementIntactable(5, 10, giftCardsDashboardTab);
 		click(giftCardsDashboardTab);
 	}
 	
