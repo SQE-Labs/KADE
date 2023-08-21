@@ -4,49 +4,48 @@ import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 
-public class AddGiftCardPage extends BasePage{
+public class AddGiftCardPage extends BasePage {
 
-	By saveChangesBtn=By.xpath("//div[@class='mt-1']/button");
-	By giftCardAmt=By.xpath("//input[@name='amount']");
-	By giftCardSalePrice=By.xpath("//input[@name='salePrice']");
-	By RefNoTbx=By.xpath("//input[@name='referenceNo']");
-	By fundingSource=By.cssSelector("[name='fundSource']");
-	By availableQtyTbx=By.xpath("//input[@name='qty']");
-	By saleDateRange=By.xpath("//input[@name='saleDateRange']");
-	By startDate=By.xpath("//input[@name='startInDays']");
-	By expInDate=By.xpath("//input[@name='expireInDays']");
-	By memoTbx=By.xpath("//textarea[@name='memo']");
-	By closeValidation=By.xpath("(//button[@class='btn-close'])[2]");
-	By currentDate=By.xpath("//td[@class='today active start-date available']");
-	By nextMonthDay=By.xpath("(//div[@class='drp-calendar right'] //td[@class='available'])[15]");
-	By alertMessage=By.xpath("//div[@class='alert-message']");
-	
-	
+	By saveChangesBtn = By.xpath("//div[@class='mt-1']/button");
+	By giftCardAmt = By.xpath("//input[@name='amount']");
+	By giftCardSalePrice = By.xpath("//input[@name='salePrice']");
+	By RefNoTbx = By.xpath("//input[@name='referenceNo']");
+	By fundingSource = By.cssSelector("[name='fundSource']");
+	By availableQtyTbx = By.xpath("//input[@name='qty']");
+	By saleDateRange = By.xpath("//input[@name='saleDateRange']");
+	By startDate = By.xpath("//input[@name='startInDays']");
+	By expInDate = By.xpath("//input[@name='expireInDays']");
+	By memoTbx = By.xpath("//textarea[@name='memo']");
+	By closeValidation = By.xpath("(//button[@class='btn-close'])[2]");
+	By currentDate = By.xpath("//td[@class='today available']");
+	By nextMonthDay = By.xpath("//td[@class='active start-date available in-range']");
+	By alertMessage = By.xpath("//div[@class='alert-message']");
+
 	public void clickOnSaveChange() {
 		scrollToElement(saveChangesBtn);
 		WebdriverWaits.sleep(500);
-		WebdriverWaits.waitForElementClickable(saveChangesBtn, 5 );
+		WebdriverWaits.waitForElementClickable(saveChangesBtn, 5);
 		click(saveChangesBtn);
 	}
-	
+
 	public String getGiftCardAmtToolTipMessage() {
 		click(closeValidation);
 		scrollToElement(giftCardAmt);
 		WebdriverWaits.sleep(500);
 		return getToolTipMessage(giftCardAmt);
-		}
-	
+	}
+
 	public String getGiftCardSalePriceTipMessage() {
 		scrollToElement(giftCardSalePrice);
 		WebdriverWaits.sleep(500);
 		return getToolTipMessage(giftCardSalePrice);
-		}
-	
-		public String getAvailableQtyForSaleTipMessage() {
-			scrollToElement(availableQtyTbx);
-			WebdriverWaits.sleep(500);
-			return getToolTipMessage(availableQtyTbx);
-		}
+	}
+
+	public String getAvailableQtyForSaleTipMessage() {
+		scrollToElement(availableQtyTbx);
+		WebdriverWaits.sleep(500);
+		return getToolTipMessage(availableQtyTbx);
+	}
 
 	public void enterGiftCardAmt(String string) {
 		sendKeys(giftCardAmt, string);
@@ -69,11 +68,12 @@ public class AddGiftCardPage extends BasePage{
 	}
 
 	public void selectCurrentDate() {
-		ScrollDownThePageMax();
-			click(currentDate);
+		WebdriverWaits.waitForElementVisible(nextMonthDay, 5);
+		click(currentDate);
 	}
-	
+
 	public void selectNextMonthDate() {
+		WebdriverWaits.waitForElementVisible(nextMonthDay, 5);
 		click(nextMonthDay);
 	}
 
@@ -82,10 +82,10 @@ public class AddGiftCardPage extends BasePage{
 	}
 
 	public void isAleartMessagePresent() {
-			isElementPresent(alertMessage, "Aleart Message");
+		isElementPresent(alertMessage, "Aleart Message");
 	}
-	
+
 	public String getAlertMessage() {
 		return getText_custom(alertMessage);
 	}
-	}
+}

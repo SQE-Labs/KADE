@@ -183,6 +183,7 @@ public class GiftCardDashboardTest extends BaseTest {
 	
 	@Test(enabled = true, description="validation when Initial amount textbox is left blank.")
 	public void tc15_validationMessageInitialAmt() {
+		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnIssueAGiftCard();
 		createGiftCard.clickOnContinueWithoutSearch();
 		createGiftCard.clickOnCreate();
@@ -546,19 +547,9 @@ public class GiftCardDashboardTest extends BaseTest {
 		Assert.assertTrue(giftCardDashboard.checkAmtBetweenMinAndMaxAmt(minAmt,maxAmt));
 		}
 	
-	@Test(enabled = true, description="Verify relevant gift cards appear listed after entering any existing gift card number in 'Card Number Partial field ")
-	public void tc48_verifyExsistingCardNoFilter() {
-		dashboard.clickOnGiftCardsDashboard();
-		giftCardDashboard.clickOnFilter();
-		String giftCardDetails="123654789663252145";
-		giftCardDashboard.enterCardNo(giftCardDetails);
-		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.checkCardNo(giftCardDetails));
-		
-	}
 	
 	@Test(enabled = true, description="Verify that information message appears after entering non existing card number in 'Card Number Partial field")
-	public void tc49_verifyNonExsistingCardNoFilter() {
+	public void tc48_verifyNonExsistingCardNoFilter() {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnFilter();
 		String giftCardDetails="9874569844584";
@@ -568,7 +559,7 @@ public class GiftCardDashboardTest extends BaseTest {
 	}
 	
 	@Test(enabled = true, description="Verify validation message appears after entering less than 4 digit card number in 'Card Number Partial field")
-	public void tc50_verifyValidationCardNoFilter() {
+	public void tc49_verifyValidationCardNoFilter() {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnFilter();
 		String giftCardDetails="123";
@@ -578,7 +569,7 @@ public class GiftCardDashboardTest extends BaseTest {
 	}
 	
 	@Test(enabled = true, description="Verify that information message appears after entering non existing card number in 'Card Number Partial field")
-	public void tc51_verifyValidationForAllFilterField() {
+	public void tc50_verifyValidationForAllFilterField() {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnFilter();
 		giftCardDashboard.enterUserName("Sam");
@@ -591,6 +582,16 @@ public class GiftCardDashboardTest extends BaseTest {
 		Assert.assertTrue(giftCardDashboard.getResultNotFoundMessage().equalsIgnoreCase("There are no results"));
 	}
 	
+	@Test(enabled = true, description="Verify relevant gift cards appear listed after entering any existing gift card number in 'Card Number Partial field ")
+	public void tc51_verifyExsistingCardNoFilter() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		String giftCardDetails="123654789663252145";
+		giftCardDashboard.enterCardNo(giftCardDetails);
+		giftCardDashboard.clickOnApply();
+		Assert.assertTrue(giftCardDashboard.checkCardNo(giftCardDetails));
+		
+	}
 	
 	@Test(enabled = true, description="Verify that total count and total amount of gift cards appears, on 'Gift Cards Dashboard' page")
 	public void tc52_verifyTotalCountAndTotalAmtAppearance() {
@@ -625,6 +626,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		dashboard.clickOnGiftCardsDashboard(); 
 		giftCardDashboard.clickOnGiftCardForSaleLink();
 		giftCardForSale.clickOnFilterLink();
+		giftCardForSale.clickOnStatus();
 		String defaultOptn="Available";
 		Assert.assertTrue(giftCardForSale.defaultSelectedOption(defaultOptn));
 		List<String> options=new ArrayList<String>();
@@ -820,10 +822,21 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDetails.clickOnClose();
 }
 
-//	@Test(enabled = true, description="")
-//	public void tc75_verifyUserPhoneFilterField() {
-//		dashboard.clickOnGiftCardsDashboard();
-//		giftCardDashboard.clickOnFilter();
-//		giftCardDashboard.enterUserPhoneEmail("");
-//	}
+	@Test(enabled = true, description="Verify that relevant gift cards appear listed after entering any existing customer emailm in 'User email' field under 'Filter' link.")
+	public void tc75_verifyUserEmailFilterField() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		giftCardDashboard.enterUserPhoneEmail("testkade@yopmail.com");
+		giftCardDashboard.clickOnApply();
+		Assert.assertTrue(giftCardDashboard.getFilterResultCount()>0);
+	}
+	
+	@Test(enabled = true, description="Verify that relevant gift cards appear listed after entering any existing customer phone number in 'User Phone' field under 'Filter' link.")
+	public void tc76_verifyUserPhoneFilterField() {
+		dashboard.clickOnGiftCardsDashboard();
+		giftCardDashboard.clickOnFilter();
+		giftCardDashboard.enterUserPhoneEmail("+918877070727");
+		giftCardDashboard.clickOnApply();
+		Assert.assertTrue(giftCardDashboard.getFilterResultCount()>0);
+	}
 }
