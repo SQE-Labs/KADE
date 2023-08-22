@@ -3,7 +3,6 @@ package test;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
 import org.automation.base.BaseTest;
 import org.automation.pageObjects.AddGiftCardPage;
 import org.automation.pageObjects.CreateAGiftCardPopup;
@@ -183,7 +182,6 @@ public class GiftCardDashboardTest extends BaseTest {
 	
 	@Test(enabled = true, description="validation when Initial amount textbox is left blank.")
 	public void tc15_validationMessageInitialAmt() {
-		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnIssueAGiftCard();
 		createGiftCard.clickOnContinueWithoutSearch();
 		createGiftCard.clickOnCreate();

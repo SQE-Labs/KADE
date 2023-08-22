@@ -17,8 +17,8 @@ public class AddGiftCardPage extends BasePage {
 	By expInDate = By.xpath("//input[@name='expireInDays']");
 	By memoTbx = By.xpath("//textarea[@name='memo']");
 	By closeValidation = By.xpath("(//button[@class='btn-close'])[2]");
-	By currentDate = By.xpath("//td[@class='today available']");
-	By nextMonthDay = By.xpath("//td[@class='active start-date available in-range']");
+	By currentDate = By.xpath("(//tr[2]/td[3])[1]");
+	By nextMonthDay = By.xpath("(//tr[2]/td[3])[2]");
 	By alertMessage = By.xpath("//div[@class='alert-message']");
 
 	public void clickOnSaveChange() {
@@ -68,12 +68,12 @@ public class AddGiftCardPage extends BasePage {
 	}
 
 	public void selectCurrentDate() {
-		WebdriverWaits.waitForElementVisible(nextMonthDay, 5);
+		scrollToElement(saveChangesBtn);
 		click(currentDate);
 	}
 
 	public void selectNextMonthDate() {
-		WebdriverWaits.waitForElementVisible(nextMonthDay, 5);
+		scrollToElement(saveChangesBtn);
 		click(nextMonthDay);
 	}
 
