@@ -118,6 +118,7 @@ public class WebdriverWaits extends BaseTest {
         wait.until(ExpectedConditions.elementToBeClickable(locator));
 
     }
+ 
     
     public static void SwitchToNewTab() throws InterruptedException {
 		String originalHandle = getDriver().getWindowHandle();
@@ -131,5 +132,4 @@ public class WebdriverWaits extends BaseTest {
 
 		Thread.sleep(3000);
 	}
-
 }

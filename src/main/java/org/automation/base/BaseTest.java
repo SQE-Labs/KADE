@@ -14,6 +14,7 @@ import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.Screenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
@@ -60,8 +61,9 @@ public class BaseTest {
 
 		switch (browser) {
 		case "chrome":
+			
 			WebDriverManager.chromedriver().setup();
-			// driver = new ChromeDriver(BrowserOptions.getChromeOptions());
+//			//driver = new ChromeDriver(BrowserOptions.getChromeOptions());
 			driver.set(new ChromeDriver());
 			break;
 

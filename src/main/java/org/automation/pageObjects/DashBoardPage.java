@@ -12,6 +12,7 @@ public class DashBoardPage extends BasePage {
 	By myStoreBtn=By.xpath("//i[@class='align-middle me-2 fa-fw fas fa-store']");
 	By giftCardsDashboardTab=By.xpath("(//a[@class='sidebar-link'])[9]");
 	By pageHeader=By.xpath("//h1[@class='header-title mb-0']");
+	By reportBtn=By.xpath("(//a[@class='sidebar-link'])[11]");
 	
 	
 	public void clickProfile() {
@@ -26,7 +27,7 @@ public class DashBoardPage extends BasePage {
 		click(billBtn);
 	}
 
-	public void clickOnMyStore() {
+	public void clickOnMyStores() {
 		click(myStoreBtn);
 		
 	}
@@ -38,6 +39,10 @@ public class DashBoardPage extends BasePage {
 	
 	public String getPageHeader() {
 		return getText_custom(pageHeader);
+	}
+
+	public void clickOnReports() {
+		click(reportBtn);
 	}
 }
 

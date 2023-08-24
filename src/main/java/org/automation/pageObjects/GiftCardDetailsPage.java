@@ -38,19 +38,19 @@ public class GiftCardDetailsPage extends BasePage {
 	}
 	
 	public boolean isRefNoTbxPresent() {
-		return isElementPresent(refNoTbx,"Funding Source Textbox");
+		return isElementPresent(refNoTbx,"Refrence Number Textbox");
 	}
 	
 	public boolean isMemoTbxPresent() {
-		return isElementPresent(memoTbx,"Funding Source Textbox");
+		return isElementPresent(memoTbx,"Memo Textbox");
 	}
 	
 	public boolean isStartDateTbxPresent() {
-		return isElementPresent(startDate,"Funding Source Textbox");
+		return isElementPresent(startDate,"Start Date Date Picker");
 	}
 	
 	public boolean isExpDateTbxPresent() {
-		return isElementPresent(expDate,"Funding Source Textbox");
+		return isElementPresent(expDate,"Exp Date Date Picker");
 	}
 	
 
