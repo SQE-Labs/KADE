@@ -145,7 +145,7 @@ public class ActionEngine extends BaseTest {
 
 	public void moveToWebElement(By element) {
 		Actions a = new Actions(getDriver());
-		a.moveToElement(getDriver().findElement(element)).perform();
+		a.moveToElement(getDriver().findElement(element)).build().perform();
 	}
 
 	public String getElementText(By element) {

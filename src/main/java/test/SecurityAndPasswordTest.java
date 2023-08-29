@@ -191,4 +191,14 @@ public class SecurityAndPasswordTest extends BaseTest{
 		security.closePopup();
 	}
 	
+	@Test(enabled = true, description = "Verify behavior of Reset your password link.")
+	public void tc15_verifyChangePasswordPopup() {
+		dashboard.clickProfile();
+		info.clickOnSecurityAndPassword();	
+		security.clickResetYourPassword();
+		Assert.assertEquals(security.getHeaderText(), "Change Password");
+		security.clickOnSendSecurityCodeBtn();
+		Assert.assertEquals(security.getTitleOfPage("Verify Account"), "Verify Account");
+		security.goBackToPreviousPage();
+	}
 }

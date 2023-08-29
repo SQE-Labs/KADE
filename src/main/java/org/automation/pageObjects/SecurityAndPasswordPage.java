@@ -9,7 +9,7 @@ public class SecurityAndPasswordPage extends BasePage{
 	By editEmailIcon = By.xpath("(//button[@class='btn btn-outline-secondary'])[1]");
 	By popupHeader = By.xpath("//h4[@class='modal-title']");
 	By popupCloseBtn = By.xpath("//div[@class='modal-header']/button");
-	By sendSecurityCodeBtn=By.xpath("//div[@class='modal-footer']/button[2]");
+	By sendSecurityCodeBtn=By.xpath("//div[@class='modal-footer'] //button[text()='Send Security Code']");
 	By newEmailTbx =By.xpath("//input[@placeholder='email@gmail.com']");
 	By currentOTP=By.xpath("(//div[@class='mb-3 ']/input)[1]");
 	By otp=By.xpath("(//div[@class='mb-3 ']/input)[2]");
@@ -20,6 +20,7 @@ public class SecurityAndPasswordPage extends BasePage{
 	By newCellPhone=By.xpath("(//input[@name='phone'])[2]");
 	By differentPhoneLink=By.xpath("(//button[@class='btn btn-link'])[2]");
 	By closeValidationIcon=By.xpath("(//button[@class='btn-close'])[2]");
+	By resetYourPasswordBtn=By.xpath("//div[@class='col-sm-10']/a");
 
 	public void clickOnEditEmailIcon() {
 		click(editEmailIcon);
@@ -113,6 +114,15 @@ public class SecurityAndPasswordPage extends BasePage{
 
 	public boolean isNewCellPhoneTbxPresent() {
 		return isElementPresent(newCellPhone, "New cell phone tbx");
+	}
+
+	public void clickResetYourPassword() {
+		click(resetYourPasswordBtn);
+	}
+
+	public String getTitleOfPage(String string) {
+		WebdriverWaits.waitForPageTitle(string, 5);
+		return getPageTitle();
 	}
 
 }

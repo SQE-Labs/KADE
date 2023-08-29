@@ -41,7 +41,6 @@ public class BasePage extends ActionEngine {
      */
     public String getPageTitle() {
         Log.info("Get the Current Page Title");
-        
         return getDriver().getTitle();
     }
 
