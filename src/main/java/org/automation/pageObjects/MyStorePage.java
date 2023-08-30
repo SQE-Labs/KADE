@@ -16,6 +16,7 @@ public class MyStorePage extends BasePage {
 	By locationDescriptionTbx = By.xpath("//input[@name='description']");
 	By storeAddressTbx = By.cssSelector("[name='fulladdress']");
 	By phoneTbx = By.cssSelector("[name='phone']");
+	By timeZone=By.xpath("//select[@name='timeZone']");
 	By currencyOfTheStoreDropDown = By.xpath("//select[@name='currencyType']");
 	By taxRateTbx = By.xpath("//input[@name='taxRate']");
 	By saveBtn = By.xpath("//div[@class='mb-3 pt-2 d-flex']/button");
@@ -25,6 +26,7 @@ public class MyStorePage extends BasePage {
 	By typeOfBusinessTbx=By.xpath("//span[@class='select2-search select2-search--dropdown']/input");
 	By typeOfBusinessDropdown=By.xpath("//b[@role='presentation']");
 	By typeOfBusinessInfoMessage=By.cssSelector("[aria-live='assertive']");
+	By storeAddressSuggestionList=By.xpath("//div[@class='pac-item']");
 
 	public void clickOnRegisterNewBuissnessBtn() {
 		click(registerNewBuissnessBtn);
@@ -135,8 +137,57 @@ public class MyStorePage extends BasePage {
 	public String getLocationDescriptionText() {
 		return getAttributevalue(locationDescriptionTbx, "value");
 	}
-	
-	
-	
 
+	public void enterStoreAddress(String string) {
+		sendKeys_withClear(storeAddressTbx, string);
+	}
+
+	public  List<String> getStoreAddressSuggestionList() {
+		return getListOfString(storeAddressSuggestionList);
+	}
+
+	public String getStoreAddressToolTipMessage() {
+		return getToolTipMessage(storeAddressTbx);
+	}
+
+	public String getPhoneText() {
+		return getAttributevalue(phoneTbx,"value");
+	}
+
+	public void enterPhone(String string) {
+		sendKeys_withClear(phoneTbx, string);
+	}
+
+	public String getPhoneToolTipMessage() {
+		return getToolTipMessage(phoneTbx);
+	}
+
+	public String getValidationMessage() {
+		return getText_custom(validationMessage);
+	}
+
+	public String SelectedLocalSystemTimeZone() {
+		return getSelectedOptionOfDropdown(timeZone);
+	}
+
+	public void selectLocalSystemTimeZoneByIndex(int i) {
+		selectDropDownByIndex_custom(timeZone, i);
+	}
+	
+	public String getSelectedCurrency() {
+		return getSelectedOptionOfDropdown(currencyOfTheStoreDropDown);
+	}
+
+	public void selectCurrencyByText(String currency) {
+		selectDropDownByVisibleText_custom(currencyOfTheStoreDropDown, currency);
+	}
+
+	public String getTaxRateText() {
+		return getAttributevalue(taxRateTbx,"value");
+	}
+
+	public void enterTaxRate(String string) {
+		sendkeysClear(taxRateTbx, string);
+	}
+	
 }
