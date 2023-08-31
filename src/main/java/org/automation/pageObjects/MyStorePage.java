@@ -27,7 +27,10 @@ public class MyStorePage extends BasePage {
 	By typeOfBusinessDropdown=By.xpath("//b[@role='presentation']");
 	By typeOfBusinessInfoMessage=By.cssSelector("[aria-live='assertive']");
 	By storeAddressSuggestionList=By.xpath("//div[@class='pac-item']");
-
+	By suggestion=By.xpath("//span[@class='pac-item-query']");
+	By label=By.cssSelector("p.display-5.text-truncate.w-100");
+	By typeOfBuisnessRunningOptn=By.cssSelector("[name='profile.business.classification']");
+	
 	public void clickOnRegisterNewBuissnessBtn() {
 		click(registerNewBuissnessBtn);
 	}
@@ -189,5 +192,18 @@ public class MyStorePage extends BasePage {
 	public void enterTaxRate(String string) {
 		sendkeysClear(taxRateTbx, string);
 	}
+
+	public void clickOnFirstSuggestion() {
+		click(suggestion);
+	}
+
+	public String getLabel() {
+		return getText_custom(label);
+	}
+
+	public String getTypeOfBuisnessRunningSelectedOptn() {
+		return getSelectedOptionOfDropdown(typeOfBuisnessRunningOptn);
+	}
+
 	
 }
