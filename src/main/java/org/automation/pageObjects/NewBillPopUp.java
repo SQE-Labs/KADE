@@ -83,7 +83,7 @@ public class NewBillPopUp extends BasePage {
 
 
 	public void clickOnCloseBtn() {
-		WebdriverWaits.waitForElementClickable(closeIcon, 5);
+		WebdriverWaits.fluentWait_ElementIntactable(10,10,closeIcon);
 		click(closeIcon);
 	}
 

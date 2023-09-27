@@ -60,8 +60,8 @@ By fundingSourceTbx=By.xpath("//textarea[@name='fundSourceList']");
 	}
 
 	public void switchOnFundingSourceToggle() {
-		if(getText_custom(fundingSourceToggle).equalsIgnoreCase("Optional funding source"))
-			click(fundingSourceToggle);
+		if(getText_custom(fundingSourceToggle).equalsIgnoreCase("Optional funding source")) {
+			click(fundingSourceToggle);}
 	}
 
 	public void enterFundingSource(String string) {
@@ -69,8 +69,8 @@ By fundingSourceTbx=By.xpath("//textarea[@name='fundSourceList']");
 	}
 	
 	public void switchOffFundingSourceToggle() {
-		if(getText_custom(fundingSourceToggle).equalsIgnoreCase("Restricted funding source"))
-			click(fundingSourceToggle);
+		if(getText_custom(fundingSourceToggle).equalsIgnoreCase("Restricted funding source")) {
+			click(fundingSourceToggle);}
 	}
 
 	public String getFundingSourceLabel() {

@@ -103,6 +103,8 @@ public class BillPage extends BasePage {
 	}
 
 	public void clickOnApply() {
+		scrollToElement(applyBtn);
+		WebdriverWaits.fluentWait_ElementIntactable(10, 100, applyBtn);
 		click(applyBtn);
 	}
 
@@ -115,6 +117,7 @@ public class BillPage extends BasePage {
 	}
 
 	public void clickOnFirstTransaction() {
+		WebdriverWaits.fluentWait_ElementIntactable(10, 100, unpaidBill);
 		click(unpaidBill);
 	}
 
@@ -128,11 +131,13 @@ public class BillPage extends BasePage {
 	}
 
 	public void openUnpaidBill() {
+		WebdriverWaits.fluentWait_ElementIntactable(10, 100, unpaidBill);
 		click(unpaidBill);
 	}
 
 
 	public void clickOnFirstUnPaidBills() {
+		WebdriverWaits.fluentWait_ElementIntactable(10, 100, unpaidBill);
 		click(unpaidBill);
 	}
 

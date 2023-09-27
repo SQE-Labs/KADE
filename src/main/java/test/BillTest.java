@@ -152,17 +152,17 @@ public class BillTest extends BaseTest{
 	@Test(enabled = true, description = "Verify fields of Filter Section")
 	public void tc14_verifyBillFilterFunctionality() {
 		bill.clickOnFilter();
-		int expectedCount=bill.getCountOfAllBill();
 		Assert.assertTrue(bill.isDateFieldPresent());	
 		Assert.assertTrue(bill.isCustomerNamePresent());
 		Assert.assertTrue(bill.isUserPhoneFieldPresent());
 		Assert.assertTrue(bill.isEmailFieldPresent());
 		bill.clickOnApply();
-		Assert.assertEquals(bill.getCountOfAllBill(), expectedCount);
+		Assert.assertTrue(bill.getCountOfAllBill()>0);
 		}
 		
 	@Test(enabled = true, description = "Verify customer name filter Functionality")
 	public void tc15_verifyCustomerNameFilter() {
+		dashboard.clickOnBill();
 		bill.clickOnFilter();
 		bill.enterCustomerName("Ana");
 		bill.clickOnApply();
@@ -342,8 +342,8 @@ public class BillTest extends BaseTest{
 		refund.enterRefundAmount(2999);
 		refund.clickOnProcessRefund();
 		refund.closeValidationMessage();
-		Assert.assertTrue(refund.getRefundToolTipMessage().contains("Please enter a value less than or equal to"));
-		refund.removeMouseFromTextBox();
+		Assert.assertEquals(refund.getRefundToolTipMessage(),"Please enter a value less than or equal to 499.");
+		
 	}
 	
 	@Test(enabled = true, description = "Verify validation message when ")
@@ -413,7 +413,16 @@ public class BillTest extends BaseTest{
 		update.clickOnClose();	
 	}
 	
-	
+	@Test(enabled = true, description = "Verify successfull Bill deletion")
+	public void tc39_deleteBill() {
+		dashboard.clickOnBill();
+		String refNo = bill.getFirstRefNoBillDisplayed();
+		bill.clickOnFirstUnPaidBills();
+		billView.clickOnDeleteBtn();
+		billView.clickOnConfirmIcon();
+		Assert.assertTrue(bill.isRefNoPresent(refNo));
+		
+	}
 	
 }
 

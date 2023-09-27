@@ -46,6 +46,7 @@ public class CreateAGiftCardPopup extends BasePage{
 	}
 	
 	public void enterCustomerPhoneNumber(String string) {
+		WebdriverWaits.waitForElementUntilVisible(custPhoneNumber, 5);
 		sendKeys(custPhoneNumber, string);
 	}
 	
@@ -86,7 +87,7 @@ public class CreateAGiftCardPopup extends BasePage{
 	}
 	
 	public void enterInitialAmt(String amt) {
-		sendKeys(initialAmountTbx, amt);
+		sendKeys_withClear(initialAmountTbx, amt);
 	}
 
 	public void clickOnAdvancedLink() {
@@ -126,9 +127,10 @@ public class CreateAGiftCardPopup extends BasePage{
 	}
 	
 	public List<String> getSelectList() {
+		click(selectList);
 		return getListOfString(selectList);
 	}
-
+	
 	public void enterStartDate(String date) {
 		sendKeys(startDate, date);
 	}
@@ -161,5 +163,9 @@ public class CreateAGiftCardPopup extends BasePage{
 
 	public void closeToastMessage() {
 		click(closeToast);
+	}
+
+	public void clickOnFundingSource() {
+		click(fundingSourceTbx);
 	}
 }

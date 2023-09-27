@@ -4,11 +4,13 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
-
 import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import java.util.Collection;
+
+
 
 public class GiftCardDashboardPage extends BasePage{
 
@@ -35,6 +37,8 @@ public class GiftCardDashboardPage extends BasePage{
 	By amount=By.xpath("//tbody/tr/td[6]");
 	By cardNoViewed=By.xpath("//tbody/tr/td[1]/a");
 	By totalCountAndAmt=By.xpath("//h6/span");
+	By GiftCardGrid=By.xpath("//a[@class='d-flex align-items-center']");
+	By row=By.xpath("//p[text()='Card No.']");
 	
 	public void clickOnConfigurationLink() {
 		click(configurationLink);
@@ -45,7 +49,7 @@ public class GiftCardDashboardPage extends BasePage{
 	}
 	
 	public void clickOnIssueAGiftCard() {
-		WebdriverWaits.waitForElementClickable(issueGiftCardBtn, 5);
+		WebdriverWaits.fluentWait_ElementIntactable(10, 100, issueGiftCardBtn);
 		click(issueGiftCardBtn);
 	}
 
@@ -105,8 +109,8 @@ public class GiftCardDashboardPage extends BasePage{
 
 	public void clickOnApply() {
 		scrollToElement(applyBtn);
-		WebdriverWaits.waitForElementUntilVisible(applyBtn, 5);
-		click(applyBtn, "Apply Button");
+		WebdriverWaits.fluentWait_ElementIntactable(10, 10, applyBtn);
+		click(applyBtn);
 	}
 	
 	public void enterUserName(String name) {
@@ -128,12 +132,12 @@ public class GiftCardDashboardPage extends BasePage{
 	}
 
 	public void enterDate(String dateRange) {
-		sendKeys(datePicker, dateRange);
+		sendKeys_withClear(datePicker, dateRange);
 	}
 
 	public List<String> getGiftIssuedate() {
 		WebdriverWaits.sleep(2000);
-		List<WebElement> allDates = getDriver().findElements(issueDate);
+		List<WebElement> allDates = getListOfWebElements(issueDate);
 		List<String> date = allDates.stream().map(str->str.getText()).collect(Collectors.toList());
 		return date;
 	}
@@ -182,7 +186,7 @@ public class GiftCardDashboardPage extends BasePage{
 	}
 
 	public boolean checkStatus(String text) {
-		WebdriverWaits.sleep(2000);
+		WebdriverWaits.sleep(3000);
 		return getListOfString(status).stream().allMatch(m->m.equalsIgnoreCase(text));
 	}
 
@@ -245,6 +249,7 @@ public class GiftCardDashboardPage extends BasePage{
 
 	public String getCardNoToolTipMessage() {
 		clickOnCloseValidation();
+		WebdriverWaits.waitForElementUntilVisible(cardNo, 5);
 		return getToolTipMessage(cardNo);
 	}
 
@@ -254,5 +259,10 @@ public class GiftCardDashboardPage extends BasePage{
 
 	public void clickOnGiftCardForSaleLink() {
 		click(giftCardForSaleLink);
+	}
+	
+	public int getFilterResultCount() {
+		WebdriverWaits.sleep(3000);
+		return getListOfString(GiftCardGrid).size();
 	}
 }
