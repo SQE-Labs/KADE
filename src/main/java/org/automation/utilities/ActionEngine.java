@@ -33,9 +33,7 @@ public class ActionEngine extends BaseTest {
 	public void click(By path, String... label) {
 		String var = "";
 		try {
-
 			var = label.length > 0 ? label[0] : path.toString();
-
 			Element btn = new Element(var, path);
 			btn.click();
 			Log.info("Clicked on " + var);

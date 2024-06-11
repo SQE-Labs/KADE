@@ -15,6 +15,7 @@ import org.automation.utilities.Screenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
 
@@ -22,9 +23,8 @@ import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
+import java.time.Duration;
 import java.util.*;
-import java.util.concurrent.TimeUnit;
-
 import static java.io.File.separator;
 import static java.nio.file.Files.lines;
 import static java.nio.file.Paths.get;
@@ -62,20 +62,19 @@ public class BaseTest {
 		switch (browser) {
 		case "chrome":
 			
-			WebDriverManager.chromedriver().setup();
+//			WebDriverManager.chromedriver().setup();
 //			//driver = new ChromeDriver(BrowserOptions.getChromeOptions());
 			driver.set(new ChromeDriver());
 			break;
 
 		case "fireFox":
-			// WebDriverManager.firefoxdriver().setup();
-			// driver = new FirefoxDriver(BrowserOptions.getFirefoxOptions());
+			driver.set(new FirefoxDriver());
 			break;
 		default:
 			throw new IllegalStateException("Unexpected value: " + browser);
 		}
 		// driver.set(Objects.requireNonNull(driver));
-		getDriver().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
+		getDriver().manage().timeouts().implicitlyWait(Duration.ofSeconds(5));
 		getDriver().manage().window().maximize();
 		getDriver().navigate().to(url);
 	}
