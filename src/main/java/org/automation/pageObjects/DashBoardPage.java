@@ -8,13 +8,18 @@ public class DashBoardPage extends BasePage {
 
 	By profileLink = By.xpath("//a[@class='btn btn-link p-0 fs-pn15 ']");
 	By validationMessage=By.xpath("//p[@class='alert-content']");
-	By billBtn = By.xpath("//i[@class='align-middle me-2 fa-fw fas fa-file-alt']");
+	public By billBtn = By.cssSelector(".sidebar-nav > li:nth-child(10)");
 	By myStoreBtn=By.xpath("//i[@class='align-middle me-2 fa-fw fas fa-store']");
 	By giftCardsDashboardTab=By.xpath("(//a[@class='sidebar-link'])[9]");
 	By pageHeader=By.xpath("//h1[@class='header-title mb-0']");
 	By reportBtn=By.xpath("(//a[@class='sidebar-link'])[11]");
-	
-	
+	By whichStorePopup = By.xpath("//p[text()='Which store?']");
+	By newBusinessCard = By.xpath("div.overflow-hidden.border.border-info");
+	By storesCombobox=By.xpath("//span[@role='combobox']");
+	By continueBtn=By.xpath("//button[@type='submit']");
+	By signOutBtn = By.xpath("//a[text()='Sign out']");
+
+
 	public void clickProfile() {
 		clickBtn(profileLink);
 	}
@@ -24,7 +29,19 @@ public class DashBoardPage extends BasePage {
 	}
 	
 	public void clickOnBill() {
+		moveToWebElement(billBtn);
 		click(billBtn);
+		if(isWebElementVisible(storesCombobox)){
+			click(storesCombobox);
+			click(By.xpath("//li[text()='New Business 2']"));  // Select store
+			click(continueBtn);
+		}
+//		WebdriverWaits.waitForElementVisible(whichStorePopup,5);
+//		if(isWebElementVisible(whichStorePopup)){
+//			WebdriverWaits.waitForElementVisible(whichStorePopup,5);
+//			moveToWebElement(newBusinessCard);
+//			click(newBusinessCard);
+//		}
 	}
 
 	public void clickOnMyStores() {
@@ -43,6 +60,10 @@ public class DashBoardPage extends BasePage {
 
 	public void clickOnReports() {
 		click(reportBtn);
+	}
+
+	public void signOut() {
+		click(signOutBtn);
 	}
 }
 
