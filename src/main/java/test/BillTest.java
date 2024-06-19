@@ -15,6 +15,7 @@ import org.automation.pageObjects.UpdateBillPopUp;
 import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
+import org.openqa.selenium.Keys;
 import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
@@ -83,7 +84,7 @@ public class BillTest extends BaseTest{
 	}
 
 	@Test(enabled = true, description="Verify validations and fields present in Customer popup")
-	public void tc04_verifyCustomerPopup(){
+	public void tc04_verifyCustomerPopup() throws InterruptedException {
 		bill.clickOnNewBill();
 
 		// Verify Customer popup
@@ -106,12 +107,35 @@ public class BillTest extends BaseTest{
 		String emailValidation = bill.getToolTipMessageEmail();
 		Assert.assertEquals(emailValidation,"This field is required.");
 
+		// Verify Validation message for invalid email
+		bill.enterCustomerEmail("invalidemail");
+		bill.clickOnGoBtnEmail();
+		emailValidation = bill.getToolTipMessageEmail();
+		Assert.assertEquals(emailValidation,"Please enter a valid email address.");
+
 		//Suggestion List on Customer popup
 		boolean isSuggestionDisplayed = bill.isWebElementVisible(bill.suggestionList);
 		Assert.assertTrue(isSuggestionDisplayed);
 		bill.closeCustomerPopup();
 		bill.CloseBillPopup();
 	}
+
+	@Test(enabled = true, description="Verify search textbox")
+	public void tc05_verifyInfoMsgOnBill(){
+		bill.clickOnNewBill();
+		bill.clickCustomer();
+		bill.searchCustomer("Alexander"+ Keys.ENTER);
+		String nonExistingInfoMsg = bill.getInfoMessage();
+		Assert.assertEquals(nonExistingInfoMsg,"There are no results");
+
+		// Verify search for existing customer
+		bill.searchCustomer("Steven"+Keys.ENTER);
+		String serachResult = bill.getSearchedCustomer();
+		Assert.assertEquals(serachResult,"Steven");
+	}
+
+
+
 
 //	@Test(enabled = true, description="Verify validation message of SubTotal field, When subTotal field is left blank")
 //	public void tc03_verifySubTotalValidation() {

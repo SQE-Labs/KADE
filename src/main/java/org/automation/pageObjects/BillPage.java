@@ -83,6 +83,7 @@ public class BillPage extends BasePage {
 	public By searchTbx = By.xpath("//input[@placeholder='Search']");
 	By goBtnPhnNo = By.xpath("//input[@placeholder='Phone number']/..//button");
 	By goBtnEmail = By.xpath("//input[@placeholder='Email']/..//button");
+	By searcherName=By.xpath("(//div[@data-field='alias'])[2]");
 
 	public String getPopUpTitle() {
 		WebdriverWaits.waitForElementVisible(popUpHeader,5);
@@ -177,7 +178,12 @@ public class BillPage extends BasePage {
 	}
 
 	public void enterCustomerEmail(String string) {
-		sendKeys(customerEmail, string);
+		sendKeys(emailTbx, string);
+	}
+
+	public void enterCustomerPhnNo(String phnNo){
+		click(phoneNoTbx);
+		pressKeys(phoneNoTbx, phnNo);
 	}
 
 	public void enterMemo(String string) {
@@ -501,5 +507,15 @@ public class BillPage extends BasePage {
 
 	public void clickOnGoBtnEmail() {
 		click(goBtnEmail);
+	}
+
+	public void searchCustomer(String customer) {
+		WebdriverWaits.fluentWait_ElementIntactable(5,500,searchTbx);
+		click(searchTbx);
+		sendKeys_withClear(searchTbx,customer);
+	}
+
+	public String getSearchedCustomer() {
+		return  getText_custom(searcherName);
 	}
 }
