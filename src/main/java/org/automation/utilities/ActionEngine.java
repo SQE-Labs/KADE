@@ -430,9 +430,26 @@ public class ActionEngine extends BaseTest {
 		return getElementText(toolTipMessage);
 	}
 
+	public void pressKeys(By element,String value){
+			// Create Actions instance
+			Actions actions = new Actions(getDriver());
+			// Click the input field to focus
+			actions.click(getDriver().findElement(element)).perform();
+
+			// Send each character of the string one by one
+			for (char ch : value.toCharArray()) {
+				actions.sendKeys(String.valueOf(ch)).perform();
+			}
+	}
+
 	// Method to get list of web elements
 	public List<WebElement> getListOfWebElements(By element) {
 		return getDriver().findElements(element);
+	}
+
+	public static void clickElementByJS( By element) {
+		JavascriptExecutor js = (JavascriptExecutor) getDriver();
+		js.executeScript("arguments[0].click();", getDriver().findElement(element));
 	}
 
 }

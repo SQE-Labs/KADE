@@ -197,5 +197,8 @@ public class BasePage extends ActionEngine {
     public int countWebElements(By element) {
     	return getDriver().findElements(element).size();
     }
-    
+
+    public boolean isWebElementVisible(By element){
+        return getDriver().findElement(element).isDisplayed();
+    }
 }
