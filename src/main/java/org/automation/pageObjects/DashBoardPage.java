@@ -31,11 +31,6 @@ public class DashBoardPage extends BasePage {
 	public void clickOnBill() {
 		moveToWebElement(billBtn);
 		click(billBtn);
-		if(isWebElementVisible(storesCombobox)){
-			click(storesCombobox);
-			click(By.xpath("//li[text()='New Business 2']"));  // Select store
-			click(continueBtn);
-		}
 //		WebdriverWaits.waitForElementVisible(whichStorePopup,5);
 //		if(isWebElementVisible(whichStorePopup)){
 //			WebdriverWaits.waitForElementVisible(whichStorePopup,5);

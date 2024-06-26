@@ -12,6 +12,7 @@ import org.automation.pageObjects.GiftCardDashboardPage;
 import org.automation.pageObjects.GiftCardDetailsPage;
 import org.automation.pageObjects.LoginPage;
 import org.automation.pageObjects.UserPage;
+import org.automation.utilities.Assertions;
 import org.automation.utilities.GiftCardsForSalePage;
 import org.automation.utilities.PropertiesUtil;
 import org.openqa.selenium.Keys;
@@ -33,17 +34,17 @@ public class GiftCardDashboardTest extends BaseTest {
 	public void tc01_verifyGiftCardsDashboardPage() {
 		login.performSignIn(PropertiesUtil.getPropertyValue("userName"), PropertiesUtil.getPropertyValue("password"));
 		dashboard.clickOnGiftCardsDashboard();
-		Assert.assertEquals(dashboard.getPageTitle(), "Gift Cards Dashboard");
+		Assertions.assertEquals(dashboard.getPageTitle(), "Gift Cards Dashboard");
 	}
 	
 	@Test(enabled = true, description="Verify Info message when Issue Gift Card Toggle is disabled")
 	public void tc02_verifyConfiguration() {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnConfigurationLink();
-		Assert.assertEquals(giftCardConfiguration.getPopupTitle(), "Gift Cards Configuration");
+		Assertions.assertEquals(giftCardConfiguration.getPopupTitle(), "Gift Cards Configuration");
 		giftCardConfiguration.switchOffIssueGiftCardToggle();
 		giftCardConfiguration.clickOnSaveConfigurationBtn();
-		Assert.assertEquals(giftCardDashboard.getInfoMessage(), "Gift cards is currently disabled.Configuration");
+		Assertions.assertEquals(giftCardDashboard.getInfoMessage(), "Gift cards is currently disabled.Configuration");
 		
 	}
 	
@@ -62,9 +63,9 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnConfigurationLink();
 		giftCardConfiguration.switchOnIssueGiftCardToggle();
 		giftCardConfiguration.switchOnRefNoToggle();
-		Assert.assertEquals(giftCardConfiguration.getRefNoLabel(), "Mandatory Reference No.");
+		Assertions.assertEquals(giftCardConfiguration.getRefNoLabel(), "Mandatory Reference No.");
 		giftCardConfiguration.switchOffRefNoToggle();
-		Assert.assertEquals(giftCardConfiguration.getRefNoLabel(), "Optional Reference No.");
+		Assertions.assertEquals(giftCardConfiguration.getRefNoLabel(), "Optional Reference No.");
 		giftCardConfiguration.clickOnClose();
 	}
 	
@@ -74,10 +75,10 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnConfigurationLink();
 		giftCardConfiguration.switchOnIssueGiftCardToggle();
 		giftCardConfiguration.switchOnFundingSourceToggle();
-		Assert.assertEquals(giftCardConfiguration.getFundingSourceLabel(), "Restricted funding source");
-		Assert.assertTrue(giftCardConfiguration.isFundingSourcePresent());
+		Assertions.assertEquals(giftCardConfiguration.getFundingSourceLabel(), "Restricted funding source");
+		Assertions.assertTrue(giftCardConfiguration.isFundingSourcePresent());
 		giftCardConfiguration.switchOffFundingSourceToggle();
-		Assert.assertEquals(giftCardConfiguration.getFundingSourceLabel(), "Optional funding source");
+		Assertions.assertEquals(giftCardConfiguration.getFundingSourceLabel(), "Optional funding source");
 		giftCardConfiguration.clickOnClose();
 	}
 	
@@ -88,13 +89,13 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardConfiguration.switchOnIssueGiftCardToggle();
 		giftCardConfiguration.clearMaxGiftCardTbx();
 		giftCardConfiguration.clickOnSaveConfigurationBtn();
-		Assert.assertEquals(giftCardConfiguration.getMaxGiftCardToolTipMessage(), "This field is required.");
+		Assertions.assertEquals(giftCardConfiguration.getMaxGiftCardToolTipMessage(), "This field is required.");
 		giftCardConfiguration.enterMaxGiftCardAmount(0);
 		giftCardConfiguration.clickOnSaveConfigurationBtn();
-		Assert.assertEquals(giftCardConfiguration.getMaxGiftCardToolTipMessage(), "Please enter a value greater than or equal to 1.");
+		Assertions.assertEquals(giftCardConfiguration.getMaxGiftCardToolTipMessage(), "Please enter a value greater than or equal to 1.");
 		giftCardConfiguration.enterMaxGiftCardAmount(100000);
 		giftCardConfiguration.clickOnSaveConfigurationBtn();
-		Assert.assertEquals(giftCardConfiguration.getMaxGiftCardToolTipMessage(), "Please enter a value less than or equal to 99999.");
+		Assertions.assertEquals(giftCardConfiguration.getMaxGiftCardToolTipMessage(), "Please enter a value less than or equal to 99999.");
 		giftCardConfiguration.clickOnClose();
 	}
 	
@@ -106,7 +107,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardConfiguration.switchOnFundingSourceToggle();
 		giftCardConfiguration.clearFundingSource();
 		giftCardConfiguration.clickOnSaveConfigurationBtn();
-		Assert.assertEquals(giftCardConfiguration.getFundingSourceToolTipMessage(), "This field is required.");
+		Assertions.assertEquals(giftCardConfiguration.getFundingSourceToolTipMessage(), "This field is required.");
 		giftCardConfiguration.clickOnClose();
 	}
 	
@@ -117,16 +118,16 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardConfiguration.switchOnIssueGiftCardToggle();
 		giftCardConfiguration.enterMaxGiftCardAmount(4999);
 		giftCardConfiguration.clickOnSaveConfigurationBtn();
-		//Assert.assertEquals(giftCardConfiguration.getToastMessage(), "Gift card configuration for store has been updated.");   // Get Toast Message Xpath and update.
-		Assert.assertTrue(giftCardDashboard.isIssueAGiftCardLinkPresent());
-		Assert.assertTrue(giftCardDashboard.isGiftCardForSaleLinkPresent());
+		//Assertions.assertEquals(giftCardConfiguration.getToastMessage(), "Gift card configuration for store has been updated.");   // Get Toast Message Xpath and update.
+		Assertions.assertTrue(giftCardDashboard.isIssueAGiftCardLinkPresent());
+		Assertions.assertTrue(giftCardDashboard.isGiftCardForSaleLinkPresent());
 	}
 	
 
 	@Test(enabled = true, description="Verify Issue A Gift Card Link")
 	public void tc09_createAGiftCardPopup() {
 		giftCardDashboard.clickOnIssueAGiftCard();
-		Assert.assertEquals(createGiftCard.getPopupTitle(),"Create gift card");
+		Assertions.assertEquals(createGiftCard.getPopupTitle(),"Create gift card");
 		createGiftCard.clickOnCloseBtn();
 		
 	}
@@ -136,7 +137,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.refreshPage();
 		giftCardDashboard.clickOnIssueAGiftCard();
 		createGiftCard.clickOnFind();
-		Assert.assertEquals(createGiftCard.getCustomerPhoneNumberToolTipMessage(), "This field is required.");
+		Assertions.assertEquals(createGiftCard.getCustomerPhoneNumberToolTipMessage(), "This field is required.");
 		createGiftCard.clickOnCloseBtn();
 		}
 	
@@ -145,8 +146,8 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnIssueAGiftCard();
 		createGiftCard.enterCustomerPhoneNumber("+911236547890");
 		createGiftCard.clickOnFind();
-		Assert.assertEquals(createGiftCard.getWariningMessage(), "Customer not found");
-		Assert.assertTrue(createGiftCard.isContinueBtnPresent());
+		Assertions.assertEquals(createGiftCard.getWariningMessage(), "Customer not found");
+		Assertions.assertTrue(createGiftCard.isContinueBtnPresent());
 		createGiftCard.clickOnCloseBtn();
 	}
 	
@@ -155,7 +156,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnIssueAGiftCard();
 		createGiftCard.enterCustomerPhoneNumber("98745611");
 		createGiftCard.clickOnFind();
-		Assert.assertEquals(createGiftCard.getCustomerPhoneNumberToolTipMessage(), "Invalid phone number");
+		Assertions.assertEquals(createGiftCard.getCustomerPhoneNumberToolTipMessage(), "Invalid phone number");
 		createGiftCard.clickOnCloseBtn();
 		}
 	
@@ -164,9 +165,9 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnIssueAGiftCard();
 		createGiftCard.enterCustomerPhoneNumber("+918877070727");
 		createGiftCard.clickOnFind();
-		Assert.assertTrue(createGiftCard.isInitialAmountPresent());
-		Assert.assertTrue(createGiftCard.isMessageBoxPresent());
-		Assert.assertTrue(createGiftCard.isRefNoTextBoxPresent());
+		Assertions.assertTrue(createGiftCard.isInitialAmountPresent());
+		Assertions.assertTrue(createGiftCard.isMessageBoxPresent());
+		Assertions.assertTrue(createGiftCard.isRefNoTextBoxPresent());
 		createGiftCard.clickOnCloseBtn();
 	}
 	
@@ -174,9 +175,9 @@ public class GiftCardDashboardTest extends BaseTest {
 	public void tc14_verifyContinueWithoutSearch() {
 		giftCardDashboard.clickOnIssueAGiftCard();
 		createGiftCard.clickOnContinueWithoutSearch();
-		Assert.assertTrue(createGiftCard.isInitialAmountPresent());
-		Assert.assertTrue(createGiftCard.isMessageBoxPresent());
-	    Assert.assertTrue(createGiftCard.isRefNoTextBoxPresent());
+		Assertions.assertTrue(createGiftCard.isInitialAmountPresent());
+		Assertions.assertTrue(createGiftCard.isMessageBoxPresent());
+	    Assertions.assertTrue(createGiftCard.isRefNoTextBoxPresent());
 		createGiftCard.clickOnCloseBtn();
 	}
 	
@@ -185,7 +186,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnIssueAGiftCard();
 		createGiftCard.clickOnContinueWithoutSearch();
 		createGiftCard.clickOnCreate();
-		Assert.assertEquals(createGiftCard.getInitialAmountToolTipMessage(), "This field is required."); 
+		Assertions.assertEquals(createGiftCard.getInitialAmountToolTipMessage(), "This field is required."); 
 		createGiftCard.clickOnCloseBtn();
 	}
 	
@@ -195,7 +196,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		createGiftCard.clickOnContinueWithoutSearch();
 		createGiftCard.enterInitialAmt("0");
 		createGiftCard.clickOnCreate();
-		Assert.assertEquals(createGiftCard.getInitialAmountToolTipMessage(), "Please enter a value greater than or equal to 0.01."); 
+		Assertions.assertEquals(createGiftCard.getInitialAmountToolTipMessage(), "Please enter a value greater than or equal to 0.01."); 
 		createGiftCard.clickOnCloseBtn();
 	}
 	
@@ -206,7 +207,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		String configAmt="4999";
 		createGiftCard.enterInitialAmt("5000");
 		createGiftCard.clickOnCreate();
-		Assert.assertEquals(createGiftCard.getInitialAmountToolTipMessage(), "Please enter a value less than or equal to "+configAmt+"."); 
+		Assertions.assertEquals(createGiftCard.getInitialAmountToolTipMessage(), "Please enter a value less than or equal to "+configAmt+"."); 
 		createGiftCard.clickOnCloseBtn();
 	}
 	
@@ -215,11 +216,11 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnIssueAGiftCard();
 		createGiftCard.clickOnContinueWithoutSearch();
 		createGiftCard.clickOnAdvancedLink();
-		Assert.assertTrue(createGiftCard.isCardNoFieldPresent());
-		Assert.assertTrue(createGiftCard.isFundingSourceFieldPresent());
-		Assert.assertTrue(createGiftCard.isMemoFieldPresent());
-		Assert.assertTrue(createGiftCard.isStartDateFieldPresent());
-		Assert.assertTrue(createGiftCard.isExpDateFieldPresent());
+		Assertions.assertTrue(createGiftCard.isCardNoFieldPresent());
+		Assertions.assertTrue(createGiftCard.isFundingSourceFieldPresent());
+		Assertions.assertTrue(createGiftCard.isMemoFieldPresent());
+		Assertions.assertTrue(createGiftCard.isStartDateFieldPresent());
+		Assertions.assertTrue(createGiftCard.isExpDateFieldPresent());
 		createGiftCard.clickOnCloseBtn();
 	}
 
@@ -229,8 +230,8 @@ public class GiftCardDashboardTest extends BaseTest {
 		createGiftCard.clickOnContinueWithoutSearch();
 		createGiftCard.clickOnAdvancedLink();
 		createGiftCard.enterCardNo("1234567891234567890000");
-		Assert.assertTrue(createGiftCard.getCardNo().length()==18);
-		Assert.assertEquals(createGiftCard.getCardNo(), "123456789123456789");
+		Assertions.assertTrue(createGiftCard.getCardNo().length()==18);
+		Assertions.assertEquals(createGiftCard.getCardNo(), "123456789123456789");
 		createGiftCard.clickOnCloseBtn();
 		} 
 	
@@ -240,9 +241,9 @@ public class GiftCardDashboardTest extends BaseTest {
 		createGiftCard.clickOnContinueWithoutSearch();
 		createGiftCard.clickOnAdvancedLink();
 		createGiftCard.enterCardNo("abcd");
-		Assert.assertEquals(createGiftCard.getCardNo(), "");
+		Assertions.assertEquals(createGiftCard.getCardNo(), "");
 		createGiftCard.enterCardNo("56972115");
-		Assert.assertEquals(createGiftCard.getCardNo(), "56972115");
+		Assertions.assertEquals(createGiftCard.getCardNo(), "56972115");
 		createGiftCard.clickOnCloseBtn();
 		}
 	
@@ -255,7 +256,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnIssueAGiftCard();
 		createGiftCard.clickOnContinueWithoutSearch();
 		createGiftCard.clickOnAdvancedLink();
-		Assert.assertTrue(createGiftCard.getTagOfFundingSource().equalsIgnoreCase("input"));
+		Assertions.assertTrue(createGiftCard.getTagOfFundingSource().equalsIgnoreCase("input"));
 		createGiftCard.clickOnCloseBtn();
 		
 	}
@@ -278,7 +279,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		createGiftCard.clickOnContinueWithoutSearch();
 		createGiftCard.clickOnAdvancedLink();
 		Collections.sort(fundingSourceOption);
-		Assert.assertTrue(createGiftCard.getTagOfFundingSource().equalsIgnoreCase("select"));
+		Assertions.assertTrue(createGiftCard.getTagOfFundingSource().equalsIgnoreCase("select"));
 		createGiftCard.clickOnCloseBtn();
 		
 	}
@@ -290,10 +291,10 @@ public class GiftCardDashboardTest extends BaseTest {
 		createGiftCard.clickOnAdvancedLink();
 		createGiftCard.enterStartDate("Start date");
 		createGiftCard.clickOnCreate();
-		Assert.assertEquals(createGiftCard.getStartDateToolTipMessage(), "Invalid date");
+		Assertions.assertEquals(createGiftCard.getStartDateToolTipMessage(), "Invalid date");
 		createGiftCard.enterExpDate("Exp date");
 		createGiftCard.clickOnCreate();
-		Assert.assertEquals(createGiftCard.getExpDateToolTipMessage(), "Invalid date");
+		Assertions.assertEquals(createGiftCard.getExpDateToolTipMessage(), "Invalid date");
 		createGiftCard.clickOnCloseBtn();
 	}
 	
@@ -306,7 +307,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		createGiftCard.enterRefNo("RefNo-969");
 		createGiftCard.clickOnCreate();
 		createGiftCard.closeToastMessage();
-		Assert.assertEquals(createGiftCard.getToastMesssage(), "Gift card created!");
+		Assertions.assertEquals(createGiftCard.getToastMesssage(), "Gift card created!");
 	}
 	
 	@Test(enabled = true, description="Verify successfull creation of Gift Card without finding phone number")
@@ -316,8 +317,8 @@ public class GiftCardDashboardTest extends BaseTest {
 		createGiftCard.enterInitialAmt("999");
 		createGiftCard.enterRefNo("RefNo-1265");
 		createGiftCard.clickOnCreate();
-		Assert.assertEquals(createGiftCard.getAleartMesssage(), "Attention! Anyone who has access to this link can claim this gift card.");
-		Assert.assertEquals(createGiftCard.getToastMesssage(), "Gift card created!");
+		Assertions.assertEquals(createGiftCard.getAleartMesssage(), "Attention! Anyone who has access to this link can claim this gift card.");
+		Assertions.assertEquals(createGiftCard.getToastMesssage(), "Gift card created!");
 		createGiftCard.clickOnCloseBtn();
 		createGiftCard.closeToastMessage();
 	}
@@ -326,14 +327,14 @@ public class GiftCardDashboardTest extends BaseTest {
 	public void tc26_verifyGiftCardDetailsPopup() {
 		String giftCardNo=giftCardDashboard.getGiftCard();
 		giftCardDashboard.clickOnGiftCard();
-		Assert.assertEquals("Card No: "+giftCardNo, giftCardDetails.getCardNo());
+		Assertions.assertEquals("Card No: "+giftCardNo, giftCardDetails.getCardNo());
 		giftCardDetails.clickOnInfoIcon();
-		Assert.assertTrue(giftCardDetails.isStartDatePresent());
-		Assert.assertTrue(giftCardDetails.isIssueOnDatePresent());
-		Assert.assertTrue(giftCardDetails.isIssueByDatePresent());
-		Assert.assertTrue(giftCardDetails.isFundingSourcePresent());
-		Assert.assertTrue(giftCardDetails.isRefNoPresent());
-		Assert.assertTrue(giftCardDetails.isIssueAmtPresent());
+		Assertions.assertTrue(giftCardDetails.isStartDatePresent());
+		Assertions.assertTrue(giftCardDetails.isIssueOnDatePresent());
+		Assertions.assertTrue(giftCardDetails.isIssueByDatePresent());
+		Assertions.assertTrue(giftCardDetails.isFundingSourcePresent());
+		Assertions.assertTrue(giftCardDetails.isRefNoPresent());
+		Assertions.assertTrue(giftCardDetails.isIssueAmtPresent());
 		giftCardDetails.clickOnClose();
 	}
 	
@@ -343,21 +344,21 @@ public class GiftCardDashboardTest extends BaseTest {
 		String userName=giftCardDetails.getUserName();
 		giftCardDetails.clickOnUserName();
 		giftCardDetails.switchToWindow("User Profile Window");
-		Assert.assertEquals(userName, user.getPageTitle());
+		Assertions.assertEquals(userName, user.getPageTitle());
 		
 	}
 	
 	@Test(enabled = true, description="Verify'Message' page opens afetr clicking on message icon ")
 	public void tc28_verifyMessagePage() {
 		user.clickOnMessage();
-		Assert.assertEquals(user.getHeader() ,"Messages");
+		Assertions.assertEquals(user.getHeader() ,"Messages");
 		user.goBackToPreviousPage();
 	}
 	
 	@Test(enabled = true, description="Verify 'Reward Point' page opens afetr clicking on Reward point count ")
 	public void tc29_verifRewardPointPage() {
 		user.clickOnRewardPoint();
-		Assert.assertEquals(user.getHeader() ,"Reward Points Detail");
+		Assertions.assertEquals(user.getHeader() ,"Reward Points Detail");
 		giftCardDetails.switchToWindow("Card Details Page");
 		giftCardDetails.clickOnClose();
 	}
@@ -365,20 +366,20 @@ public class GiftCardDashboardTest extends BaseTest {
 	@Test(enabled = true, description="Verify that all fields appears afetr clicking on filter link")
 	public void tc30_verifyFilterButtonBehaviour() {
 		giftCardDashboard.clickOnFilter();
-		Assert.assertTrue(giftCardDashboard.isUserNameFieldPresent());
-		Assert.assertTrue(giftCardDashboard.isUserPhoneEmailFieldPresent());
-		Assert.assertTrue(giftCardDashboard.isDateFieldPresent());
-		Assert.assertTrue(giftCardDashboard.isGiftCardStatusPresent());
-		Assert.assertTrue(giftCardDashboard.isMinAmountFieldPresent());
-		Assert.assertTrue(giftCardDashboard.isMaxAmountFieldPresent());
-		Assert.assertTrue(giftCardDashboard.isCardNoFieldPresent());
+		Assertions.assertTrue(giftCardDashboard.isUserNameFieldPresent());
+		Assertions.assertTrue(giftCardDashboard.isUserPhoneEmailFieldPresent());
+		Assertions.assertTrue(giftCardDashboard.isDateFieldPresent());
+		Assertions.assertTrue(giftCardDashboard.isGiftCardStatusPresent());
+		Assertions.assertTrue(giftCardDashboard.isMinAmountFieldPresent());
+		Assertions.assertTrue(giftCardDashboard.isMaxAmountFieldPresent());
+		Assertions.assertTrue(giftCardDashboard.isCardNoFieldPresent());
 	}
 	
 	@Test(enabled = true, description="Verify that all the issued gift cards with 'Active' status appear listed on Gift Card Dashboard page")
 	public void tc31_verifyAllActiveGiftCard() {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.ScrollDownThePageMax();
-		Assert.assertTrue(giftCardDashboard.isAllGiftCardStatus("Active"));
+		Assertions.assertTrue(giftCardDashboard.isAllGiftCardStatus("Active"));
 	}
 	
 	@Test(enabled = true, description="Verify relevant gift cards appear listed after entering existing card holder name in User Name")
@@ -387,7 +388,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		String userName="Lucas";
 		giftCardDashboard.enterUserName(userName);
 		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.isAllCardHolderName(userName));
+		Assertions.assertTrue(giftCardDashboard.isAllCardHolderName(userName));
 	}
 	
 	@Test(enabled = true, description="Verify information message appear after entering non existing number in User Number/Email")
@@ -396,7 +397,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnFilter();
 		giftCardDashboard.enterUserPhoneEmail("+918547659428");
 		giftCardDashboard.clickOnApply();
-		Assert.assertEquals(giftCardDashboard.getResultNotFoundMessage(),"There are no results");
+		Assertions.assertEquals(giftCardDashboard.getResultNotFoundMessage(),"There are no results");
 	}
 	
 	@Test(enabled = true, description="Verify information message appear after entering non existing email in User Number/Email")
@@ -405,7 +406,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnFilter();
 		giftCardDashboard.enterUserPhoneEmail("demo@yopmail.com");
 		giftCardDashboard.clickOnApply();
-		Assert.assertEquals(giftCardDashboard.getResultNotFoundMessage(),"There are no results");
+		Assertions.assertEquals(giftCardDashboard.getResultNotFoundMessage(),"There are no results");
 	}
 	
 	@Test(enabled = true, description="Verify relevant gift cards appear listed after entering date in date field")
@@ -416,7 +417,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		String endDate="07/31/2023";
 		giftCardDashboard.enterDate(startDate+" - "+endDate);
 		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.areAllGiftCardOfRange(giftCardDashboard.getGiftIssuedate(),startDate,endDate));
+		Assertions.assertTrue(giftCardDashboard.areAllGiftCardOfRange(giftCardDashboard.getGiftIssuedate(),startDate,endDate));
 		}
 	
 	@Test(enabled = true, description="Verify infromation message appear after non exsisting entering date in date field")
@@ -427,7 +428,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		String endDate="12/31/2022";
 		giftCardDashboard.enterDate(startDate+" - "+endDate);
 		giftCardDashboard.clickOnApply();
-		Assert.assertEquals(giftCardDashboard.getResultNotFoundMessage(),"There are no results");
+		Assertions.assertEquals(giftCardDashboard.getResultNotFoundMessage(),"There are no results");
 		}
 	
 	@Test(enabled = true, description="Verify validation message appears after entering characters in 'Date' field")
@@ -437,14 +438,14 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.enterDate("date");
 		giftCardDashboard.clickOnApply();
 		giftCardDashboard.clickOnCloseValidation();
-		Assert.assertEquals(giftCardDashboard.getDateRangeToolTipMessage(),"Invalid date range");
+		Assertions.assertEquals(giftCardDashboard.getDateRangeToolTipMessage(),"Invalid date range");
 		}
 	
 	@Test(enabled = true, description="Verify 'Gift card status' dropdown appears 'Active' by default")
 	public void tc38_verifyGiftCardStatusDefaultSelection() {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnFilter();
-		Assert.assertEquals(giftCardDashboard.getSelectedGiftCardStatus(),"Active");
+		Assertions.assertEquals(giftCardDashboard.getSelectedGiftCardStatus(),"Active");
 		}
 	
 	@Test(enabled = true, description="Verify all options appear in 'Gift card status' dropdown, after clicking 'Gift card status' dropdown")
@@ -459,7 +460,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		options.add("Expired");
 		options.add("No Balance");
 		options.add("Pending transfer");
-		Assert.assertTrue(options.equals(giftCardDashboard.getAllGiftCardStatusOptions()));
+		Assertions.assertTrue(options.equals(giftCardDashboard.getAllGiftCardStatusOptions()));
 		}
 	
 	@Test(enabled = true, description="Verify all existing active gift cards appear listed, after selecting 'Active' option from 'Gift card status' dropdown")
@@ -469,7 +470,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnGiftCardStatusField();
 		giftCardDashboard.selectGiftCardStatues("Active");
 		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.checkStatus("Active"));
+		Assertions.assertTrue(giftCardDashboard.checkStatus("Active"));
 		}
 	
 	@Test(enabled = true, description="Verify all existing blocked gift cards appear listed, after selecting 'Blocked' option from 'Gift card status' dropdown")
@@ -479,7 +480,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnGiftCardStatusField();
 		giftCardDashboard.selectGiftCardStatues("Blocked");
 		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.checkStatus("Blocked"));
+		Assertions.assertTrue(giftCardDashboard.checkStatus("Blocked"));
 		}
 	
 	@Test(enabled = true, description="Verify all existing expired gift cards appear listed, after selecting 'Expired' option from 'Gift card status' dropdown")
@@ -489,7 +490,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnGiftCardStatusField();
 		giftCardDashboard.selectGiftCardStatues("Expired");
 		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.checkStatus("Expired"));
+		Assertions.assertTrue(giftCardDashboard.checkStatus("Expired"));
 		}
 	
 	@Test(enabled = true, description="Verify all existing pending transfer gift cards appear listed, after selecting 'Pending Activation' option from 'Gift card status' dropdown")
@@ -499,7 +500,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnGiftCardStatusField();
 		giftCardDashboard.selectGiftCardStatues("Pending transfer");
 		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.checkStatus("Pending transfer"));
+		Assertions.assertTrue(giftCardDashboard.checkStatus("Pending transfer"));
 		}
 	
 	@Test(enabled = true, description="Verify all existing No Balance gift cards appear listed, after selecting 'Pending Activation' option from 'Gift card status' dropdown")
@@ -509,7 +510,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnGiftCardStatusField();
 		giftCardDashboard.selectGiftCardStatues("No Balance");
 		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.checkStatus("No Balance"));
+		Assertions.assertTrue(giftCardDashboard.checkStatus("No Balance"));
 		}
 	
 	
@@ -520,7 +521,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		String minAmt="500";
 		giftCardDashboard.enterMinAmount(minAmt);
 		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.checkAmtGreaterThanMinAmt(minAmt));
+		Assertions.assertTrue(giftCardDashboard.checkAmtGreaterThanMinAmt(minAmt));
 		}
 	
 	@Test(enabled = true, description="Verify that relevant gift cards appear listed after entering value in 'Min Amount' under 'Filter' link, on 'Gift Cards Dashboard' page.")
@@ -530,7 +531,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		String maxAmt="2000";
 		giftCardDashboard.enterMaxAmount(maxAmt);
 		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.checkAmtLessThanMaxAmt(maxAmt));
+		Assertions.assertTrue(giftCardDashboard.checkAmtLessThanMaxAmt(maxAmt));
 		}
 	
 	@Test(enabled = true, description="Verify that relevant gift cards appear listed after entering value in 'Min Amount' and 'Max Amount' 'under 'Filter' link, on 'Gift Cards Dashboard' page.")
@@ -542,7 +543,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.enterMinAmount(minAmt);
 		giftCardDashboard.enterMaxAmount(maxAmt);
 		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.checkAmtBetweenMinAndMaxAmt(minAmt,maxAmt));
+		Assertions.assertTrue(giftCardDashboard.checkAmtBetweenMinAndMaxAmt(minAmt,maxAmt));
 		}
 	
 	
@@ -553,7 +554,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		String giftCardDetails="9874569844584";
 		giftCardDashboard.enterCardNo(giftCardDetails);
 		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.getResultNotFoundMessage().equalsIgnoreCase("There are no results"));
+		Assertions.assertTrue(giftCardDashboard.getResultNotFoundMessage().equalsIgnoreCase("There are no results"));
 	}
 	
 	@Test(enabled = true, description="Verify validation message appears after entering less than 4 digit card number in 'Card Number Partial field")
@@ -563,7 +564,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		String giftCardDetails="123";
 		giftCardDashboard.enterCardNo(giftCardDetails);
 		giftCardDashboard.clickOnApply();
-		Assert.assertEquals(giftCardDashboard.getCardNoToolTipMessage(),"Please enter at least 4 characters.");
+		Assertions.assertEquals(giftCardDashboard.getCardNoToolTipMessage(),"Please enter at least 4 characters.");
 	}
 	
 	@Test(enabled = true, description="Verify that information message appears after entering non existing card number in 'Card Number Partial field")
@@ -577,7 +578,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.enterMaxAmount("20000");
 		giftCardDashboard.enterCardNo("597749");
 		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.getResultNotFoundMessage().equalsIgnoreCase("There are no results"));
+		Assertions.assertTrue(giftCardDashboard.getResultNotFoundMessage().equalsIgnoreCase("There are no results"));
 	}
 	
 	@Test(enabled = true, description="Verify relevant gift cards appear listed after entering any existing gift card number in 'Card Number Partial field ")
@@ -587,13 +588,13 @@ public class GiftCardDashboardTest extends BaseTest {
 		String giftCardDetails="123654789663252145";
 		giftCardDashboard.enterCardNo(giftCardDetails);
 		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.checkCardNo(giftCardDetails));
+		Assertions.assertTrue(giftCardDashboard.checkCardNo(giftCardDetails));
 		
 	}
 	
 	@Test(enabled = true, description="Verify that total count and total amount of gift cards appears, on 'Gift Cards Dashboard' page")
 	public void tc52_verifyTotalCountAndTotalAmtAppearance() {
-		Assert.assertTrue(giftCardDashboard.isotalCountAndTotalAmtDisplayed());
+		Assertions.assertTrue(giftCardDashboard.isotalCountAndTotalAmtDisplayed());
 	}
 	
 	@Test(enabled = true, description="Verify that 'Gift Card Detail' page opens up on new tab, after clicking on 'External-Link' icon, on ''Gift Card Details' popup")
@@ -602,7 +603,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnGiftCard();
 		giftCardDetails.clickOnExternalLink();
 		giftCardDetails.switchToWindow("Gift Card Detail Page");
-		Assert.assertEquals(giftCardDetails.getPageTitle(), "Gift Card Detail");
+		Assertions.assertEquals(giftCardDetails.getPageTitle(), "Gift Card Detail");
 		giftCardDetails.switchToWindow("Parent Window");
 	}
 	
@@ -610,13 +611,13 @@ public class GiftCardDashboardTest extends BaseTest {
 	public void tc54_verifyGiftCardsForSalePage() {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnGiftCardForSaleLink();
-		Assert.assertEquals(giftCardForSale.getPageTitle(), "Gift Cards For Sale");
+		Assertions.assertEquals(giftCardForSale.getPageTitle(), "Gift Cards For Sale");
 	}
 	
 	@Test(enabled = true, description="Verify that 'Status' dropdown appears after clicking on 'Filter' link, on 'Gift Cards For Sale' page.")
 	public void tc55_vertifyFilterLink() {
 		giftCardForSale.clickOnFilterLink();
-		Assert.assertTrue(giftCardForSale.isStatusDropdownDisplayed());
+		Assertions.assertTrue(giftCardForSale.isStatusDropdownDisplayed());
 	}
 	
 	@Test(enabled = true, description="Verify default status option, 'Available' and 'All' option appears after clicking on 'Status' dropdown")
@@ -626,11 +627,11 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardForSale.clickOnFilterLink();
 		giftCardForSale.clickOnStatus();
 		String defaultOptn="Available";
-		Assert.assertTrue(giftCardForSale.defaultSelectedOption(defaultOptn));
+		Assertions.assertTrue(giftCardForSale.defaultSelectedOption(defaultOptn));
 		List<String> options=new ArrayList<String>();
 		options.add("Available");
 		options.add("All");
-		Assert.assertTrue(giftCardForSale.areStatusOptionMatching(options));
+		Assertions.assertTrue(giftCardForSale.areStatusOptionMatching(options));
 	}
 	
 	@Test(enabled = true, description="Verify that all exsisting gift cards appear after clicking on 'Apply' button, when 'All' option is selected from 'Status' dropdown")
@@ -641,7 +642,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardForSale.clickOnStatus();
 		giftCardForSale.selectStatusByText("All");
 		giftCardForSale.clickOnApply();
-		Assert.assertTrue(giftCardForSale.areQuantityMoreThanEqualToZero());
+		Assertions.assertTrue(giftCardForSale.areQuantityMoreThanEqualToZero());
 	}
 	
 	@Test(enabled = true, description="Verify that all exsisting gift cards appear after clicking on 'Apply' button, when 'All' option is selected from 'Status' dropdown")
@@ -652,7 +653,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardForSale.clickOnStatus();
 		giftCardForSale.selectStatusByText("Available");
 		giftCardForSale.clickOnApply();
-		Assert.assertTrue(giftCardForSale.areQuantityMoreThanZero());
+		Assertions.assertTrue(giftCardForSale.areQuantityMoreThanZero());
 	}
 	
 	@Test(enabled = true, description="Verify that 'Copied' tooltip message appear after clicking on 'Copy the URL' link, on 'Gift Cards For Sale' page.")
@@ -660,14 +661,14 @@ public class GiftCardDashboardTest extends BaseTest {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnGiftCardForSaleLink();
 		giftCardForSale.clickOnCopyUrl();
-		Assert.assertEquals(giftCardForSale.getCopyUrlToolTipMessage(), "Copied");
+		Assertions.assertEquals(giftCardForSale.getCopyUrlToolTipMessage(), "Copied");
 	}
 	@Test(enabled = true, description="Verify that 'Add Gift Card' page opens afeter clicking on 'Add' link , on 'Gift Cards For Sale' page.")
 	public void tc60_verifyAddLink() {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnGiftCardForSaleLink();
 		giftCardForSale.clickOnAddLink();
-		Assert.assertEquals(giftCardForSale.getPageTitle(), "Gift Cards For Sale");
+		Assertions.assertEquals(giftCardForSale.getPageTitle(), "Gift Cards For Sale");
 		}
 	
 	@Test(enabled = true, description="Verift validation message appear after clicking on 'Save Changes' button, when 'Gift card amount' text field is left blank")
@@ -676,7 +677,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnGiftCardForSaleLink();
 		giftCardForSale.clickOnAddLink();
 		addGiftCard.clickOnSaveChange();
-		Assert.assertEquals(addGiftCard.getGiftCardAmtToolTipMessage(),"This field is required.");
+		Assertions.assertEquals(addGiftCard.getGiftCardAmtToolTipMessage(),"This field is required.");
 		}
 	
 	@Test(enabled = true, description="Verift that validation message appear after clicking on 'Save Changes' button, when 'Gift card sale price' text field is left blank")
@@ -685,7 +686,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnGiftCardForSaleLink();
 		giftCardForSale.clickOnAddLink();
 		addGiftCard.clickOnSaveChange();
-		Assert.assertEquals(addGiftCard.getGiftCardSalePriceTipMessage(),"This field is required.");
+		Assertions.assertEquals(addGiftCard.getGiftCardSalePriceTipMessage(),"This field is required.");
 		}
 	
 
@@ -695,7 +696,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnGiftCardForSaleLink();
 		giftCardForSale.clickOnAddLink();
 		addGiftCard.clickOnSaveChange();
-		Assert.assertEquals(addGiftCard.getAvailableQtyForSaleTipMessage(),"This field is required.");
+		Assertions.assertEquals(addGiftCard.getAvailableQtyForSaleTipMessage(),"This field is required.");
 		}
 	
 	@Test(enabled = true, description="Verift that validation message appear after clicking on 'Save Changes' button, when when '0' is entered in 'Gift card amount' text field")
@@ -705,7 +706,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardForSale.clickOnAddLink();
 		addGiftCard.enterGiftCardAmt("0");
 		addGiftCard.clickOnSaveChange();
-		Assert.assertEquals(addGiftCard.getGiftCardAmtToolTipMessage(),"Please enter a value greater than or equal to 1.");
+		Assertions.assertEquals(addGiftCard.getGiftCardAmtToolTipMessage(),"Please enter a value greater than or equal to 1.");
 		}
 	
 	@Test(enabled = true, description="Verift that validation message appear after clicking on 'Save Changes' button, when 'Gift card sale price' text field is left blank")
@@ -715,7 +716,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardForSale.clickOnAddLink();
 		addGiftCard.enterGiftCardSaleprice("0");
 		addGiftCard.clickOnSaveChange();
-		Assert.assertEquals(addGiftCard.getGiftCardSalePriceTipMessage(),"Please enter a value greater than or equal to 1.");
+		Assertions.assertEquals(addGiftCard.getGiftCardSalePriceTipMessage(),"Please enter a value greater than or equal to 1.");
 		}
 	
 
@@ -726,7 +727,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardForSale.clickOnAddLink();
 		addGiftCard.enterAvailableQty("0");
 		addGiftCard.clickOnSaveChange();
-		Assert.assertEquals(addGiftCard.getAvailableQtyForSaleTipMessage(),"Please enter a value greater than or equal to 1.");
+		Assertions.assertEquals(addGiftCard.getAvailableQtyForSaleTipMessage(),"Please enter a value greater than or equal to 1.");
 		}
 	
 	@Test(enabled = true, description="Verift that validation message appear after clicking on 'Save Changes' button, when value entered in 'Gift card amount' text field is more than configured amount")
@@ -736,7 +737,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardForSale.clickOnAddLink();
 		addGiftCard.enterGiftCardAmt("10000");
 		addGiftCard.clickOnSaveChange();
-		Assert.assertEquals(addGiftCard.getGiftCardAmtToolTipMessage(),"Please enter a value less than or equal to 4999.");
+		Assertions.assertEquals(addGiftCard.getGiftCardAmtToolTipMessage(),"Please enter a value less than or equal to 4999.");
 		}
 	
 	
@@ -747,7 +748,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardForSale.clickOnAddLink();
 		addGiftCard.enterGiftCardSaleprice("10000");
 		addGiftCard.clickOnSaveChange();
-		Assert.assertEquals(addGiftCard.getGiftCardSalePriceTipMessage(),"Please enter a value less than or equal to 7498.5.");
+		Assertions.assertEquals(addGiftCard.getGiftCardSalePriceTipMessage(),"Please enter a value less than or equal to 7498.5.");
 		}
 	
 	@Test(enabled = true, description="Verify that 'Available quantity for sale' field accepts value up to 4 digits, on 'Add Gift Card' page.")
@@ -757,7 +758,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardForSale.clickOnAddLink();
 		addGiftCard.enterAvailableQty("15987");
 		addGiftCard.clickOnSaveChange();
-		Assert.assertTrue(addGiftCard.getTextAvailableQty().length()==4);
+		Assertions.assertTrue(addGiftCard.getTextAvailableQty().length()==4);
 		}
 	
 	@Test(enabled = true, description="Verify that gift card successfully gets created after entering the valid data in mandatory fields, on 'Gift Card For Sale' page.")
@@ -768,7 +769,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		addGiftCard.clickOnDateRange();
 		addGiftCard.selectCurrentDate();
 		addGiftCard.selectNextMonthDate();
-		Assert.assertTrue(addGiftCard.getSaleDateRange()!=null);
+		Assertions.assertTrue(addGiftCard.getSaleDateRange()!=null);
 		}
 	
 	@Test(enabled = true, description="Verify that gift card successfully gets created after entering the valid data in mandatory fields, on 'Gift Card For Sale' page.")
@@ -784,7 +785,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		addGiftCard.selectCurrentDate();
 		addGiftCard.selectNextMonthDate();
 		addGiftCard.clickOnSaveChange();
-		Assert.assertEquals(giftCardForSale.getToastMessage(), "Data saved successfully!");
+		Assertions.assertEquals(giftCardForSale.getToastMessage(), "Data saved successfully!");
 		}
 	
 	@Test(enabled = true, description="verify that 'There are 3.00 % fee on all sold gift cards.' information message appear on the 'Add Gift Card' page.")
@@ -793,7 +794,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnGiftCardForSaleLink();
 		giftCardForSale.clickOnAddLink();
 		addGiftCard.isAleartMessagePresent();
-		Assert.assertEquals(addGiftCard.getAlertMessage(), "There are 3.00 % fee on all sold gift cards.");
+		Assertions.assertEquals(addGiftCard.getAlertMessage(), "There are 3.00 % fee on all sold gift cards.");
 		}
 	
 	
@@ -803,11 +804,11 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnGiftCard();
 		giftCardDetails.clickOnInfoIcon();
 		giftCardDetails.clickOnEditIcon();
-		Assert.assertTrue(giftCardDetails.isFundingSourceTbxPresent());
-		Assert.assertTrue(giftCardDetails.isRefNoTbxPresent());
-		Assert.assertTrue(giftCardDetails.isMemoTbxPresent());
-		Assert.assertTrue(giftCardDetails.isStartDateTbxPresent());
-		Assert.assertTrue(giftCardDetails.isExpDateTbxPresent());
+		Assertions.assertTrue(giftCardDetails.isFundingSourceTbxPresent());
+		Assertions.assertTrue(giftCardDetails.isRefNoTbxPresent());
+		Assertions.assertTrue(giftCardDetails.isMemoTbxPresent());
+		Assertions.assertTrue(giftCardDetails.isStartDateTbxPresent());
+		Assertions.assertTrue(giftCardDetails.isExpDateTbxPresent());
 		giftCardDetails.clickOnClose();
 		}
 	
@@ -816,7 +817,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		dashboard.clickOnGiftCardsDashboard();
 		giftCardDashboard.clickOnGiftCard();
 		giftCardDetails.clickOnActiveBtn();
-		Assert.assertTrue(giftCardDetails.isBlockBtnPresent());
+		Assertions.assertTrue(giftCardDetails.isBlockBtnPresent());
 		giftCardDetails.clickOnClose();
 }
 
@@ -826,7 +827,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnFilter();
 		giftCardDashboard.enterUserPhoneEmail("testkade@yopmail.com");
 		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.getFilterResultCount()>0);
+		Assertions.assertTrue(giftCardDashboard.getFilterResultCount()>0);
 	}
 	
 	@Test(enabled = true, description="Verify that relevant gift cards appear listed after entering any existing customer phone number in 'User Phone' field under 'Filter' link.")
@@ -835,6 +836,6 @@ public class GiftCardDashboardTest extends BaseTest {
 		giftCardDashboard.clickOnFilter();
 		giftCardDashboard.enterUserPhoneEmail("+918877070727");
 		giftCardDashboard.clickOnApply();
-		Assert.assertTrue(giftCardDashboard.getFilterResultCount()>0);
+		Assertions.assertTrue(giftCardDashboard.getFilterResultCount()>0);
 	}
 }

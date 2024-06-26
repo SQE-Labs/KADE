@@ -1,6 +1,7 @@
 package org.automation.pageObjects;
 
 import org.automation.base.BasePage;
+import org.automation.utilities.Assertions;
 import org.openqa.selenium.By;
 import org.testng.Assert;
 
@@ -19,10 +20,10 @@ public class UpdateBillPopUp extends BasePage{
 
 	
 	public void isAllFieldPresent() {
-		Assert.assertTrue(isElementPresent(updateBtn, "Update Button"));
-		Assert.assertTrue(isElementPresent(sendToCustomerTbx, "Send To Customer TextBox"));
-		Assert.assertTrue(isElementPresent(sendEmailToCustomerTbx,"Send Email to Customer TextBox"));
-		Assert.assertTrue(isElementPresent(subTotalTextBox, "Sub Total Text Box"));
+		Assertions.assertTrue(isElementPresent(updateBtn, "Update Button"));
+		Assertions.assertTrue(isElementPresent(sendToCustomerTbx, "Send To Customer TextBox"));
+		Assertions.assertTrue(isElementPresent(sendEmailToCustomerTbx,"Send Email to Customer TextBox"));
+		Assertions.assertTrue(isElementPresent(subTotalTextBox, "Sub Total Text Box"));
 	}
 	
 	public void clickOnClose() {

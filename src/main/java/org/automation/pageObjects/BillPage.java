@@ -19,7 +19,7 @@ public class BillPage extends BasePage {
 	public By transactionsLink = By.xpath("//div[text()='Transactions']");
 	public By amtTbx = By.xpath("//input[@name=\"amount\"]");
 	public By selectedCustomer= By.xpath("(//div[@data-field=\"name\"]/../../../..  //div[@class='d-none empty-d-block'])[2]");
-	public By suggestionList = By.xpath("//div[@class=\"border rounded-3 mb-1 p-2 position-relative clone\"]");
+	public By suggestionList = By.xpath("//div[@class='border rounded-3 mb-1 p-2 position-relative clone']");
 	By customerField= By.xpath("//div[@class='modal-content']//label[text()='Customer']");
 	By moreOptionsField= By.xpath("//div[@class=\"modal-body\"] //label[text()='More options']");
 	By pageHeader = By.xpath("//h1[@class='header-title mb-0']");
@@ -40,7 +40,7 @@ public class BillPage extends BasePage {
 	By unpaidBill = By.xpath("//div[@class='badge bg-danger']/../../..");
 	By refNo=By.xpath("//tr[@class='none-workingEffect']/td[2]/p[1]");
 	By toastCloseBtn = By.xpath("//button[@class='toast-close-button']");
-	By toastMessage = By.xpath("//div[@class='toast-message']");
+	public By toastMessage = By.xpath("//div[@class='toast-message']");
 	By refundBtn = By.xpath("//button[@title='Refund']");
 	By reasonField = By.xpath("(//input[@name='reason'])[3]");
 	By processFullRefund = By.xpath("//button[@name='refundAll']");
@@ -84,6 +84,17 @@ public class BillPage extends BasePage {
 	By goBtnPhnNo = By.xpath("//input[@placeholder='Phone number']/..//button");
 	By goBtnEmail = By.xpath("//input[@placeholder='Email']/..//button");
 	By searcherName=By.xpath("(//div[@data-field='alias'])[2]");
+	By discardBtn= By.xpath("(//*[contains(text(),'discard')])[5]/.. //button[text()='Discard']");
+	By confirmBtn = By.xpath("//button[@name='method']");
+	By continueWithoutBtn = By.xpath("//*[@role=\"dialog\"] //button[text()='Continue without']");
+	By selectACustomerBtn = By.xpath("//*[@role=\"dialog\"] //button[text()='Select a customer']");
+	By whichStorePopup = By.xpath("//p[text()='Which store?']");
+	By newBusinessCard = By.xpath("div.overflow-hidden.border.border-info");
+	By storesCombobox=By.xpath("//span[@role='combobox']");
+	By continueBtn=By.xpath("//button[@type='submit']");
+	By messagePopupHeader=By.xpath("//*[@role='dialog'] //h5[text()='Message']");
+	By closeLogoPopupBtn= By.xpath("//div[@class='modal-sm modal-dialog']//button");
+
 
 	public String getPopUpTitle() {
 		WebdriverWaits.waitForElementVisible(popUpHeader,5);
@@ -475,10 +486,11 @@ public class BillPage extends BasePage {
 		return isWebElementVisible(moreOptionsField);
 	}
 
-	public void enterAmount(String amt) throws InterruptedException {
+	public void enterAmount(String amt){
 		WebdriverWaits.waitForElementUntilVisible(amtInput, 5);
     	clear_custom(amtInput);
 		pressKeys(amtInput,amt);
+		click(amtInput);
 	}
 
 	public void getAmtValue(){
@@ -517,5 +529,91 @@ public class BillPage extends BasePage {
 
 	public String getSearchedCustomer() {
 		return  getText_custom(searcherName);
+	}
+
+	public void clickDiscardBtn() {
+		click(discardBtn);
+	}
+
+	public boolean isConfirmBtnEnabled(){
+		return isElementEnabled(confirmBtn);
+	}
+
+	public void clickOnConfirm() {
+		scrollToElement(confirmBtn);
+		click(confirmBtn);
+	}
+
+	public void clickOnContinueWithout() {
+		WebdriverWaits.waitForElementClickable(continueWithoutBtn,5);
+		click(continueWithoutBtn);
+	}
+
+	public void clickStoresDropdown(){
+		click(storesCombobox);
+	}
+
+	public void selectStore(String store){
+			click(By.xpath("//li[contains(text(),'"+store+"')]"));  // Select store
+	}
+
+	public void clickContinueBtn(){
+		click(continueBtn);
+	}
+
+	public String getMessagePopupHeader() {
+		return getText_custom(messagePopupHeader);
+	}
+
+	public boolean isSelectACustomerBtnVisible() {
+		return  isWebElementVisible(selectACustomerBtn);
+	}
+
+	public boolean isContinueWithoutBtnVisible() {
+		return isWebElementVisible(continueWithoutBtn);
+	}
+
+	public boolean isToastMessageDisplayed() {
+		return isWebElementVisible(toastMessage);
+	}
+
+	public boolean isNotPaidLabelDisplayed(String amt) {
+	By notPaidLabel = By.xpath("//span[text()='$"+amt+"']/../../div[1]/span");
+	return isWebElementVisible(notPaidLabel);
+	}
+
+	public boolean isRefNoDisplayed(String amt) {
+		By refNo = By.xpath("//span[text()='$"+amt+"']/../../div[1]/span");
+		return isWebElementVisible(refNo);
+	}
+
+
+	public boolean isBillTimeDisplayed(String amt) {
+		By time = By.xpath("(//span[text()='$"+amt+"']/../../../div/div)[1]");
+		return isWebElementVisible(time);
+	}
+
+	public void closeLogoConfigPopup() {
+		WebdriverWaits.waitForElementClickable(closeLogoPopupBtn,5);
+		click(closeLogoPopupBtn);
+	}
+
+	public void clickOnSelectACustomer() {
+		WebdriverWaits.waitForElementClickable(selectACustomerBtn,5);
+		moveToWebElement(selectACustomerBtn);
+		click(selectACustomerBtn);
+	}
+
+	public boolean isSearchFieldPresent() {
+		return isWebElementVisible(searchTbx);
+	}
+
+	public boolean isCustomerPhnNoFieldPresent() {
+		WebdriverWaits.waitForElementVisible(customerNumber,5);
+		return isWebElementVisible(customerNumber);
+	}
+
+	public void ClickSuggestedCustomer() {
+		click(suggestionList);
 	}
 }
