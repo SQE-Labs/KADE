@@ -5,6 +5,7 @@ import org.automation.pageObjects.BasicInformationPage;
 import org.automation.pageObjects.DashBoardPage;
 import org.automation.pageObjects.LoginPage;
 import org.automation.pageObjects.SecurityAndPasswordPage;
+import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -23,7 +24,7 @@ public class SecurityAndPasswordTest extends BaseTest{
 		dashboard.clickProfile();
 		info.clickOnSecurityAndPassword();
 		security.clickOnEditEmailIcon();
-		Assert.assertEquals(security.getHeaderText(), "Update Email Address");
+		Assertions.assertEquals(security.getHeaderText(), "Update Email Address");
 		security.closePopup();
 	}
 	
@@ -33,7 +34,7 @@ public class SecurityAndPasswordTest extends BaseTest{
 		info.clickOnSecurityAndPassword();
 		security.clickOnEditEmailIcon();
 		security.clickOnSendSecurityCodeBtn();
-		Assert.assertEquals(security.getNewEmailToolTipMessage(),"This field is required." );
+		Assertions.assertEquals(security.getNewEmailToolTipMessage(),"This field is required." );
 		security.closePopup();
 	}
 	
@@ -44,7 +45,7 @@ public class SecurityAndPasswordTest extends BaseTest{
 		security.clickOnEditEmailIcon();
 		security.enterNewEmail("ronny@123");
 		security.clickOnSendSecurityCodeBtn();
-		Assert.assertEquals(security.getNewEmailToolTipMessage(),"Please enter a valid email address." );
+		Assertions.assertEquals(security.getNewEmailToolTipMessage(),"Please enter a valid email address." );
 		security.closePopup();
 	}
 	
@@ -55,7 +56,7 @@ public class SecurityAndPasswordTest extends BaseTest{
 		security.clickOnEditEmailIcon();
 		security.enterNewEmail("testkade@yopmail.com");
 		security.clickOnSendSecurityCodeBtn();
-		Assert.assertEquals(security.getNewEmailToolTipMessage(),"New email cannot be the same as the current email!" );
+		Assertions.assertEquals(security.getNewEmailToolTipMessage(),"New email cannot be the same as the current email!" );
 		security.closePopup();
 	}
 	
@@ -67,7 +68,7 @@ public class SecurityAndPasswordTest extends BaseTest{
 		security.clickOnEditEmailIcon();
 		security.enterNewEmail("testkade1@yopmail.com");
 		security.clickOnSendSecurityCodeBtn();
-		Assert.assertTrue(security.isElementPresent());
+		Assertions.assertTrue(security.isElementPresent());
 		security.closePopup();
 	}
 	
@@ -79,17 +80,17 @@ public class SecurityAndPasswordTest extends BaseTest{
 		security.enterNewEmail("testkade1@yopmail.com");
 		security.clickOnSendSecurityCodeBtn();
 		security.clickOnSaveBtn();
-		Assert.assertEquals(security.getCurrentEmaiOtplToolTipMessage(),"This field is required." );
-		Assert.assertEquals(security.getNewEmailOtpToolTipMessage(),"This field is required." );
+		Assertions.assertEquals(security.getCurrentEmaiOtplToolTipMessage(),"This field is required." );
+		Assertions.assertEquals(security.getNewEmailOtpToolTipMessage(),"This field is required." );
 		security.enterCurrentEmailOtp(123451);
 		security.enterNewEmailOtp(123451);
 		security.clickOnSaveBtn();
-		Assert.assertEquals(security.getValidationlToolTipMessage(),"Security code cannot be verified for the current email." );
+		Assertions.assertEquals(security.getValidationlToolTipMessage(),"Security code cannot be verified for the current email." );
 		security.enterCurrentEmailOtp(12345);
 		security.enterNewEmailOtp(12345);
 		security.clickOnSaveBtn();
-		Assert.assertEquals(security.getCurrentEmaiOtplToolTipMessage(),"Please enter at least 6 characters." );
-		Assert.assertEquals(security.getNewEmailOtpToolTipMessage(),"Please enter at least 6 characters." );
+		Assertions.assertEquals(security.getCurrentEmaiOtplToolTipMessage(),"Please enter at least 6 characters." );
+		Assertions.assertEquals(security.getNewEmailOtpToolTipMessage(),"Please enter at least 6 characters." );
 		security.closePopup();
 	}
 	
@@ -101,7 +102,7 @@ public class SecurityAndPasswordTest extends BaseTest{
 		security.enterNewEmail("testkade1@yopmail.com");
 		security.clickOnSendSecurityCodeBtn();
 		security.clickDifferentEmailLink();
-		Assert.assertTrue(security.isNewEmailPresent());
+		Assertions.assertTrue(security.isNewEmailPresent());
 		security.closePopup();
 	}
 	
@@ -110,7 +111,7 @@ public class SecurityAndPasswordTest extends BaseTest{
 		dashboard.clickProfile();
 		info.clickOnSecurityAndPassword();
 		security.clickOnEditCellPhoneIcon();
-		Assert.assertEquals(security.getHeaderText(), "Update Cell-phone");
+		Assertions.assertEquals(security.getHeaderText(), "Update Cell-phone");
 		security.closePopup();
 	}
 	
@@ -120,7 +121,7 @@ public class SecurityAndPasswordTest extends BaseTest{
 		info.clickOnSecurityAndPassword();
 		security.clickOnEditCellPhoneIcon();
 		security.clickOnSendSecurityCodeBtn();
-		Assert.assertEquals(security.getNewCellPhoneToolTipMessage(),"This field is required." );
+		Assertions.assertEquals(security.getNewCellPhoneToolTipMessage(),"This field is required." );
 		security.closePopup();
 	}
 	
@@ -131,7 +132,7 @@ public class SecurityAndPasswordTest extends BaseTest{
 		security.clickOnEditCellPhoneIcon();
 		security.enterNewCellPhoneNumber("123456789");
 		security.clickOnSendSecurityCodeBtn();
-		Assert.assertEquals(security.getNewCellPhoneToolTipMessage(),"Invalid phone number" );
+		Assertions.assertEquals(security.getNewCellPhoneToolTipMessage(),"Invalid phone number" );
 		security.closePopup();
 	}
 	
@@ -142,7 +143,7 @@ public class SecurityAndPasswordTest extends BaseTest{
 		security.clickOnEditCellPhoneIcon();
 		security.enterNewCellPhoneNumber("+919874635124");
 		security.clickOnSendSecurityCodeBtn();
-		Assert.assertTrue(security.isElementPresent());
+		Assertions.assertTrue(security.isElementPresent());
 		security.closePopup();
 	}
 	
@@ -154,17 +155,17 @@ public class SecurityAndPasswordTest extends BaseTest{
 		security.enterNewCellPhoneNumber("+919874635124");
 		security.clickOnSendSecurityCodeBtn();
 		security.clickOnSaveBtn();
-		Assert.assertEquals(security.getCurrentEmaiOtplToolTipMessage(),"This field is required." );
-		Assert.assertEquals(security.getNewEmailOtpToolTipMessage(),"This field is required." );
+		Assertions.assertEquals(security.getCurrentEmaiOtplToolTipMessage(),"This field is required." );
+		Assertions.assertEquals(security.getNewEmailOtpToolTipMessage(),"This field is required." );
 		security.enterCurrentCellPhoneOtp(123451);
 		security.enterNewCellPhoneOtp(123451);
 		security.clickOnSaveBtn();
-		Assert.assertEquals(security.getValidationlToolTipMessage(),"Security code cannot be verified for the current phone." );
+		Assertions.assertEquals(security.getValidationlToolTipMessage(),"Security code cannot be verified for the current phone." );
 		security.enterCurrentCellPhoneOtp(12345);
 		security.enterNewCellPhoneOtp(12345);
 		security.clickOnSaveBtn();
-		Assert.assertEquals(security.getCurrentEmaiOtplToolTipMessage(),"Please enter at least 6 characters." );
-		Assert.assertEquals(security.getNewEmailOtpToolTipMessage(),"Please enter at least 6 characters." );
+		Assertions.assertEquals(security.getCurrentEmaiOtplToolTipMessage(),"Please enter at least 6 characters." );
+		Assertions.assertEquals(security.getNewEmailOtpToolTipMessage(),"Please enter at least 6 characters." );
 		security.closePopup();
 	}
 	
@@ -176,7 +177,7 @@ public class SecurityAndPasswordTest extends BaseTest{
 		security.enterNewCellPhoneNumber("+919875632145");
 		security.clickOnSendSecurityCodeBtn();
 		security.clickDifferentCellPhoneLink();
-		Assert.assertTrue(security.isNewCellPhoneTbxPresent());
+		Assertions.assertTrue(security.isNewCellPhoneTbxPresent());
 		security.closePopup();
 	}
 	
@@ -187,7 +188,7 @@ public class SecurityAndPasswordTest extends BaseTest{
 		security.clickOnEditCellPhoneIcon();
 		security.enterNewCellPhoneNumber("+918618071668");
 		security.clickOnSendSecurityCodeBtn();
-		Assert.assertEquals(security.getNewCellPhoneToolTipMessage(),"New phone number cannot be the same as the current phone number!" );
+		Assertions.assertEquals(security.getNewCellPhoneToolTipMessage(),"New phone number cannot be the same as the current phone number!" );
 		security.closePopup();
 	}
 	
@@ -196,9 +197,9 @@ public class SecurityAndPasswordTest extends BaseTest{
 		dashboard.clickProfile();
 		info.clickOnSecurityAndPassword();	
 		security.clickResetYourPassword();
-		Assert.assertEquals(security.getHeaderText(), "Change Password");
+		Assertions.assertEquals(security.getHeaderText(), "Change Password");
 		security.clickOnSendSecurityCodeBtn();
-		Assert.assertEquals(security.getTitleOfPage("Verify Account"), "Verify Account");
+		Assertions.assertEquals(security.getTitleOfPage("Verify Account"), "Verify Account");
 		security.goBackToPreviousPage();
 	}
 }

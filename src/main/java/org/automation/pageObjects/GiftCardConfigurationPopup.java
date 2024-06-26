@@ -1,6 +1,7 @@
 package org.automation.pageObjects;
 
 import org.automation.base.BasePage;
+import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.testng.Assert;
@@ -40,9 +41,9 @@ By fundingSourceTbx=By.xpath("//textarea[@name='fundSourceList']");
 	}
 	
 	public void isAllElementPresent() {
-	Assert.assertTrue(isElementPresent(issueGiftCardToggle, "Accepting and issuing Gift Cards toggle button"));
-	Assert.assertTrue(isElementPresent(referenceNoToggle, "Reference No. toggle button"));
-	Assert.assertTrue(isElementPresent(fundingSourceToggle, "funding source toggle button"));
+	Assertions.assertTrue(isElementPresent(issueGiftCardToggle, "Accepting and issuing Gift Cards toggle button"));
+	Assertions.assertTrue(isElementPresent(referenceNoToggle, "Reference No. toggle button"));
+	Assertions.assertTrue(isElementPresent(fundingSourceToggle, "funding source toggle button"));
 	}
 
 	public void switchOnRefNoToggle() {

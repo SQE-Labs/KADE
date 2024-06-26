@@ -1,20 +1,13 @@
 package org.automation.base;
-
-//import com.codoid.products.exception.FilloException;
-//import com.codoid.products.fillo.Connection;
-//import com.codoid.products.fillo.Fillo;
-//import com.codoid.products.fillo.Recordset;
 import com.relevantcodes.extentreports.ExtentReports;
 import com.relevantcodes.extentreports.ExtentTest;
 import com.relevantcodes.extentreports.LogStatus;
-import io.github.bonigarcia.wdm.WebDriverManager;
 import org.automation.listeners.TestReporter;
 import org.automation.listeners.TestRunListener;
 import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.Screenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
