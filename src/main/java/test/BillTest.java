@@ -1,6 +1,7 @@
 package test;
 
-import java.util.List;
+import java.awt.*;
+import java.text.ParseException;
 
 import org.automation.base.BaseTest;
 import org.automation.pageObjects.BillEditPopup;
@@ -8,16 +9,11 @@ import org.automation.pageObjects.BillPage;
 import org.automation.pageObjects.BillViewPopup;
 import org.automation.pageObjects.DashBoardPage;
 import org.automation.pageObjects.LoginPage;
-import org.automation.pageObjects.NewBillPopUp;
 import org.automation.pageObjects.RefundPage;
 import org.automation.pageObjects.TransactionsPage;
 import org.automation.pageObjects.UpdateBillPopUp;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
-import org.automation.utilities.WebdriverWaits;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.testng.Assert;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -27,11 +23,6 @@ public class BillTest extends BaseTest{
 	LoginPage login= new LoginPage();
 	DashBoardPage dashboard=new DashBoardPage();
 	BillPage bill = new BillPage();
-	BillEditPopup editPopup=new BillEditPopup();
-	BillViewPopup billView=new BillViewPopup();
-	RefundPage refund=new RefundPage();
-	UpdateBillPopUp update = new UpdateBillPopUp();
-	TransactionsPage transactions=new TransactionsPage();
 
 	@BeforeMethod
 	public void navigateToBill(){
@@ -56,48 +47,48 @@ public class BillTest extends BaseTest{
 		bill.clickOnNewBill();
 
 		// Verify New Bill popup Web Elements
-		Assert.assertEquals(bill.getPopUpTitle(), "Bill");
-		Assert.assertTrue(bill.isAmountTbxDisplayed());
-		Assert.assertTrue(bill.isDescriptionDisplayed());
-		Assert.assertTrue(bill.isCustomerFieldDisplayed());
-		Assert.assertTrue(bill.isMoreOptionDisplayed());
+		Assertions.assertEquals(bill.getPopUpTitle(), "Bill");
+		Assertions.assertTrue(bill.isAmountTbxDisplayed());
+		Assertions.assertTrue(bill.isDescriptionDisplayed());
+		Assertions.assertTrue(bill.isCustomerFieldDisplayed());
+		Assertions.assertTrue(bill.isMoreOptionDisplayed());
 
 		// Verify Default value of Amount tab
 		String defaultAmt = bill.getAttribute(bill.amtInput,"value");
-		Assert.assertEquals(defaultAmt,"$0.00");
+		Assertions.assertEquals(defaultAmt,"$0.00");
 
 		//Verify Confirm Button is disabled before entering amount
-		Assert.assertFalse(bill.isConfirmBtnEnabled());
+		Assertions.assertFalse(bill.isConfirmBtnEnabled());
 
 		//Enter amount
 		String amt ="2,999.00";
 		bill.enterAmount(amt);
 
 		// Verify Default Confirm button is enabled after entering amount
-		Assert.assertTrue(bill.isConfirmBtnEnabled());
+		Assertions.assertTrue(bill.isConfirmBtnEnabled());
 
 		//Click Confirm
 		bill.clickOnConfirm();
 
 		//Verify Message popup and Buttons
-		Assert.assertEquals(bill.getMessagePopupHeader(),"Message");
-		Assert.assertTrue(bill.isSelectACustomerBtnVisible());
-		Assert.assertTrue(bill.isContinueWithoutBtnVisible());
+		Assertions.assertEquals(bill.getMessagePopupHeader(),"Message");
+		Assertions.assertTrue(bill.isSelectACustomerBtnVisible());
+		Assertions.assertTrue(bill.isContinueWithoutBtnVisible());
 
 		//Click On Continue Button
 		bill.clickOnContinueWithout();
 
 		//Verify toast message
-		Assert.assertTrue(bill.isToastMessageDisplayed());
-		Assert.assertEquals(bill.getToastMessage(),"Bill was created successfully.Click here to open");
+		Assertions.assertTrue(bill.isToastMessageDisplayed());
+		Assertions.assertEquals(bill.getToastMessage(),"Bill was created successfully.Click here to open");
 
 		//Close popup
-//		bill.closeLogoConfigPopup();
+		bill.closeLogoConfigPopup();
 
 		//Verify not paid label for generated amount
-		Assert.assertTrue(bill.isNotPaidLabelDisplayed(amt));
-		Assert.assertTrue(bill.isRefNoDisplayed(amt));
-		Assert.assertTrue(bill.isBillTimeDisplayed(amt));
+		Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+		Assertions.assertTrue(bill.isRefNoDisplayed(amt));
+		Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
 
 	}
 
@@ -114,33 +105,33 @@ public class BillTest extends BaseTest{
 		bill.clickOnNewBill();
 
 		// Verify New Bill popup
-		Assert.assertEquals(bill.getPopUpTitle(), "Bill");
+		Assertions.assertEquals(bill.getPopUpTitle(), "Bill");
 
 		//Verify Confirm Button is disabled before entering amount
-		Assert.assertFalse(bill.isConfirmBtnEnabled());
+		Assertions.assertFalse(bill.isConfirmBtnEnabled());
 
 		//Enter amount
 		String amt ="1,000.00";
 		bill.enterAmount(amt);
 
 		// Verify Default Confirm button is enabled after entering amount
-		Assert.assertTrue(bill.isConfirmBtnEnabled());
+		Assertions.assertTrue(bill.isConfirmBtnEnabled());
 
 		//Click Confirm
 		bill.clickOnConfirm();
 
 		//Verify Message popup and Buttons
-		Assert.assertEquals(bill.getMessagePopupHeader(),"Message");
-		Assert.assertTrue(bill.isSelectACustomerBtnVisible());
-		Assert.assertTrue(bill.isContinueWithoutBtnVisible());
+		Assertions.assertEquals(bill.getMessagePopupHeader(),"Message");
+		Assertions.assertTrue(bill.isSelectACustomerBtnVisible());
+		Assertions.assertTrue(bill.isContinueWithoutBtnVisible());
 
 		//Click On Continue Button
 		bill.clickOnSelectACustomer();
 
 		//Verify Customer popup
-		Assert.assertTrue(bill.isCustomerPhnNoFieldPresent());
-		Assert.assertTrue(bill.isEmailFieldPresent());
-		Assert.assertTrue(bill.isSearchFieldPresent());
+		Assertions.assertTrue(bill.isCustomerPhnNoFieldPresent());
+		Assertions.assertTrue(bill.isEmailFieldPresent());
+		Assertions.assertTrue(bill.isSearchFieldPresent());
 
 
 		//Select Customer
@@ -151,16 +142,16 @@ public class BillTest extends BaseTest{
 		bill.clickOnConfirm();
 
 		//Verify toast message
-		Assert.assertTrue(bill.isToastMessageDisplayed());
-		Assert.assertEquals(bill.getToastMessage(),"Bill was created successfully.Click here to open");
+		Assertions.assertTrue(bill.isToastMessageDisplayed());
+		Assertions.assertEquals(bill.getToastMessage(),"Bill was created successfully.Click here to open");
 
 		//Close popup
 		bill.closeLogoConfigPopup();
 
 		//Verify not paid label for generated amount
-		Assert.assertTrue(bill.isNotPaidLabelDisplayed(amt));
-		Assert.assertTrue(bill.isRefNoDisplayed(amt));
-		Assert.assertTrue(bill.isBillTimeDisplayed(amt));
+		Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+		Assertions.assertTrue(bill.isRefNoDisplayed(amt));
+		Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
 	}
 
 	@Test (enabled = true, description="Bill creation by selecting customers from the suggestion list")
@@ -181,16 +172,170 @@ public class BillTest extends BaseTest{
 		bill.ClickSuggestedCustomer();
 		bill.clickOnConfirm();
 		//Verify toast message
-		Assert.assertTrue(bill.isToastMessageDisplayed());
-		Assert.assertEquals(bill.getToastMessage(),"Bill was created successfully.Click here to open");
+		Assertions.assertTrue(bill.isToastMessageDisplayed());
+		Assertions.assertEquals(bill.getToastMessage(),"Bill was created successfully.Click here to open");
 
+		//Close popup
+		bill.closeLogoConfigPopup();
 
 		//Verify not paid label for generated amount
-		Assert.assertTrue(bill.isNotPaidLabelDisplayed(amt));
-		Assert.assertTrue(bill.isRefNoDisplayed(amt));
-		Assert.assertTrue(bill.isBillTimeDisplayed(amt));
+		Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+		Assertions.assertTrue(bill.isRefNoDisplayed(amt));
+		Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
 
 	}
-	
-}
+
+	@Test (enabled = true, description="Bill Creation with already configured 'Tax' from store configuration page.")
+	public void tc_04createBillForConfiguredTax() throws ParseException {
+		dashboard.clickOnBill();
+
+		//Select Store
+		bill.clickStoresDropdown();
+		bill.selectStore("Automation Flow 1");
+		bill.clickContinueBtn();
+
+		// Click on New Bill Button
+		bill.clickOnNewBill();
+
+		//Enter amount
+		String amt = "2500.00";
+		bill.enterAmount(amt);
+
+		//Enable Tax toggle Button
+		bill.EnableTaxToggle();
+
+		//Verify Total Amt after tax
+		float taxValue = bill.getTaxValue();
+		float totalAmt = bill.getTotalAmt();
+		float expectedTotal = Float.parseFloat(amt) + (taxValue/100)*Float.parseFloat(amt);
+
+		Assertions.assertTrue(expectedTotal==totalAmt);
+
+		//Select Suggested Customer
+		bill.clickCustomer();
+		bill.ClickSuggestedCustomer();
+		bill.clickOnConfirm();
+
+		//Verify toast message
+		Assertions.assertTrue(bill.isToastMessageDisplayed());
+		Assertions.assertEquals(bill.getToastMessage(),"Bill was created successfully.Click here to open");
+
+		bill.closeLogoConfigPopup();
+		String total = bill.convertToNumberFormat(totalAmt);
+		System.out.println(total);
+		Assertions.assertTrue(bill.isNotPaidLabelDisplayed(total));
+		Assertions.assertTrue(bill.isRefNoDisplayed(total));
+		Assertions.assertTrue(bill.isBillTimeDisplayed(total));
+	}
+
+	@Test (enabled = true, description="Bill Creation with already configured 'Tax' from store configuration page.")
+	public void tc_06createBillByAttachingImage() throws ParseException, AWTException {
+		dashboard.clickOnBill();
+
+		//Select Store
+		bill.clickStoresDropdown();
+		bill.selectStore("Automation Flow 1");
+		bill.clickContinueBtn();
+
+		// Click on New Bill Button
+		bill.clickOnNewBill();
+
+		//Enter amount
+		String amt = "1760.00";
+		bill.enterAmount(amt);
+
+		//Enable Tax toggle Button
+		bill.EnableTaxToggle();
+
+		//Add Attachment(Image)
+		bill.clickTapToAddFiles();
+		bill.clickCameraIcon();
+		bill.uploadImageAsAttachment("src/main/resources/image/BillDummyImg.jpg");
+		bill.ClickCheckBtn();
+		//Verify Added Image
+		Assertions.assertTrue(bill.isAttachedFileDisplayed());
+		Assertions.assertTrue(bill.getAttachedFilesCount()==1);
+
+		//Verify Total Amt after tax
+		float taxValue = bill.getTaxValue();
+		float totalAmt = bill.getTotalAmt();
+		float expectedTotal = Float.parseFloat(amt) + (taxValue / 100) * Float.parseFloat(amt);
+
+		Assertions.assertTrue(expectedTotal == totalAmt);
+
+		//Select Suggested Customer
+		bill.clickCustomer();
+		bill.ClickSuggestedCustomer();
+		bill.clickOnConfirm();
+
+		//Verify toast message
+		Assertions.assertTrue(bill.isToastMessageDisplayed());
+		Assertions.assertEquals(bill.getToastMessage(), "Bill was created successfully.Click here to open");
+
+		//Close popup
+		bill.closeLogoConfigPopup();
+
+		//Verify Created Bill
+		String total = bill.convertToNumberFormat(totalAmt);
+		Assertions.assertTrue(bill.isNotPaidLabelDisplayed(total));
+		Assertions.assertTrue(bill.isRefNoDisplayed(total));
+		Assertions.assertTrue(bill.isBillTimeDisplayed(total));
+
+		// Verify Attached File
+		bill.openBillByAmt(total);
+		Assertions.assertTrue(bill.isAttachedFileDisplayed());
+		Assertions.assertTrue(bill.getAttachedFilesCount()==1);
+		bill.closeCreatedBill();
+	}
+
+	@Test (enabled = true, description="Bill Creation with already configured 'Tax' from store configuration page.")
+	public void tc_07createBillByAttachingPdf() throws AWTException {
+		dashboard.clickOnBill();
+
+		//Select Store
+		bill.clickStoresDropdown();
+		bill.selectStore("Automation Flow 1");
+		bill.clickContinueBtn();
+
+		// Click on New Bill Button
+		bill.clickOnNewBill();
+
+		//Enter amount
+		String amt = "879.99";
+		bill.enterAmount(amt);
+
+		//Add Attachment (PDF)
+		bill.clickTapToAddFiles();
+		bill.clickDocumentIcon();
+		bill.uploadImageAsAttachment("src/main/resources/Documents/Bills.pdf");
+
+		//Verify Added Image
+		Assertions.assertTrue(bill.isAttachedFileDisplayed());
+		Assertions.assertTrue(bill.getAttachedFilesCount()==1);
+
+		//Select Suggested Customer
+		bill.clickCustomer();
+		bill.ClickSuggestedCustomer();
+		bill.clickOnConfirm();
+
+		//Verify toast message
+		Assertions.assertTrue(bill.isToastMessageDisplayed());
+		Assertions.assertEquals(bill.getToastMessage(), "Bill was created successfully.Click here to open");
+
+		//Verify Created Bill
+		bill.closeLogoConfigPopup();
+		Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+		Assertions.assertTrue(bill.isRefNoDisplayed(amt));
+		Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+
+		// Verify Attached File
+		bill.openBillByAmt(amt);
+		Assertions.assertTrue(bill.isAttachedFileDisplayed());
+		Assertions.assertTrue(bill.getAttachedFilesCount()==1);
+
+		bill.closeCreatedBill();
+	}
+
+
+	}
 

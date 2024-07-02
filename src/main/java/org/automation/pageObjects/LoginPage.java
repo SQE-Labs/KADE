@@ -60,6 +60,7 @@ public class LoginPage extends BasePage {
 
 
     public void clickSignUpLink(){
+
         clickBtn(signUpLink);
     }
 

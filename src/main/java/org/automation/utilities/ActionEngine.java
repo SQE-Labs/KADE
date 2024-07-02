@@ -6,6 +6,7 @@ import org.automation.elements.CheckBox;
 import org.automation.elements.DropDown;
 import org.automation.elements.Element;
 import org.automation.logger.Log;
+import org.checkerframework.checker.units.qual.A;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
@@ -27,7 +28,6 @@ public class ActionEngine extends BaseTest {
 
 	public void selectFirst(By element) {
 		getDriver().findElements(element).get(0).click();
-
 	}
 
 	public void click(By path, String... label) {
@@ -451,6 +451,11 @@ public class ActionEngine extends BaseTest {
 	public static void clickElementByJS( By element) {
 		JavascriptExecutor js = (JavascriptExecutor) getDriver();
 		js.executeScript("arguments[0].click();", getDriver().findElement(element));
+	}
+
+	public void clickByMouse(By xpath){
+		Actions a= new Actions(getDriver());
+		a.click(getDriver().findElement(xpath));
 	}
 
 }

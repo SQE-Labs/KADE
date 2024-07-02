@@ -1,15 +1,20 @@
 package org.automation.pageObjects;
 
+import java.awt.*;
+import java.nio.file.Paths;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Locale;
 import java.util.stream.Collectors;
 
 import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
-import org.openqa.selenium.By;
-import org.openqa.selenium.Keys;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
+
+import static org.apache.xmlbeans.xml.stream.utils.NestedThrowable.Util.printStackTrace;
 
 public class BillPage extends BasePage {
 
@@ -86,7 +91,7 @@ public class BillPage extends BasePage {
 	By searcherName=By.xpath("(//div[@data-field='alias'])[2]");
 	By discardBtn= By.xpath("(//*[contains(text(),'discard')])[5]/.. //button[text()='Discard']");
 	By confirmBtn = By.xpath("//button[@name='method']");
-	By continueWithoutBtn = By.xpath("//*[@role=\"dialog\"] //button[text()='Continue without']");
+	By continueWithoutBtn = By.xpath("//*[@role='dialog'] //button[text()='Continue without']");
 	By selectACustomerBtn = By.xpath("//*[@role=\"dialog\"] //button[text()='Select a customer']");
 	By whichStorePopup = By.xpath("//p[text()='Which store?']");
 	By newBusinessCard = By.xpath("div.overflow-hidden.border.border-info");
@@ -94,7 +99,12 @@ public class BillPage extends BasePage {
 	By continueBtn=By.xpath("//button[@type='submit']");
 	By messagePopupHeader=By.xpath("//*[@role='dialog'] //h5[text()='Message']");
 	By closeLogoPopupBtn= By.xpath("//div[@class='modal-sm modal-dialog']//button");
-
+	By totalAmt=By.xpath("//span[@data-field='total']");
+	By tapToAddFiles = By.cssSelector(".flex-column-reverse > div:nth-child(3)");
+	By cameraIcon = By.xpath("(//button[contains(@onclick,'image')])[2]");
+	By documnetIcon = By.xpath("(//button[contains(@onclick,'pdf')])[2]");
+	By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
+	By attachedImage= By.xpath("//img[@class='img-thumbnail  bg-black']");
 
 	public String getPopUpTitle() {
 		WebdriverWaits.waitForElementVisible(popUpHeader,5);
@@ -545,6 +555,7 @@ public class BillPage extends BasePage {
 	}
 
 	public void clickOnContinueWithout() {
+		WebdriverWaits.waitForElementVisible(continueWithoutBtn,5);
 		WebdriverWaits.waitForElementClickable(continueWithoutBtn,5);
 		click(continueWithoutBtn);
 	}
@@ -594,8 +605,11 @@ public class BillPage extends BasePage {
 	}
 
 	public void closeLogoConfigPopup() {
-		WebdriverWaits.waitForElementClickable(closeLogoPopupBtn,5);
-		click(closeLogoPopupBtn);
+		try {
+			WebdriverWaits.waitForElementClickable(closeLogoPopupBtn, 5);
+			click(closeLogoPopupBtn);
+		} catch (TimeoutException e){
+		}
 	}
 
 	public void clickOnSelectACustomer() {
@@ -615,5 +629,73 @@ public class BillPage extends BasePage {
 
 	public void ClickSuggestedCustomer() {
 		click(suggestionList);
+	}
+
+	public void EnableTaxToggle() {
+		By taxToggleBtn= By.xpath("//input[@name='applyTax']/../i[2]");
+		click(taxToggleBtn);
+	}
+
+	public float getTotalAmt() throws ParseException {
+		String total = getText_custom(totalAmt);
+			return NumberFormat.getInstance(Locale.US).parse(total).floatValue();
+    }
+
+	public float getTaxValue() {
+		By taxValue = By.xpath("//input[@name='applyTax']/../span");
+		String tax = getText_custom(taxValue).split(" ")[2].replace("%","");
+		return Float.parseFloat(tax);
+	}
+
+	public String convertToNumberFormat(float num){
+		// Create a NumberFormat instance for the default locale
+		NumberFormat formatter = NumberFormat.getNumberInstance(Locale.US);
+		// Set maximum fraction digits to 2 for two decimal places
+		formatter.setMinimumFractionDigits(2);
+		formatter.setMaximumFractionDigits(2);
+		// Format the number and return
+		return formatter.format(num);
+	}
+
+	public void clickTapToAddFiles() {
+		WebdriverWaits.waitForElementClickable(tapToAddFiles,5);
+		clickElementByJS(tapToAddFiles);
+		click(tapToAddFiles);
+	}
+
+	public void uploadImageAsAttachment(String relativePath) throws AWTException {
+		String projectPath = System.getProperty("user.dir");
+		String absolutePath = Paths.get(projectPath, relativePath).toString();
+		uploadImageFile(absolutePath);
+	}
+
+	public void ClickCheckBtn() {
+		click(checkBtn);
+	}
+
+	public void clickCameraIcon() {
+		click(cameraIcon);
+	}
+
+	public int getAttachedFilesCount() {
+		int count = getListOfWebElements(attachedImage).size();
+        return count;
+    }
+
+	public boolean isAttachedFileDisplayed() {
+		return isWebElementVisible(attachedImage);
+	}
+
+	public void clickDocumentIcon() {
+		click(documnetIcon);
+	}
+
+	public void openBillByAmt(String amt) {
+		By bill = By.xpath("(//span[text()='$"+amt+"']/../../..)[1]");
+		click(bill);
+	}
+
+	public void closeCreatedBill() {
+		click(closeBillBtn);
 	}
 }

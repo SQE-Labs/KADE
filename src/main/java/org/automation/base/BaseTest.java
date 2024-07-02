@@ -54,9 +54,6 @@ public class BaseTest {
 
 		switch (browser) {
 		case "chrome":
-			
-//			WebDriverManager.chromedriver().setup();
-//			//driver = new ChromeDriver(BrowserOptions.getChromeOptions());
 			driver.set(new ChromeDriver());
 			break;
 
