@@ -8,6 +8,7 @@ import org.automation.pageObjects.DashBoardPage;
 import org.automation.pageObjects.LoginPage;
 import org.automation.pageObjects.MyStorePage;
 import org.automation.pageObjects.newBusinessPage;
+import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -24,7 +25,7 @@ public class MyStoreTest extends BaseTest{
 		login.performSignIn(PropertiesUtil.getPropertyValue("userName2"), PropertiesUtil.getPropertyValue("password2"));
 		//dashboard.clickOnMyStores();
 		myStore.clickOnRegisterNewBuissnessBtn();
-		Assert.assertEquals(myStore.getPageHeader(), "New business");
+		Assertions.assertEquals(myStore.getPageHeader(), "New business");
 	}
 	
 	@Test(enabled = true, description="Verify that validation message appears, after clicking on 'Save' button, when mandatory fields are left blank, on 'New Business' page.")
@@ -32,16 +33,16 @@ public class MyStoreTest extends BaseTest{
 		//dashboard.clickOnMyStores();
 		//myStore.clickOnRegisterNewBuissnessBtn();
 		myStore.clickOnSaveBtn();
-		Assert.assertTrue(myStore.isValidationMessageDisplayed());
+		Assertions.assertTrue(myStore.isValidationMessageDisplayed());
 	}
 	
 	@Test(enabled = true, description="Verify Behavior of Buisness Legal Name Textbox")
     public void tc03_verifyBuisnessLegalNameTbx() {
 		myStore.clickOnRegisterNewBuissnessBtn();
 		myStore.enterBisnessLegalName("Frutos@32");
-		Assert.assertEquals(myStore.getBuisnessLegalNameText(), "Frutos@32");
+		Assertions.assertEquals(myStore.getBuisnessLegalNameText(), "Frutos@32");
 		myStore.enterBisnessLegalName("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum.");
-		Assert.assertTrue(myStore.getBuisnessLegalNameText().length()==100);
+		Assertions.assertTrue(myStore.getBuisnessLegalNameText().length()==100);
 		
 	}
 
@@ -50,20 +51,20 @@ public class MyStoreTest extends BaseTest{
 		myStore.clickOnRegisterNewBuissnessBtn();
 		myStore.enterBisnessLegalName("SQE Labs");
 		myStore.clickOnNameOfStore();
-		Assert.assertEquals(myStore.getNameOfStoreAutoPopulation(), "SQE Labs");
+		Assertions.assertEquals(myStore.getNameOfStoreAutoPopulation(), "SQE Labs");
 		myStore.enterBisnessLegalName("SQE");
 		myStore.clickOnNameOfStore();
-		Assert.assertFalse(myStore.getNameOfStoreAutoPopulation().equalsIgnoreCase("SQE"));
+		Assertions.assertFalse(myStore.getNameOfStoreAutoPopulation().equalsIgnoreCase("SQE"));
 		myStore.enterNameOfStore("Labs");
-		Assert.assertFalse(myStore.getBuisnessLegalNameText().equalsIgnoreCase("Labs"));
+		Assertions.assertFalse(myStore.getBuisnessLegalNameText().equalsIgnoreCase("Labs"));
 		myStore.enterNameOfStore("Lorem ipsum dolor sit amet, consectetuer adipiscing elit. Aenean commodo ligula eget dolor. Aenean massa. Cum.");
-		Assert.assertTrue(myStore.getNameOfStoreAutoPopulation().length()==100);
+		Assertions.assertTrue(myStore.getNameOfStoreAutoPopulation().length()==100);
     }
 	
 	@Test(enabled = true, description="Verify that 'Individual' option appears selected by default in 'Types of business field, on 'New business page")
     public void tc05_VerifyTypeOfBuisnessSelectedOption() {
 		myStore.clickOnRegisterNewBuissnessBtn();
-		Assert.assertEquals(myStore.getTypeOfBuisnessSelectedOption(), "Individual");
+		Assertions.assertEquals(myStore.getTypeOfBuisnessSelectedOption(), "Individual");
 	}
 	
 	@Test(enabled = true, description="Verify that all the different types of business options appear in Combo box, after clicking on 'Type of Business' field, on New Business' page.")
@@ -76,7 +77,7 @@ public class MyStoreTest extends BaseTest{
 		options.add("LLC");
 		options.add("Partnership");
 		List<String> allOptions=myStore.getAllOptionsOfTypesOfBuisness();
-		Assert.assertTrue(options.equals(allOptions));
+		Assertions.assertTrue(options.equals(allOptions));
 	}
 	
 
@@ -85,73 +86,73 @@ public class MyStoreTest extends BaseTest{
 		myStore.clickOnRegisterNewBuissnessBtn();
 		myStore.clickOnTypeOfBuisness();
 		myStore.selectTypeOfBuisnessOption("LLC");
-		Assert.assertEquals(myStore.getTypeOfBuisnessSelectedOption(), "LLC");
+		Assertions.assertEquals(myStore.getTypeOfBuisnessSelectedOption(), "LLC");
 		myStore.clickOnRegisterNewBuissnessBtn();
 		myStore.clickOnTypeOfBuisness();
 		myStore.enterTypeOfBuisness("Corporation");
 		myStore.selectFirstSearchResult();
-		Assert.assertEquals(myStore.getTypeOfBuisnessSelectedOption(), "Corporation");
+		Assertions.assertEquals(myStore.getTypeOfBuisnessSelectedOption(), "Corporation");
 		myStore.clickOnTypeOfBuisness();
 		myStore.enterTypeOfBuisness("Group");
-		Assert.assertEquals(myStore.getTypeOfBusinessInfoMessage(), "No results found");
+		Assertions.assertEquals(myStore.getTypeOfBusinessInfoMessage(), "No results found");
 	}
 	
 	@Test(enabled = true, description="Verify behavior 'Location Description' field, on 'New Business' page.")
     public void tc08_verifyLocationDescription() {
 		myStore.clickOnRegisterNewBuissnessBtn();
 		myStore.enterLocationDescription("Lorem&#ipsum9olor sit amet, consectetuer adipiscing eli");
-		Assert.assertTrue(myStore.getLocationDescriptionText().length()==50);
+		Assertions.assertTrue(myStore.getLocationDescriptionText().length()==50);
 	}
 	
 	@Test(enabled = true, description="Verify behavior 'Store Address' field, on 'New Business' page.")
     public void tc09_verifyStoreAddressTbx() {
 		myStore.clickOnRegisterNewBuissnessBtn();
 		myStore.enterStoreAddress("12345");
-		Assert.assertTrue(myStore.getStoreAddressSuggestionList().size()>0);
+		Assertions.assertTrue(myStore.getStoreAddressSuggestionList().size()>0);
 		myStore.enterStoreAddress("mksmxj15");
 		myStore.clickOnSaveBtn();
-		Assert.assertEquals(myStore.getStoreAddressToolTipMessage(), "Address cannot be verified"); 
+		Assertions.assertEquals(myStore.getStoreAddressToolTipMessage(), "Address cannot be verified"); 
 	}
 	
 	@Test(enabled = true, description="Verify behavior of 'Phone' field, on 'New Business' page.")
     public void tc10_verifyPhoneField() {
 		myStore.clickOnRegisterNewBuissnessBtn();
 		myStore.enterPhone("PhoneNumber");
-		Assert.assertTrue(myStore.getPhoneText().length()==0);
+		Assertions.assertTrue(myStore.getPhoneText().length()==0);
 		myStore.enterPhone("8877070727");
-		Assert.assertTrue(myStore.getPhoneText().length()==17);
+		Assertions.assertTrue(myStore.getPhoneText().length()==17);
 		myStore.enterPhone("887707");
 		myStore.clickOnSaveBtn();
-		Assert.assertEquals(myStore.getPhoneToolTipMessage(),"Invalid phone number");
+		Assertions.assertEquals(myStore.getPhoneToolTipMessage(),"Invalid phone number");
 	}
 	
 	@Test(enabled = true, description="Verify behavior of 'Local Time Zone' field, on 'New Business' page.")
     public void tc11_verifyLocalSystemTimeZone() {
 		myStore.clickOnRegisterNewBuissnessBtn();
-		Assert.assertTrue(!myStore.SelectedLocalSystemTimeZone().isEmpty());
+		Assertions.assertTrue(!myStore.SelectedLocalSystemTimeZone().isEmpty());
 		myStore.selectLocalSystemTimeZoneByIndex(15);
-		Assert.assertTrue(!myStore.SelectedLocalSystemTimeZone().isEmpty());
+		Assertions.assertTrue(!myStore.SelectedLocalSystemTimeZone().isEmpty());
 	}
 	
 	@Test(enabled = true, description="Verify behavior of 'Currency' field, on 'New Business' page.")
     public void tc12_verifyCurrencyField() {
 		myStore.clickOnRegisterNewBuissnessBtn();
-		Assert.assertTrue(myStore.getSelectedCurrency().equalsIgnoreCase("USD"));
+		Assertions.assertTrue(myStore.getSelectedCurrency().equalsIgnoreCase("USD"));
 		myStore.selectCurrencyByText("EUR");
-		Assert.assertTrue(myStore.getSelectedCurrency().equalsIgnoreCase("EUR"));
+		Assertions.assertTrue(myStore.getSelectedCurrency().equalsIgnoreCase("EUR"));
 	}
 	
 	@Test(enabled = true, description="Verify behavior of 'Tax rate' field, on 'New Business' page.")
     public void tc13_verifyTaxField() {
 		myStore.clickOnRegisterNewBuissnessBtn();
-		Assert.assertTrue(myStore.getTaxRateText().equalsIgnoreCase("0.000"));
+		Assertions.assertTrue(myStore.getTaxRateText().equalsIgnoreCase("0.000"));
 		myStore.enterTaxRate("tax");
-		Assert.assertTrue(myStore.getTaxRateText().length()==0);
+		Assertions.assertTrue(myStore.getTaxRateText().length()==0);
 		myStore.enterTaxRate("123");
-		Assert.assertTrue(myStore.getTaxRateText().length()==2);
+		Assertions.assertTrue(myStore.getTaxRateText().length()==2);
 		myStore.enterTaxRate("55.555");
 		System.out.println(myStore.getTaxRateText());
-		Assert.assertTrue(myStore.getTaxRateText().substring(2, 5).length()==3);
+		Assertions.assertTrue(myStore.getTaxRateText().substring(2, 5).length()==3);
 	}
 	
 	@Test(enabled = true, description="Verify behavior of 'Tax rate' field, on 'New Business' page.")
@@ -163,8 +164,8 @@ public class MyStoreTest extends BaseTest{
 		myStore.clickOnFirstSuggestion();
 		myStore.enterPhone("9860157365");
 		myStore.clickOnSaveBtn();
-		Assert.assertEquals(myStore.getLabel(), buisnessName);
-		Assert.assertEquals(myStore.getTypeOfBuisnessRunningSelectedOptn(),"Gourment food");
+		Assertions.assertEquals(myStore.getLabel(), buisnessName);
+		Assertions.assertEquals(myStore.getTypeOfBuisnessRunningSelectedOptn(),"Gourment food");
 	}
 	
 	}

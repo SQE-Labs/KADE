@@ -4,6 +4,7 @@ import org.automation.base.BaseTest;
 import org.automation.pageObjects.CreateNewAccountPage;
 import org.automation.pageObjects.SetYourPasswordPage;
 import org.automation.pageObjects.VerifyYourAccountPage;
+import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.RandomGenerator;
 import org.testng.Assert;
@@ -27,22 +28,22 @@ public class CreateAccountTest extends BaseTest {
     public void tc01_validateSignUpLink() {
 
         // Verify app Logo name heading - 'Kade'
-        Assert.assertTrue(createNewAccountPage.checkPresenceOfappLogoNameHeading());
+        Assertions.assertTrue(createNewAccountPage.checkPresenceOfappLogoNameHeading());
 
         // Verify 'Create New Account' heading
-        Assert.assertTrue(createNewAccountPage.checkPresenceOfCreateNewAccountHeading());
+        Assertions.assertTrue(createNewAccountPage.checkPresenceOfCreateNewAccountHeading());
 
         // Verify 'Email or Phone' label
-        Assert.assertTrue(createNewAccountPage.checkPresenceOfEmailOrPhoneLabel());
+        Assertions.assertTrue(createNewAccountPage.checkPresenceOfEmailOrPhoneLabel());
 
         // Verify 'Already have an account? Sign-in' label
-        Assert.assertTrue(createNewAccountPage.checkPresenceOfAlreadyHaveAnAccountLabel());
+        Assertions.assertTrue(createNewAccountPage.checkPresenceOfAlreadyHaveAnAccountLabel());
 
         // Verify 'Sign-in' link
-        Assert.assertTrue(createNewAccountPage.checkPresenceOfSignInLink());
+        Assertions.assertTrue(createNewAccountPage.checkPresenceOfSignInLink());
 
         // Verify 'Sign up' button
-        Assert.assertTrue(createNewAccountPage.checkPresenceOfSignUpButton());
+        Assertions.assertTrue(createNewAccountPage.checkPresenceOfSignUpButton());
 
     }
 
@@ -50,10 +51,10 @@ public class CreateAccountTest extends BaseTest {
     public void tc02_validateEmailOrPhoneFieldGetHighlighted() {
 
         // Verify 'Email or Phone' label
-        Assert.assertTrue(createNewAccountPage.checkPresenceOfEmailOrPhoneLabel());
+        Assertions.assertTrue(createNewAccountPage.checkPresenceOfEmailOrPhoneLabel());
 
         // Verify 'Email or Phone' field
-        Assert.assertTrue(createNewAccountPage.checkPresenceOfEmailOrPhoneField());
+        Assertions.assertTrue(createNewAccountPage.checkPresenceOfEmailOrPhoneField());
 
         // Click 'Sign up' button
         createNewAccountPage.clickSignUpButton();
@@ -103,17 +104,17 @@ public class CreateAccountTest extends BaseTest {
         createNewAccountPage.clickSignUpButton();
        
         // Verify 'Email or Phone' field on 'Verify your account' page
-        Assert.assertTrue(verifyYourAccountPage.checkPresenceOfEmailOrPhoneFieldOnVerifyAccountPage());
+        Assertions.assertTrue(verifyYourAccountPage.checkPresenceOfEmailOrPhoneFieldOnVerifyAccountPage());
 
         // Verify 'Verify your account' page title - 'Verify Account'
         String actualVerifyYourAccountPageTitle = verifyYourAccountPage.getPageTitle();
-        Assert.assertEquals(actualVerifyYourAccountPageTitle,"Verify Account");
+        Assertions.assertEquals(actualVerifyYourAccountPageTitle,"Verify Account");
 
         // Verify 'Security Code' field
-        Assert.assertTrue(verifyYourAccountPage.checkPresenceOfSecurityCodeField());
+        Assertions.assertTrue(verifyYourAccountPage.checkPresenceOfSecurityCodeField());
 
         // Verify 'Continue' button
-        Assert.assertTrue(verifyYourAccountPage.checkPresenceOfContinueButton());
+        Assertions.assertTrue(verifyYourAccountPage.checkPresenceOfContinueButton());
 
         // Click 'Resend security code' link
         verifyYourAccountPage.clickResendSecurityCode();
@@ -130,7 +131,7 @@ public class CreateAccountTest extends BaseTest {
         createNewAccountPage.clickSignUpButton();
 
         // Verify 'Security Code' field
-        Assert.assertTrue(verifyYourAccountPage.checkPresenceOfSecurityCodeField());
+        Assertions.assertTrue(verifyYourAccountPage.checkPresenceOfSecurityCodeField());
 
         // Enter valid security code in 'Security Code' field
        verifyYourAccountPage.EnterSecurityCode("123456");
@@ -139,17 +140,17 @@ public class CreateAccountTest extends BaseTest {
         verifyYourAccountPage.clickContinueButton();
 
         // Verify 'Password' field on Set your password page
-        Assert.assertTrue(setYourPasswordPage.checkPresenceOfPasswordField());
+        Assertions.assertTrue(setYourPasswordPage.checkPresenceOfPasswordField());
 
         // Verify 'Set Your Password' page title - 'Configure Password'
         String actualSetYourPasswordPageTitle = setYourPasswordPage.getPageTitle();
-        Assert.assertEquals(actualSetYourPasswordPageTitle,"Configure Password");
+        Assertions.assertEquals(actualSetYourPasswordPageTitle,"Configure Password");
 
         // Verify 'Confirm Password' on Set your password page
-        Assert.assertTrue(setYourPasswordPage.checkPresenceOfConfirmPasswordField());
+        Assertions.assertTrue(setYourPasswordPage.checkPresenceOfConfirmPasswordField());
 
         // Verify 'Submit' button on set your password page
-       Assert.assertTrue(setYourPasswordPage.checkPresenceSubmitButton());
+       Assertions.assertTrue(setYourPasswordPage.checkPresenceSubmitButton());
 
     }
 

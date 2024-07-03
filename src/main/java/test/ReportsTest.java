@@ -4,6 +4,7 @@ import org.automation.base.BaseTest;
 import org.automation.pageObjects.DashBoardPage;
 import org.automation.pageObjects.LoginPage;
 import org.automation.pageObjects.ReportsPage;
+import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -17,7 +18,7 @@ public class ReportsTest extends BaseTest {
     public void tc01_verifyReportButton(){
 		login.performSignIn(PropertiesUtil.getPropertyValue("userName"), PropertiesUtil.getPropertyValue("password"));
 		dashboard.clickOnReports();
-	 	Assert.assertEquals(reports.getPageTitle(), "Reports");		//Verify page title
+	 	Assertions.assertEquals(reports.getPageTitle(), "Reports");		//Verify page title
 	}
 	
 	

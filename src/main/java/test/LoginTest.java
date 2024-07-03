@@ -3,6 +3,7 @@ package test;
 import org.automation.base.BaseTest;
 import org.automation.pageObjects.DashBoardPage;
 import org.automation.pageObjects.LoginPage;
+import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -18,7 +19,7 @@ public class LoginTest extends BaseTest{
         login.clickSignUpLink();
         String actualTitle=login.getPageTitle();
         String expectedTitle="Sign Up";
-        Assert.assertEquals(actualTitle, expectedTitle);
+        Assertions.assertEquals(actualTitle, expectedTitle);
         login.goBackToPreviousPage();
     }
 	
@@ -27,7 +28,7 @@ public class LoginTest extends BaseTest{
 		login.clickSignInButton();
 		String actualAttribute=login.getAttribute();
 		String expectedAttribute="form-control form-control-lg is-invalid";
-		Assert.assertEquals(actualAttribute, expectedAttribute);
+		Assertions.assertEquals(actualAttribute, expectedAttribute);
 	}
 	
 	@Test(enabled = true, description = "Invalid Email or PhoneNumber")
@@ -37,7 +38,7 @@ public class LoginTest extends BaseTest{
 		login.clickSignInButton();
 		String actualValidation = login.getValidationMessage();
 		String expectedValidation ="Please review the highlighted field(s)";
-		Assert.assertEquals(actualValidation, expectedValidation);
+		Assertions.assertEquals(actualValidation, expectedValidation);
 	}
 	
 	@Test(enabled = true, description = "Verify Tool Tip Appear on enterin invalid email")
@@ -45,7 +46,7 @@ public class LoginTest extends BaseTest{
 		login.clickForgotPasswordLink();
 		String actualTitle = login.getPageTitle();
 		String expectedTitle = "Forget Password";
-		Assert.assertEquals(actualTitle, expectedTitle);
+		Assertions.assertEquals(actualTitle, expectedTitle);
 		login.goBackToPreviousPage();
 	}
 	
@@ -55,7 +56,7 @@ public class LoginTest extends BaseTest{
 		login.switchToWindow("Terms of Use Page");
 		String actualTitle = login.getPageTitle();
 		String expectedTitle = "Terms Of Use";
-		Assert.assertEquals(actualTitle, expectedTitle);
+		Assertions.assertEquals(actualTitle, expectedTitle);
 		login.switchToParentWindow("Sign in");
 	}
 	
@@ -65,6 +66,6 @@ public class LoginTest extends BaseTest{
 		String actualTitle = dashboard.getPageHeader();
 		String expectedTitle = "Dashboard";
 		System.out.println(actualTitle);
-		Assert.assertEquals(actualTitle, expectedTitle);
+		Assertions.assertEquals(actualTitle, expectedTitle);
 	}
 }

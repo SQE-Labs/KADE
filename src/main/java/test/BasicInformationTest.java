@@ -6,6 +6,7 @@ import org.automation.base.BaseTest;
 import org.automation.pageObjects.BasicInformationPage;
 import org.automation.pageObjects.DashBoardPage;
 import org.automation.pageObjects.LoginPage;
+import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -25,7 +26,7 @@ public class BasicInformationTest extends BaseTest{
 		infoPage.moveToNameField();
 		String validationMessage=infoPage.getNameToolTipMessage();
 		String expectedValidation="This field is required.";
-		Assert.assertEquals(validationMessage, expectedValidation);
+		Assertions.assertEquals(validationMessage, expectedValidation);
 	}
 	
 	@Test(enabled = true, description="Input alphaNumrical value in name field and verify SuccessMessage")
@@ -34,7 +35,7 @@ public class BasicInformationTest extends BaseTest{
 		infoPage.clickOnSaveChangesButton();
 		String actualMessage = infoPage.getSuccessMessage();
 		String expectedMessage ="Saved";
-		Assert.assertEquals(actualMessage, expectedMessage);
+		Assertions.assertEquals(actualMessage, expectedMessage);
 	}
 	
 	@Test(enabled = true, description="ToolTip validation message when invalid Address")
@@ -44,7 +45,7 @@ public class BasicInformationTest extends BaseTest{
 		infoPage.moveToAddressField();
 		String actualValidation = infoPage.getAddressToolTipMessage();
 		String expectedValidation = "Address cannot be verified";
-		Assert.assertEquals(actualValidation, expectedValidation);
+		Assertions.assertEquals(actualValidation, expectedValidation);
 		}
 
 	@Test(enabled = true, description="valid Name and Address")
@@ -54,7 +55,7 @@ public class BasicInformationTest extends BaseTest{
 		infoPage.clickOnSaveChangesButton();
 		String actualMessage=infoPage.getSuccessMessage();
 		String expectedMessage="Saved";
-		Assert.assertEquals(actualMessage, expectedMessage);
+		Assertions.assertEquals(actualMessage, expectedMessage);
 	}
 	
 	@Test(enabled = true, description="Upload Profile Image")
@@ -62,7 +63,7 @@ public class BasicInformationTest extends BaseTest{
 		infoPage.uploadImage(System.getProperty("user.dir")+"\\src\\main\\resources\\image\\dummy-image.jpg");
 		String actualMessage=infoPage.getSuccessMessage();
 		String expectedMessage="Image updated.";
-		Assert.assertEquals(actualMessage, expectedMessage);
+		Assertions.assertEquals(actualMessage, expectedMessage);
 	}
 	
 	@Test(enabled = true, description="upload Invalid Profile Image Formate")
@@ -71,6 +72,6 @@ public class BasicInformationTest extends BaseTest{
 		infoPage.uploadImage(System.getProperty("user.dir")+"\\src\\main\\resources\\demo.txt");
 		String expectedAleart = "Invalid image file";
 		String actualAleart = infoPage.getAleartMessage();
-		Assert.assertEquals(actualAleart, expectedAleart);
+		Assertions.assertEquals(actualAleart, expectedAleart);
 	}
 }
