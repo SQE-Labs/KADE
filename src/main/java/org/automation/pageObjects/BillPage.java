@@ -105,6 +105,24 @@ public class BillPage extends BasePage {
 	By documnetIcon = By.xpath("(//button[contains(@onclick,'pdf')])[2]");
 	By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
 	By attachedImage= By.xpath("//img[@class='img-thumbnail  bg-black']");
+	By deleteBill=By.xpath("(//div[@class='container-fluid ']//div[@class='row bg-white rounded-2 g-2 m-0 mt-2 position-relative border overflow-hidden -tr-row-'])[1]");
+	By deleteButton=By.cssSelector(".btn.btn-outline-danger");
+	By deleteIcon=By.cssSelector(".btn.btn-outline-success");
+	By moreOptions=By.cssSelector(".mb-3.border.p-2.py-3.rounded-3.advanced-d-none.position-relative");
+	By referenceNo=By.xpath("(//div[@class='border p-2 py-3 mb-2 rounded-3  d-none advanced-d-block'])[1]");
+	public By refNoField=By.xpath("(//input[@lbl-title='Reference No.'])[2]");
+	By description=By.xpath("(//div[@class='border p-2 py-3 mb-2 rounded-3  d-none advanced-d-block'])[2]");
+	public By descriptionField=By.xpath("(//textarea[@lbl-title='Description'])[2]");
+	By doneLink=By.xpath("(//button[@class='btn btn-link w-100 my-3'])[5]");
+	By itemsDesc1=By.xpath("(//textarea[@name='detail_description'])[2]");
+	By itemsDesc2=By.xpath("(//textarea[@name='detail_description'])[3]");
+	By itemsDesc3=By.xpath("(//textarea[@name='detail_description'])[4]");
+	By addALineBtn=By.xpath("//button[normalize-space()='Add a line']");
+	By itemPrice1=By.xpath("(//input[@name='detail_amount'])[2]");
+	By itemPrice2=By.xpath("(//input[@name='detail_amount'])[3]");
+	By itemPrice3=By.xpath("(//input[@name='detail_amount'])[4]");
+	By refPopUp=By.xpath("//h5[text()='Reference No.']");
+
 
 	public String getPopUpTitle() {
 		WebdriverWaits.waitForElementVisible(popUpHeader,5);
@@ -698,4 +716,101 @@ public class BillPage extends BasePage {
 	public void closeCreatedBill() {
 		click(closeBillBtn);
 	}
+
+	public void clickUnpaidBill(){
+		click(deleteBill);
+	}
+
+	public void clickDeleteButton(){
+		click(deleteButton);
+
+	}
+	public void clickDeleteIcon(){
+		click(deleteIcon);
+	}
+
+	public void clickMoreOptions(){
+		click(moreOptions);
+	}
+
+	public void clickRefNo(){
+		click(referenceNo);
+	}
+
+	public void enterRefNo(String refNum){
+		WebdriverWaits.waitForElementUntilVisible(refNoField, 2);
+//		clear_custom(refNum);
+		pressKeys(refNoField,refNum);
+		click(refNoField);
+	}
+
+	public void clickDescription(){
+		click(description);
+	}
+
+	public void enterDescription(String descriptionValue){
+		WebdriverWaits.waitForElementUntilVisible(descriptionField, 2);
+//		clear_custom(refNum);
+		pressKeys(descriptionField,descriptionValue);
+		click(descriptionField);
+	}
+
+	public void clickDone(){
+		click(doneLink);
+	}
+
+//			bill.enterItemDesc1();
+//		bill.enterItemPrice1();
+//		bill.enterItemDesc1();
+//		bill.enterItemPrice1();
+//		bill.clickAddALineBtn();
+public void enterItemDesc1(String desc1){
+	WebdriverWaits.waitForElementUntilVisible(itemsDesc1, 2);
+//		clear_custom(itemDesc1);
+	pressKeys(itemsDesc1,desc1);
+	click(itemsDesc1);
+}
+	public void enterItemDesc2(String desc2){
+		WebdriverWaits.waitForElementUntilVisible(itemsDesc2, 2);
+//		clear_custom(itemDesc1);
+		pressKeys(itemsDesc2,desc2);
+		click(itemsDesc2);
+	}
+
+	public void enterItemDesc3(String desc3){
+		WebdriverWaits.waitForElementUntilVisible(itemsDesc3, 2);
+//		clear_custom(itemDesc1);
+		pressKeys(itemsDesc3,desc3);
+		click(itemsDesc3);
+	}
+	public void enterItemPrice1(String price1){
+		WebdriverWaits.waitForElementUntilVisible(itemPrice1, 2);
+//		clear_custom(itemDesc1);
+		pressKeys(itemPrice1,price1);
+		click(itemPrice1);
+	}
+
+	public void enterItemPrice2(String price2){
+		WebdriverWaits.waitForElementUntilVisible(itemPrice2, 2);
+//		clear_custom(itemDesc1);
+		pressKeys(itemPrice2,price2);
+		click(itemPrice2);
+	}
+	public void enterItemPrice3(String price3){
+		WebdriverWaits.waitForElementUntilVisible(itemPrice3, 2);
+//		clear_custom(itemDesc1);
+		pressKeys(itemPrice3,price3);
+		click(itemPrice3);
+	}
+	public void clickAddALineBtn(){
+		click(addALineBtn);
+	}
+
+
+	public String getRefPopUpTitle() {
+		WebdriverWaits.waitForElementVisible(refPopUp,2);
+		return getText_custom(refPopUp);
+	}
+
+
 }

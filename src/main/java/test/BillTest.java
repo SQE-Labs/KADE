@@ -25,7 +25,7 @@ public class BillTest extends BaseTest{
 	BillPage bill = new BillPage();
 
 	@BeforeMethod
-	public void navigateToBill(){
+	public void navigateToDashboard(){
 		login.performSignIn(PropertiesUtil.getPropertyValue("userName"), PropertiesUtil.getPropertyValue("password"));
 	}
 
@@ -336,6 +336,86 @@ public class BillTest extends BaseTest{
 		bill.closeCreatedBill();
 	}
 
+	@Test(enabled = true, description="Verify that unpaid bill gets deleted")
+	public void tc08_verifyBillDeletion() {
+		dashboard.clickOnBill();
+
+		//Select Store
+		bill.clickStoresDropdown();
+		bill.selectStore("Automation Flow 1");
+		bill.clickContinueBtn();
+
+		//Verify the Bill Pop-up
+//		Assertions.assertTrue(bill.isDeletePopupTitleDisplayed());
+
+
+		//Delete the 1st unpaid bill
+		bill.clickUnpaidBill();
+		bill.clickDeleteButton();
+		bill.clickDeleteIcon();
+
+	}
+
+	@Test(enabled = true, description = "Verify that creating a bill by adding 'Ref No.', 'Description' and 'Items' fields")
+	public void tc09_verifyBillCreationUsingOptionalFields(){
+		dashboard.clickOnBill();
+
+		//Select Store
+		bill.clickStoresDropdown();
+		bill.selectStore("Automation Flow 1");
+		bill.clickContinueBtn();
+
+		// Click on New Bill Button
+		bill.clickOnNewBill();
+
+		//Enter amount
+		String amt = "800.00";
+		bill.enterAmount(amt);
+
+		//Select Suggested Customer
+		bill.clickCustomer();
+		bill.ClickSuggestedCustomer();
+
+
+		//Verify that optional fields are added to the bill
+		bill.clickMoreOptions();
+		bill.clickRefNo();
+		String refNum = "3422";
+		bill.enterRefNo(refNum);
+		bill.clickDone();
+		Assertions.assertEquals(bill.getRefPopUpTitle(),"Reference No.");
+		bill.clickDescription();
+		String descriptionValue="Test Description";
+		bill.enterDescription(descriptionValue);
+		bill.clickDone();
+		String desc1="Tea";
+		bill.enterItemDesc1(desc1);
+		String price1="80.00";
+		bill.enterItemPrice1(price1);
+		String desc2="Coffee";
+		bill.enterItemDesc2(desc2);
+		String price2="120.00";
+		bill.enterItemPrice2(price2);
+		bill.clickAddALineBtn();
+		String desc3="Shake";
+		bill.enterItemDesc3(desc3);
+		String price3="150.00";
+		bill.enterItemPrice3(price3);
+
+
+
+		bill.clickOnConfirm();
+
+		//Verify toast message
+		Assertions.assertTrue(bill.isToastMessageDisplayed());
+		Assertions.assertEquals(bill.getToastMessage(), "Bill was created successfully.Click here to open");
+
+		//Verify Created Bill
+		bill.closeLogoConfigPopup();
+		Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+		Assertions.assertTrue(bill.isRefNoDisplayed(amt));
+		Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+	}
 
 	}
 
