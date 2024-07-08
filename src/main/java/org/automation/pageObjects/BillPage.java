@@ -127,6 +127,7 @@ public class BillPage extends BasePage {
     By defaultDescText = By.xpath("//label[text()='Description:']/../div/div/div[1]/div[2]");
     By descText = By.xpath("//label[text()='Description:']/../div/div/div[1]/div[1]");
     By descPopUp = By.xpath("//h5[text()='Description']");
+    By taxToggleBtn = By.xpath("//input[@name='applyTax']/../i[2]");
 
     public String getPopUpTitle() {
         WebdriverWaits.waitForElementVisible(popUpHeader, 5);
@@ -649,13 +650,21 @@ public class BillPage extends BasePage {
         return isWebElementVisible(customerNumber);
     }
 
-    public void ClickSuggestedCustomer() {
+    public void clickSuggestedCustomer() {
         click(suggestionList);
     }
 
-    public void EnableTaxToggle() {
-        By taxToggleBtn = By.xpath("//input[@name='applyTax']/../i[2]");
+    public void enableTaxToggle() {
+        if(isWebElementVisible(By.cssSelector(".fa-toggle-on.custom-check-off"))){
         click(taxToggleBtn);
+        }
+    }
+
+    public void disableTaxToggle() {
+        By taxToggleBtnDisable = By.xpath("//input[@name='applyTax']/../i[1]");
+        if(isWebElementVisible(By.cssSelector(".fa-toggle-on.custom-check-on"))){
+            click(taxToggleBtnDisable);
+        }
     }
 
     public float getTotalAmt() throws ParseException {
@@ -883,7 +892,6 @@ public class BillPage extends BasePage {
     }
 
     public String getDescText() {
-//        WebdriverWaits.waitForElementVisible(descText, 5);
         return getText_custom(descText);
     }
 
@@ -899,6 +907,7 @@ public class BillPage extends BasePage {
     }
 
     public String getDefaultPriceValue() {
-        return getAttribute(itemsDesc1, "value");
+        WebdriverWaits.waitForElementVisible(itemPrice1,5);
+        return getAttribute(itemPrice1, "value");
     }
 }
