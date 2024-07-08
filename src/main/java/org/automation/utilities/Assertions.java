@@ -17,8 +17,9 @@ public class Assertions extends BaseTest {
             Assert.assertEquals(actual, expected);
             extentTest.log(PASS, "Assertion passed , Value is : " + actual);
         } catch (AssertionError e) {
-            Log.info("excpetion in assertEquals method");
+            Log.info("exception in assertEquals method");
             extentTest.log(FAIL, "Assertion failed => " + "Actual Value : '" + actual + "' | Expected Value : '" + expected + "'");
+            throw e;
         }
     }
 
@@ -31,6 +32,7 @@ public class Assertions extends BaseTest {
         } catch (AssertionError e) {
             Log.info("excpetion in assertEquals method");
             extentTest.log(FAIL, "Assertion failed : " + "Actual Value is " + actual + " , Expected Value is " + expected);
+            throw e;
         }
     }
 
@@ -42,7 +44,7 @@ public class Assertions extends BaseTest {
 
         } catch (Exception e) {
             extentTest.log(FAIL, "Assertion failed : " + "Actual Value " + value);
-            //  throw new RuntimeException(e);
+            throw e;
         }
 
     }
@@ -54,7 +56,7 @@ public class Assertions extends BaseTest {
 
         } catch (Exception e) {
             extentTest.log(FAIL, "Assertion failed : " + "Actual Value " + value);
-            //  throw new RuntimeException(e);
+            throw e;
         }
 
     }
@@ -66,7 +68,7 @@ public class Assertions extends BaseTest {
 
         } catch (Exception e) {
             extentTest.log(FAIL, "Assertion failed : " + "Actual Value " + value);
-            //  throw new RuntimeException(e);
+            throw e;
         }
 
     }

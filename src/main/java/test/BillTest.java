@@ -63,6 +63,7 @@ public class BillTest extends BaseTest {
         //Enter amount
         String amt = "2,999.00";
         bill.enterAmount(amt);
+        bill.disableTaxToggle();
 
         // Verify Default Confirm button is enabled after entering amount
         Assertions.assertTrue(bill.isConfirmBtnEnabled());
@@ -139,6 +140,7 @@ public class BillTest extends BaseTest {
         bill.clickOnGoBtnPhoneNo();
 
         //Click Confirm
+        bill.disableTaxToggle();
         bill.clickOnConfirm();
 
         //Verify toast message
@@ -169,7 +171,8 @@ public class BillTest extends BaseTest {
         bill.enterAmount(amt);
         //Select Suggested Customer
         bill.clickCustomer();
-        bill.ClickSuggestedCustomer();
+        bill.clickSuggestedCustomer();
+        bill.disableTaxToggle();
         bill.clickOnConfirm();
         //Verify toast message
         Assertions.assertTrue(bill.isToastMessageDisplayed());
@@ -202,7 +205,7 @@ public class BillTest extends BaseTest {
         bill.enterAmount(amt);
 
         //Enable Tax toggle Button
-        bill.EnableTaxToggle();
+        bill.enableTaxToggle();
 
         //Verify Total Amt after tax
         float taxValue = bill.getTaxValue();
@@ -213,7 +216,7 @@ public class BillTest extends BaseTest {
 
         //Select Suggested Customer
         bill.clickCustomer();
-        bill.ClickSuggestedCustomer();
+        bill.clickSuggestedCustomer();
         bill.clickOnConfirm();
 
         //Verify toast message
@@ -245,7 +248,7 @@ public class BillTest extends BaseTest {
         bill.enterAmount(amt);
 
         //Enable Tax toggle Button
-        bill.EnableTaxToggle();
+        bill.enableTaxToggle();
 
         //Add Attachment(Image)
         bill.clickTapToAddFiles();
@@ -265,7 +268,7 @@ public class BillTest extends BaseTest {
 
         //Select Suggested Customer
         bill.clickCustomer();
-        bill.ClickSuggestedCustomer();
+        bill.clickSuggestedCustomer();
         bill.clickOnConfirm();
 
         //Verify toast message
@@ -303,6 +306,7 @@ public class BillTest extends BaseTest {
         //Enter amount
         String amt = "879.99";
         bill.enterAmount(amt);
+        bill.disableTaxToggle();
 
         //Add Attachment (PDF)
         bill.clickTapToAddFiles();
@@ -315,7 +319,7 @@ public class BillTest extends BaseTest {
 
         //Select Suggested Customer
         bill.clickCustomer();
-        bill.ClickSuggestedCustomer();
+        bill.clickSuggestedCustomer();
         bill.clickOnConfirm();
 
         //Verify toast message
@@ -324,6 +328,7 @@ public class BillTest extends BaseTest {
 
         //Verify Created Bill
         bill.closeLogoConfigPopup();
+
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
         Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
@@ -349,7 +354,6 @@ public class BillTest extends BaseTest {
         bill.clickUnpaidBill();
         bill.clickDeleteButton();
         bill.clickDeleteIcon();
-
     }
 
     @Test(enabled = true, description = "Verify that creating a bill by adding 'Ref No.', 'Description' and 'Items' fields")
@@ -367,10 +371,12 @@ public class BillTest extends BaseTest {
         //Enter amount
         String amt = "0.00";
         bill.enterAmount(amt);
+        bill.disableTaxToggle();
 
         //Select Suggested Customer
         bill.clickCustomer();
-        bill.ClickSuggestedCustomer();
+        bill.clickSuggestedCustomer();
+        bill.disableTaxToggle();
 
 
         //Verify that optional fields are added to the bill
@@ -451,7 +457,7 @@ public class BillTest extends BaseTest {
     }
 
     @Test(enabled = true, description = "Verify that creating a bill, when user has  Essential (Free) plan for his store")
-    public void tc_10VerifyingBillCreationWithEssentialFreePlan() {
+    public void tc_10verifyingBillCreationWithEssentialFreePlan() {
         dashboard.clickOnBill();
 
         //Select Store
@@ -470,10 +476,11 @@ public class BillTest extends BaseTest {
         //Enter amount
         String amt = "90.00";
         bill.enterAmount(amt);
+        bill.disableTaxToggle();
 
         //Select Suggested Customer
         bill.clickCustomer();
-        bill.ClickSuggestedCustomer();
+        bill.clickSuggestedCustomer();
 
         //Verify that optional fields are added to the bill
         bill.clickMoreOptions();
@@ -493,7 +500,7 @@ public class BillTest extends BaseTest {
 
     }
     @Test(enabled = true, description = "Verify that creating a bill with default configured bill amount, on 'Bill' popup of 'Bills' page.")
-    public void tc_11VerifyingBillCreationWithConfiguredBillAmount() {
+    public void tc_11verifyingBillCreationWithConfiguredBillAmount() {
         dashboard.clickOnBill();
 
         //Select Store
@@ -512,12 +519,12 @@ public class BillTest extends BaseTest {
         //Enter amount
         String amt = "50000.00";
         bill.enterAmount(amt);
-//        Assertions.assertEquals(bill.getEnteredAmount(),amt);
+        bill.disableTaxToggle();
         Assertions.assertEquals(bill.getMaxAmountInput(), "50000.00");
 
         //Select Suggested Customer
         bill.clickCustomer();
-        bill.ClickSuggestedCustomer();
+        bill.clickSuggestedCustomer();
 
         //Confirming the Bill
         bill.clickOnConfirm();
@@ -535,20 +542,30 @@ public class BillTest extends BaseTest {
         //Enter amount
         String amt2 = "60000.00";
         bill.enterAmount(amt2);
-        bill.closeBtn();
-        bill.clickDiscardBtn();
-//        Assertions.assertEquals(bill.getEnteredAmount(),"6000.00");
-//        Assertions.assertEquals(bill.getMaxAmountInput(), "6000.00");
+        bill.disableTaxToggle();
 
+        //Select Suggested Customer
+        bill.clickCustomer();
+        bill.clickSuggestedCustomer();
 
-//        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
-//        Assertions.assertTrue(bill.isRefNoDisplayed(amt));
-//        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
-//        Assertions.assertTrue(bill.isAddedDescriptionDisplayed());
+        //Confirming the Bill
+        bill.clickOnConfirm();
+
+        //Verify toast message
+        Assertions.assertTrue(bill.isToastMessageDisplayed());
+        Assertions.assertEquals(bill.getToastMessage(), "Bill was created successfully.Click here to open");
+
+        //Verify Created Bill
+        bill.closeLogoConfigPopup();
+
+        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+        Assertions.assertTrue(bill.isRefNoDisplayed(amt));
+        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+        Assertions.assertTrue(bill.isAddedDescriptionDisplayed());
 
     }
     @Test(enabled = true, description = "Verify that creating a bill with adding Memo field, on 'Bill' popup.")
-    public void tc_12VerifyingBillCreationWithAddingMemoField() {
+    public void tc_12verifyingBillCreationWithAddingMemoField() {
         dashboard.clickOnBill();
 
         //Select Store
@@ -562,10 +579,11 @@ public class BillTest extends BaseTest {
         //Enter amount
         String amt = "2000.00";
         bill.enterAmount(amt);
+        bill.disableTaxToggle();
 
         //Select Suggested Customer
         bill.clickCustomer();
-        bill.ClickSuggestedCustomer();
+        bill.clickSuggestedCustomer();
 
         bill.clickMoreOptions();
         Assertions.assertEquals(bill.getDefaultMemoFieldValue(),"None");
@@ -589,6 +607,12 @@ public class BillTest extends BaseTest {
 
         //Verify Created Bill
         bill.closeLogoConfigPopup();
+
+
+//        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+//        Assertions.assertTrue(bill.isRefNoDisplayed(amt));
+//        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+//        Assertions.assertTrue(bill.isAddedDescriptionDisplayed());
     }
 
 

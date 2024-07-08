@@ -349,7 +349,7 @@ public class ActionEngine extends BaseTest {
 	// Method to upload a file from local driver
 	public void uploadImageFile(String location) throws AWTException {
 		Robot rb = new Robot();
-		rb.setAutoDelay(1000);
+		rb.setAutoDelay(2000);
 		// copying File path to Clipboard
 		StringSelection str = new StringSelection(location);
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(str, null);

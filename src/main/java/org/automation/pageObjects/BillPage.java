@@ -125,8 +125,7 @@ public class BillPage extends BasePage {
     By defaultRefNoText = By.xpath("//label[text()='Ref No.:']/../div/div/div[1]/div[2]");
     By refNoText = By.xpath("//label[text()='Ref No.:']/../div/div/div[1]/div[1]");
     By defaultDescText = By.xpath("//label[text()='Description:']/../div/div/div[1]/div[2]");
-    //By descText = By.xpath("//label[text()='Description:']/../div/div/div[1]/div[1]");
-    By descText = By.xpath("(//div[@class='link-empty w-100 text-truncate'])[2]");
+    By descText = By.xpath("//label[text()='Description:']/../div/div/div[1]/div[1]");
     By descPopUp = By.xpath("//h5[text()='Description']");
     By addedDescription = By.xpath("(//div[@class='border rounded p-1 overflow-hidden'])[1]");
     By repeatBtn = By.xpath("(//div[@class='position-absolute start-0 end-0 top-0 bottom-0 bg-locked'])[1]");
@@ -145,6 +144,7 @@ public class BillPage extends BasePage {
     By memoFieldMessage=By.xpath("//div[@class='text-muted fs-pn15 pt-3']");
     By memoPopUpTitle=By.xpath("//h5[text()='Memo']");
 
+    By taxToggleBtn = By.xpath("//input[@name='applyTax']/../i[2]");
 
     public String getPopUpTitle() {
         WebdriverWaits.waitForElementVisible(popUpHeader, 5);
@@ -307,7 +307,6 @@ public class BillPage extends BasePage {
     }
 
     public void closeBtn() {
-        WebdriverWaits.waitForElementUntilVisible(closeIcon, 2);
         click(closeIcon);
     }
 
@@ -583,7 +582,6 @@ public class BillPage extends BasePage {
     }
 
     public void clickDiscardBtn() {
-        WebdriverWaits.waitForElementUntilVisible(discardBtn, 2);
         click(discardBtn);
     }
 
@@ -632,20 +630,18 @@ public class BillPage extends BasePage {
 
     public boolean isNotPaidLabelDisplayed(String amt) {
         By notPaidLabel = By.xpath("//span[text()='$" + amt + "']/../../div[1]/span");
-        WebdriverWaits.waitForElementClickable(notPaidLabel, 2);
+        WebdriverWaits.waitForElementClickable(notPaidLabel, 5);
         return isWebElementVisible(notPaidLabel);
     }
 
     public boolean isRefNoDisplayed(String amt) {
         By refNo = By.xpath("//span[text()='$" + amt + "']/../../div[1]/span");
-        WebdriverWaits.waitForElementClickable(refNo, 2);
         return isWebElementVisible(refNo);
     }
 
 
     public boolean isBillTimeDisplayed(String amt) {
         By time = By.xpath("(//span[text()='$" + amt + "']/../../../div/div)[1]");
-        WebdriverWaits.waitForElementClickable(time, 2);
         return isWebElementVisible(time);
     }
 
@@ -672,13 +668,21 @@ public class BillPage extends BasePage {
         return isWebElementVisible(customerNumber);
     }
 
-    public void ClickSuggestedCustomer() {
+    public void clickSuggestedCustomer() {
         click(suggestionList);
     }
 
-    public void EnableTaxToggle() {
-        By taxToggleBtn = By.xpath("//input[@name='applyTax']/../i[2]");
+    public void enableTaxToggle() {
+        if(isWebElementVisible(By.cssSelector(".fa-toggle-on.custom-check-off"))){
         click(taxToggleBtn);
+        }
+    }
+
+    public void disableTaxToggle() {
+        By taxToggleBtnDisable = By.xpath("//input[@name='applyTax']/../i[1]");
+        if(isWebElementVisible(By.cssSelector(".fa-toggle-on.custom-check-on"))){
+            click(taxToggleBtnDisable);
+        }
     }
 
     public float getTotalAmt() throws ParseException {
@@ -905,9 +909,9 @@ public class BillPage extends BasePage {
         return getText_custom(defaultDescText);
     }
 
-//    public String getDescText() {
-//        return getText_custom(descText);
-//    }
+    public String getDescText() {
+        return getText_custom(descText);
+    }
 
     public boolean isAddedDescriptionDisplayed() {
         return isWebElementVisible(addedDescription);
@@ -1017,7 +1021,7 @@ public class BillPage extends BasePage {
     }
 
     public String getMaxMemoPopUpField(){
-
-        return getAttribute(memoField,"maxlength");
+        WebdriverWaits.waitForElementVisible(memoField,5);
+        return getAttribute(memoField, "maxlength");
     }
 }
