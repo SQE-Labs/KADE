@@ -337,7 +337,7 @@ public class BillTest extends BaseTest {
     }
 
     @Test(enabled = true, description = "Verify that unpaid bill gets deleted")
-    public void tc08_verifyBillDeletion() {
+    public void tc_08verifyBillDeletion() {
         dashboard.clickOnBill();
 
         //Select Store
@@ -353,7 +353,7 @@ public class BillTest extends BaseTest {
     }
 
     @Test(enabled = true, description = "Verify that creating a bill by adding 'Ref No.', 'Description' and 'Items' fields")
-    public void tc09_verifyBillCreationUsingOptionalFields() {
+    public void tc_09verifyBillCreationUsingOptionalFields() {
         dashboard.clickOnBill();
 
         //Select Store
@@ -451,7 +451,7 @@ public class BillTest extends BaseTest {
     }
 
     @Test(enabled = true, description = "Verify that creating a bill, when user has  Essential (Free) plan for his store")
-    public void tc10_VerifyingBillCreationWithEssentialFreePlan() {
+    public void tc_10VerifyingBillCreationWithEssentialFreePlan() {
         dashboard.clickOnBill();
 
         //Select Store
@@ -493,7 +493,7 @@ public class BillTest extends BaseTest {
 
     }
     @Test(enabled = true, description = "Verify that creating a bill with default configured bill amount, on 'Bill' popup of 'Bills' page.")
-    public void tc11_VerifyingBillCreationWithConfiguredBillAmount() {
+    public void tc_11VerifyingBillCreationWithConfiguredBillAmount() {
         dashboard.clickOnBill();
 
         //Select Store
@@ -512,6 +512,7 @@ public class BillTest extends BaseTest {
         //Enter amount
         String amt = "50000.00";
         bill.enterAmount(amt);
+//        Assertions.assertEquals(bill.getEnteredAmount(),amt);
         Assertions.assertEquals(bill.getMaxAmountInput(), "50000.00");
 
         //Select Suggested Customer
@@ -528,14 +529,69 @@ public class BillTest extends BaseTest {
         //Verify Created Bill
         bill.closeLogoConfigPopup();
 
-        //Verifying the total amount i.e 80+120+150
-//        Assertions.assertTrue(bill.isNotPaidLabelDisplayed("$50,000.00"));
-//        Assertions.assertTrue(bill.isRefNoDisplayed("$50,000.00"));
-//        Assertions.assertTrue(bill.isBillTimeDisplayed("$50,000.00"));
+        // Click on New Bill Button
+        bill.clickOnNewBill();
+
+        //Enter amount
+        String amt2 = "60000.00";
+        bill.enterAmount(amt2);
+        bill.closeBtn();
+        bill.clickDiscardBtn();
+//        Assertions.assertEquals(bill.getEnteredAmount(),"6000.00");
+//        Assertions.assertEquals(bill.getMaxAmountInput(), "6000.00");
+
+
+//        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+//        Assertions.assertTrue(bill.isRefNoDisplayed(amt));
+//        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
 //        Assertions.assertTrue(bill.isAddedDescriptionDisplayed());
 
-
     }
+    @Test(enabled = true, description = "Verify that creating a bill with adding Memo field, on 'Bill' popup.")
+    public void tc_12VerifyingBillCreationWithAddingMemoField() {
+        dashboard.clickOnBill();
+
+        //Select Store
+        bill.clickStoresDropdown();
+        bill.selectStore("Automation Flow 1");
+        bill.clickContinueBtn();
+
+        // Click on New Bill Button
+        bill.clickOnNewBill();
+
+        //Enter amount
+        String amt = "2000.00";
+        bill.enterAmount(amt);
+
+        //Select Suggested Customer
+        bill.clickCustomer();
+        bill.ClickSuggestedCustomer();
+
+        bill.clickMoreOptions();
+        Assertions.assertEquals(bill.getDefaultMemoFieldValue(),"None");
+        Assertions.assertEquals(bill.getMemoFieldText(),"Customer will not see this memo");
+        bill.clickMemoBtn();
+
+
+        Assertions.assertEquals(bill.getMemoPopUpTitle(),"Memo");
+        Assertions.assertEquals(bill.getMaxMemoPopUpField(),"200");
+        String memoText="Memo Text";
+        bill.enterMemoField(memoText);
+        bill.clickDoneBtn();
+
+
+        //Confirming the Bill
+        bill.clickOnConfirm();
+
+        //Verify toast message
+        Assertions.assertTrue(bill.isToastMessageDisplayed());
+        Assertions.assertEquals(bill.getToastMessage(), "Bill was created successfully.Click here to open");
+
+        //Verify Created Bill
+        bill.closeLogoConfigPopup();
+    }
+
+
 
 }
 

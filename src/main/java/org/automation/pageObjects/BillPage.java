@@ -137,6 +137,13 @@ public class BillPage extends BasePage {
     By freezeIcon1=By.xpath("(//button[@class='fs-pn15 m-1 btn btn-danger'])[1]");
     By freezeIcon2=By.xpath("(//button[@class='fs-pn15 m-1 btn btn-danger'])[2]");
     By upgradePopUpTitle=By.xpath("//h3[text()='Upgrade your plan']");
+    By memoBtn=By.xpath("(//div[@class=\"text-nowrap d-flex align-items-center w-100\"])[4]");
+    By memoField=By.xpath("(//textarea[@lbl-title='Memo'])[2]");
+    By doneBtn=By.xpath("(//button[@class='btn btn-link w-100 my-3'])[5]");
+    By memoFieldText=By.xpath("(//div[@class='d-none empty-d-block fst-italic w-100'])[4]");
+    //By doneBtn=By.xpath("//button[text()=\"Done\"]");
+    By memoFieldMessage=By.xpath("//div[@class='text-muted fs-pn15 pt-3']");
+    By memoPopUpTitle=By.xpath("//h5[text()='Memo']");
 
 
     public String getPopUpTitle() {
@@ -300,6 +307,7 @@ public class BillPage extends BasePage {
     }
 
     public void closeBtn() {
+        WebdriverWaits.waitForElementUntilVisible(closeIcon, 2);
         click(closeIcon);
     }
 
@@ -575,6 +583,7 @@ public class BillPage extends BasePage {
     }
 
     public void clickDiscardBtn() {
+        WebdriverWaits.waitForElementUntilVisible(discardBtn, 2);
         click(discardBtn);
     }
 
@@ -623,17 +632,20 @@ public class BillPage extends BasePage {
 
     public boolean isNotPaidLabelDisplayed(String amt) {
         By notPaidLabel = By.xpath("//span[text()='$" + amt + "']/../../div[1]/span");
+        WebdriverWaits.waitForElementClickable(notPaidLabel, 2);
         return isWebElementVisible(notPaidLabel);
     }
 
     public boolean isRefNoDisplayed(String amt) {
         By refNo = By.xpath("//span[text()='$" + amt + "']/../../div[1]/span");
+        WebdriverWaits.waitForElementClickable(refNo, 2);
         return isWebElementVisible(refNo);
     }
 
 
     public boolean isBillTimeDisplayed(String amt) {
         By time = By.xpath("(//span[text()='$" + amt + "']/../../../div/div)[1]");
+        WebdriverWaits.waitForElementClickable(time, 2);
         return isWebElementVisible(time);
     }
 
@@ -970,5 +982,42 @@ public class BillPage extends BasePage {
     public String getMaxAmountInput() {
         return getAttribute(amtInput, "max");
 
+    }
+//
+//    public String getEnteredAmount(){
+//        WebdriverWaits.waitForElementVisible(amtInput, 2);
+//        return getText_custom(amtInput);
+//    }
+    public void clickMemoBtn(){
+        WebdriverWaits.waitForElementUntilVisible(memoBtn, 5);
+        click(memoBtn);
+    }
+
+    public void enterMemoField(String memoText) {
+        WebdriverWaits.waitForElementUntilVisible(memoField, 5);
+        pressKeys(memoField, memoText);
+        click(memoField);
+    }
+
+    public void clickDoneBtn(){
+        click(doneBtn);
+    }
+
+    public String getDefaultMemoFieldValue(){
+        return getText_custom(memoFieldText);
+    }
+
+    public String getMemoFieldText(){
+        return getText_custom(memoFieldMessage);
+    }
+
+    public String getMemoPopUpTitle(){
+        WebdriverWaits.waitForElementUntilVisible(memoPopUpTitle, 5);
+        return getText_custom(memoPopUpTitle);
+    }
+
+    public String getMaxMemoPopUpField(){
+
+        return getAttribute(memoField,"maxlength");
     }
 }
