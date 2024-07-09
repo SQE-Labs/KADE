@@ -405,8 +405,8 @@ public class BillTest extends BaseTest {
         bill.enterDescription(descriptionValue);
 
         //Verifying that added reference number should appear under the 'Description' field.
-        //        Assertions.assertEquals(bill.getDescText(), descriptionValue);
         bill.clickDone();
+        Assertions.assertEquals(bill.getDescText(), descriptionValue);
 
         //Verifying that Description and Price fields appear
         Assertions.assertTrue(bill.isItemDesc1Displayed());
@@ -415,10 +415,12 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.isItemPrice2Displayed());
         String actualItemDescLen = bill.getMaxItemDescLen();
         Assertions.assertEquals(actualItemDescLen, "200");
+
         String actualItemPriceLen = bill.getMaxItemPriceLen();
         Assertions.assertEquals(actualItemPriceLen, "50000.00");
-        //        String defaultPriceValue = bill.getDefaultPriceValue();
-        //        Assertions.assertEquals(defaultPriceValue, "0.00");
+//        String defaultPriceValue = bill.getDefaultPriceValue();
+//        Assertions.assertEquals(defaultPriceValue, "$0.00");
+
 
         String desc1 = "Tea";
         bill.enterItemDesc1(desc1);
@@ -494,11 +496,11 @@ public class BillTest extends BaseTest {
 
         Assertions.assertTrue(bill.isFreezeIcon2Present());
         bill.clickExpiryBtn();
-
         bill.clickUpgradeBtn();
 
 
     }
+
     @Test(enabled = true, description = "Verify that creating a bill with default configured bill amount, on 'Bill' popup of 'Bills' page.")
     public void tc_11verifyingBillCreationWithConfiguredBillAmount() {
         dashboard.clickOnBill();
@@ -517,7 +519,7 @@ public class BillTest extends BaseTest {
         bill.clickOnNewBill();
 
         //Enter amount
-        String amt = "50000.00";
+        String amt = "50,000.00";
         bill.enterAmount(amt);
         bill.disableTaxToggle();
         Assertions.assertEquals(bill.getMaxAmountInput(), "50000.00");
@@ -540,7 +542,7 @@ public class BillTest extends BaseTest {
         bill.clickOnNewBill();
 
         //Enter amount
-        String amt2 = "60000.00";
+        String amt2 = "60,000.00";
         bill.enterAmount(amt2);
         bill.disableTaxToggle();
 
@@ -561,13 +563,13 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
         Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
-        Assertions.assertTrue(bill.isAddedDescriptionDisplayed());
 
     }
+
     @Test(enabled = true, description = "Verify that creating a bill with adding Memo field, on 'Bill' popup.")
     public void tc_12verifyingBillCreationWithAddingMemoField() {
         dashboard.clickOnBill();
-
+        //New Business 2
         //Select Store
         bill.clickStoresDropdown();
         bill.selectStore("Automation Flow 1");
@@ -577,7 +579,7 @@ public class BillTest extends BaseTest {
         bill.clickOnNewBill();
 
         //Enter amount
-        String amt = "2000.00";
+        String amt = "2,000.00";
         bill.enterAmount(amt);
         bill.disableTaxToggle();
 
@@ -586,14 +588,14 @@ public class BillTest extends BaseTest {
         bill.clickSuggestedCustomer();
 
         bill.clickMoreOptions();
-        Assertions.assertEquals(bill.getDefaultMemoFieldValue(),"None");
-        Assertions.assertEquals(bill.getMemoFieldText(),"Customer will not see this memo");
+        Assertions.assertEquals(bill.getDefaultMemoFieldValue(), "None");
+        Assertions.assertEquals(bill.getMemoFieldText(), "Customer will not see this memo");
         bill.clickMemoBtn();
 
 
-        Assertions.assertEquals(bill.getMemoPopUpTitle(),"Memo");
-        Assertions.assertEquals(bill.getMaxMemoPopUpField(),"200");
-        String memoText="Memo Text";
+        Assertions.assertEquals(bill.getMemoPopUpTitle(), "Memo");
+        Assertions.assertEquals(bill.getMaxMemoPopUpField(), "200");
+        String memoText = "Memo Text";
         bill.enterMemoField(memoText);
         bill.clickDoneBtn();
 
@@ -608,13 +610,59 @@ public class BillTest extends BaseTest {
         //Verify Created Bill
         bill.closeLogoConfigPopup();
 
+        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+        Assertions.assertTrue(bill.isRefNoDisplayed(amt));
+        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+        Assertions.assertEquals(bill.getAddedMemoText(), "Memo Text");
 
-//        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
-//        Assertions.assertTrue(bill.isRefNoDisplayed(amt));
-//        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
-//        Assertions.assertTrue(bill.isAddedDescriptionDisplayed());
     }
 
+    @Test(enabled = true, description = "Verify that creating a bill after purchasing the 'Business' plan from the 'Store Configuration' page.")
+    public void tc_13verifyingBillCreationAfterPurchasingBusinessPlan() {
+        dashboard.clickOnBill();
+
+        //Select Store
+        bill.clickStoresDropdown();
+        bill.selectStore("New Business 2");
+        bill.clickContinueBtn();
+
+        Assertions.assertTrue(bill.isRecurringBtnVisible());
+
+        // Click on New Bill Button
+        bill.clickOnNewBill();
+
+        //Enter amount
+        String amt = "2,000.00";
+        bill.enterAmount(amt);
+        bill.disableTaxToggle();
+
+        //Select Suggested Customer
+        bill.clickCustomer();
+        bill.clickSuggestedCustomer();
+
+        bill.clickMoreOptions();
+        bill.clickRepeatField();
+        Assertions.assertEquals(bill.getRepeatPopUpTitle(),"Repeat");
+        bill.clickDoneBtn();
+        bill.clickExpiryField();
+        Assertions.assertEquals(bill.getExpiryDatePopUpTitle(),"Expiration Date");
+        bill.clickDoneBtn();
+
+        //Confirming the Bill
+        bill.clickOnConfirm();
+
+        //Verify toast message
+        Assertions.assertTrue(bill.isToastMessageDisplayed());
+        Assertions.assertEquals(bill.getToastMessage(), "Bill was created successfully.Click here to open");
+
+        //Verify Created Bill
+        bill.closeLogoConfigPopup();
+
+        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+        Assertions.assertTrue(bill.isRefNoDisplayed(amt));
+        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+
+    }
 
 
 }

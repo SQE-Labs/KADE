@@ -105,9 +105,9 @@ public class BillPage extends BasePage {
     By documnetIcon = By.xpath("(//button[contains(@onclick,'pdf')])[2]");
     By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
     By attachedImage = By.xpath("//img[@class='img-thumbnail  bg-black']");
-    By deleteBill = By.xpath("(//div[@class='container-fluid ']//div[@class='row bg-white rounded-2 g-2 m-0 mt-2 position-relative border overflow-hidden -tr-row-'])[1]");
-    By deleteButton = By.cssSelector(".btn.btn-outline-danger");
-    By deleteIcon = By.cssSelector(".btn.btn-outline-success");
+    By deleteBill = By.xpath("//div[contains(@class,'row bg-white ')]");
+    By deleteButton = By.cssSelector(".btn-outline-danger");
+    By deleteIcon = By.cssSelector(".fa.fa-check");
     By moreOptions = By.cssSelector(".mb-3.border.p-2.py-3.rounded-3.advanced-d-none.position-relative");
     By referenceNo = By.xpath("(//div[@class='border p-2 py-3 mb-2 rounded-3  d-none advanced-d-block'])[1]");
     public By refNoField = By.xpath("(//input[@lbl-title='Reference No.'])[2]");
@@ -132,19 +132,22 @@ public class BillPage extends BasePage {
     By expiryBtn = By.xpath("(//div[@class='position-absolute start-0 end-0 top-0 bottom-0 bg-locked'])[2]");
     By notNowBtn = By.xpath("(//button[@class='btn btn-outline-primary'])[1]");
     By upgradeBtn = By.xpath("//a[text()='Upgrade']");
-    By filterIcon=By.xpath("//i[@class='far fa-2x fa-sliders-h-square']");
-    By freezeIcon1=By.xpath("(//button[@class='fs-pn15 m-1 btn btn-danger'])[1]");
-    By freezeIcon2=By.xpath("(//button[@class='fs-pn15 m-1 btn btn-danger'])[2]");
-    By upgradePopUpTitle=By.xpath("//h3[text()='Upgrade your plan']");
-    By memoBtn=By.xpath("(//div[@class=\"text-nowrap d-flex align-items-center w-100\"])[4]");
-    By memoField=By.xpath("(//textarea[@lbl-title='Memo'])[2]");
-    By doneBtn=By.xpath("(//button[@class='btn btn-link w-100 my-3'])[5]");
-    By memoFieldText=By.xpath("(//div[@class='d-none empty-d-block fst-italic w-100'])[4]");
-    //By doneBtn=By.xpath("//button[text()=\"Done\"]");
-    By memoFieldMessage=By.xpath("//div[@class='text-muted fs-pn15 pt-3']");
-    By memoPopUpTitle=By.xpath("//h5[text()='Memo']");
-
+    By filterIcon = By.xpath("//i[@class='far fa-2x fa-sliders-h-square']");
+    By freezeIcon1 = By.xpath("(//button[@class='fs-pn15 m-1 btn btn-danger'])[1]");
+    By freezeIcon2 = By.xpath("(//button[@class='fs-pn15 m-1 btn btn-danger'])[2]");
+    By upgradePopUpTitle = By.xpath("//h3[text()='Upgrade your plan']");
+    By memoBtn = By.xpath("(//div[@class=\"text-nowrap d-flex align-items-center w-100\"])[4]");
+    By memoField = By.xpath("(//textarea[@lbl-title='Memo'])[2]");
+    By doneBtn = By.xpath("(//button[@class='btn btn-link w-100 my-3'])[5]");
+    By memoFieldText = By.xpath("(//div[@class='d-none empty-d-block fst-italic w-100'])[4]");
+    By memoFieldMessage = By.xpath("//div[@class='text-muted fs-pn15 pt-3']");
+    By memoPopUpTitle = By.xpath("//h5[text()='Memo']");
+    By addedMemoText = By.xpath("(//div[contains(text(),'Memo Text')])[1]");
     By taxToggleBtn = By.xpath("//input[@name='applyTax']/../i[2]");
+    By paidRepeatField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative']");
+    By paidExpiryField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative -expdate-div-']/div");
+    By repeatPopUpTitle=By.xpath("//h5[text()='Repeat']");
+    By expiryDatePopUpTitle=By.xpath("//h5[text()='Expiration Date']");
 
     public String getPopUpTitle() {
         WebdriverWaits.waitForElementVisible(popUpHeader, 5);
@@ -673,14 +676,14 @@ public class BillPage extends BasePage {
     }
 
     public void enableTaxToggle() {
-        if(isWebElementVisible(By.cssSelector(".fa-toggle-on.custom-check-off"))){
-        click(taxToggleBtn);
+        if (isWebElementVisible(By.cssSelector(".fa-toggle-on.custom-check-off"))) {
+            click(taxToggleBtn);
         }
     }
 
     public void disableTaxToggle() {
         By taxToggleBtnDisable = By.xpath("//input[@name='applyTax']/../i[1]");
-        if(isWebElementVisible(By.cssSelector(".fa-toggle-on.custom-check-on"))){
+        if (isWebElementVisible(By.cssSelector(".fa-toggle-on.custom-check-on"))) {
             click(taxToggleBtnDisable);
         }
     }
@@ -753,12 +756,13 @@ public class BillPage extends BasePage {
     }
 
     public void clickDeleteButton() {
-        WebdriverWaits.waitForElementUntilVisible(deleteButton, 2);
+        WebdriverWaits.waitForElementUntilVisible(deleteButton, 5);
         click(deleteButton);
 
     }
 
     public void clickDeleteIcon() {
+        WebdriverWaits.waitForElementUntilVisible(deleteIcon, 5);
         click(deleteIcon);
     }
 
@@ -929,7 +933,7 @@ public class BillPage extends BasePage {
     }
 
     public String getDefaultPriceValue() {
-        return getAttribute(itemPrice1, "value");
+        return getText_custom(itemPrice1);
     }
 
     //Essential Free plan Methods of Bill Creation
@@ -960,6 +964,7 @@ public class BillPage extends BasePage {
     public boolean isFilterIconDisplayed() {
         return isWebElementVisible(filterIcon);
     }
+
     public boolean isFreezeIcon1Present() {
         return isWebElementVisible(freezeIcon1);
     }
@@ -968,7 +973,7 @@ public class BillPage extends BasePage {
         return isWebElementVisible(freezeIcon2);
     }
 
-    public String getUpgradePopUpTitle(){
+    public String getUpgradePopUpTitle() {
         WebdriverWaits.waitForElementVisible(upgradePopUpTitle, 5);
         return getText_custom(upgradePopUpTitle);
     }
@@ -987,12 +992,13 @@ public class BillPage extends BasePage {
         return getAttribute(amtInput, "max");
 
     }
-//
+
+    //
 //    public String getEnteredAmount(){
 //        WebdriverWaits.waitForElementVisible(amtInput, 2);
 //        return getText_custom(amtInput);
 //    }
-    public void clickMemoBtn(){
+    public void clickMemoBtn() {
         WebdriverWaits.waitForElementUntilVisible(memoBtn, 5);
         click(memoBtn);
     }
@@ -1003,25 +1009,63 @@ public class BillPage extends BasePage {
         click(memoField);
     }
 
-    public void clickDoneBtn(){
+    public void clickDoneBtn() {
+        WebdriverWaits.waitForElementUntilVisible(doneBtn, 5);
         click(doneBtn);
     }
 
-    public String getDefaultMemoFieldValue(){
+    public String getDefaultMemoFieldValue() {
         return getText_custom(memoFieldText);
     }
 
-    public String getMemoFieldText(){
+    public String getMemoFieldText() {
         return getText_custom(memoFieldMessage);
     }
 
-    public String getMemoPopUpTitle(){
+    public String getMemoPopUpTitle() {
         WebdriverWaits.waitForElementUntilVisible(memoPopUpTitle, 5);
         return getText_custom(memoPopUpTitle);
     }
 
-    public String getMaxMemoPopUpField(){
-        WebdriverWaits.waitForElementVisible(memoField,5);
+    public String getMaxMemoPopUpField() {
+        WebdriverWaits.waitForElementVisible(memoField, 5);
         return getAttribute(memoField, "maxlength");
+    }
+
+    public void deleteUnpaidBill() {
+        WebdriverWaits.waitForElementVisible(deleteBill, 5);
+        click(deleteBill);
+        WebdriverWaits.waitForElementVisible(deleteButton, 5);
+        click(deleteButton);
+        WebdriverWaits.waitForElementVisible(deleteIcon, 5);
+        click(deleteIcon);
+    }
+
+    public String getAddedMemoText() {
+        return getText_custom(addedMemoText);
+    }
+
+    public void clickRepeatField() {
+        WebdriverWaits.waitForElementUntilVisible(paidRepeatField, 5);
+        click(paidRepeatField);
+    }
+
+    public void clickExpiryField() {
+        WebdriverWaits.waitForElementUntilVisible(paidExpiryField, 5);
+        click(paidExpiryField);
+    }
+
+    public boolean isRecurringBtnVisible() {
+        return isWebElementVisible(recurringBtn);
+    }
+
+    public String getRepeatPopUpTitle() {
+        WebdriverWaits.waitForElementVisible(repeatPopUpTitle, 5);
+        return getText_custom(repeatPopUpTitle);
+    }
+
+    public String getExpiryDatePopUpTitle() {
+        WebdriverWaits.waitForElementVisible(expiryDatePopUpTitle, 5);
+        return getText_custom(expiryDatePopUpTitle);
     }
 }
