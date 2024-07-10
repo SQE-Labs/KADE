@@ -148,6 +148,18 @@ public class BillPage extends BasePage {
     By paidExpiryField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative -expdate-div-']/div");
     By repeatPopUpTitle=By.xpath("//h5[text()='Repeat']");
     By expiryDatePopUpTitle=By.xpath("//h5[text()='Expiration Date']");
+    By unpaidAmount=By.cssSelector(".text-danger.fs-4");
+    //By expCloseIcon=By.xpath("(//div[@class=\"modal-header\"]/button)");
+    By expCloseIcon=By.xpath("(//button[@class='btn-close'])[7]");
+    By expiresInField=By.cssSelector(".form-control.flex-grow-1.me-1");
+    By expDropDown=By.cssSelector(".form-control.form-select.max-10c");
+    By expDropDownOption=By.xpath("//select[@class='form-control form-select max-10c']/option[text()='Minutes']");
+    By addedExpTimer=By.cssSelector(".badge.bg-warning");
+    By expPopUpBtnNone=By.xpath("(//button[@class=\"btn btn-outline-dark -preset-button- fs-inherit mb-4\"])[1]");
+    By expPopUpBtn24Hr=By.xpath("(//button[@class=\"btn btn-outline-dark -preset-button- fs-inherit mb-4\"])[2]");
+    By expPopUpBtn4Hr=By.xpath("(//button[@class=\"btn btn-outline-dark -preset-button- fs-inherit mb-4\"])[3]");
+    By expPopUpBtn1Hr=By.xpath("(//button[@class=\"btn btn-outline-dark -preset-button- fs-inherit mb-4\"])[4]");
+    By expPopUpBtn30Min=By.xpath("(//button[@class=\"btn btn-outline-dark -preset-button- fs-inherit mb-4\"])[5]");
 
     public String getPopUpTitle() {
         WebdriverWaits.waitForElementVisible(popUpHeader, 5);
@@ -933,7 +945,7 @@ public class BillPage extends BasePage {
     }
 
     public String getDefaultPriceValue() {
-        return getText_custom(itemPrice1);
+        return getAttribute(itemPrice1,"value");
     }
 
     //Essential Free plan Methods of Bill Creation
@@ -1067,5 +1079,52 @@ public class BillPage extends BasePage {
     public String getExpiryDatePopUpTitle() {
         WebdriverWaits.waitForElementVisible(expiryDatePopUpTitle, 5);
         return getText_custom(expiryDatePopUpTitle);
+    }
+
+    public String getUnpaidAmount(){
+        return getText_custom(unpaidAmount);
+    }
+
+    public void clickCloseIcon(){
+        click(expCloseIcon);
+    }
+
+    public void enterExpiresInField(String expiresIn) {
+        WebdriverWaits.waitForElementUntilVisible(expiresInField, 2);
+        pressKeys(expiresInField, expiresIn);
+        click(expiresInField);
+    }
+
+    public void clickExpiryDropDown(){
+        click(expDropDown);
+    }
+
+    public void clickExpDropDownOption(){
+        click(expDropDownOption);
+    }
+    public boolean isAddedExpTimerDisplayed(){
+        return isWebElementVisible(addedExpTimer);
+    }
+
+
+    public boolean isExpPopUpBtnNoneDisplayed(){
+        return isWebElementVisible(expPopUpBtnNone);
+    }
+
+    public boolean isExpPopUpBtn24HrDisplayed(){
+        return isWebElementVisible(expPopUpBtn24Hr);
+    }
+
+
+    public boolean isExpPopUpBtn4HrDisplayed(){
+        return isWebElementVisible(expPopUpBtn4Hr);
+    }
+
+    public boolean isExpPopUpBtn1HrDisplayed(){
+        return isWebElementVisible(expPopUpBtn1Hr);
+    }
+
+    public boolean isExpPopUpBtn30MinDisplayed(){
+        return isWebElementVisible(expPopUpBtn30Min);
     }
 }
