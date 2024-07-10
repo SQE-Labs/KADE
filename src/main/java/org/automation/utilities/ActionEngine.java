@@ -347,22 +347,53 @@ public class ActionEngine extends BaseTest {
 	}
 
 	// Method to upload a file from local driver
+//	public void uploadImageFile(String location) throws AWTException {
+//		Robot rb = new Robot();
+//		rb.setAutoDelay(2000);
+//		// copying File path to Clipboard
+//		StringSelection str = new StringSelection(location);
+//		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(str, null);
+//
+//		// press Contol+V for pasting
+//		rb.keyPress(KeyEvent.VK_CONTROL);
+//		rb.keyPress(KeyEvent.VK_V);
+//
+//		// release Contol+V for pasting
+//		rb.keyRelease(KeyEvent.VK_CONTROL);
+//		rb.keyRelease(KeyEvent.VK_V);
+//
+//		// for pressing and releasing Enter
+//		rb.keyPress(KeyEvent.VK_ENTER);
+//		rb.keyRelease(KeyEvent.VK_ENTER);
+//	}
+
 	public void uploadImageFile(String location) throws AWTException {
 		Robot rb = new Robot();
 		rb.setAutoDelay(2000);
-		// copying File path to Clipboard
+
+		// Copying file path to clipboard
 		StringSelection str = new StringSelection(location);
 		Toolkit.getDefaultToolkit().getSystemClipboard().setContents(str, null);
 
-		// press Contol+V for pasting
-		rb.keyPress(KeyEvent.VK_CONTROL);
-		rb.keyPress(KeyEvent.VK_V);
+		// Determine the operating system
+		String os = System.getProperty("os.name").toLowerCase();
 
-		// release Contol+V for pasting
-		rb.keyRelease(KeyEvent.VK_CONTROL);
-		rb.keyRelease(KeyEvent.VK_V);
+		if (os.contains("win")) {
+			// Windows key combination for paste
+			rb.keyPress(KeyEvent.VK_CONTROL);
+			rb.keyPress(KeyEvent.VK_V);
+			rb.keyRelease(KeyEvent.VK_V);
+			rb.keyRelease(KeyEvent.VK_CONTROL);
+		} else if (os.contains("mac")) {
+			// macOS key combination for paste
+			rb.keyPress(KeyEvent.VK_TAB);
+			rb.keyPress(KeyEvent.VK_META);  // Command key
+			rb.keyPress(KeyEvent.VK_V);
+			rb.keyRelease(KeyEvent.VK_V);
+			rb.keyRelease(KeyEvent.VK_META);
+		}
 
-		// for pressing and releasing Enter
+		// Press and release Enter key
 		rb.keyPress(KeyEvent.VK_ENTER);
 		rb.keyRelease(KeyEvent.VK_ENTER);
 	}

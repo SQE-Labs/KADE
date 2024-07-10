@@ -695,6 +695,7 @@ public class BillPage extends BasePage {
     public void uploadImageAsAttachment(String relativePath) throws AWTException {
         String projectPath = System.getProperty("user.dir");
         String absolutePath = Paths.get(projectPath, relativePath).toString();
+        System.out.println(absolutePath);
         uploadImageFile(absolutePath);
     }
 
