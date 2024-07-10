@@ -14,8 +14,6 @@ import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.*;
 
-import static org.apache.xmlbeans.xml.stream.utils.NestedThrowable.Util.printStackTrace;
-
 public class BillPage extends BasePage {
 
     public By newBillBtn = By.xpath("//button[@class='btn btn-outline-dark']");

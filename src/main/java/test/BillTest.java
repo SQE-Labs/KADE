@@ -93,7 +93,7 @@ public class BillTest extends BaseTest {
 
     }
 
-    @Test(enabled = false, description = "Verify that creating a bill by adding amount value only, without Selecting a Customer")
+    @Test(enabled = true, description = "Verify that creating a bill by adding amount value only, without Selecting a Customer")
     public void tc_02createBillBySelectingCustomer() {
         dashboard.clickOnBill();
 
@@ -156,7 +156,7 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
     }
 
-    @Test(enabled = false, description = "Bill creation by selecting customers from the suggestion list")
+    @Test(enabled = true, description = "Bill creation by selecting customers from the suggestion list")
     public void tc_03createBillForSuggestedCustomer() {
         dashboard.clickOnBill();
 
@@ -188,7 +188,7 @@ public class BillTest extends BaseTest {
 
     }
 
-    @Test(enabled = false, description = "Bill Creation with already configured 'Tax' from store configuration page.")
+    @Test(enabled = true, description = "Bill Creation with already configured 'Tax' from store configuration page.")
     public void tc_04createBillForConfiguredTax() throws ParseException {
         dashboard.clickOnBill();
 
@@ -231,7 +231,7 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.isBillTimeDisplayed(total));
     }
 
-    @Test(enabled = false, description = "Bill Creation with already configured 'Tax' from store configuration page.")
+    @Test(enabled = true, description = "Bill Creation with already configured 'Tax' from store configuration page.")
     public void tc_06createBillByAttachingImage() throws ParseException, AWTException {
         dashboard.clickOnBill();
 
@@ -291,7 +291,7 @@ public class BillTest extends BaseTest {
         bill.closeCreatedBill();
     }
 
-    @Test(enabled = false, description = "Bill Creation with already configured 'Tax' from store configuration page.")
+    @Test(enabled = true, description = "Bill Creation with already configured 'Tax' from store configuration page.")
     public void tc_07createBillByAttachingPdf() throws AWTException {
         dashboard.clickOnBill();
 
@@ -341,7 +341,7 @@ public class BillTest extends BaseTest {
         bill.closeCreatedBill();
     }
 
-    @Test(enabled = false, description = "Verify that unpaid bill gets deleted")
+    @Test(enabled = true, description = "Verify that unpaid bill gets deleted")
     public void tc_08verifyBillDeletion() {
         dashboard.clickOnBill();
 
@@ -356,7 +356,7 @@ public class BillTest extends BaseTest {
         bill.clickDeleteIcon();
     }
 
-    @Test(enabled = false, description = "Verify that creating a bill by adding 'Ref No.', 'Description' and 'Items' fields")
+    @Test(enabled = true, description = "Verify that creating a bill by adding 'Ref No.', 'Description' and 'Items' fields")
     public void tc_09verifyBillCreationUsingOptionalFields() {
         dashboard.clickOnBill();
 
