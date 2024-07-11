@@ -811,6 +811,56 @@ public class BillTest extends BaseTest {
         bill.deleteUnpaidBill();
 
     }
+    @Test(enabled = true, description = "Verify that creating a store by adding recurring transactions, on Bills page")
+    public void tc_16verifyingBillCreationByAddingRecurringTransactions() {
+        dashboard.clickOnBill();
+
+        //Select Store
+        bill.clickStoresDropdown();
+        bill.selectStore("New Business 2");
+        bill.clickContinueBtn();
+
+        Assertions.assertTrue(bill.isRecurringBtnVisible());
+
+        // Click on New Bill Button
+        bill.clickOnNewBill();
+
+        //Enter amount
+        String amt = "1,000.00";
+        bill.enterAmount(amt);
+        bill.disableTaxToggle();
+
+        //Select Suggested Customer
+        bill.clickCustomer();
+        bill.clickSuggestedCustomer();
+
+        bill.clickMoreOptions();
+        bill.clickRepeatField();
+        Assertions.assertEquals(bill.getRepeatPopUpTitle(), "Repeat");
+        bill.clickDoneBtn();
+
+        bill.clickRepeatField();
+        bill.clickRepeatOption();
+        bill.checkCustomerCancelOption();
+        bill.clickDoneBtn();
+
+        //Confirming the Bill
+        bill.clickOnConfirm();
+
+        //Verify toast message
+        Assertions.assertTrue(bill.isToastMessageDisplayed());
+        Assertions.assertEquals(bill.getToastMessage(), "Bill was created successfully.Click here to open");
+
+        //Verify Created Bill
+        bill.closeLogoConfigPopup();
+
+        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+        Assertions.assertTrue(bill.isRefNoDisplayed(amt));
+        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+
+        bill.deleteUnpaidBill();
+
+    }
 
 
 }
