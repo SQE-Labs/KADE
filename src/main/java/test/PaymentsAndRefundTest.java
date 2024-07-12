@@ -8,6 +8,8 @@ import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
+import java.sql.ParameterMetaData;
+
 public class PaymentsAndRefundTest extends BaseTest {
 
     LoginPage login = new LoginPage();
@@ -40,10 +42,16 @@ public class PaymentsAndRefundTest extends BaseTest {
         bill.clickUnpaidBill();
         bill.clickProcessPaymentBtn();
 
+        // Verify popup title
+        String actualTitle = payments.getReceivedPaymentTitle();
+        Assertions.assertEquals(actualTitle,"Receive Payment");
+
         payments.clickOthersBtn();
         payments.clickCashBtn();
 
         Assertions.assertTrue(payments.isPaidLabelDisplayed());
+
+        payments.closeReceivedPopup();
 
 
 //

@@ -662,7 +662,7 @@ public class BillPage extends BasePage {
     public void closeLogoConfigPopup() {
         try {
             WebdriverWaits.waitForElementClickable(closeLogoPopupBtn, 5);
-            click(closeLogoPopupBtn);
+            clickElementByJS(closeLogoPopupBtn);
         } catch (TimeoutException e) {
         }
     }

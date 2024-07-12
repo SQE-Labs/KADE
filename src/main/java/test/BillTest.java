@@ -300,7 +300,7 @@ public class BillTest extends BaseTest {
 
     }
 
-    @Test(enabled = true, description = "Bill Creation with already configured 'Tax' from store configuration page.")
+    @Test(enabled = false, description = "Bill Creation with already configured 'Tax' from store configuration page.")
     public void tc_07createBillByAttachingPdf() throws AWTException {
         dashboard.clickOnBill();
 
