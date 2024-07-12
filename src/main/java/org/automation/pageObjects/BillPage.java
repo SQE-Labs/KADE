@@ -137,16 +137,17 @@ public class BillPage extends BasePage {
     By freezeIcon1 = By.xpath("(//button[@class='fs-pn15 m-1 btn btn-danger'])[1]");
     By freezeIcon2 = By.xpath("(//button[@class='fs-pn15 m-1 btn btn-danger'])[2]");
     By upgradePopUpTitle = By.xpath("//h3[text()='Upgrade your plan']");
-    By memoBtn = By.xpath("(//div[@class=\"text-nowrap d-flex align-items-center w-100\"])[4]");
+    By memoBtn = By.xpath("(//div[@class='text-nowrap d-flex align-items-center w-100'])[4]");
     By memoField = By.xpath("(//textarea[@lbl-title='Memo'])[2]");
     By doneBtn = By.xpath("(//button[text()='Done'])[5]");
+    By doneBtn2=By.xpath("(//button[@class='btn btn-link w-100 my-3'])[3]");
     By memoFieldText = By.xpath("(//div[@class='d-none empty-d-block fst-italic w-100'])[4]");
     By memoFieldMessage = By.xpath("//div[@class='text-muted fs-pn15 pt-3']");
     By memoPopUpTitle = By.xpath("//h5[text()='Memo']");
     By addedMemoText = By.xpath("(//div[contains(text(),'Memo Text')])[1]");
     By taxToggleBtn = By.xpath("//input[@name='applyTax']/../i[2]");
     By paidRepeatField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative']");
-    By paidExpiryField = By.xpath("//div[contains(@class,'-expdate-div-')]");
+    By paidExpiryField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative -expdate-div-']");
     By repeatPopUpTitle=By.xpath("//h5[text()='Repeat']");
     By expiryDatePopUpTitle=By.xpath("//h5[text()='Expiration Date']");
     By unpaidAmount=By.cssSelector(".text-danger.fs-4");
@@ -154,7 +155,7 @@ public class BillPage extends BasePage {
     By repeatCloseIcon=By.xpath("(//button[@class='btn-close'])[8]");
     By expiresInField=By.cssSelector(".form-control.flex-grow-1.me-1");
     By expDropDown=By.cssSelector(".form-control.form-select.max-10c");
-    By expDropDownOption=By.xpath("//select[@class='form-control form-select max-10c']/option[text()='Minutes']");
+    By expDropDownOption=By.xpath("//option[@value='minutes']");
     By addedExpTimer=By.cssSelector(".badge.bg-warning");
     By expPopUpBtnNone=By.xpath("(//button[contains(@class,'fs-inherit mb-4')])[1]");
     By expPopUpBtn24Hr=By.xpath("(//button[contains(@class,'fs-inherit mb-4')])[2]");
@@ -163,6 +164,8 @@ public class BillPage extends BasePage {
     By expPopUpBtn30Min=By.xpath("(//button[contains(@class,'fs-inherit mb-4')])[2]");
     By repeatOption=By.xpath("//input[@value='1']");
     By customerCancelOption=By.xpath("//span[text()='Customer can cancel at any time']");
+    By everyDayField=By.xpath("//input[@class='max-5c form-control']");
+    By recurringBillText=By.xpath("//a[@class='btn btn-link']");
 
     public String getPopUpTitle() {
         WebdriverWaits.waitForElementVisible(popUpHeader, 5);
@@ -1026,9 +1029,11 @@ public class BillPage extends BasePage {
 
     public void clickDoneBtn() {
 
-        scrollToElement(doneBtn);
+
+       // WebdriverWaits.waitForElementUntilVisible(doneBtn, 15);
+         scrollToElement(doneBtn);
         moveToWebElement(doneBtn);
-        WebdriverWaits.waitForElementUntilVisible(doneBtn, 5);
+        WebdriverWaits.waitForElementUntilVisible(doneBtn, 8);
         click(doneBtn);
     }
 
@@ -1141,6 +1146,16 @@ public class BillPage extends BasePage {
 
     public void checkCustomerCancelOption(){
         click(customerCancelOption);
+    }
+    public void clickDoneBtn2(){
+        click(doneBtn2);
+    }
+
+    public String getEveryDayFieldValue(){
+        return getAttribute(everyDayField,"value");
+    }
+    public String getRecurringBillText(){
+        return getText_custom(recurringBillText);
     }
 
 }

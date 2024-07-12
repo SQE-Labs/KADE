@@ -463,6 +463,8 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.isBillTimeDisplayed("350.00"));
         Assertions.assertTrue(bill.isAddedDescriptionDisplayed());
 
+        bill.deleteUnpaidBill();
+
     }
 
     @Test(enabled = true, description = "Verify that creating a bill, when user has  Essential (Free) plan for his store")
@@ -817,7 +819,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.clickStoresDropdown();
-        bill.selectStore("New Business 2");
+        bill.selectStore("New Business");
         bill.clickContinueBtn();
 
         Assertions.assertTrue(bill.isRecurringBtnVisible());
@@ -842,7 +844,8 @@ public class BillTest extends BaseTest {
         bill.clickRepeatField();
         bill.clickRepeatOption();
         bill.checkCustomerCancelOption();
-        bill.clickDoneBtn();
+        Assertions.assertEquals(bill.getEveryDayFieldValue(),"1");
+        bill.clickDoneBtn2();
 
         //Confirming the Bill
         bill.clickOnConfirm();
@@ -858,6 +861,8 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
         Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
 
+        bill.openBillByAmt(amt);
+        Assertions.assertEquals(bill.getRecurringBillText(), "This is a recurring bill");
         bill.deleteUnpaidBill();
 
     }
