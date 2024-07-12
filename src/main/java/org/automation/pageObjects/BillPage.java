@@ -103,9 +103,9 @@ public class BillPage extends BasePage {
     By documnetIcon = By.xpath("(//button[contains(@onclick,'pdf')])[2]");
     By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
     By attachedImage = By.xpath("//img[@class='img-thumbnail  bg-black']");
-    By deleteBill = By.xpath("(//div[@class='container-fluid ']//div[@class='row bg-white rounded-2 g-2 m-0 mt-2 position-relative border overflow-hidden -tr-row-'])[1]");
-    By deleteButton = By.cssSelector(".btn.btn-outline-danger");
-    By deleteIcon = By.cssSelector(".btn.btn-outline-success");
+    By deleteBill = By.xpath("//div[contains(@class,'row bg-white ')]");
+    By deleteButton = By.cssSelector(".btn-outline-danger");
+    By deleteIcon = By.cssSelector(".fa.fa-check");
     By moreOptions = By.cssSelector(".mb-3.border.p-2.py-3.rounded-3.advanced-d-none.position-relative");
     By referenceNo = By.xpath("(//div[@class='border p-2 py-3 mb-2 rounded-3  d-none advanced-d-block'])[1]");
     public By refNoField = By.xpath("(//input[@lbl-title='Reference No.'])[2]");
@@ -125,7 +125,44 @@ public class BillPage extends BasePage {
     By defaultDescText = By.xpath("//label[text()='Description:']/../div/div/div[1]/div[2]");
     By descText = By.xpath("//label[text()='Description:']/../div/div/div[1]/div[1]");
     By descPopUp = By.xpath("//h5[text()='Description']");
+    By addedDescription = By.xpath("(//div[@class='border rounded p-1 overflow-hidden'])[1]");
+    By repeatBtn = By.xpath("(//div[contains(@class,'bg-locked')])[1]");
+    By expiryBtn = By.xpath("(//div[contains(@class,'bg-locked')])[2]");
+    By notNowBtn = By.xpath("(//button[@class='btn btn-outline-primary'])[1]");
+    By upgradeBtn = By.xpath("//a[text()='Upgrade']");
+    By filterIcon = By.xpath("//i[@class='far fa-2x fa-sliders-h-square']");
+    By freezeIcon1 = By.xpath("(//button[@class='fs-pn15 m-1 btn btn-danger'])[1]");
+    By freezeIcon2 = By.xpath("(//button[@class='fs-pn15 m-1 btn btn-danger'])[2]");
+    By upgradePopUpTitle = By.xpath("//h3[text()='Upgrade your plan']");
+    By memoBtn = By.xpath("(//div[@class='text-nowrap d-flex align-items-center w-100'])[4]");
+    By memoField = By.xpath("(//textarea[@lbl-title='Memo'])[2]");
+    By doneBtn = By.xpath("(//button[text()='Done'])[5]");
+    By doneBtn2=By.xpath("(//button[@class='btn btn-link w-100 my-3'])[3]");
+    By memoFieldText = By.xpath("(//div[@class='d-none empty-d-block fst-italic w-100'])[4]");
+    By memoFieldMessage = By.xpath("//div[@class='text-muted fs-pn15 pt-3']");
+    By memoPopUpTitle = By.xpath("//h5[text()='Memo']");
+    By addedMemoText = By.xpath("(//div[contains(text(),'Memo Text')])[1]");
     By taxToggleBtn = By.xpath("//input[@name='applyTax']/../i[2]");
+    By paidRepeatField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative']");
+    By paidExpiryField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative -expdate-div-']");
+    By repeatPopUpTitle=By.xpath("//h5[text()='Repeat']");
+    By expiryDatePopUpTitle=By.xpath("//h5[text()='Expiration Date']");
+    By unpaidAmount=By.cssSelector(".text-danger.fs-4");
+    By expCloseIcon=By.xpath("(//button[@class='btn-close'])[7]");
+    By repeatCloseIcon=By.xpath("(//button[@class='btn-close'])[8]");
+    By expiresInField=By.cssSelector(".form-control.flex-grow-1.me-1");
+    By expDropDown=By.cssSelector(".form-control.form-select.max-10c");
+    By expDropDownOption=By.xpath("//option[@value='minutes']");
+    By addedExpTimer=By.cssSelector(".badge.bg-warning");
+    By expPopUpBtnNone=By.xpath("(//button[contains(@class,'fs-inherit mb-4')])[1]");
+    By expPopUpBtn24Hr=By.xpath("(//button[contains(@class,'fs-inherit mb-4')])[2]");
+    By expPopUpBtn4Hr=By.xpath("(//button[contains(@class,'fs-inherit mb-4')])[3]");
+    By expPopUpBtn1Hr=By.xpath("(//button[contains(@class,'fs-inherit mb-4')])[4]");
+    By expPopUpBtn30Min=By.xpath("(//button[contains(@class,'fs-inherit mb-4')])[2]");
+    By repeatOption=By.xpath("//input[@value='1']");
+    By customerCancelOption=By.xpath("//span[text()='Customer can cancel at any time']");
+    By everyDayField=By.xpath("//input[@class='max-5c form-control']");
+    By recurringBillText=By.xpath("//a[@class='btn btn-link']");
     By processPaymentBtn = By.xpath("//button[text()='Process Payment']");
 
 
@@ -360,10 +397,6 @@ public class BillPage extends BasePage {
         click(unpaidBill);
     }
 
-    public void clickOnFirstUnPaidBills() {
-        WebdriverWaits.fluentWait_ElementIntactable(10, 100, unpaidBill);
-        clickByMouse(unpaidBill);
-    }
 
     public void clickOnRefund() {
         click(refundBtn);
@@ -611,6 +644,7 @@ public class BillPage extends BasePage {
 
     public boolean isNotPaidLabelDisplayed(String amt) {
         By notPaidLabel = By.xpath("//span[text()='$" + amt + "']/../../div[1]/span");
+        WebdriverWaits.waitForElementClickable(notPaidLabel, 5);
         return isWebElementVisible(notPaidLabel);
     }
 
@@ -653,14 +687,14 @@ public class BillPage extends BasePage {
     }
 
     public void enableTaxToggle() {
-        if(isWebElementVisible(By.cssSelector(".fa-toggle-on.custom-check-off"))){
-        click(taxToggleBtn);
+        if (isWebElementVisible(By.cssSelector(".fa-toggle-on.custom-check-off"))) {
+            click(taxToggleBtn);
         }
     }
 
     public void disableTaxToggle() {
         By taxToggleBtnDisable = By.xpath("//input[@name='applyTax']/../i[1]");
-        if(isWebElementVisible(By.cssSelector(".fa-toggle-on.custom-check-on"))){
+        if (isWebElementVisible(By.cssSelector(".fa-toggle-on.custom-check-on"))) {
             click(taxToggleBtnDisable);
         }
     }
@@ -695,7 +729,6 @@ public class BillPage extends BasePage {
     public void uploadImageAsAttachment(String relativePath) throws AWTException {
         String projectPath = System.getProperty("user.dir");
         String absolutePath = Paths.get(projectPath, relativePath).toString();
-        System.out.println(absolutePath);
         uploadImageFile(absolutePath);
     }
 
@@ -734,12 +767,13 @@ public class BillPage extends BasePage {
     }
 
     public void clickDeleteButton() {
-        WebdriverWaits.waitForElementUntilVisible(deleteButton, 2);
+        WebdriverWaits.waitForElementUntilVisible(deleteButton, 5);
         click(deleteButton);
 
     }
 
     public void clickDeleteIcon() {
+        WebdriverWaits.waitForElementUntilVisible(deleteIcon, 5);
         click(deleteIcon);
     }
 
@@ -894,6 +928,10 @@ public class BillPage extends BasePage {
         return getText_custom(descText);
     }
 
+    public boolean isAddedDescriptionDisplayed() {
+        return isWebElementVisible(addedDescription);
+    }
+
 
     public String getDescPopUpTitle() {
         WebdriverWaits.waitForElementVisible(descPopUp, 2);
@@ -906,9 +944,213 @@ public class BillPage extends BasePage {
     }
 
     public String getDefaultPriceValue() {
-        WebdriverWaits.waitForElementVisible(itemPrice1,5);
-        return getAttribute(itemPrice1, "value");
+        return getAttribute(itemPrice1,"value");
     }
+
+    //Essential Free plan Methods of Bill Creation
+    public void clickRepeatBtn() {
+
+        click(repeatBtn);
+    }
+
+    public void clickExpiryBtn() {
+        WebdriverWaits.waitForElementVisible(expiryBtn, 2);
+        click(expiryBtn);
+    }
+
+    public void clickNotNowBtn() {
+        WebdriverWaits.waitForElementVisible(notNowBtn, 2);
+        click(notNowBtn);
+
+
+    }
+
+    public void clickUpgradeBtn() {
+        WebdriverWaits.waitForElementVisible(upgradeBtn, 2);
+        click(upgradeBtn);
+    }
+
+    //Assertions Methods
+
+    public boolean isFilterIconDisplayed() {
+        return isWebElementVisible(filterIcon);
+    }
+
+    public boolean isFreezeIcon1Present() {
+        return isWebElementVisible(freezeIcon1);
+    }
+
+    public boolean isFreezeIcon2Present() {
+        return isWebElementVisible(freezeIcon2);
+    }
+
+    public String getUpgradePopUpTitle() {
+        WebdriverWaits.waitForElementVisible(upgradePopUpTitle, 5);
+        return getText_custom(upgradePopUpTitle);
+    }
+
+    public boolean isNotNowBtnPresent() {
+        WebdriverWaits.waitForElementVisible(notNowBtn, 2);
+        return isWebElementVisible(notNowBtn);
+    }
+
+    public boolean isUpgradeBtnPresent() {
+        WebdriverWaits.waitForElementVisible(upgradeBtn, 2);
+        return isWebElementVisible(upgradeBtn);
+    }
+
+    public String getMaxAmountInput() {
+        return getAttribute(amtInput, "max");
+
+    }
+
+    //
+//    public String getEnteredAmount(){
+//        WebdriverWaits.waitForElementVisible(amtInput, 2);
+//        return getText_custom(amtInput);
+//    }
+    public void clickMemoBtn() {
+        WebdriverWaits.waitForElementUntilVisible(memoBtn, 5);
+        click(memoBtn);
+    }
+
+    public void enterMemoField(String memoText) {
+        WebdriverWaits.waitForElementUntilVisible(memoField, 5);
+        pressKeys(memoField, memoText);
+        click(memoField);
+    }
+
+    public void clickDoneBtn() {
+
+
+       // WebdriverWaits.waitForElementUntilVisible(doneBtn, 15);
+         scrollToElement(doneBtn);
+        moveToWebElement(doneBtn);
+        WebdriverWaits.waitForElementUntilVisible(doneBtn, 8);
+        click(doneBtn);
+    }
+
+    public String getDefaultMemoFieldValue() {
+        return getText_custom(memoFieldText);
+    }
+
+    public String getMemoFieldText() {
+        return getText_custom(memoFieldMessage);
+    }
+
+    public String getMemoPopUpTitle() {
+        WebdriverWaits.waitForElementUntilVisible(memoPopUpTitle, 5);
+        return getText_custom(memoPopUpTitle);
+    }
+
+    public String getMaxMemoPopUpField() {
+        WebdriverWaits.waitForElementVisible(memoField, 5);
+        return getAttribute(memoField, "maxlength");
+    }
+
+    public void deleteUnpaidBill() {
+        WebdriverWaits.waitForElementVisible(deleteBill, 5);
+        click(deleteBill);
+        WebdriverWaits.waitForElementVisible(deleteButton, 5);
+        click(deleteButton);
+        WebdriverWaits.waitForElementVisible(deleteIcon, 5);
+        click(deleteIcon);
+    }
+
+    public String getAddedMemoText() {
+        return getText_custom(addedMemoText);
+    }
+
+    public void clickRepeatField() {
+        WebdriverWaits.waitForElementUntilVisible(paidRepeatField, 5);
+        click(paidRepeatField);
+    }
+
+    public void clickExpiryField() {
+        WebdriverWaits.waitForElementUntilVisible(paidExpiryField, 5);
+        click(paidExpiryField);
+    }
+
+    public boolean isRecurringBtnVisible() {
+        return isWebElementVisible(recurringBtn);
+    }
+
+    public String getRepeatPopUpTitle() {
+        WebdriverWaits.waitForElementVisible(repeatPopUpTitle, 5);
+        return getText_custom(repeatPopUpTitle);
+    }
+
+    public String getExpiryDatePopUpTitle() {
+        WebdriverWaits.waitForElementVisible(expiryDatePopUpTitle, 5);
+        return getText_custom(expiryDatePopUpTitle);
+    }
+
+    public String getUnpaidAmount(){
+        return getText_custom(unpaidAmount);
+    }
+
+    public void clickCloseIcon(){
+        click(expCloseIcon);
+    }
+
+    public void enterExpiresInField(String expiresIn) {
+        WebdriverWaits.waitForElementUntilVisible(expiresInField, 2);
+        pressKeys(expiresInField, expiresIn);
+        click(expiresInField);
+    }
+
+    public void clickExpiryDropDown(){
+        click(expDropDown);
+    }
+
+    public void clickExpDropDownOption(){
+        click(expDropDownOption);
+    }
+    public boolean isAddedExpTimerDisplayed(){
+        return isWebElementVisible(addedExpTimer);
+    }
+
+
+    public boolean isExpPopUpBtnNoneDisplayed(){
+        return isWebElementVisible(expPopUpBtnNone);
+    }
+
+    public boolean isExpPopUpBtn24HrDisplayed(){
+        return isWebElementVisible(expPopUpBtn24Hr);
+    }
+
+
+    public boolean isExpPopUpBtn4HrDisplayed(){
+        return isWebElementVisible(expPopUpBtn4Hr);
+    }
+
+    public boolean isExpPopUpBtn1HrDisplayed(){
+        return isWebElementVisible(expPopUpBtn1Hr);
+    }
+
+    public boolean isExpPopUpBtn30MinDisplayed(){
+        return isWebElementVisible(expPopUpBtn30Min);
+    }
+
+    public void clickRepeatOption(){
+
+        click(repeatOption);
+    }
+
+    public void checkCustomerCancelOption(){
+        click(customerCancelOption);
+    }
+    public void clickDoneBtn2(){
+        click(doneBtn2);
+    }
+
+    public String getEveryDayFieldValue(){
+        return getAttribute(everyDayField,"value");
+    }
+    public String getRecurringBillText(){
+        return getText_custom(recurringBillText);
+    }
+
 
     public void clickProcessPaymentBtn() {
         click(processPaymentBtn);

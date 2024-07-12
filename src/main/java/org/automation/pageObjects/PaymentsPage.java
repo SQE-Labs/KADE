@@ -17,9 +17,8 @@ public class PaymentsPage extends BasePage {
     }
 
     public void clickCashBtn(){
-        WebdriverWaits.fluentWait_ElementIntactable(5,100,cashBtn);
         moveToWebElement(cashBtn);
-        clickElementByJS(cashBtn);
+        click(cashBtn);
     }
 
     public boolean isPaidLabelDisplayed(){
