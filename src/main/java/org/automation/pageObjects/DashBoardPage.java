@@ -31,12 +31,6 @@ public class DashBoardPage extends BasePage {
 	public void clickOnBill() {
 		moveToWebElement(billBtn);
 		click(billBtn);
-//		WebdriverWaits.waitForElementVisible(whichStorePopup,5);
-//		if(isWebElementVisible(whichStorePopup)){
-//			WebdriverWaits.waitForElementVisible(whichStorePopup,5);
-//			moveToWebElement(newBusinessCard);
-//			click(newBusinessCard);
-//		}
 	}
 
 	public void clickOnMyStores() {
@@ -60,6 +54,7 @@ public class DashBoardPage extends BasePage {
 	public void signOut() {
 		click(signOutBtn);
 	}
+
 }
 
 

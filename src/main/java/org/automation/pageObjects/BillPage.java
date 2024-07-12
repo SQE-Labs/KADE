@@ -40,7 +40,7 @@ public class BillPage extends BasePage {
     By previousMonthArrow = By.xpath("//th[@class='prev available']");
     By toMonth = By.xpath("(//th[@class='month'])[2]");
     By nextMonthArrow = By.xpath("//th[@class='next available']");
-    By unpaidBill = By.xpath("//div[@class='badge bg-danger']/../../..");
+    By unpaidBill = By.cssSelector("div.row span.bg-light.badge:nth-child(1)");
     By refNo = By.xpath("//tr[@class='none-workingEffect']/td[2]/p[1]");
     By toastCloseBtn = By.xpath("//button[@class='toast-close-button']");
     public By toastMessage = By.xpath("//div[@class='toast-message']");
@@ -126,6 +126,8 @@ public class BillPage extends BasePage {
     By descText = By.xpath("//label[text()='Description:']/../div/div/div[1]/div[1]");
     By descPopUp = By.xpath("//h5[text()='Description']");
     By taxToggleBtn = By.xpath("//input[@name='applyTax']/../i[2]");
+    By processPaymentBtn = By.xpath("//button[text()='Process Payment']");
+
 
     public String getPopUpTitle() {
         WebdriverWaits.waitForElementVisible(popUpHeader, 5);
@@ -238,15 +240,14 @@ public class BillPage extends BasePage {
         sendKeys(custName, string);
     }
 
-    public void createBill(int billAmount, String phoneNo, String email, String custName, String memo) {
-        switchOnAutoGenToggle();
-        enterSubTotalAmount(billAmount);
-        enterPhoneNumber(phoneNo);
-        enterCustomerEmail(email);
-        switchOnMoreToggleBtn();
-        enterCustomerName(custName);
-        enterMemo(memo);
-        clickOnCreate();
+    public void createBill(String billAmount, String phoneNo) {
+        clickOnNewBill();
+        enterAmount(billAmount);
+        disableTaxToggle();
+        clickCustomer();
+        enterCustomerPhnNo(phoneNo);
+        clickOnGoBtnPhoneNo();
+        clickOnConfirm();
     }
 
     public String getToolTipMessagePhoneNumber() {
@@ -359,10 +360,9 @@ public class BillPage extends BasePage {
         click(unpaidBill);
     }
 
-
     public void clickOnFirstUnPaidBills() {
         WebdriverWaits.fluentWait_ElementIntactable(10, 100, unpaidBill);
-        click(unpaidBill);
+        clickByMouse(unpaidBill);
     }
 
     public void clickOnRefund() {
@@ -907,5 +907,9 @@ public class BillPage extends BasePage {
     public String getDefaultPriceValue() {
         WebdriverWaits.waitForElementVisible(itemPrice1,5);
         return getAttribute(itemPrice1, "value");
+    }
+
+    public void clickProcessPaymentBtn() {
+        click(processPaymentBtn);
     }
 }

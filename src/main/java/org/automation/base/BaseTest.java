@@ -55,9 +55,10 @@ public class BaseTest {
 
 		switch (browser) {
 		case "chrome":
-			ChromeOptions chromeOptions = new ChromeOptions();
-			chromeOptions.addArguments("--headless");
-			driver.set(new ChromeDriver(chromeOptions));
+//			ChromeOptions chromeOptions = new ChromeOptions();
+//			chromeOptions.addArguments("--headless");
+//
+			driver.set(new ChromeDriver());
 			break;
 
 		case "fireFox":
