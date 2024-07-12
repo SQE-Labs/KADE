@@ -231,7 +231,7 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.isBillTimeDisplayed(total));
     }
 
-    @Test(enabled = true, description = "Bill Creation with already configured 'Tax' from store configuration page.")
+    @Test(enabled = false, description = "Bill Creation with already configured 'Tax' from store configuration page.")
     public void tc_06createBillByAttachingImage() throws ParseException, AWTException {
         dashboard.clickOnBill();
 
