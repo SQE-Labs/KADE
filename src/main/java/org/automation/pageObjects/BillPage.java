@@ -10,12 +10,9 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import com.codoid.products.fillo.Select;
 import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.*;
-
-import static org.apache.xmlbeans.xml.stream.utils.NestedThrowable.Util.printStackTrace;
 
 public class BillPage extends BasePage {
 
@@ -43,7 +40,7 @@ public class BillPage extends BasePage {
     By previousMonthArrow = By.xpath("//th[@class='prev available']");
     By toMonth = By.xpath("(//th[@class='month'])[2]");
     By nextMonthArrow = By.xpath("//th[@class='next available']");
-    By unpaidBill = By.xpath("//div[@class='badge bg-danger']/../../..");
+    By unpaidBill = By.cssSelector("div.row span.bg-light.badge:nth-child(1)");
     By refNo = By.xpath("//tr[@class='none-workingEffect']/td[2]/p[1]");
     By toastCloseBtn = By.xpath("//button[@class='toast-close-button']");
     public By toastMessage = By.xpath("//div[@class='toast-message']");
@@ -166,6 +163,8 @@ public class BillPage extends BasePage {
     By customerCancelOption=By.xpath("//span[text()='Customer can cancel at any time']");
     By everyDayField=By.xpath("//input[@class='max-5c form-control']");
     By recurringBillText=By.xpath("//a[@class='btn btn-link']");
+    By processPaymentBtn = By.xpath("//button[text()='Process Payment']");
+
 
     public String getPopUpTitle() {
         WebdriverWaits.waitForElementVisible(popUpHeader, 5);
@@ -278,15 +277,14 @@ public class BillPage extends BasePage {
         sendKeys(custName, string);
     }
 
-    public void createBill(int billAmount, String phoneNo, String email, String custName, String memo) {
-        switchOnAutoGenToggle();
-        enterSubTotalAmount(billAmount);
-        enterPhoneNumber(phoneNo);
-        enterCustomerEmail(email);
-        switchOnMoreToggleBtn();
-        enterCustomerName(custName);
-        enterMemo(memo);
-        clickOnCreate();
+    public void createBill(String billAmount, String phoneNo) {
+        clickOnNewBill();
+        enterAmount(billAmount);
+        disableTaxToggle();
+        clickCustomer();
+        enterCustomerPhnNo(phoneNo);
+        clickOnGoBtnPhoneNo();
+        clickOnConfirm();
     }
 
     public String getToolTipMessagePhoneNumber() {
@@ -399,11 +397,6 @@ public class BillPage extends BasePage {
         click(unpaidBill);
     }
 
-
-    public void clickOnFirstUnPaidBills() {
-        WebdriverWaits.fluentWait_ElementIntactable(10, 100, unpaidBill);
-        click(unpaidBill);
-    }
 
     public void clickOnRefund() {
         click(refundBtn);
@@ -1158,4 +1151,8 @@ public class BillPage extends BasePage {
         return getText_custom(recurringBillText);
     }
 
+
+    public void clickProcessPaymentBtn() {
+        click(processPaymentBtn);
+    }
 }

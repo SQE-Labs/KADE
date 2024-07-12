@@ -8,6 +8,7 @@ import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.Screenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
@@ -54,7 +55,11 @@ public class BaseTest {
 
 		switch (browser) {
 		case "chrome":
+//			ChromeOptions chromeOptions = new ChromeOptions();
+//			chromeOptions.addArguments("--headless");
+//			driver.set(new ChromeDriver(chromeOptions));
 			driver.set(new ChromeDriver());
+
 			break;
 
 		case "fireFox":

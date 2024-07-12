@@ -116,7 +116,7 @@ public class BasePage extends ActionEngine {
     /**
      * Switch to the frame containing the specified element.
      *
-     * @param description description of the frame
+     * @param description of the frame
      * @param element     element of the frame
      */
     public void switchToFrame(Element element) {
