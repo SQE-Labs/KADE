@@ -119,9 +119,9 @@ public class BasePage extends ActionEngine {
      * @param description of the frame
      * @param element     element of the frame
      */
-    public void switchToFrame(Element element) {
-        Log.info("Switch to frame [" + element.getDescription() + "]");
-        getDriver().switchTo().frame(element.getWebElement());
+    public void switchToFrame(By element) {
+//        Log.info("Switch to frame [" + element.getDescription() + "]");
+        getDriver().switchTo().frame(getDriver().findElement(element));
     }
 
     /**

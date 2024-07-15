@@ -8,6 +8,7 @@
 <!--			<class name="test.SecurityAndPasswordTest"></class>-->
 <!--			<class name="test.BasicInformationTest"></class>-->
 <!--			<class name="test.MyStoreTest"></class>-->
+			<class name="test.PaymentsAndRefundTest"></class>
 			<class name="test.BillTest"></class>
 <!--			<class name="test.GiftCardDashboardTest"></class>-->
 		</classes>

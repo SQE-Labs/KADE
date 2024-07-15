@@ -181,4 +181,8 @@ public class BaseTest {
 		return csvData.iterator();
 	}
 
+	public void switchToDefaultWindow(){
+		getDriver().switchTo().defaultContent();
+	}
+
 }
