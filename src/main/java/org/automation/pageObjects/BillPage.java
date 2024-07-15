@@ -146,7 +146,8 @@ public class BillPage extends BasePage {
     By memoPopUpTitle = By.xpath("//h5[text()='Memo']");
     By addedMemoText = By.xpath("(//div[contains(text(),'Memo Text')])[1]");
     By taxToggleBtn = By.xpath("//input[@name='applyTax']/../i[2]");
-    By paidRepeatField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative']");
+    //By paidRepeatField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative']");
+    By paidRepeatField=By.xpath("(//div[contains(@class,'text-nowrap d-flex align-items-center w-100')])[3]");
     By paidExpiryField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative -expdate-div-']");
     By repeatPopUpTitle=By.xpath("//h5[text()='Repeat']");
     By expiryDatePopUpTitle=By.xpath("//h5[text()='Expiration Date']");

@@ -830,6 +830,7 @@ public class BillTest extends BaseTest {
         //Enter amount
         String amt = "1,000.00";
         bill.enterAmount(amt);
+        //Enable Tax toggle Button
         bill.disableTaxToggle();
 
         //Select Suggested Customer
@@ -865,6 +866,121 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getRecurringBillText(), "This is a recurring bill");
         bill.deleteUnpaidBill();
 
+    }
+
+    @Test(enabled = true, description = "Verifying bill creation using all Features, on Bills page")
+    public void tc_17verifyingBillCreationByAddingAllFeatures() throws AWTException {
+        dashboard.clickOnBill();
+
+        //Select Store
+        bill.clickStoresDropdown();
+        bill.selectStore("New Business");
+        bill.clickContinueBtn();
+
+        Assertions.assertTrue(bill.isRecurringBtnVisible());
+
+        // Click on New Bill Button
+        bill.clickOnNewBill();
+
+        bill.enableTaxToggle();
+
+        //Add Attachment(Image)
+        bill.clickTapToAddFiles();
+        bill.clickCameraIcon();
+        bill.uploadImageAsAttachment("src/main/resources/image/BillDummyImg.jpg");
+        bill.ClickCheckBtn();
+        //Verify Added Image
+        Assertions.assertTrue(bill.isAttachedFileDisplayed());
+        Assertions.assertTrue(bill.getAttachedFilesCount() == 1);
+
+        //Select Suggested Customer
+        bill.clickCustomer();
+        bill.clickSuggestedCustomer();
+
+        bill.clickMoreOptions();
+        //Verifying that 'None' text should appear by default in 'Reference' field
+        Assertions.assertEquals(bill.getDefaultRefNoText(), "None");
+        bill.clickRefNo();
+        Assertions.assertEquals(bill.getRefPopUpTitle(), "Reference No.");
+        String actualMaxRefLen = bill.getMaxRefLen();
+        Assertions.assertEquals(actualMaxRefLen, "50");
+        String refNum = "1789";
+        bill.enterRefNo(refNum);
+        bill.clickDone();
+
+        //Verifying that added reference number should appear under the 'Ref No' field.
+        Assertions.assertEquals(bill.getRefNoText(), refNum);
+
+        //Verifying that default text should be none in Description Field
+        Assertions.assertEquals(bill.getDefaultDescText(), "None");
+        bill.clickDescription();
+        Assertions.assertEquals(bill.getDescPopUpTitle(), "Description");
+        String actualMaxDescLen = bill.getMaxDescLen();
+        Assertions.assertEquals(actualMaxDescLen, "200");
+        String descriptionValue = "Test Description";
+        bill.enterDescription(descriptionValue);
+
+        //Verifying that added reference number should appear under the 'Description' field.
+        bill.clickDone();
+        Assertions.assertEquals(bill.getDescText(), descriptionValue);
+
+        String desc1 = "Tea";
+        bill.enterItemDesc1(desc1);
+        String price1 = "80.00";
+        bill.enterItemPrice1(price1);
+        String desc2 = "Coffee";
+        bill.enterItemDesc2(desc2);
+        String price2 = "120.00";
+        bill.enterItemPrice2(price2);
+
+        //Verifying that 'Add A line' button appear in the bill pop-up
+        Assertions.assertTrue(bill.isAddALineBtnDisplayed());
+        Assertions.assertEquals(bill.getAddALineBtnText(), "Add a line");
+        bill.clickAddALineBtn();
+        Assertions.assertTrue(bill.isItemDesc3Displayed());
+        Assertions.assertTrue(bill.isItemPrice3Displayed());
+        String desc3 = "Shake";
+        bill.enterItemDesc3(desc3);
+        String price3 = "150.00";
+        bill.enterItemPrice3(price3);
+
+        bill.clickRepeatField();
+        Assertions.assertEquals(bill.getRepeatPopUpTitle(), "Repeat");
+        bill.clickDoneBtn();
+
+        bill.clickRepeatField();
+        bill.clickRepeatOption();
+        bill.checkCustomerCancelOption();
+        Assertions.assertEquals(bill.getEveryDayFieldValue(),"1");
+        bill.clickDoneBtn2();
+
+        Assertions.assertEquals(bill.getDefaultMemoFieldValue(), "None");
+        Assertions.assertEquals(bill.getMemoFieldText(), "Customer will not see this memo");
+        bill.clickMemoBtn();
+
+
+        Assertions.assertEquals(bill.getMemoPopUpTitle(), "Memo");
+        Assertions.assertEquals(bill.getMaxMemoPopUpField(), "200");
+        String memoText = "Memo Text";
+        bill.enterMemoField(memoText);
+        bill.clickDoneBtn();
+
+        //Confirming the Bill
+        bill.clickOnConfirm();
+
+        //Verify toast message
+        Assertions.assertTrue(bill.isToastMessageDisplayed());
+        Assertions.assertEquals(bill.getToastMessage(), "Bill was created successfully.Click here to open");
+
+        //Verify Created Bill
+        bill.closeLogoConfigPopup();
+
+        Assertions.assertTrue(bill.isNotPaidLabelDisplayed("357.00"));
+        Assertions.assertTrue(bill.isRefNoDisplayed("357.00"));
+        Assertions.assertTrue(bill.isBillTimeDisplayed("357.00"));
+
+        bill.openBillByAmt("357.00");
+        Assertions.assertEquals(bill.getRecurringBillText(), "This is a recurring bill");
     }
 
 
