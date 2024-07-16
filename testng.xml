@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
-<suite name="Suite">
-	<test name="Test">
+<suite name="Suite" >
+	<test thread-count="2" name="Test" parallel="classes">
 		<classes>
 <!--			<class name="test.LoginTest"></class>-->
 <!--			<class name="test.CreateAccountTest"></class>-->
 <!--			<class name="test.SecurityAndPasswordTest"></class>-->
 <!--			<class name="test.BasicInformationTest"></class>-->
 <!--			<class name="test.MyStoreTest"></class>-->
+			<class name="test.myTest"></class>
 			<class name="test.BillTest"></class>
 <!--			<class name="test.GiftCardDashboardTest"></class>-->
 		</classes>
