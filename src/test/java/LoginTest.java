@@ -1,3 +1,4 @@
+import Manager.Manager;
 import org.automation.base.BaseTest;
 import org.automation.pageObjects.DashBoardPage;
 import org.automation.pageObjects.LoginPage;
@@ -6,13 +7,12 @@ import org.automation.utilities.PropertiesUtil;
 import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest{
-	
+
 	LoginPage login = new LoginPage();
 	DashBoardPage dashboard=new DashBoardPage();
-		
+
 	@Test(enabled = true, description = "Verify that user get directed to 'Create New Account' page")
     public void tc04_validateSignUpLink() throws InterruptedException {
-        
         login.clickSignUpLink();
         String actualTitle=login.getPageTitle();
         String expectedTitle="Sign Up";
