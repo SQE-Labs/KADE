@@ -1,13 +1,14 @@
 package org.automation.base;
-import com.relevantcodes.extentreports.ExtentReports;
-import com.relevantcodes.extentreports.ExtentTest;
-import com.relevantcodes.extentreports.LogStatus;
-import org.automation.listeners.TestReporter;
+import com.aventstack.extentreports.ExtentReports;
+import com.aventstack.extentreports.ExtentTest;
+import com.aventstack.extentreports.Status;
+import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.automation.listeners.TestRunListener;
 import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.Screenshot;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
@@ -24,41 +25,51 @@ import static java.nio.file.Paths.get;
 import static java.util.stream.Collectors.toList;
 import static org.automation.logger.Log.error;
 
-@Listeners({ TestRunListener.class, TestReporter.class })
-public class BaseTest {
 
+
+@Listeners({ TestRunListener.class })
+public class BaseTest {
 	public static ExtentReports extent;
-	public static ExtentTest extentTest;
-	public static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
+	ExtentSparkReporter extentSparkReporter;
+	private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+	private static ThreadLocal<ExtentTest> extentTest = new ThreadLocal<>();
 
 	public static WebDriver getDriver() {
 		return driver.get();
 	}
 
+	public static ExtentTest getExtentTest() {
+		return extentTest.get();
+	}
+
+
+
 	public static void closeDriver() {
 		getDriver().close();
+		getDriver().quit();
 		driver.remove();
 	}
 
 	@BeforeSuite
 	public void setExtent() throws InterruptedException, IOException {
-		extent = new ExtentReports(System.getProperty("user.dir") + "/test-report/ExtentReportResult.html", true);
-		extent.addSystemInfo("Environment", "QA");
-		extent.loadConfig(new File(System.getProperty("user.dir") + "/extent-config.xml"));
+		extent = new ExtentReports();
+		extentSparkReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/test-report/Spark.html");
+		extentSparkReporter.config().thumbnailForBase64(true);
+		extent.attachReporter(extentSparkReporter);
+		extent.setSystemInfo("Environment", "QA");
 	}
 
-	@BeforeClass(alwaysRun = true)
-	public void beforeClass() throws MalformedURLException {
+	@BeforeMethod(alwaysRun = true)
+	public void beforeMethod() throws MalformedURLException {
 		String browser = PropertiesUtil.getPropertyValue("browser");
 		String url = PropertiesUtil.getPropertyValue("url");
 
 		switch (browser) {
 		case "chrome":
-//			ChromeOptions chromeOptions = new ChromeOptions();
+			ChromeOptions chromeOptions = new ChromeOptions();
 //			chromeOptions.addArguments("--headless");
-//			driver.set(new ChromeDriver(chromeOptions));
-			driver.set(new ChromeDriver());
-
+			chromeOptions.addArguments("--remote-allow-origins=*");
+			driver.set(new ChromeDriver(chromeOptions));
 			break;
 
 		case "fireFox":
@@ -80,36 +91,38 @@ public class BaseTest {
 	@BeforeMethod
 	public void beforeMethod(Method method) {
 		Test test = method.getAnnotation(Test.class);
-		extentTest = extent.startTest(method.getName());
-		extentTest.setDescription(test.description());
+		extentTest.set(extent.createTest(method.getName()));
+		getExtentTest().assignCategory(method.getDeclaringClass().getSimpleName());
 	}
 
 	@AfterMethod
 	public void tearDown(ITestResult result) throws IOException {
 
 		if (result.getStatus() == ITestResult.FAILURE) {
-			String screenshotPath = Screenshot.getScreenshot(getDriver(), result.getName());
-			extentTest.log(LogStatus.FAIL, extentTest.addScreenCapture(screenshotPath));
+			String screenshotPath = Screenshot.takeScreenShotAsBase64();
+			getExtentTest().addScreenCaptureFromBase64String(screenshotPath);
+			getExtentTest().log(Status.FAIL, result.getThrowable());
 
 		} else if (result.getStatus() == ITestResult.SUCCESS) {
-			String screenshotPath = Screenshot.getScreenshot(getDriver(), result.getName());
-			extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath));
-
+//			String screenshotPath = Screenshot.getScreenshot(getDriver(), result.getName());
+//			extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath));
 		}
-		extent.endTest(extentTest);
 		extent.flush();
+		closeDriver();
 	}
 
 	/**
 	 * Method to execute at the end of the suite execution
 	 */
-	@AfterClass(alwaysRun = true)
+	@AfterMethod(alwaysRun = true)
 	public void afterClass() {
-		closeDriver();
+//		closeDriver();
+
 	}
 
 	@AfterSuite(alwaysRun = true)
 	public void afterSuite() {
+
 	}
 
 	/**

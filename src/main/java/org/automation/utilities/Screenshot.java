@@ -85,6 +85,8 @@ public final class Screenshot extends BaseTest {
         return ImagePath;
     }
 
+
+
     /**
      * Take <b>Screenshot</b> of the current page.
      *
@@ -110,4 +112,10 @@ public final class Screenshot extends BaseTest {
         }
         return base64;
     }
+
+    public static String takeScreenShotAsBase64(){
+        TakesScreenshot ts = (TakesScreenshot) getDriver();
+        return ts.getScreenshotAs(OutputType.BASE64);
+    }
+
 }
