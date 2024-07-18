@@ -32,7 +32,7 @@ public final class TestRunListener extends BaseTest implements ITestListener, IS
         Log.error("Test [" + result.getName() + "] failed", result.getThrowable());
         result.setAttribute("failureScreenshot", Screenshot.takeScreenShot("Failure_" + result.getName()));
         if (Boolean.getBoolean("remoteDriver")) {
-            JavascriptExecutor jse = (JavascriptExecutor) getDriver();
+            JavascriptExecutor jse = (JavascriptExecutor) driver;
             jse.executeScript(
                     "browserstack_executor: {\"action\": \"setSessionStatus\", \"arguments\": {\"status\": \"failed\"}}");
         }

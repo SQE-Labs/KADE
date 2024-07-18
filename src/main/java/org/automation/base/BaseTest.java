@@ -30,41 +30,36 @@ public class BaseTest {
 
 	public static ExtentReports extent;
 	public static ExtentTest extentTest;
-	private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
+	public static ThreadLocal<WebDriver> driver = new ThreadLocal<WebDriver>();
 
 	public static WebDriver getDriver() {
 		return driver.get();
 	}
 
 	public static void closeDriver() {
-		if (Objects.nonNull(getDriver())){
-			getDriver().close();
-			driver.remove();
-		}
+		getDriver().close();
+		driver.remove();
 	}
 
 	@BeforeSuite
-
 	public void setExtent() throws InterruptedException, IOException {
 		extent = new ExtentReports(System.getProperty("user.dir") + "/test-report/ExtentReportResult.html", true);
 		extent.addSystemInfo("Environment", "QA");
 		extent.loadConfig(new File(System.getProperty("user.dir") + "/extent-config.xml"));
 	}
 
-	@BeforeMethod(alwaysRun = true)
+	@BeforeClass(alwaysRun = true)
 	public void beforeClass() throws MalformedURLException {
 		String browser = PropertiesUtil.getPropertyValue("browser");
 		String url = PropertiesUtil.getPropertyValue("url");
 
 		switch (browser) {
 		case "chrome":
-			ChromeOptions chromeOptions = new ChromeOptions();
+//			ChromeOptions chromeOptions = new ChromeOptions();
 //			chromeOptions.addArguments("--headless");
-			chromeOptions.addArguments("--remote-allow-origins=*");
-			driver.set(new ChromeDriver(chromeOptions));
-			if (Objects.isNull(getDriver())){
-				driver.set(new ChromeDriver());
-			}
+//			driver.set(new ChromeDriver(chromeOptions));
+			driver.set(new ChromeDriver());
+
 			break;
 
 		case "fireFox":
@@ -104,15 +99,14 @@ public class BaseTest {
 		}
 		extent.endTest(extentTest);
 		extent.flush();
-		closeDriver();
 	}
 
 	/**
 	 * Method to execute at the end of the suite execution
 	 */
-	@AfterMethod(alwaysRun = true)
+	@AfterClass(alwaysRun = true)
 	public void afterClass() {
-//		closeDriver();
+		closeDriver();
 	}
 
 	@AfterSuite(alwaysRun = true)

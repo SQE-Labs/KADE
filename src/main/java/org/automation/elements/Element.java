@@ -196,7 +196,7 @@ public class Element extends BaseTest {
         InputStream in = getClass().getResourceAsStream("/dragdrop.js");
         InputStreamReader isr = new InputStreamReader(in, Charset.defaultCharset());
         String dragDropJs = new BufferedReader(isr).lines().collect(joining("\n"));
-        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        JavascriptExecutor js = (JavascriptExecutor) driver;
         js.executeScript(dragDropJs, source, target);
     }
 
