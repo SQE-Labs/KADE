@@ -1,3 +1,4 @@
+import Manager.Manager;
 import org.automation.base.BaseTest;
 import org.automation.pageObjects.DashBoardPage;
 import org.automation.pageObjects.LoginPage;
