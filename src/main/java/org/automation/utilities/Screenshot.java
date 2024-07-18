@@ -1,7 +1,7 @@
 package org.automation.utilities;
 
-import org.apache.commons.io.FileUtils;
 import org.automation.base.BaseTest;
+import org.apache.commons.io.FileUtils;
 import org.automation.logger.Log;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;

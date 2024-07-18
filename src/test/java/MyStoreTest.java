@@ -1,5 +1,3 @@
-package test;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,7 +8,6 @@ import org.automation.pageObjects.MyStorePage;
 import org.automation.pageObjects.newBusinessPage;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class MyStoreTest extends BaseTest{

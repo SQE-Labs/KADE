@@ -3,7 +3,7 @@ package org.automation.pageObjects;
 import org.automation.base.BasePage;
 import org.openqa.selenium.By;
 
-public class BillEditPopup extends BasePage{
+public class BillEditPopup extends BasePage {
 
 	By subTotalField =By.xpath("//input[@name='subTotal']");
 	By updateBtn =By.xpath("//button[@class='btn btn-primary ms-2 mr-0']");

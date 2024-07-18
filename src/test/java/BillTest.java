@@ -1,17 +1,10 @@
-package test;
-
 import java.awt.*;
 import java.text.ParseException;
 
 import org.automation.base.BaseTest;
-import org.automation.pageObjects.BillEditPopup;
 import org.automation.pageObjects.BillPage;
-import org.automation.pageObjects.BillViewPopup;
 import org.automation.pageObjects.DashBoardPage;
 import org.automation.pageObjects.LoginPage;
-import org.automation.pageObjects.RefundPage;
-import org.automation.pageObjects.TransactionsPage;
-import org.automation.pageObjects.UpdateBillPopUp;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
 import org.testng.annotations.AfterMethod;

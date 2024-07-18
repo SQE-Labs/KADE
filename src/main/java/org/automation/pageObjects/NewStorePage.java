@@ -3,7 +3,7 @@ package org.automation.pageObjects;
 import org.automation.base.BasePage;
 import org.openqa.selenium.By;
 
-public class NewStorePage extends BasePage{
+public class NewStorePage extends BasePage {
 	By backBtn = By.xpath("//i[@class='fal fa-chevron-circle-left']");
 	By typeOfBusinessDropDown = By.name("profile.business.classification");
 	By websiteTextBox = By.name("profile.business.website");

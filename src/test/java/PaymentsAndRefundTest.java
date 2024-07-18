@@ -1,5 +1,3 @@
-package test;
-
 import org.automation.base.BaseTest;
 import org.automation.pageObjects.*;
 import org.automation.utilities.Assertions;
@@ -13,7 +11,6 @@ public class PaymentsAndRefundTest extends BaseTest {
     LoginPage login = new LoginPage();
     DashBoardPage dashboard = new DashBoardPage();
     BillPage bill = new BillPage();
-    NotificationsPage notification = new NotificationsPage();
     PaymentsPage payments = new PaymentsPage();
 
     @BeforeMethod

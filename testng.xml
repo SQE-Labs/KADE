@@ -3,13 +3,17 @@
 <suite name="Suite">
 	<test name="Test">
 		<classes>
-<!--			<class name="test.LoginTest"></class>-->
-<!--			<class name="test.CreateAccountTest"></class>-->
-<!--			<class name="test.SecurityAndPasswordTest"></class>-->
-<!--			<class name="test.BasicInformationTest"></class>-->
-<!--			<class name="test.MyStoreTest"></class>-->
-			<class name="test.BillTest"></class>
-<!--			<class name="test.GiftCardDashboardTest"></class>-->
+<!--			<class name="LoginTest"></class>-->
+<!--			<class name="CreateAccountTest"></class>-->
+<!--			<class name="SecurityAndPasswordTest"></class>-->
+<!--			<class name="BasicInformationTest"></class>-->
+<!--			<class name="MyStoreTest"></class>-->
+			<class name="LoginTest"></class>
+<!--			<class name="GiftCardDashboardTest"></class>-->
 		</classes>
 	</test>
+	<listeners>
+		<listener class-name="org.automation.listeners.TestReporter"></listener>
+		<listener class-name="org.automation.listeners.TestRunListener"></listener>
+	</listeners>
 </suite>

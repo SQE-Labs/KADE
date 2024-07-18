@@ -6,7 +6,6 @@ import org.automation.elements.CheckBox;
 import org.automation.elements.DropDown;
 import org.automation.elements.Element;
 import org.automation.logger.Log;
-import org.checkerframework.checker.units.qual.A;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
