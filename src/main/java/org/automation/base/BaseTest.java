@@ -91,7 +91,7 @@ public class BaseTest {
 	@BeforeMethod
 	public void beforeMethod(Method method) {
 		Test test = method.getAnnotation(Test.class);
-		extentTest.set(extent.createTest(method.getName()));
+		extentTest.set(extent.createTest(method.getAnnotation(Test.class).description()));
 		getExtentTest().assignCategory(method.getDeclaringClass().getSimpleName());
 	}
 
