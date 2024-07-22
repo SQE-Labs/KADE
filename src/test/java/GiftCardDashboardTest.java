@@ -1,5 +1,3 @@
-package test;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +14,6 @@ import org.automation.utilities.Assertions;
 import org.automation.utilities.GiftCardsForSalePage;
 import org.automation.utilities.PropertiesUtil;
 import org.openqa.selenium.Keys;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class GiftCardDashboardTest extends BaseTest {

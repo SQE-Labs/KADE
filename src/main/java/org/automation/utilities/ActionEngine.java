@@ -6,15 +6,14 @@ import org.automation.elements.CheckBox;
 import org.automation.elements.DropDown;
 import org.automation.elements.Element;
 import org.automation.logger.Log;
-import org.checkerframework.checker.units.qual.A;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
-import static com.relevantcodes.extentreports.LogStatus.FAIL;
-import static com.relevantcodes.extentreports.LogStatus.PASS;
+import static com.aventstack.extentreports.Status.FAIL;
+import static com.aventstack.extentreports.Status.PASS;
 
 import java.awt.AWTException;
 import java.awt.Robot;
@@ -38,9 +37,9 @@ public class ActionEngine extends BaseTest {
 			btn.click();
 			Log.info("Clicked on " + var);
 			// log success message in exgent report
-			extentTest.log(PASS, "==> Clicked element Successfully! " + var);
+			getExtentTest().log(PASS, "==> Clicked element Successfully! " + var);
 		} catch (Exception e) {
-			extentTest.log(FAIL, "==> Unable to click on => " + var + " due to exception " + e);
+			getExtentTest().log(FAIL, "==> Unable to click on => " + var + " due to exception " + e);
 
 		}
 
@@ -49,9 +48,9 @@ public class ActionEngine extends BaseTest {
 	public void click(WebElement element, String... label) {
 		try {
 			element.click();
-			extentTest.log(PASS, "==> Clicked element Successfully! " + label);
+			getExtentTest().log(PASS, "==> Clicked element Successfully! " + label);
 		} catch (Exception e) {
-			extentTest.log(FAIL, "==> Unable to click  " + label + " due to exception " + e);
+			getExtentTest().log(FAIL, "==> Unable to click  " + label + " due to exception " + e);
 		}
 	}
 
@@ -62,10 +61,10 @@ public class ActionEngine extends BaseTest {
 			Element element = new Element(var, path);
 			element.getWebElement().sendKeys(valueToBeSent);
 			// log success message in extent report
-			extentTest.log(PASS, "Entered value  in field " + var + "as: " + valueToBeSent);
+			getExtentTest().log(PASS, "Entered value  in field " + var + "as: " + valueToBeSent);
 		} catch (Exception e) {
 			// log failure in extent
-			extentTest.log(FAIL, "Sendkeys in field: " + var + " is failed due to exception:        " + e);
+			getExtentTest().log(FAIL, "Sendkeys in field: " + var + " is failed due to exception:        " + e);
 			throw new RuntimeException(e);
 		}
 	}
@@ -79,10 +78,10 @@ public class ActionEngine extends BaseTest {
 			element.clear();
 			element.getWebElement().sendKeys(valueToBeSent);
 			// log success message in extent report
-			extentTest.log(PASS, "Entered value  in field " + var + "as: " + valueToBeSent);
+			getExtentTest().log(PASS, "Entered value  in field " + var + "as: " + valueToBeSent);
 		} catch (Exception e) {
 			// log failure in extent
-			extentTest.log(FAIL, "Sendkeys in field: " + var + " is failed due to exception:     " + e);
+			getExtentTest().log(FAIL, "Sendkeys in field: " + var + " is failed due to exception:     " + e);
 			throw new RuntimeException(e);
 
 		}
@@ -102,10 +101,10 @@ public class ActionEngine extends BaseTest {
 			Button btn = new Button(var, path);
 			btn.click();
 			// log success message in exgent report
-			extentTest.log(PASS, "Clicked Successfully! " + var);
+			getExtentTest().log(PASS, "Clicked Successfully! " + var);
 		} catch (Exception e) {
 			// log failure in extent
-			extentTest.log(FAIL, "Unable to click on field: " + var + " due to exception: \n " + e);
+			getExtentTest().log(FAIL, "Unable to click on field: " + var + " due to exception: \n " + e);
 			throw new RuntimeException(e);
 
 		}
@@ -118,9 +117,9 @@ public class ActionEngine extends BaseTest {
 			Element e = new Element(null, element);
 			e.clear();
 			Thread.sleep(250);
-			extentTest.log(PASS, "Data Cleared Successfully!");
+			getExtentTest().log(PASS, "Data Cleared Successfully!");
 		} catch (Exception e) {
-			extentTest.log(FAIL, "Unable to clear Data on field:  due to exception: " + e);
+			getExtentTest().log(FAIL, "Unable to clear Data on field:  due to exception: " + e);
 			throw new RuntimeException(e);
 
 		}
@@ -133,10 +132,10 @@ public class ActionEngine extends BaseTest {
 			executor.executeScript("arguments[0].scrollIntoView(true);", element);
 			Actions actions = new Actions(getDriver());
 			actions.moveToElement(getDriver().findElement(element)).build().perform();
-			extentTest.log(PASS, fieldName + "==> Mouse hovered Successfully! ");
+			getExtentTest().log(PASS, fieldName + "==> Mouse hovered Successfully! ");
 			Thread.sleep(1000);
 		} catch (Exception e) {
-			extentTest.log(FAIL, "Unable to hover mouse on field: " + fieldName + " due to exception: " + e);
+			getExtentTest().log(FAIL, "Unable to hover mouse on field: " + fieldName + " due to exception: " + e);
 			throw new RuntimeException(e);
 		}
 	}
@@ -155,10 +154,10 @@ public class ActionEngine extends BaseTest {
 		boolean flag = false;
 		try {
 			flag = getDriver().findElement(element).isDisplayed();
-			extentTest.log(PASS, "==> Is  " + fieldName + " element present => " + flag);
+			getExtentTest().log(PASS, "==> Is  " + fieldName + " element present => " + flag);
 			return flag;
 		} catch (Exception e) {
-			extentTest.log(FAIL, "Checking for presence of field: " + fieldName + " not tested due to exception: " + e);
+			getExtentTest().log(FAIL, "Checking for presence of field: " + fieldName + " not tested due to exception: " + e);
 			return flag;
 
 		}
@@ -173,9 +172,9 @@ public class ActionEngine extends BaseTest {
 			var = fieldName.length > 0 ? fieldName[0] : path.toString();
 			DropDown dd = new DropDown(var, path);
 			dd.selectByVisibleText(ddVisibleText);
-			extentTest.log(PASS, var + "==> Dropdown Value Selected by visible text: " + ddVisibleText);
+			getExtentTest().log(PASS, var + "==> Dropdown Value Selected by visible text: " + ddVisibleText);
 		} catch (Exception e) {
-			extentTest.log(FAIL, "Dropdown value not selected for field: " + var + "  due to exception: " + e);
+			getExtentTest().log(FAIL, "Dropdown value not selected for field: " + var + "  due to exception: " + e);
 			throw new RuntimeException(e);
 
 		}
@@ -188,9 +187,9 @@ public class ActionEngine extends BaseTest {
 			var = fieldName.length > 0 ? fieldName[0] : path.toString();
 			DropDown dd = new DropDown(var, path);
 			dd.selectByValue(ddValue);
-			extentTest.log(PASS, var + "==> Dropdown Value Selected by visible text: " + ddValue);
+			getExtentTest().log(PASS, var + "==> Dropdown Value Selected by visible text: " + ddValue);
 		} catch (Exception e) {
-			extentTest.log(FAIL, "Dropdown value not selected for field: " + var + "  due to exception: " + e);
+			getExtentTest().log(FAIL, "Dropdown value not selected for field: " + var + "  due to exception: " + e);
 			throw new RuntimeException(e);
 		}
 	}
@@ -202,9 +201,9 @@ public class ActionEngine extends BaseTest {
 			var = fieldName.length > 0 ? fieldName[0] : path.toString();
 			DropDown dd = new DropDown(var, path);
 			dd.selectByIndex(index);
-			extentTest.log(PASS, var + "==> Dropdown Value Selected by index : " + index);
+			getExtentTest().log(PASS, var + "==> Dropdown Value Selected by index : " + index);
 		} catch (Exception e) {
-			extentTest.log(FAIL, "Dropdown value not selected for field: " + var + "  due to exception: " + e);
+			getExtentTest().log(FAIL, "Dropdown value not selected for field: " + var + "  due to exception: " + e);
 			throw new RuntimeException(e);
 
 		}
@@ -218,10 +217,10 @@ public class ActionEngine extends BaseTest {
 			Element element = new Element("", path);
 			text = element.getText();
 			Log.info("Text for " + path + " is " + text);
-			extentTest.log(PASS, "Text retrieved is: " + text);
+			getExtentTest().log(PASS, "Text retrieved is: " + text);
 			return text;
 		} catch (Exception e) {
-			extentTest.log(FAIL, "Unable to get text due to exception : \n" + e);
+			getExtentTest().log(FAIL, "Unable to get text due to exception : \n" + e);
 
 		}
 		return text;
@@ -235,10 +234,10 @@ public class ActionEngine extends BaseTest {
 			Element element = new Element("", path);
 			text = element.getText();
 			Log.info("Text for " + path + " is " + text);
-			extentTest.log(PASS, "Text retrieved is: " + text);
+			getExtentTest().log(PASS, "Text retrieved is: " + text);
 			return text;
 		} catch (Exception e) {
-			extentTest.log(FAIL, "Unable to get text due to exception : \n" + e);
+			getExtentTest().log(FAIL, "Unable to get text due to exception : \n" + e);
 
 		}
 		return text;
@@ -255,10 +254,10 @@ public class ActionEngine extends BaseTest {
 			CheckBox checkBox = new CheckBox(var, path);
 
 			checkBox.check();
-			extentTest.log(PASS, "Check box selected");
+			getExtentTest().log(PASS, "Check box selected");
 
 		} catch (Exception e) {
-			extentTest.log(FAIL, "Unable to get text due to exception : \n" + e);
+			getExtentTest().log(FAIL, "Unable to get text due to exception : \n" + e);
 
 		}
 	}
@@ -293,7 +292,7 @@ public class ActionEngine extends BaseTest {
 			flag = element.isVisible();
 			return flag;
 		} catch (Exception e) {
-			extentTest.log(FAIL,
+			getExtentTest().log(FAIL,
 					"****Checking for presence of element : " + fieldName + " not tested due to exception: " + e);
 			return flag;
 		}
@@ -313,7 +312,7 @@ public class ActionEngine extends BaseTest {
 
 			return flag;
 		} catch (Exception e) {
-			extentTest.log(FAIL, "Error or Exception Presence" + " : " + flag);
+			getExtentTest().log(FAIL, "Error or Exception Presence" + " : " + flag);
 			return flag;
 		}
 	}

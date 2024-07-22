@@ -1,16 +1,12 @@
 package org.automation.pageObjects;
 
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.Select;
 
-public class CreateAGiftCardPopup extends BasePage{
+public class CreateAGiftCardPopup extends BasePage {
 	By popupHeader=By.xpath("//h4[@class='modal-title']");
 	By closeBtn=By.xpath("//button[@class='btn-close']");
 	By findBtn=By.xpath("//i[@class='fal fa-search me-1']");

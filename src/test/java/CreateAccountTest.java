@@ -1,5 +1,3 @@
-package test;
-
 import org.automation.base.BaseTest;
 import org.automation.pageObjects.CreateNewAccountPage;
 import org.automation.pageObjects.SetYourPasswordPage;
@@ -7,7 +5,6 @@ import org.automation.pageObjects.VerifyYourAccountPage;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.RandomGenerator;
-import org.testng.Assert;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
