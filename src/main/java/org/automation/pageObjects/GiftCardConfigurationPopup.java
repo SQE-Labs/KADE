@@ -4,9 +4,8 @@ import org.automation.base.BasePage;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
-public class GiftCardConfigurationPopup extends BasePage{
+public class GiftCardConfigurationPopup extends BasePage {
 By issueGiftCardToggle=By.xpath("//div[@class='link-check']/label");
 By referenceNoToggle=By.xpath("//label[@class='custom-checkbox mx-2']");
 By fundingSourceToggle=By.xpath("//label[@class='custom-checkbox mx-2 mx-1']");

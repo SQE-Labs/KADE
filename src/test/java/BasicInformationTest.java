@@ -1,5 +1,3 @@
-package test;
-
 import java.awt.AWTException;
 
 import org.automation.base.BaseTest;
@@ -8,7 +6,6 @@ import org.automation.pageObjects.DashBoardPage;
 import org.automation.pageObjects.LoginPage;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
 public class BasicInformationTest extends BaseTest{

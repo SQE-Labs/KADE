@@ -1,19 +1,18 @@
 package org.automation.pageObjects;
 
 import org.automation.base.BasePage;
-import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
-import org.openqa.selenium.support.ui.Select;
+import org.automation.utilities.WebdriverWaits;
 
 public class PaymentsPage extends BasePage {
 
-    //Locators
-    By othersBtn =By.xpath("//button[text()='Other']");
+    /*
+    Receive Payment Locators
+     */
     By cashBtn = By.xpath("//button[@name='payType']");
     By paidLabel = By.xpath("//div[contains(text(),'Paid')]");
     By paymentPopupTitle = By.xpath("//h5[text()='Receive Payment']");
     By closeIcon =By.xpath("(//button[@class=\"btn-close\"])[1]");
-    By creditCardBtn = By.xpath("//button[text()='Credit Card']");
     By creditCardInfoPopupTitle = By.xpath("//h5[text()='Credit card information']");
     By cardNumberTbx = By.id("Field-numberInput");
     By expirationDateTbx = By.id("Field-expiryInput");
@@ -21,7 +20,28 @@ public class PaymentsPage extends BasePage {
     By countryDropDown = By.id("Field-countryInput");
     By processBtn = By.xpath("//button[@type=\"submit\" and contains(text(),'Process')]");
     By creditCardInfoFrame = By.xpath("//h5[text()='Credit card information']/../..//iframe");
+    By voidBtn = By.xpath("//button[text()='Void']");
+    By paymentLogo = By.xpath("//span[@class='payment-logo-bg me-1']");
 
+    /*
+    Receive Payment popup locators
+     */
+    By balanceDue=By.xpath("//span[text()='Balance Due:']//following-sibling::span");
+    By totalAmount= By.xpath("//span[contains(text(),'Total')]");
+    By receiveAmount = By.xpath("//input[@name='amount']");
+    By creditCardBtn = By.xpath("//button[text()='Credit Card']");
+    By othersBtn =By.xpath("//button[text()='Other']");
+
+    /*
+    Payment Type Panel
+     */
+    By paymentTypeHeader = By.xpath("//h5[@class='offcanvas-title' and text()='Payment type']");
+    By venmoPaymentType= By.xpath("(//button[@name='payType'])[1]");
+    By venmoPaymentLogo = By.xpath("//span[text()='Venmo']");
+    By zellePaymentLogo = By.xpath("//span[text()='Zelle']");
+    By zellePaymentType = By.xpath("(//button[@name='payType'])[2]");
+    By cashPaymentType = By.xpath("//span[text()='Cash']");
+    By memoTextbox=By.xpath("//textarea[@name='message']");
 
     //Actions
     public void clickOthersBtn(){
@@ -29,7 +49,7 @@ public class PaymentsPage extends BasePage {
     }
 
     public void clickCashBtn(){
-        WebdriverWaits.waitForElementVisible(By.xpath("//h5[text()='Payment type']"),5);
+        WebdriverWaits.waitForElementVisible(paymentPopupTitle,5);
         moveToWebElement(cashBtn);
         clickElementByJS(cashBtn);
     }
@@ -71,8 +91,75 @@ public class PaymentsPage extends BasePage {
         click(processBtn);
     }
 
-
     public void switchToCreditCardFrame() {
         switchToFrame(creditCardInfoFrame);
+    }
+    public String getBalanceDue() {
+        return getText_custom(balanceDue);
+    }
+
+    public String getTotalAmount(){
+        return getText_custom(totalAmount).split(" ")[1];
+    }
+
+    public String getReceivingAmount(){
+        return getAttribute(receiveAmount,"value");
+    }
+
+    public boolean isCreditCardBtnDisplayed(){
+        return isWebElementVisible(creditCardBtn);
+    }
+
+    public boolean isOtherBtnDisplayed(){
+        return isWebElementVisible(othersBtn);
+    }
+
+    public String getPaymentTypePanelHeader() {
+        return getText_custom(paymentTypeHeader);
+    }
+
+    public boolean isVenmoPaymentTypeDisplayed() {
+        return isWebElementVisible(venmoPaymentLogo);
+    }
+
+    public boolean isZellePaymentTypeDisplayed() {
+        return isWebElementVisible(zellePaymentLogo);
+    }
+
+    public boolean isCashPaymentTypeDisplayed() {
+        return isWebElementVisible(cashPaymentType);
+    }
+
+    public boolean isMemoTextboxDisplayed() {
+        return isWebElementVisible(memoTextbox);
+    }
+
+    public boolean isVoidBtnDisplayed() {
+        return isWebElementVisible(voidBtn);
+    }
+
+    public boolean isPaymentLogoDisplayed(){
+        return isWebElementVisible(paymentLogo);
+    }
+
+    public void payByCreditCard(String cardNo, String expDate, String cvcNo, String country){
+        WebdriverWaits.sleep(10);
+        switchToCreditCardFrame();
+        enterCardNumber(cardNo);
+        enterExpirationDate(expDate);
+        enterCvcNumber(cvcNo);
+        selectCountry(country);
+        switchToDefaultWindow();
+        clickProcessBtn();
+    }
+
+    public void payByVenmo() {
+        WebdriverWaits.waitForElementVisible(paymentPopupTitle,5);
+        clickElementByJS(venmoPaymentType);
+    }
+
+    public void payByZelle() {
+        WebdriverWaits.waitForElementVisible(paymentPopupTitle,5);
+        clickElementByJS(zellePaymentType);
     }
 }

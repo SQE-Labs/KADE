@@ -4,15 +4,14 @@ import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
+
 import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import java.util.Collection;
 
 
-
-public class GiftCardDashboardPage extends BasePage{
+public class GiftCardDashboardPage extends BasePage {
 
 	By configurationLink = By.xpath("//button[text()='Configuration']");
 	By infoMessage = By.xpath(" //div[@class='card-header pb-0']");
