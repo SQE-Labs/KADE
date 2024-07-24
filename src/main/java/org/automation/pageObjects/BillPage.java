@@ -294,6 +294,16 @@ public class BillPage extends BasePage {
     }
 
     public void createBill(BillsPage billObj) {
+        createBill(billObj, true);
+    }
+
+    public void createBill(BillsPage billObj, boolean navigateToBillSection) {
+        if(navigateToBillSection){
+            clickStoresDropdown();
+            selectStore(billObj.getStore());
+            clickContinueBtn();
+        }
+
         clickOnNewBill();
         if(billObj.getAmount()!=null){
             enterAmount(billObj.getAmount());

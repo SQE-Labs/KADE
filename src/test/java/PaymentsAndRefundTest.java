@@ -4,6 +4,7 @@ import org.automation.objectBuilder.pages.BillsPage;
 import org.automation.pageObjects.*;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
+import org.automation.utilities.WebdriverWaits;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
@@ -26,13 +27,9 @@ public class PaymentsAndRefundTest extends BaseTest {
         dashboard.signOut();
     }
 
-    @Test(enabled = true, description = "Bill Creation and Successful Bill Payment by Cash through Store Manager.")
+    @Test(description = "Bill Creation and Successful Bill Payment by Cash through Store Manager.")
     public void cashPaymentThroughStoreManager(){
         dashboard.clickOnBill();
-        bill.clickStoresDropdown();
-        bill.selectStore("Automation Flow 1");
-        bill.clickContinueBtn();
-
         String amt = "1,999.00";
         BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
         bill.createBill(bills);
@@ -40,7 +37,7 @@ public class PaymentsAndRefundTest extends BaseTest {
         bill.closeLogoConfigPopup();
 
         //Click on the bill created
-        bill.clickUnpaidBill();
+        bill.clickUnpaidBill(); // locator fix
 
         //Verify all the WebElements on Bill popup
         String expectedPopupHeader = bill.getBillPopupHeader();
@@ -94,13 +91,9 @@ public class PaymentsAndRefundTest extends BaseTest {
         transactions.clickCloseTransactionPopup();
     }
 
-    @Test(enabled = true, description = "Bill Creation and Successful Bill Payment by Credit Card through Store manager.")
+    @Test(description = "Bill Creation and Successful Bill Payment by Credit Card through Store manager.")
     public void cardPaymentThroughStoreManager(){
         dashboard.clickOnBill();
-        //Select Store
-        bill.clickStoresDropdown();
-        bill.selectStore("Automation Flow 1");
-        bill.clickContinueBtn();
 
         //Create Bill
         String amt = "2,499.00";
@@ -143,14 +136,9 @@ public class PaymentsAndRefundTest extends BaseTest {
         payments.closeReceivedPopup();
     }
 
-    @Test(enabled = true, description = "Bill Creation and Successful Bill Payment by Venmo through Store manager.")
+    @Test(description = "Bill Creation and Successful Bill Payment by Venmo through Store manager.")
     public void payByVenmoThroughStoreManager(){
         dashboard.clickOnBill();
-        //Select Store
-        bill.clickStoresDropdown();
-        bill.selectStore("Automation Flow 1");
-        bill.clickContinueBtn();
-
         //Create Bill
         String amt = "1,199.00";
         BillsPage defaultBill = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
@@ -181,14 +169,9 @@ public class PaymentsAndRefundTest extends BaseTest {
         payments.closeReceivedPopup();
     }
 
-    @Test(enabled = true, description = "Bill Creation and Successful Bill Payment by Zelle through Store manager.")
+    @Test(description = "Bill Creation and Successful Bill Payment by Zelle through Store manager.")
     public void payByZelleThroughStoreManager(){
         dashboard.clickOnBill();
-        //Select Store
-        bill.clickStoresDropdown();
-        bill.selectStore("Automation Flow 1");
-        bill.clickContinueBtn();
-
         //Create Bill
         String amt = "900.00";
         BillsPage defaultBill = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
@@ -197,7 +180,7 @@ public class PaymentsAndRefundTest extends BaseTest {
         bill.clickUnpaidBill();
         bill.clickProcessPaymentBtn();
 
-        // Verify popup title and elements
+        // Verify popup title and elements of Receive Payment popup
         String actualTitle = payments.getReceivedPaymentTitle();
         Assertions.assertEquals(actualTitle,"Receive Payment");
         String expectedBalanceDue = payments.getBalanceDue();
@@ -218,6 +201,77 @@ public class PaymentsAndRefundTest extends BaseTest {
         Assertions.assertTrue(payments.isPaymentLogoDisplayed());
         payments.closeReceivedPopup();
     }
+
+    @Test(description = "Bill  Creation and partial payment of the bill through Store manager.")
+    public void partialPaymentThroughStoreManager(){
+        dashboard.clickOnBill();
+
+        String amt = "2,999.00";
+        BillsPage billsDetail = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
+        bill.createBill(billsDetail);
+
+        bill.closeLogoConfigPopup();
+        bill.clickUnpaidBill();
+
+        bill.clickProcessPaymentBtn();
+        // Verify popup title and elements of Receive Payment popup
+        String actualTitle = payments.getReceivedPaymentTitle();
+        Assertions.assertEquals(actualTitle,"Receive Payment");
+        String expectedBalanceDue = payments.getBalanceDue();
+        Assertions.assertEquals(expectedBalanceDue,"$"+amt);
+        String expectedTotalAmount= payments.getTotalAmount();
+        Assertions.assertEquals(expectedTotalAmount,"$"+amt);
+        String expectedReceivingAmount= payments.getReceivingAmount();
+        Assertions.assertEquals(expectedReceivingAmount,"$"+amt);
+        Assertions.assertTrue(payments.isCreditCardBtnDisplayed());
+        Assertions.assertTrue(payments.isOtherBtnDisplayed());
+
+        String updatedAmt1 = "500.00";
+        //Update Receiving amount
+        payments.enterAmount(updatedAmt1);
+        payments.clickOthersBtn();
+
+        //Verify Updated Amount on Payment Type Panel
+        Assertions.assertEquals(payments.getReceivingAmountFromPaymentTypePanel(),"$"+updatedAmt1);
+        payments.clickCashBtn();
+
+        //Verify Paid Amount
+        WebdriverWaits.waitForElementInVisible(payments.paymentTypeHeader,5);
+        Assertions.assertEquals(payments.getTotalPaidAmount(),"$"+updatedAmt1);
+        Assertions.assertEquals(payments.getBalanceDue(),"$2,499.00");
+
+        String updatedAmt2 = "350.99";
+        //Update Receiving amount
+        payments.enterAmount("$"+updatedAmt2);
+        payments.clickOthersBtn();
+
+        //Process payment through Venmo
+        payments.payByZelle();
+        //Verify Total Paid Amount(500.00+350.99)
+        WebdriverWaits.sleep(3000);
+        Assertions.assertEquals(payments.getTotalPaidAmount(),"$850.99");
+        Assertions.assertEquals(payments.getBalanceDue(),"$2,148.01");
+
+        String updatedAmt3 = "1,000.00";
+        //Update Receiving amount
+        payments.enterAmount("$"+updatedAmt3);
+        payments.clickOthersBtn();
+        //Process payment through Venmo
+        payments.payByVenmo();
+        //Verify Total Paid Amount (500.00+350.99+1000.00)
+        WebdriverWaits.sleep(3000);
+        Assertions.assertEquals(payments.getTotalPaidAmount(),"$1,850.99");
+        Assertions.assertEquals(payments.getBalanceDue(),"$1,148.01");
+
+        // Pay Remaining Amount
+        payments.clickCreditCardBtn();
+        payments.payByCreditCard("4111111111111111","0230","123","Australia");
+        WebdriverWaits.waitForElementInVisible(payments.paymentTypeHeader,5);
+        //Verify Total Paid Amount (Full Payment)
+
+        WebdriverWaits.sleep(3000);
+        Assertions.assertEquals(payments.getTotalPaidAmount(),"$"+amt);
+        Assertions.assertTrue(payments.isPaidLabelDisplayed());
+        payments.closeReceivedPopup();
+    }
 }
-
-
