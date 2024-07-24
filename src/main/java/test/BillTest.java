@@ -981,6 +981,8 @@ public class BillTest extends BaseTest {
 
         bill.openBillByAmt("357.00");
         Assertions.assertEquals(bill.getRecurringBillText(), "This is a recurring bill");
+
+        //Test Commit
     }
 
 
