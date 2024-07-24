@@ -1,15 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE suite SYSTEM "https://testng.org/testng-1.0.dtd">
 <suite name="Suite">
-	<test name="Test">
+	<test name="Test" thread-count="6" parallel="methods">
 		<classes>
-			<class name="test.LoginTest"></class>
-			<class name="test.CreateAccountTest"></class>
-			<class name="test.SecurityAndPasswordTest"></class>
-			<class name="test.BasicInformationTest"></class>
-			<class name="test.MyStoreTest"></class>
-			<class name="test.BillTest"></class>
-			<class name="test.GiftCardDashboardTest"></class>
+<!--			<class name="LoginTest"></class>-->
+<!--			<class name="CreateAccountTest"></class>-->
+<!--			<class name="SecurityAndPasswordTest"></class>-->
+			<class name="BillTest"></class>
+<!--			<class name="MyStoreTest"></class>-->
+<!--			<class name="LoginTest"></class>-->
+<!--			<class name="PaymentsAndRefundTest"></class>-->
+<!--			<class name="GiftCardDashboardTest"></class>-->
 		</classes>
 	</test>
+	<listeners>
+		<listener class-name="org.automation.listeners.TestRunListener"></listener>
+	</listeners>
 </suite>

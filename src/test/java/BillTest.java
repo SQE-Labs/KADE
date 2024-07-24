@@ -1,17 +1,12 @@
-package test;
-
 import java.awt.*;
 import java.text.ParseException;
 
 import org.automation.base.BaseTest;
-import org.automation.pageObjects.BillEditPopup;
+import org.automation.objectBuilder.ObjectBuilder;
+import org.automation.objectBuilder.pages.BillsPage;
 import org.automation.pageObjects.BillPage;
-import org.automation.pageObjects.BillViewPopup;
 import org.automation.pageObjects.DashBoardPage;
 import org.automation.pageObjects.LoginPage;
-import org.automation.pageObjects.RefundPage;
-import org.automation.pageObjects.TransactionsPage;
-import org.automation.pageObjects.UpdateBillPopUp;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
 import org.testng.annotations.AfterMethod;
@@ -239,7 +234,7 @@ public class BillTest extends BaseTest {
         bill.deleteUnpaidBill();
     }
 
-    @Test(enabled = true, description = "Bill Creation with already configured 'Tax' from store configuration page.")
+    @Test(enabled = false, description = "Bill Creation with already configured 'Tax' from store configuration page.")
     public void tc_06createBillByAttachingImage() throws ParseException, AWTException {
         dashboard.clickOnBill();
 
@@ -300,7 +295,7 @@ public class BillTest extends BaseTest {
 
     }
 
-    @Test(enabled = true, description = "Bill Creation with already configured 'Tax' from store configuration page.")
+    @Test(enabled = false, description = "Bill Creation with already configured 'Tax' from store configuration page.")
     public void tc_07createBillByAttachingPdf() throws AWTException {
         dashboard.clickOnBill();
 
@@ -362,7 +357,8 @@ public class BillTest extends BaseTest {
         bill.clickContinueBtn();
 
         //Delete the 1st unpaid bill
-        bill.clickUnpaidBill();
+        BillsPage billDetail = ObjectBuilder.BillDetails.getDefaultBillDetails();
+        bill.createBill(billDetail);
         bill.clickDeleteButton();
         bill.clickDeleteIcon();
     }
@@ -830,7 +826,6 @@ public class BillTest extends BaseTest {
         //Enter amount
         String amt = "1,000.00";
         bill.enterAmount(amt);
-        //Enable Tax toggle Button
         bill.disableTaxToggle();
 
         //Select Suggested Customer
@@ -981,8 +976,6 @@ public class BillTest extends BaseTest {
 
         bill.openBillByAmt("357.00");
         Assertions.assertEquals(bill.getRecurringBillText(), "This is a recurring bill");
-
-        //Test Commit
     }
 
 

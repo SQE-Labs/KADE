@@ -9,7 +9,7 @@ public class DashBoardPage extends BasePage {
 	By profileLink = By.xpath("//a[@class='btn btn-link p-0 fs-pn15 ']");
 	By validationMessage=By.xpath("//p[@class='alert-content']");
 	public By billBtn = By.cssSelector(".sidebar-nav > li:nth-child(10)");
-	By myStoreBtn=By.xpath("//i[@class='align-middle me-2 fa-fw fas fa-store']");
+	By myStoreBtn=By.cssSelector(".sidebar-nav > li:nth-child(7)");
 	By giftCardsDashboardTab=By.xpath("(//a[@class='sidebar-link'])[9]");
 	By pageHeader=By.xpath("//h1[@class='header-title mb-0']");
 	By reportBtn=By.xpath("(//a[@class='sidebar-link'])[11]");
@@ -31,12 +31,6 @@ public class DashBoardPage extends BasePage {
 	public void clickOnBill() {
 		moveToWebElement(billBtn);
 		click(billBtn);
-//		WebdriverWaits.waitForElementVisible(whichStorePopup,5);
-//		if(isWebElementVisible(whichStorePopup)){
-//			WebdriverWaits.waitForElementVisible(whichStorePopup,5);
-//			moveToWebElement(newBusinessCard);
-//			click(newBusinessCard);
-//		}
 	}
 
 	public void clickOnMyStores() {
@@ -60,6 +54,7 @@ public class DashBoardPage extends BasePage {
 	public void signOut() {
 		click(signOutBtn);
 	}
+
 }
 
 

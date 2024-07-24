@@ -10,12 +10,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.stream.Collectors;
 
-import com.codoid.products.fillo.Select;
 import org.automation.base.BasePage;
+import org.automation.objectBuilder.pages.BillsPage;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.*;
-
-import static org.apache.xmlbeans.xml.stream.utils.NestedThrowable.Util.printStackTrace;
 
 public class BillPage extends BasePage {
 
@@ -43,7 +41,7 @@ public class BillPage extends BasePage {
     By previousMonthArrow = By.xpath("//th[@class='prev available']");
     By toMonth = By.xpath("(//th[@class='month'])[2]");
     By nextMonthArrow = By.xpath("//th[@class='next available']");
-    By unpaidBill = By.xpath("//div[@class='badge bg-danger']/../../..");
+    By unpaidBill = By.xpath("//div[contains(@class,'row bg-white ')]");
     By refNo = By.xpath("//tr[@class='none-workingEffect']/td[2]/p[1]");
     By toastCloseBtn = By.xpath("//button[@class='toast-close-button']");
     public By toastMessage = By.xpath("//div[@class='toast-message']");
@@ -146,12 +144,13 @@ public class BillPage extends BasePage {
     By memoPopUpTitle = By.xpath("//h5[text()='Memo']");
     By addedMemoText = By.xpath("(//div[contains(text(),'Memo Text')])[1]");
     By taxToggleBtn = By.xpath("//input[@name='applyTax']/../i[2]");
-    //By paidRepeatField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative']");
+//    By paidRepeatField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative']");
     By paidRepeatField=By.xpath("(//div[contains(@class,'text-nowrap d-flex align-items-center w-100')])[3]");
     By paidExpiryField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative -expdate-div-']");
     By repeatPopUpTitle=By.xpath("//h5[text()='Repeat']");
     By expiryDatePopUpTitle=By.xpath("//h5[text()='Expiration Date']");
     By unpaidAmount=By.cssSelector(".text-danger.fs-4");
+
     By expCloseIcon=By.xpath("(//button[@class='btn-close'])[7]");
     By repeatCloseIcon=By.xpath("(//button[@class='btn-close'])[8]");
     By expiresInField=By.cssSelector(".form-control.flex-grow-1.me-1");
@@ -167,6 +166,21 @@ public class BillPage extends BasePage {
     By customerCancelOption=By.xpath("//span[text()='Customer can cancel at any time']");
     By everyDayField=By.xpath("//input[@class='max-5c form-control']");
     By recurringBillText=By.xpath("//a[@class='btn btn-link']");
+
+
+   /*
+   Locators of Bill popup
+    */
+    By billPopupHeader= By.xpath("//span[text()='Bill']");
+    By qrCodeBtn = By.xpath("//span[text()='QR Code']");
+    By shareBtn = By.xpath("//span[text()='Share']");
+    By processPaymentBtn = By.xpath("//button[text()='Process Payment']");
+    By deleteBillBtn = By.xpath("//button[text()='Delete']");
+    By editBillBtn = By.xpath("//i[@class='far fa-edit']");
+    By uniqueRefNo = By.xpath("//div[@class='modal-content']//i[@class='fad fa-hashtag me-2']/..");
+    By notPaidLabel = By.xpath("//span[@class='badge bg-danger fs-6']");
+    By billTimeOnPopup = By.xpath("//div[@class='fs-pn15 mb-1']");
+
 
     public String getPopUpTitle() {
         WebdriverWaits.waitForElementVisible(popUpHeader, 5);
@@ -279,15 +293,18 @@ public class BillPage extends BasePage {
         sendKeys(custName, string);
     }
 
-    public void createBill(int billAmount, String phoneNo, String email, String custName, String memo) {
-        switchOnAutoGenToggle();
-        enterSubTotalAmount(billAmount);
-        enterPhoneNumber(phoneNo);
-        enterCustomerEmail(email);
-        switchOnMoreToggleBtn();
-        enterCustomerName(custName);
-        enterMemo(memo);
-        clickOnCreate();
+    public void createBill(BillsPage billObj) {
+        clickOnNewBill();
+        if(billObj.getAmount()!=null){
+            enterAmount(billObj.getAmount());
+        }
+        disableTaxToggle();
+        clickCustomer();
+        if (billObj.getCustomerPhnNo()!=null) {
+            enterCustomerPhnNo(billObj.getCustomerPhnNo());
+        }
+        clickOnGoBtnPhoneNo();
+        clickOnConfirm();
     }
 
     public String getToolTipMessagePhoneNumber() {
@@ -381,11 +398,6 @@ public class BillPage extends BasePage {
         sendKeys(userNumber, string);
     }
 
-    public void clickOnFirstTransaction() {
-        WebdriverWaits.fluentWait_ElementIntactable(10, 100, unpaidBill);
-        click(unpaidBill);
-    }
-
     public String getFirstRefNoBillDisplayed() {
         return getText_custom(refNo);
     }
@@ -393,17 +405,6 @@ public class BillPage extends BasePage {
     public void closeToastBtn() {
         WebdriverWaits.waitForElementClickable(toastCloseBtn, 5);
         click(toastCloseBtn);
-    }
-
-    public void openUnpaidBill() {
-        WebdriverWaits.fluentWait_ElementIntactable(10, 100, unpaidBill);
-        click(unpaidBill);
-    }
-
-
-    public void clickOnFirstUnPaidBills() {
-        WebdriverWaits.fluentWait_ElementIntactable(10, 100, unpaidBill);
-        click(unpaidBill);
     }
 
     public void clickOnRefund() {
@@ -670,7 +671,10 @@ public class BillPage extends BasePage {
     public void closeLogoConfigPopup() {
         try {
             WebdriverWaits.waitForElementClickable(closeLogoPopupBtn, 5);
-            click(closeLogoPopupBtn);
+            for (int i=0;i<5;i++){
+                if (isWebElementVisible(closeLogoPopupBtn))
+            clickElementByJS(closeLogoPopupBtn);
+            }
         } catch (TimeoutException e) {
         }
     }
@@ -771,7 +775,8 @@ public class BillPage extends BasePage {
     }
 
     public void clickUnpaidBill() {
-        click(deleteBill);
+        WebdriverWaits.waitForElementClickable(unpaidBill,5);
+        click(unpaidBill);
     }
 
     public void clickDeleteButton() {
@@ -1157,6 +1162,53 @@ public class BillPage extends BasePage {
     }
     public String getRecurringBillText(){
         return getText_custom(recurringBillText);
+    }
+
+
+    public void clickProcessPaymentBtn() {
+        WebdriverWaits.waitForElementVisible(processPaymentBtn,5);
+        clickElementByJS(processPaymentBtn);
+    }
+
+    public String getBillPopupHeader() {
+        WebdriverWaits.waitForElementVisible(billPopupHeader,5);
+        return getText_custom(billPopupHeader);
+    }
+
+    public boolean isShareBtnDisplayed() {
+        return  isWebElementVisible(shareBtn);
+    }
+
+    public boolean isQrCodeBtnDisplayed() {
+        return isWebElementVisible(qrCodeBtn);
+    }
+
+    public boolean isEditBtnDisplayed() {
+        return isWebElementVisible(editBillBtn);
+    }
+
+    public boolean isProcessPaymentBtnDisplayed() {
+        return isWebElementVisible(processPaymentBtn);
+    }
+
+    public boolean isDeleteBillBtnDisplayed() {
+        return isWebElementVisible(deleteBillBtn);
+    }
+
+    public boolean isUniqueRefNoDisplayed() {
+        return isWebElementVisible(uniqueRefNo);
+    }
+
+    public boolean isBillPopupTimeDisplayed() {
+        return isWebElementVisible(billTimeOnPopup);
+    }
+
+    public boolean isNotPaidLabelDisplayed(){
+        return isWebElementVisible(notPaidLabel);
+    }
+
+    public void clickTransactionsLink() {
+        click(transactionsLink);
     }
 
 }

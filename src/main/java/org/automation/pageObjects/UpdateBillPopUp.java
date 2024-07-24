@@ -3,9 +3,8 @@ package org.automation.pageObjects;
 import org.automation.base.BasePage;
 import org.automation.utilities.Assertions;
 import org.openqa.selenium.By;
-import org.testng.Assert;
 
-public class UpdateBillPopUp extends BasePage{
+public class UpdateBillPopUp extends BasePage {
 	By updateBtn=By.xpath("//button[text()='Update']");
 	By subTotalTextBox=By.cssSelector("[name='subTotal']");
 	By sendToCustomerTbx = By.cssSelector("[name='phone']");

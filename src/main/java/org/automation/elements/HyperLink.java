@@ -1,6 +1,7 @@
 package org.automation.elements;
 
 import org.automation.base.BasePage;
+import org.automation.base.BaseTest;
 import org.automation.logger.Log;
 import org.automation.utilities.FileDownloader;
 import org.automation.utilities.RequestType;
@@ -61,7 +62,7 @@ public final class HyperLink extends Element {
     public int httpStatus() {
         Log.info("Get the HTTP Link Status from the [" + description + "] link");
         try {
-            FileDownloader downloadHandler = new FileDownloader(getDriver());
+            FileDownloader downloadHandler = new FileDownloader(BaseTest.getDriver());
             URI fileAsURI = new URI(super.getAttributeValue("href"));
             downloadHandler.setURI(fileAsURI);
             downloadHandler.setHttpRequestMethod(RequestType.GET);
@@ -81,7 +82,7 @@ public final class HyperLink extends Element {
     public File downloadedFile(String extension) {
         Log.info("Download the file from the [" + description + "] link");
         try {
-            FileDownloader downloadHandler = new FileDownloader(getDriver());
+            FileDownloader downloadHandler = new FileDownloader(BaseTest.getDriver());
             URI fileAsURI = new URI(super.getAttributeValue("href"));
             downloadHandler.setURI(fileAsURI);
             downloadHandler.setHttpRequestMethod(RequestType.GET);
@@ -101,7 +102,7 @@ public final class HyperLink extends Element {
     public String fileData(String extension) {
         Log.info("Get the Data present in the file from the [" + description + "] link");
         try {
-            FileDownloader downloadHandler = new FileDownloader(getDriver());
+            FileDownloader downloadHandler = new FileDownloader(BaseTest.getDriver());
             URI fileAsURI = new URI(super.getAttributeValue("href"));
             downloadHandler.setURI(fileAsURI);
             downloadHandler.setHttpRequestMethod(RequestType.GET);

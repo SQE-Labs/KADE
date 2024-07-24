@@ -4,7 +4,7 @@ import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 
-public class RefundPage extends BasePage{
+public class RefundPage extends BasePage {
 	By refundBtn=By.xpath("//button[@title='Refund']");
 	By refNoTextBox=By.xpath("//input[@name='refNo']");
 	By reasonTextBox=By.xpath("(//input[@name='reason'])[2]");

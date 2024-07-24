@@ -30,7 +30,6 @@ import static org.apache.http.client.protocol.HttpClientContext.COOKIE_STORE;
 import static org.apache.http.impl.client.HttpClientBuilder.create;
 //import static org.apache.pdfbox.pdmodel.PDDocument.load;
 import static org.automation.logger.Log.info;
-import static org.automation.utilities.RequestType.*;
 
 /**
  * To handle file downloading.
@@ -42,7 +41,7 @@ import static org.automation.utilities.RequestType.*;
 public final class FileDownloader {
 
     private final WebDriver driver;
-    private RequestType httpRequestMethod = GET;
+    private RequestType httpRequestMethod = RequestType.GET;
     private URI fileURI;
     private List<NameValuePair> urlParameters;
 
@@ -170,8 +169,8 @@ public final class FileDownloader {
         BasicHttpContext localContext = new BasicHttpContext();
         localContext.setAttribute(COOKIE_STORE, getWebDriverCookies(driver.manage().getCookies()));
         requestMethod.setHeader("User-Agent", getWebDriverUserAgent());
-        if (urlParameters != null && (httpRequestMethod.equals(PATCH) || httpRequestMethod.equals(POST)
-                || httpRequestMethod.equals(PUT))) {
+        if (urlParameters != null && (httpRequestMethod.equals(RequestType.PATCH) || httpRequestMethod.equals(RequestType.POST)
+                || httpRequestMethod.equals(RequestType.PUT))) {
             ((HttpEntityEnclosingRequestBase) requestMethod).setEntity(new UrlEncodedFormEntity(urlParameters));
         }
         return client.execute(requestMethod, localContext);
