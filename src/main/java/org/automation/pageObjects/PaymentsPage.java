@@ -22,26 +22,29 @@ public class PaymentsPage extends BasePage {
     By creditCardInfoFrame = By.xpath("//h5[text()='Credit card information']/../..//iframe");
     By voidBtn = By.xpath("//button[text()='Void']");
     By paymentLogo = By.xpath("//span[@class='payment-logo-bg me-1']");
+    By totalPaidAmt = By.xpath("//h4[contains(text(),'Total paid')]");
 
     /*
     Receive Payment popup locators
      */
     By balanceDue=By.xpath("//span[text()='Balance Due:']//following-sibling::span");
     By totalAmount= By.xpath("//span[contains(text(),'Total')]");
-    By receiveAmount = By.xpath("//input[@name='amount']");
+    By receiveAmountTbx = By.xpath("//input[@name='amount']");
     By creditCardBtn = By.xpath("//button[text()='Credit Card']");
     By othersBtn =By.xpath("//button[text()='Other']");
 
     /*
     Payment Type Panel
      */
-    By paymentTypeHeader = By.xpath("//h5[@class='offcanvas-title' and text()='Payment type']");
+    public By paymentTypeHeader = By.xpath("//h5[@class='offcanvas-title' and text()='Payment type']");
     By venmoPaymentType= By.xpath("(//button[@name='payType'])[1]");
     By venmoPaymentLogo = By.xpath("//span[text()='Venmo']");
     By zellePaymentLogo = By.xpath("//span[text()='Zelle']");
     By zellePaymentType = By.xpath("(//button[@name='payType'])[2]");
     By cashPaymentType = By.xpath("//span[text()='Cash']");
     By memoTextbox=By.xpath("//textarea[@name='message']");
+    By receivingAmtPaymentTypePanel = By.xpath("//span[@data-field='amount']");
+
 
     //Actions
     public void clickOthersBtn(){
@@ -103,7 +106,7 @@ public class PaymentsPage extends BasePage {
     }
 
     public String getReceivingAmount(){
-        return getAttribute(receiveAmount,"value");
+        return getAttribute(receiveAmountTbx,"value");
     }
 
     public boolean isCreditCardBtnDisplayed(){
@@ -161,5 +164,17 @@ public class PaymentsPage extends BasePage {
     public void payByZelle() {
         WebdriverWaits.waitForElementVisible(paymentPopupTitle,5);
         clickElementByJS(zellePaymentType);
+    }
+
+    public void enterAmount(String amount) {
+        pressKeys(receiveAmountTbx,amount);
+    }
+
+    public String getReceivingAmountFromPaymentTypePanel() {
+        return getText_custom(receivingAmtPaymentTypePanel);
+    }
+
+    public String getTotalPaidAmount() {
+        return getText_custom(totalPaidAmt).split(":")[1];
     }
 }

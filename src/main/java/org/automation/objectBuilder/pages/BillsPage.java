@@ -1,6 +1,7 @@
 package org.automation.objectBuilder.pages;
 
 public class BillsPage {
+    private  String store;
     private String amount;
     private String customerPhnNo;
     private String billDescription;
@@ -49,6 +50,15 @@ public class BillsPage {
 
     public BillsPage setCustomerPhnNo(String customerPhnNo) {
         this.customerPhnNo = customerPhnNo;
+        return this;
+    }
+
+    public String getStore() {
+        return store;
+    }
+
+    public BillsPage setStore(String store) {
+        this.store = store;
         return this;
     }
 }

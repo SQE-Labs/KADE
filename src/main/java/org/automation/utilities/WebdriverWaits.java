@@ -39,6 +39,12 @@ public class WebdriverWaits extends BaseTest {
 
     }
 
+    public static void waitForElementInVisible(By locator, int waitTime) {
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
+        wait.until(ExpectedConditions.invisibilityOfElementLocated(locator));
+
+    }
+
 
     /**
      * Waits for a given element to be selected
