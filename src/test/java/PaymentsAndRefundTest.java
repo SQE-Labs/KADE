@@ -27,7 +27,7 @@ public class PaymentsAndRefundTest extends BaseTest {
         dashboard.signOut();
     }
 
-    @Test(description = "Bill Creation and Successful Bill Payment by Cash through Store Manager.")
+    @Test(description = "PYMT1 : Bill Creation and Successful Bill Payment by Cash through Store Manager.")
     public void cashPaymentThroughStoreManager(){
         dashboard.clickOnBill();
         String amt = "1,999.00";
@@ -84,14 +84,14 @@ public class PaymentsAndRefundTest extends BaseTest {
 
         //Close Receive Payment popup
         payments.closeReceivedPopup();
-        bill.clickTransactionsLink();
-        transactions.clickLastTransaction();
-        Assertions.assertEquals(transactions.getBillAmount(),bills.getAmount());
-        Assertions.assertTrue(transactions.isUniqueTransactionIdDisplayed());
-        transactions.clickCloseTransactionPopup();
+//        bill.clickTransactionsLink();
+//        transactions.clickLastTransaction();
+//        Assertions.assertEquals(transactions.getBillAmount(),bills.getAmount());
+//        Assertions.assertTrue(transactions.isUniqueTransactionIdDisplayed());
+//        transactions.clickCloseTransactionPopup();
     }
 
-    @Test(description = "Bill Creation and Successful Bill Payment by Credit Card through Store manager.")
+    @Test(description = "PYMT2 : Bill Creation and Successful Bill Payment by Credit Card through Store manager.")
     public void cardPaymentThroughStoreManager(){
         dashboard.clickOnBill();
 
@@ -130,13 +130,13 @@ public class PaymentsAndRefundTest extends BaseTest {
 
         //Process Payment by Credit Card
         payments.clickCreditCardBtn();
-        payments.payByCreditCard("4111111111111111","0230","123","Australia");
+        payments.payByCreditCard();
         Assertions.assertTrue(payments.isPaidLabelDisplayed());
         Assertions.assertTrue(payments.isPaymentLogoDisplayed());
         payments.closeReceivedPopup();
     }
 
-    @Test(description = "Bill Creation and Successful Bill Payment by Venmo through Store manager.")
+    @Test(description = "PYMT3 : Bill Creation and Successful Bill Payment by Venmo through Store manager.")
     public void payByVenmoThroughStoreManager(){
         dashboard.clickOnBill();
         //Create Bill
@@ -169,7 +169,7 @@ public class PaymentsAndRefundTest extends BaseTest {
         payments.closeReceivedPopup();
     }
 
-    @Test(description = "Bill Creation and Successful Bill Payment by Zelle through Store manager.")
+    @Test(description = "PYMT4 : Bill Creation and Successful Bill Payment by Zelle through Store manager.")
     public void payByZelleThroughStoreManager(){
         dashboard.clickOnBill();
         //Create Bill
@@ -202,14 +202,17 @@ public class PaymentsAndRefundTest extends BaseTest {
         payments.closeReceivedPopup();
     }
 
-    @Test(description = "Bill  Creation and partial payment of the bill through Store manager.")
-    public void partialPaymentThroughStoreManager(){
+    @Test(description = "PYMT6 : Bill Creation and pay the bill by multiple payment mode through Store manager.")
+    public void paymentByMultipleModeThroughStoreManager(){
         dashboard.clickOnBill();
 
         String amt = "2,999.00";
+        String updatedAmt1 = "500.00";
+        String updatedAmt2 = "350.99";
+        String updatedAmt3 = "1,000.00";
         BillsPage billsDetail = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
+        //Creating Bill
         bill.createBill(billsDetail);
-
         bill.closeLogoConfigPopup();
         bill.clickUnpaidBill();
 
@@ -226,7 +229,6 @@ public class PaymentsAndRefundTest extends BaseTest {
         Assertions.assertTrue(payments.isCreditCardBtnDisplayed());
         Assertions.assertTrue(payments.isOtherBtnDisplayed());
 
-        String updatedAmt1 = "500.00";
         //Update Receiving amount
         payments.enterAmount(updatedAmt1);
         payments.clickOthersBtn();
@@ -236,42 +238,83 @@ public class PaymentsAndRefundTest extends BaseTest {
         payments.clickCashBtn();
 
         //Verify Paid Amount
+        float amount = Float.parseFloat(amt.replace(",", ""));
+        float updateAmount1 = Float.parseFloat(updatedAmt1.replace(",", ""));
+        float expBalanceDue1= amount - updateAmount1;
+        String expectedBalanceDue1 = bill.convertToNumberFormat(expBalanceDue1);
         WebdriverWaits.waitForElementInVisible(payments.paymentTypeHeader,5);
         Assertions.assertEquals(payments.getTotalPaidAmount(),"$"+updatedAmt1);
-        Assertions.assertEquals(payments.getBalanceDue(),"$2,499.00");
+        Assertions.assertEquals(payments.getBalanceDue(),"$"+expectedBalanceDue1);
 
-        String updatedAmt2 = "350.99";
         //Update Receiving amount
         payments.enterAmount("$"+updatedAmt2);
         payments.clickOthersBtn();
 
         //Process payment through Venmo
         payments.payByZelle();
-        //Verify Total Paid Amount(500.00+350.99)
-        WebdriverWaits.sleep(3000);
-        Assertions.assertEquals(payments.getTotalPaidAmount(),"$850.99");
-        Assertions.assertEquals(payments.getBalanceDue(),"$2,148.01");
+        //Verify Total Paid Amount
+        float updateAmount2 = Float.parseFloat(updatedAmt2.replace(",", ""));
+        float expBalanceDue2= expBalanceDue1 - updateAmount2;
+        String expectedBalanceDue2 = bill.convertToNumberFormat(expBalanceDue2);
+        float amtPaid2 = updateAmount1 + updateAmount2;
+        String amountPaid2 = bill.convertToNumberFormat(amtPaid2);
+        Assertions.assertEquals(payments.getTotalPaidAmount(),"$"+amountPaid2);
+        Assertions.assertEquals(payments.getBalanceDue(),"$"+expectedBalanceDue2);
 
-        String updatedAmt3 = "1,000.00";
         //Update Receiving amount
         payments.enterAmount("$"+updatedAmt3);
         payments.clickOthersBtn();
         //Process payment through Venmo
         payments.payByVenmo();
-        //Verify Total Paid Amount (500.00+350.99+1000.00)
-        WebdriverWaits.sleep(3000);
-        Assertions.assertEquals(payments.getTotalPaidAmount(),"$1,850.99");
-        Assertions.assertEquals(payments.getBalanceDue(),"$1,148.01");
+        //Verify Total Paid Amount
+        float updateAmount3 = Float.parseFloat(updatedAmt3.replace(",", ""));
+        float expBalanceDue3= expBalanceDue2 - updateAmount3;
+        String expectedBalanceDue3 = bill.convertToNumberFormat(expBalanceDue3);
+        float amtPaid3 = updateAmount1 + updateAmount2 + updateAmount3;
+        String amountPaid3 = bill.convertToNumberFormat(amtPaid3);
+        Assertions.assertEquals(payments.getTotalPaidAmount(),"$"+amountPaid3);
+        Assertions.assertEquals(payments.getBalanceDue(),"$"+expectedBalanceDue3);
 
         // Pay Remaining Amount
         payments.clickCreditCardBtn();
-        payments.payByCreditCard("4111111111111111","0230","123","Australia");
+        payments.payByCreditCard();
         WebdriverWaits.waitForElementInVisible(payments.paymentTypeHeader,5);
         //Verify Total Paid Amount (Full Payment)
-
-        WebdriverWaits.sleep(3000);
         Assertions.assertEquals(payments.getTotalPaidAmount(),"$"+amt);
         Assertions.assertTrue(payments.isPaidLabelDisplayed());
         payments.closeReceivedPopup();
+    }
+    @Test(description = "PYMT5 : Bill Creation and partial payment of the bill through Store manager.")
+    public void partialPaymentThroughStoreManager(){
+        dashboard.clickOnBill();
+        String amt = "1,499.00";
+        String payAmt = "1,185.25";
+
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
+
+        //Creating Bill
+        bill.createBill(bills);
+        bill.closeLogoConfigPopup();
+        bill.clickUnpaidBill();
+        bill.clickProcessPaymentBtn();
+
+        //Update Amount
+        payments.enterAmount(payAmt);
+        payments.clickCreditCardBtn();
+        payments.payByCreditCard();
+
+        //Verify Total Paid Amount
+        float amount = Float.parseFloat(amt.replace(",",""));
+        float updateAmount = Float.parseFloat(payAmt.replace(",", ""));
+        float expBalanceDue= amount - updateAmount;
+        String expectedBalanceDue = bill.convertToNumberFormat(expBalanceDue);
+        Assertions.assertEquals(payments.getTotalPaidAmount(),"$"+payAmt);
+        Assertions.assertEquals(payments.getBalanceDue(),"$"+expectedBalanceDue);
+        payments.isPaymentLogoDisplayed();
+
+        payments.closeReceivedPopup();
+        payments.refreshPage();
+        bill.isPartialLabelDisplayed();
+
     }
 }

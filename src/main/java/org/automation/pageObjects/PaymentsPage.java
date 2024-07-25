@@ -145,13 +145,13 @@ public class PaymentsPage extends BasePage {
         return isWebElementVisible(paymentLogo);
     }
 
-    public void payByCreditCard(String cardNo, String expDate, String cvcNo, String country){
+    public void payByCreditCard(){
         WebdriverWaits.sleep(10);
         switchToCreditCardFrame();
-        enterCardNumber(cardNo);
-        enterExpirationDate(expDate);
-        enterCvcNumber(cvcNo);
-        selectCountry(country);
+        enterCardNumber("4111111111111111");
+        enterExpirationDate("0230");
+        enterCvcNumber("123");
+        selectCountry("Australia");
         switchToDefaultWindow();
         clickProcessBtn();
     }
@@ -167,6 +167,8 @@ public class PaymentsPage extends BasePage {
     }
 
     public void enterAmount(String amount) {
+        WebdriverWaits.waitForElementInVisible(receiveAmountTbx,5);
+        click(receiveAmountTbx);
         pressKeys(receiveAmountTbx,amount);
     }
 
@@ -175,6 +177,7 @@ public class PaymentsPage extends BasePage {
     }
 
     public String getTotalPaidAmount() {
+        WebdriverWaits.sleep(3000);
         return getText_custom(totalPaidAmt).split(":")[1];
     }
 }

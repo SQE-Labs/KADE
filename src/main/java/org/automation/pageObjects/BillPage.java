@@ -166,7 +166,7 @@ public class BillPage extends BasePage {
     By customerCancelOption=By.xpath("//span[text()='Customer can cancel at any time']");
     By everyDayField=By.xpath("//input[@class='max-5c form-control']");
     By recurringBillText=By.xpath("//a[@class='btn btn-link']");
-
+    By partialPaidLabel = By.xpath("(//div[contains(@class,'row bg-white ')]//span[text()='PARTIAL'])[1]");
 
    /*
    Locators of Bill popup
@@ -912,6 +912,10 @@ public class BillPage extends BasePage {
     public boolean isItemDesc2Displayed() {
 
         return isWebElementVisible(itemsDesc2);
+    }
+
+    public boolean isPartialLabelDisplayed(){
+        return isWebElementVisible(partialPaidLabel);
     }
 
     public boolean isItemDesc3Displayed() {

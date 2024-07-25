@@ -9,8 +9,13 @@
 <!--			<class name="BasicInformationTest"></class>-->
 <!--			<class name="MyStoreTest"></class>-->
 <!--			<class name="LoginTest"></class>-->
-			<class name="PaymentsAndRefundTest"></class>
+			<class name="BillTest"></class>
 <!--			<class name="GiftCardDashboardTest"></class>-->
+		</classes>
+	</test>
+	<test name="PaymentsAndRefundTest" thread-count="1">
+		<classes>
+			<class name="PaymentsAndRefundTest"/>
 		</classes>
 	</test>
 	<listeners>
