@@ -317,4 +317,64 @@ public class PaymentsAndRefundTest extends BaseTest {
         bill.isPartialLabelDisplayed();
 
     }
+
+    @Test(description = "PYMT7 : Bill Creation and mark payment as Void by Store manager.")
+    public void markSuccessfulPaymentAsVoid() {
+        dashboard.clickOnBill();
+        String amt = "2,251.75";
+
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
+
+        //Creating Bill
+        bill.createBill(bills);
+        bill.closeLogoConfigPopup();
+        bill.clickUnpaidBill();
+        bill.clickProcessPaymentBtn();
+        // Process payment successfully
+        payments.clickOthersBtn();
+        payments.payByZelle();
+        //Verify payment
+        Assertions.assertTrue(payments.isPaidLabelDisplayed());
+        Assertions.assertTrue(payments.isPaymentLogoDisplayed());
+        Assertions.assertEquals(payments.getTotalPaidAmount(),"$"+amt);
+        Assertions.assertTrue(payments.isVoidBtnDisplayed());
+        //Mark payment as void
+        payments.clickVoidBtn();
+        //Verify voided payment
+        float amount = Float.parseFloat(amt.replace(",",""));
+        float expVoidAmount= amount - amount;
+        String expectedPaidTotal = bill.convertToNumberFormat(expVoidAmount);
+        Assertions.assertEquals(payments.getTotalPaidAmount(),"$"+expectedPaidTotal);
+        Assertions.assertEquals(payments.getBalanceDue(),"$"+amt);
+        Assertions.assertTrue(payments.isVoidedTagDisplayed());
+        Assertions.assertTrue(payments.isCreditCardBtnDisplayed());
+        Assertions.assertTrue(payments.isOtherBtnDisplayed());
+        Assertions.assertEquals(payments.getReceivingAmount(),"$"+amt);
+
+        payments.closeReceivedPopup();
+        //Verify NotPaid label
+        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+
+        //Deleting unpaid bill
+        bill.deleteUnpaidBill();
+    }
+
+    @Test(description = "PYMT8 : Bill Creation and Successful Bill Payment through Credit Card by Customer.")
+    public void BillPaymentByCreditCardThroughCustomer() {
+        dashboard.clickOnBill();
+        String amt = "4999.00";
+
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
+
+        //Creating Bill
+        bill.createBill(bills);
+        bill.closeLogoConfigPopup();
+        //Logout as Store manager
+        dashboard.signOut();
+
+        //Login as Customer
+        login.performSignIn("yonro@yopmail.com", "Test@123");
+
+    }
+
 }
