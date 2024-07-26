@@ -167,7 +167,6 @@ public class PaymentsPage extends BasePage {
     }
 
     public void enterAmount(String amount) {
-        WebdriverWaits.waitForElementInVisible(receiveAmountTbx,5);
         click(receiveAmountTbx);
         pressKeys(receiveAmountTbx,amount);
     }
