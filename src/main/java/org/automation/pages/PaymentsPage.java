@@ -1,6 +1,10 @@
 package org.automation.pages;
 
+import static org.automation.ReturnObjects.Clickable.getElementByxPath;
+
+import org.automation.ReturnObjects.Clickable;
 import org.automation.base.BasePage;
+import org.automation.utilities.ActionEngine;
 import org.openqa.selenium.By;
 import org.automation.utilities.WebdriverWaits;
 
@@ -11,7 +15,7 @@ public class PaymentsPage extends BasePage {
      */
     By cashBtn = By.xpath("//button[@name='payType']");
     By paidLabel = By.xpath("//div[contains(text(),'Paid')]");
-    By paymentPopupTitle = By.xpath("//h5[text()='Receive Payment']");
+    public By paymentPopupTitle = By.xpath("//h5[text()='Receive Payment']");
     By closeIcon =By.xpath("(//button[@class=\"btn-close\"])[1]");
     By creditCardInfoPopupTitle = By.xpath("//h5[text()='Credit card information']");
     By cardNumberTbx = By.id("Field-numberInput");
@@ -37,11 +41,11 @@ public class PaymentsPage extends BasePage {
     Payment Type Panel
      */
     public By paymentTypeHeader = By.xpath("//h5[@class='offcanvas-title' and text()='Payment type']");
-    By venmoPaymentType= By.xpath("(//button[@name='payType'])[1]");
+    By venmoPaymentType= By.xpath("(//button[@name='payType'])[1]/..");
     By venmoPaymentLogo = By.xpath("//span[text()='Venmo']");
     By zellePaymentLogo = By.xpath("//span[text()='Zelle']");
-    By zellePaymentType = By.xpath("(//button[@name='payType'])[2]");
-    By cashPaymentType = By.xpath("//span[text()='Cash']");
+    By zellePaymentType = By.xpath("(//button[@name='payType'])[2]/..");
+    By cashPaymentType = By.xpath("//span[text()='Cash']/../../..");
     By memoTextbox=By.xpath("//textarea[@name='message']");
     By receivingAmtPaymentTypePanel = By.xpath("//span[@data-field='amount']");
 
@@ -63,6 +67,7 @@ public class PaymentsPage extends BasePage {
     }
 
     public String getReceivedPaymentTitle(){
+        WebdriverWaits.waitForElementVisible(paymentPopupTitle,5);
         return getText_custom(paymentPopupTitle);
     }
 
@@ -176,5 +181,30 @@ public class PaymentsPage extends BasePage {
 
     public String getTotalPaidAmount() {
         return getText_custom(totalPaidAmt).split(":")[1];
+    }
+
+    public Clickable getOthersButton() {
+        return getElementByxPath(othersBtn);
+    }
+
+    public Clickable getZelleButton() {
+        WebdriverWaits.waitForElementVisible(paymentPopupTitle,5);
+        return  getElementByxPath(zellePaymentType);
+    }
+
+    public Clickable getCloseReceivedPopupButton() {
+        return getElementByxPath(closeIcon);
+    }
+
+    public Clickable getCashButton() {
+        return getElementByxPath(cashPaymentType);
+    }
+
+    public Clickable getVenmoButton() {
+        return getElementByxPath(venmoPaymentType);
+    }
+
+    public Clickable getCreditCardBtn() {
+        return getElementByxPath(creditCardBtn);
     }
 }

@@ -13,6 +13,7 @@ import java.util.stream.Collectors;
 import org.automation.ReturnObjects.Clickable;
 import org.automation.base.BasePage;
 import org.automation.objectBuilder.pages.BillsPage;
+import org.automation.utilities.ActionEngine;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.*;
 
@@ -1227,4 +1228,11 @@ public class BillPage extends BasePage {
         click(transactionsLink);
     }
 
+    public Clickable getUnpaidBillButton() {
+        return getElementByxPath(unpaidBill);
+    }
+
+    public Clickable getProcessPaymentButton() {
+        return getElementByxPath(processPaymentBtn);
+    }
 }

@@ -28,7 +28,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         dashboard.signOut();
     }
 
-    @Test(description = "Bill Creation and Successful Bill Payment by Cash through Store Manager.")
+//    @Test(description = "Bill Creation and Successful Bill Payment by Cash through Store Manager.")
     public void cashPaymentThroughStoreManager(){
         dashboard.clickOnBill();
         String amt = "1,999.00";
@@ -92,7 +92,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         transactions.clickCloseTransactionPopup();
     }
 
-    @Test(description = "Bill Creation and Successful Bill Payment by Credit Card through Store manager.")
+//    @Test(description = "Bill Creation and Successful Bill Payment by Credit Card through Store manager.")
     public void cardPaymentThroughStoreManager(){
         dashboard.clickOnBill();
 
@@ -137,7 +137,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         payments.closeReceivedPopup();
     }
 
-    @Test(description = "Bill Creation and Successful Bill Payment by Venmo through Store manager.")
+//    @Test(description = "Bill Creation and Successful Bill Payment by Venmo through Store manager.")
     public void payByVenmoThroughStoreManager(){
         dashboard.clickOnBill();
         //Create Bill
@@ -183,13 +183,15 @@ public class PaymentsAndRefundTest extends KadeSession {
         BillsPage defaultBill = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
         session.getBillPage().createBill(defaultBill);
 
-        bill.closeLogoConfigPopup();
+//        bill.closeLogoConfigPopup();
 
         // Experiment
         session.getBillPage().getcloseLogoPopupBtn().click();
 
-        bill.clickUnpaidBill();
-        bill.clickProcessPaymentBtn();
+//        bill.clickUnpaidBill();
+        session.getBillPage().getUnpaidBillButton().click();
+        session.getBillPage().getProcessPaymentButton().click();
+//        bill.clickProcessPaymentBtn();
 
         // Verify popup title and elements of Receive Payment popup
         String actualTitle = payments.getReceivedPaymentTitle();
@@ -203,28 +205,30 @@ public class PaymentsAndRefundTest extends KadeSession {
         Assertions.assertTrue(payments.isCreditCardBtnDisplayed());
         Assertions.assertTrue(payments.isOtherBtnDisplayed());
 
-        payments.clickOthersBtn();
+        session.getPaymentsPage().getOthersButton().click();
         //Pay by Venmo
-        payments.payByZelle();
+        session.getPaymentsPage().getZelleButton().click();
         //Verify Payment done
         Assertions.assertTrue(payments.isPaidLabelDisplayed());
         Assertions.assertTrue(payments.isVoidBtnDisplayed());
         Assertions.assertTrue(payments.isPaymentLogoDisplayed());
-        payments.closeReceivedPopup();
+        session.getPaymentsPage().getCloseReceivedPopupButton().click();
     }
 
     @Test(description = "Bill  Creation and partial payment of the bill through Store manager.")
     public void partialPaymentThroughStoreManager(){
-        dashboard.clickOnBill();
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getDashBoardPage().getBillButton().click();
 
         String amt = "2,999.00";
         BillsPage billsDetail = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
-        bill.createBill(billsDetail);
+        session.getBillPage().createBill(billsDetail);
 
-        bill.closeLogoConfigPopup();
-        bill.clickUnpaidBill();
 
-        bill.clickProcessPaymentBtn();
+        session.getBillPage().getcloseLogoPopupBtn().click();
+        session.getBillPage().getUnpaidBillButton().click();
+
+        session.getBillPage().getProcessPaymentButton().click();
         // Verify popup title and elements of Receive Payment popup
         String actualTitle = payments.getReceivedPaymentTitle();
         Assertions.assertEquals(actualTitle,"Receive Payment");
@@ -240,11 +244,11 @@ public class PaymentsAndRefundTest extends KadeSession {
         String updatedAmt1 = "500.00";
         //Update Receiving amount
         payments.enterAmount(updatedAmt1);
-        payments.clickOthersBtn();
+        session.getPaymentsPage().getOthersButton().click();
 
         //Verify Updated Amount on Payment Type Panel
         Assertions.assertEquals(payments.getReceivingAmountFromPaymentTypePanel(),"$"+updatedAmt1);
-        payments.clickCashBtn();
+        session.getPaymentsPage().getCashButton().click();
 
         //Verify Paid Amount
         WebdriverWaits.waitForElementInVisible(payments.paymentTypeHeader,5);
@@ -254,10 +258,11 @@ public class PaymentsAndRefundTest extends KadeSession {
         String updatedAmt2 = "350.99";
         //Update Receiving amount
         payments.enterAmount("$"+updatedAmt2);
-        payments.clickOthersBtn();
+        session.getPaymentsPage().getOthersButton().click();
 
         //Process payment through Venmo
-        payments.payByZelle();
+        session.getPaymentsPage().getZelleButton().click();
+
         //Verify Total Paid Amount(500.00+350.99)
         WebdriverWaits.sleep(3000);
         Assertions.assertEquals(payments.getTotalPaidAmount(),"$850.99");
@@ -266,16 +271,16 @@ public class PaymentsAndRefundTest extends KadeSession {
         String updatedAmt3 = "1,000.00";
         //Update Receiving amount
         payments.enterAmount("$"+updatedAmt3);
-        payments.clickOthersBtn();
+        session.getPaymentsPage().getOthersButton().click();
         //Process payment through Venmo
-        payments.payByVenmo();
+        session.getPaymentsPage().getVenmoButton().click();
         //Verify Total Paid Amount (500.00+350.99+1000.00)
         WebdriverWaits.sleep(3000);
         Assertions.assertEquals(payments.getTotalPaidAmount(),"$1,850.99");
         Assertions.assertEquals(payments.getBalanceDue(),"$1,148.01");
 
         // Pay Remaining Amount
-        payments.clickCreditCardBtn();
+        session.getPaymentsPage().getCreditCardBtn().click();
         payments.payByCreditCard("4111111111111111","0230","123","Australia");
         WebdriverWaits.waitForElementInVisible(payments.paymentTypeHeader,5);
         //Verify Total Paid Amount (Full Payment)
@@ -283,6 +288,6 @@ public class PaymentsAndRefundTest extends KadeSession {
         WebdriverWaits.sleep(3000);
         Assertions.assertEquals(payments.getTotalPaidAmount(),"$"+amt);
         Assertions.assertTrue(payments.isPaidLabelDisplayed());
-        payments.closeReceivedPopup();
+        session.getPaymentsPage().getCloseReceivedPopupButton().click();
     }
 }

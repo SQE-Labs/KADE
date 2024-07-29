@@ -5,6 +5,7 @@ import org.automation.data.KadeUserAccount;
 import org.automation.pages.BillPage;
 import org.automation.pages.DashBoardPage;
 import org.automation.pages.LoginPage;
+import org.automation.pages.PaymentsPage;
 
 public class KadeSession extends BaseTest {
 
@@ -28,5 +29,8 @@ public class KadeSession extends BaseTest {
         return new BillPage();
     }
 
+    public PaymentsPage getPaymentsPage(){
+        return new PaymentsPage();
+    }
 }
 
