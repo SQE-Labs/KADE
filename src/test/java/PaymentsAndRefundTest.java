@@ -1,15 +1,16 @@
-import org.automation.base.BaseTest;
+import org.automation.data.KadeUserAccount;
 import org.automation.objectBuilder.ObjectBuilder;
 import org.automation.objectBuilder.pages.BillsPage;
-import org.automation.pageObjects.*;
+import org.automation.pages.*;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.WebdriverWaits;
 import org.testng.annotations.AfterMethod;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
+import session.KadeSession;
 
-public class PaymentsAndRefundTest extends BaseTest {
+public class PaymentsAndRefundTest extends KadeSession {
 
     LoginPage login = new LoginPage();
     DashBoardPage dashboard = new DashBoardPage();
@@ -17,7 +18,7 @@ public class PaymentsAndRefundTest extends BaseTest {
     PaymentsPage payments = new PaymentsPage();
     TransactionsPage transactions= new TransactionsPage();
 
-    @BeforeMethod
+//    @BeforeMethod
     public void loginApplication() {
         login.performSignIn(PropertiesUtil.getPropertyValue("userName"), PropertiesUtil.getPropertyValue("password"));
     }
@@ -171,12 +172,22 @@ public class PaymentsAndRefundTest extends BaseTest {
 
     @Test(description = "Bill Creation and Successful Bill Payment by Zelle through Store manager.")
     public void payByZelleThroughStoreManager(){
-        dashboard.clickOnBill();
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getDashBoardPage().getBillButton().click();
+
+
+//        dashboard.clickOnBill();
+
         //Create Bill
         String amt = "900.00";
         BillsPage defaultBill = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
-        bill.createBill(defaultBill);
+        session.getBillPage().createBill(defaultBill);
+
         bill.closeLogoConfigPopup();
+
+        // Experiment
+        session.getBillPage().getcloseLogoPopupBtn().click();
+
         bill.clickUnpaidBill();
         bill.clickProcessPaymentBtn();
 

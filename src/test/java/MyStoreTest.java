@@ -2,10 +2,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.automation.base.BaseTest;
-import org.automation.pageObjects.DashBoardPage;
-import org.automation.pageObjects.LoginPage;
-import org.automation.pageObjects.MyStorePage;
-import org.automation.pageObjects.newBusinessPage;
+import org.automation.pages.DashBoardPage;
+import org.automation.pages.LoginPage;
+import org.automation.pages.MyStorePage;
+import org.automation.pages.newBusinessPage;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
 import org.testng.annotations.Test;

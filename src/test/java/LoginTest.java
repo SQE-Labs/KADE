@@ -1,6 +1,6 @@
 import org.automation.base.BaseTest;
-import org.automation.pageObjects.DashBoardPage;
-import org.automation.pageObjects.LoginPage;
+import org.automation.pages.DashBoardPage;
+import org.automation.pages.LoginPage;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
 import org.testng.annotations.Test;

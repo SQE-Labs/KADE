@@ -441,7 +441,7 @@ public class ActionEngine extends BaseTest {
 	}
 
 	public void pressKeys(By element,String value){
-			// Create Actions instance
+			// Create PerformActions instance
 			Actions actions = new Actions(getDriver());
 			// Click the input field to focus
 			actions.click(getDriver().findElement(element)).perform();

@@ -1,7 +1,7 @@
 import org.automation.base.BaseTest;
-import org.automation.pageObjects.CreateNewAccountPage;
-import org.automation.pageObjects.SetYourPasswordPage;
-import org.automation.pageObjects.VerifyYourAccountPage;
+import org.automation.pages.CreateNewAccountPage;
+import org.automation.pages.SetYourPasswordPage;
+import org.automation.pages.VerifyYourAccountPage;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.RandomGenerator;
