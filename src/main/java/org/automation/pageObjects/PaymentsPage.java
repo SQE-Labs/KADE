@@ -23,6 +23,8 @@ public class PaymentsPage extends BasePage {
     By voidBtn = By.xpath("//button[text()='Void']");
     By paymentLogo = By.xpath("//span[@class='payment-logo-bg me-1']");
     By totalPaidAmt = By.xpath("//h4[contains(text(),'Total paid')]");
+    By voidedTag=By.xpath("//h6[text()='VOIDED']");
+
 
     /*
     Receive Payment popup locators
@@ -145,13 +147,13 @@ public class PaymentsPage extends BasePage {
         return isWebElementVisible(paymentLogo);
     }
 
-    public void payByCreditCard(String cardNo, String expDate, String cvcNo, String country){
+    public void payByCreditCard(){
         WebdriverWaits.sleep(10);
         switchToCreditCardFrame();
-        enterCardNumber(cardNo);
-        enterExpirationDate(expDate);
-        enterCvcNumber(cvcNo);
-        selectCountry(country);
+        enterCardNumber("4111111111111111");
+        enterExpirationDate("0230");
+        enterCvcNumber("123");
+        selectCountry("Australia");
         switchToDefaultWindow();
         clickProcessBtn();
     }
@@ -167,6 +169,7 @@ public class PaymentsPage extends BasePage {
     }
 
     public void enterAmount(String amount) {
+        click(receiveAmountTbx);
         pressKeys(receiveAmountTbx,amount);
     }
 
@@ -175,6 +178,15 @@ public class PaymentsPage extends BasePage {
     }
 
     public String getTotalPaidAmount() {
+        WebdriverWaits.sleep(5000);
         return getText_custom(totalPaidAmt).split(":")[1];
+    }
+
+    public void clickVoidBtn() {
+        click(voidBtn);
+    }
+
+    public boolean isVoidedTagDisplayed() {
+        return isWebElementVisible(voidedTag);
     }
 }
