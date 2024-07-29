@@ -84,11 +84,16 @@ public class PaymentsAndRefundTest extends BaseTest {
 
         //Close Receive Payment popup
         payments.closeReceivedPopup();
-//        bill.clickTransactionsLink();
-//        transactions.clickLastTransaction();
-//        Assertions.assertEquals(transactions.getBillAmount(),bills.getAmount());
-//        Assertions.assertTrue(transactions.isUniqueTransactionIdDisplayed());
-//        transactions.clickCloseTransactionPopup();
+
+        //Click on Transactions
+        dashboard.clickTransactions();
+        transactions.clickStoresDropdown();
+        transactions.selectStore("Automation Flow 1");
+        transactions.clickContinueBtn();
+        transactions.clickLastTransaction();
+        Assertions.assertEquals(transactions.getBillAmount(),"$"+bills.getAmount());
+        Assertions.assertTrue(transactions.isUniqueTransactionIdDisplayed());
+        transactions.clickCloseTransactionPopup();
     }
 
     @Test(description = "PYMT2 : Bill Creation and Successful Bill Payment by Credit Card through Store manager.")

@@ -366,6 +366,7 @@ public class BillPage extends BasePage {
     }
 
     public void clickOnNewBill() {
+        WebdriverWaits.waitForElementVisible(unpaidBill,5);
         WebdriverWaits.waitForElementClickable(newBillBtn, 5);
         click(newBillBtn);
     }

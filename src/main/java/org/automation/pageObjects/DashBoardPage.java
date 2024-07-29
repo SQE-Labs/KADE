@@ -8,7 +8,7 @@ public class DashBoardPage extends BasePage {
 
 	By profileLink = By.xpath("//a[@class='btn btn-link p-0 fs-pn15 ']");
 	By validationMessage=By.xpath("//p[@class='alert-content']");
-	public By billBtn = By.cssSelector(".sidebar-nav > li:nth-child(10)");
+	public By billBtn = By.cssSelector(".sidebar-nav > li:nth-child(11)");
 	By myStoreBtn=By.xpath("//i[@class='align-middle me-2 fa-fw fas fa-store']");
 	By giftCardsDashboardTab=By.xpath("(//a[@class='sidebar-link'])[9]");
 	By pageHeader=By.xpath("//h1[@class='header-title mb-0']");
@@ -18,6 +18,7 @@ public class DashBoardPage extends BasePage {
 	By storesCombobox=By.xpath("//span[@role='combobox']");
 	By continueBtn=By.xpath("//button[@type='submit']");
 	By signOutBtn = By.xpath("//a[text()='Sign out']");
+	By transactions=  By.cssSelector(".sidebar-nav > li:nth-child(10)");
 
 
 	public void clickProfile() {
@@ -53,6 +54,10 @@ public class DashBoardPage extends BasePage {
 
 	public void signOut() {
 		click(signOutBtn);
+	}
+
+	public void clickTransactions() {
+		click(transactions);
 	}
 
 }
