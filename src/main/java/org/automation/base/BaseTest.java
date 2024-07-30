@@ -4,6 +4,7 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.automation.listeners.TestRunListener;
+import org.automation.session.KadeSession;
 import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.Screenshot;
 import org.openqa.selenium.WebDriver;
@@ -29,6 +30,9 @@ import static org.automation.logger.Log.error;
 
 @Listeners({ TestRunListener.class })
 public class BaseTest {
+
+
+	KadeSession kadeSession;
 	public static ExtentReports extent;
 	ExtentSparkReporter extentSparkReporter;
 	private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();

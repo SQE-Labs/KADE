@@ -11,13 +11,13 @@ import java.util.Locale;
 import java.util.stream.Collectors;
 
 import org.automation.ReturnObjects.Clickable;
+import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
 import org.automation.objectBuilder.pages.BillsPage;
-import org.automation.utilities.ActionEngine;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.*;
 
-import static org.automation.ReturnObjects.Clickable.getElementByxPath;
+import static org.automation.ReturnObjects.Clickable.getElementBy;
 
 public class BillPage extends BasePage {
 
@@ -185,8 +185,16 @@ public class BillPage extends BasePage {
     By notPaidLabel = By.xpath("//span[@class='badge bg-danger fs-6']");
     By billTimeOnPopup = By.xpath("//div[@class='fs-pn15 mb-1']");
 
+    public BillPage() {
+        super();
+    }
+
+    public Editable getAmountField(){
+        return Editable.getElementBy(amtInput);
+    }
+
     public Clickable getcloseLogoPopupBtn(){
-        return getElementByxPath(closeLogoPopupBtn);
+        return getElementBy(closeLogoPopupBtn);
     }
 
     public String getPopUpTitle() {
@@ -313,7 +321,8 @@ public class BillPage extends BasePage {
 
         clickOnNewBill();
         if(billObj.getAmount()!=null){
-            enterAmount(billObj.getAmount());
+            getAmountField().setText(billObj.getAmount());
+//            enterAmount(billObj.getAmount());
         }
         disableTaxToggle();
         clickCustomer();
@@ -1229,10 +1238,10 @@ public class BillPage extends BasePage {
     }
 
     public Clickable getUnpaidBillButton() {
-        return getElementByxPath(unpaidBill);
+        return getElementBy(unpaidBill, "Unpaid bill Button");
     }
 
     public Clickable getProcessPaymentButton() {
-        return getElementByxPath(processPaymentBtn);
+        return getElementBy(processPaymentBtn);
     }
 }

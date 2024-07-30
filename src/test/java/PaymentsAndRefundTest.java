@@ -6,9 +6,8 @@ import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.WebdriverWaits;
 import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
-import session.KadeSession;
+import org.automation.session.KadeSession;
 
 public class PaymentsAndRefundTest extends KadeSession {
 
@@ -183,6 +182,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         BillsPage defaultBill = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
         session.getBillPage().createBill(defaultBill);
 
+
 //        bill.closeLogoConfigPopup();
 
         // Experiment
@@ -216,19 +216,22 @@ public class PaymentsAndRefundTest extends KadeSession {
     }
 
     @Test(description = "Bill  Creation and partial payment of the bill through Store manager.")
-    public void partialPaymentThroughStoreManager(){
+    public void partialPaymentThroughStoreManager() throws InterruptedException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
 
         String amt = "2,999.00";
         BillsPage billsDetail = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
         session.getBillPage().createBill(billsDetail);
+        Thread.sleep(3000);
+        session.getBillPage().getcloseLogoPopupBtn();
+        Thread.sleep(2000);
+        session.getBillPage().getcloseLogoPopupBtn().clickIfExist();
 
-
-        session.getBillPage().getcloseLogoPopupBtn().click();
         session.getBillPage().getUnpaidBillButton().click();
 
         session.getBillPage().getProcessPaymentButton().click();
+        Thread.sleep(3000);
         // Verify popup title and elements of Receive Payment popup
         String actualTitle = payments.getReceivedPaymentTitle();
         Assertions.assertEquals(actualTitle,"Receive Payment");
@@ -285,7 +288,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         WebdriverWaits.waitForElementInVisible(payments.paymentTypeHeader,5);
         //Verify Total Paid Amount (Full Payment)
 
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.sleep(5000);
         Assertions.assertEquals(payments.getTotalPaidAmount(),"$"+amt);
         Assertions.assertTrue(payments.isPaidLabelDisplayed());
         session.getPaymentsPage().getCloseReceivedPopupButton().click();

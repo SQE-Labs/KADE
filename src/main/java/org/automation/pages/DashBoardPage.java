@@ -2,12 +2,10 @@ package org.automation.pages;
 
 import org.automation.ReturnObjects.Clickable;
 import org.automation.base.BasePage;
-import org.automation.data.KadeUserAccount;
 import org.automation.utilities.WebdriverWaits;
-import org.checkerframework.checker.units.qual.C;
 import org.openqa.selenium.By;
 
-import static org.automation.ReturnObjects.Clickable.getElementByxPath;
+import static org.automation.ReturnObjects.Clickable.getElementBy;
 
 public class DashBoardPage extends BasePage {
 
@@ -24,8 +22,11 @@ public class DashBoardPage extends BasePage {
 	By continueBtn=By.xpath("//button[@type='submit']");
 	By signOutBtn = By.xpath("//a[text()='Sign out']");
 
+	public DashBoardPage() {
+	}
+
 	public Clickable getBillButton(){
-		return getElementByxPath(billBtn);
+		return getElementBy(billBtn);
 	}
 
 	protected Clickable getBillButton2(){

@@ -1,17 +1,10 @@
-package session;
+package org.automation.session;
 
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
-import org.automation.pages.BillPage;
-import org.automation.pages.DashBoardPage;
-import org.automation.pages.LoginPage;
-import org.automation.pages.PaymentsPage;
+import org.automation.pages.*;
 
 public class KadeSession extends BaseTest {
-
-    public void KadeSession(){
-
-    }
 
     private static KadeUserAccount logggedInUser;
 
@@ -32,5 +25,12 @@ public class KadeSession extends BaseTest {
     public PaymentsPage getPaymentsPage(){
         return new PaymentsPage();
     }
+
+    public MyStorePage getMyStorePage(){
+        return new MyStorePage();
+    }
+
+
+
 }
 

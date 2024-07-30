@@ -1,10 +1,9 @@
 package org.automation.pages;
 
-import static org.automation.ReturnObjects.Clickable.getElementByxPath;
-
 import org.automation.ReturnObjects.Clickable;
+import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
-import org.automation.utilities.ActionEngine;
+import org.automation.session.KadeSession;
 import org.openqa.selenium.By;
 import org.automation.utilities.WebdriverWaits;
 
@@ -48,17 +47,19 @@ public class PaymentsPage extends BasePage {
     By cashPaymentType = By.xpath("//span[text()='Cash']/../../..");
     By memoTextbox=By.xpath("//textarea[@name='message']");
     By receivingAmtPaymentTypePanel = By.xpath("//span[@data-field='amount']");
+    KadeSession session;
 
-
-    //PerformActions
-    public void clickOthersBtn(){
-        click(othersBtn);
+    public PaymentsPage(){
     }
 
     public void clickCashBtn(){
         WebdriverWaits.waitForElementVisible(paymentPopupTitle,5);
         moveToWebElement(cashBtn);
         clickElementByJS(cashBtn);
+    }
+    //PerformActions
+    public void clickOthersBtn(){
+        click(othersBtn);
     }
 
     public boolean isPaidLabelDisplayed(){
@@ -175,6 +176,10 @@ public class PaymentsPage extends BasePage {
         pressKeys(receiveAmountTbx,amount);
     }
 
+    public Editable getAmountButton(){
+        return Editable.getElementBy(othersBtn);
+    }
+
     public String getReceivingAmountFromPaymentTypePanel() {
         return getText_custom(receivingAmtPaymentTypePanel);
     }
@@ -184,27 +189,27 @@ public class PaymentsPage extends BasePage {
     }
 
     public Clickable getOthersButton() {
-        return getElementByxPath(othersBtn);
+        return Clickable.getElementBy(othersBtn);
     }
 
     public Clickable getZelleButton() {
         WebdriverWaits.waitForElementVisible(paymentPopupTitle,5);
-        return  getElementByxPath(zellePaymentType);
+        return  Clickable.getElementBy(zellePaymentType);
     }
 
     public Clickable getCloseReceivedPopupButton() {
-        return getElementByxPath(closeIcon);
+        return Clickable.getElementBy(closeIcon, "Close Received Button");
     }
 
     public Clickable getCashButton() {
-        return getElementByxPath(cashPaymentType);
+        return Clickable.getElementBy(cashPaymentType, "Cash Button");
     }
 
     public Clickable getVenmoButton() {
-        return getElementByxPath(venmoPaymentType);
+        return Clickable.getElementBy(venmoPaymentType);
     }
 
     public Clickable getCreditCardBtn() {
-        return getElementByxPath(creditCardBtn);
+        return Clickable.getElementBy(creditCardBtn);
     }
 }

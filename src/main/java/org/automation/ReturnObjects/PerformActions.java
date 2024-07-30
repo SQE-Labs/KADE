@@ -6,7 +6,8 @@ public abstract class PerformActions{
 
      void clickElement() {}
 
-     void setText(By element){}
+     void setText(String text){}
 
      void select(By element) {}
- }
+
+}

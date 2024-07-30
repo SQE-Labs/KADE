@@ -45,6 +45,22 @@ public class ActionEngine extends BaseTest {
 
 	}
 
+	public static void clickBy(By path, String... label) {
+		String var = "";
+		try {
+			var = label.length > 0 ? label[0] : path.toString();
+			Element btn = new Element(var, path);
+			btn.click();
+			Log.info("Clicked on " + var);
+			// log success message in exgent report
+			getExtentTest().log(PASS, "==> Clicked element Successfully! " + var);
+		} catch (Exception e) {
+			getExtentTest().log(FAIL, "==> Unable to click on => " + var + " due to exception " + e);
+
+		}
+
+	}
+
 	public void click(WebElement element, String... label) {
 		try {
 			element.click();
@@ -150,7 +166,7 @@ public class ActionEngine extends BaseTest {
 	}
 
 	// check if element is Present
-	public boolean isElementPresent_custom(By element, String fieldName) {
+	public static boolean isElementPresent_custom(By element, String fieldName) {
 		boolean flag = false;
 		try {
 			flag = getDriver().findElement(element).isDisplayed();
