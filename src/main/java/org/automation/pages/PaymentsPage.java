@@ -57,11 +57,22 @@ public class PaymentsPage extends BasePage {
         moveToWebElement(cashBtn);
         clickElementByJS(cashBtn);
     }
+
+    public Clickable getCashButton(){
+        return Clickable.getElementBy(cashBtn,"Cash Button");
+    }
     //PerformActions
     public void clickOthersBtn(){
         click(othersBtn);
     }
 
+    public Clickable getOthersButton(){
+        return Clickable.getElementBy(othersBtn,"Other button")
+    }
+
+    public Clickable getPaidLabel(){
+        return Clickable.getElementBy(paidLabel,"Paid label on Bill");
+    }
     public boolean isPaidLabelDisplayed(){
         WebdriverWaits.waitForElementVisible(paidLabel,5);
         return isWebElementVisible(paidLabel);
@@ -72,6 +83,10 @@ public class PaymentsPage extends BasePage {
         return getText_custom(paymentPopupTitle);
     }
 
+    public Clickable getReceivedPaymentPopupTitle(){
+        return Clickable.getElementBy(paymentPopupTitle,"Received Payment Title");
+    }
+
     public void closeReceivedPopup(){
         click(closeIcon);
     }
@@ -79,17 +94,31 @@ public class PaymentsPage extends BasePage {
     public void clickCreditCardBtn(){
         click(creditCardBtn);
     }
+    public Clickable getCreditCardButton(){
+        return Clickable.getElementBy(creditCardBtn,"Credit card button");
+    }
 
     public void enterCardNumber(String cardNumber){
         pressKeys(cardNumberTbx,cardNumber);
     }
 
+    public Editable getCardNumberTextbox(){
+        return Editable.getElementBy(cardNumberTbx);
+    }
     public void enterExpirationDate(String expiryDate){
         pressKeys(expirationDateTbx,expiryDate);
     }
 
+    public Editable getExpirationDateTextbox(){
+        return Editable.getElementBy(expirationDateTbx);
+    }
+
     public void enterCvcNumber(String cvcNumber){
         pressKeys(cvcTbx,cvcNumber);
+    }
+
+    public Editable getCvcNumberTextbox(){
+        return Editable.getElementBy(cvcTbx);
     }
 
     public void selectCountry(String country){
@@ -103,6 +132,7 @@ public class PaymentsPage extends BasePage {
     public void switchToCreditCardFrame() {
         switchToFrame(creditCardInfoFrame);
     }
+
     public String getBalanceDue() {
         return getText_custom(balanceDue);
     }
@@ -176,6 +206,10 @@ public class PaymentsPage extends BasePage {
         pressKeys(receiveAmountTbx,amount);
     }
 
+    public Editable getReceivingAmountTextbox(){
+        return Editable.getElementBy(receiveAmountTbx);
+    }
+
     public Editable getAmountButton(){
         return Editable.getElementBy(othersBtn);
     }
@@ -188,10 +222,6 @@ public class PaymentsPage extends BasePage {
         return getText_custom(totalPaidAmt).split(":")[1];
     }
 
-    public Clickable getOthersButton() {
-        return Clickable.getElementBy(othersBtn);
-    }
-
     public Clickable getZelleButton() {
         WebdriverWaits.waitForElementVisible(paymentPopupTitle,5);
         return  Clickable.getElementBy(zellePaymentType);
@@ -199,10 +229,6 @@ public class PaymentsPage extends BasePage {
 
     public Clickable getCloseReceivedPopupButton() {
         return Clickable.getElementBy(closeIcon, "Close Received Button");
-    }
-
-    public Clickable getCashButton() {
-        return Clickable.getElementBy(cashPaymentType, "Cash Button");
     }
 
     public Clickable getVenmoButton() {
