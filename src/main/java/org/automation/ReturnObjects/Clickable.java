@@ -30,6 +30,18 @@ public class Clickable extends PerformActions {
         action.clickElement();
     }
 
+    public void clickbyJS() {
+        PerformActions action = new PerformActions() {
+            @Override
+            void clickElement() {
+                WebdriverWaits.waitForElementUntilVisible(target, 5);
+                WebdriverWaits.waitForElementClickable(target, 5);
+                actionEngine.clickElementByJS(target);
+            }
+        };
+        action.clickElement();
+    }
+
 
     public void clickIfExist() {
         if (actionEngine.isElementPresent_custom(target, label)) {
