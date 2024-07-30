@@ -59,7 +59,7 @@ public class PaymentsPage extends BasePage {
     }
 
     public Clickable getCashButton(){
-        return Clickable.getElementBy(cashBtn,"Cash Button");
+        return Clickable.getElementBy(cashPaymentType,"Cash Button");
     }
     //PerformActions
     public void clickOthersBtn(){
@@ -67,7 +67,7 @@ public class PaymentsPage extends BasePage {
     }
 
     public Clickable getOthersButton(){
-        return Clickable.getElementBy(othersBtn,"Other button")
+        return Clickable.getElementBy(othersBtn,"Other button");
     }
 
     public Clickable getPaidLabel(){
@@ -181,13 +181,13 @@ public class PaymentsPage extends BasePage {
         return isWebElementVisible(paymentLogo);
     }
 
-    public void payByCreditCard(String cardNo, String expDate, String cvcNo, String country){
+    public void payByCreditCard(){
         WebdriverWaits.sleep(10);
         switchToCreditCardFrame();
-        enterCardNumber(cardNo);
-        enterExpirationDate(expDate);
-        enterCvcNumber(cvcNo);
-        selectCountry(country);
+        enterCardNumber("4111111111111111");
+        enterExpirationDate("0230");
+        enterCvcNumber("123");
+        selectCountry("Australia");
         switchToDefaultWindow();
         clickProcessBtn();
     }

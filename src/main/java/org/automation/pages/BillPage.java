@@ -1244,4 +1244,8 @@ public class BillPage extends BasePage {
     public Clickable getProcessPaymentButton() {
         return getElementBy(processPaymentBtn);
     }
+
+    public Clickable getTransactionLink() {
+        return Clickable.getElementBy(transactionsLink,"Transaction link ");
+    }
 }
