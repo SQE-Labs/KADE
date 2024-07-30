@@ -202,7 +202,7 @@ public class MyStoreTest extends BaseTest {
 		session.getDashBoardPage().getMyStoresTab().click();
 		MyStorePage myStore= session.getMyStorePage();
 
-		myStore.getConfigureButton().click();
+		myStore.getConfigureButton().clickbyJS();
 
 		//Click on Settings Sub-Tab
 		myStore.getSettingsSubTab().click();
@@ -215,7 +215,7 @@ public class MyStoreTest extends BaseTest {
 		myStore.getTipGrauityToggleButton().click();
 
 		//Configure Tip & Gratuity
-		myStore.getTipConfigureButton().click();
+		myStore.getTipConfigureButton().clickbyJS();
 		Assertions.assertEquals(myStore.getTipConfigPopUpTitle(),"Tip configuration");
 		Assertions.assertEquals(myStore.getDefaultTipAmtValue(),"0");
 		Assertions.assertEquals(myStore.getMaxTipAmtValue(),"99");
@@ -234,10 +234,13 @@ public class MyStoreTest extends BaseTest {
 		myStore.getSaveChangesButton().click();
 
 		//Configure Store Links
-//		myStore.getStoreLinksButton().click();
-//		Assertions.assertEquals(myStore.getMinRewardPointsFieldValue(), "1");
-//		Assertions.assertEquals(myStore.getMaxRewardPointsFieldValue(),"9999");
-//		myStore.getRewardPointsValueField().setText("1000");
+		myStore.getStoreLinksButton().clickbyJS();
+		Assertions.assertEquals(myStore.getMinRewardPointsFieldValue(), "1");
+		Assertions.assertEquals(myStore.getMaxRewardPointsFieldValue(),"9999");
+		myStore.getRewardPointsValueField().setText("1000");
+		myStore.getWebsiteURLField().setText("www.KadePay.com");
+		myStore.getEarnRewardsPointsToggleButton().click();
+		myStore.getSaveChangesButton().click();
 	}
 
 }

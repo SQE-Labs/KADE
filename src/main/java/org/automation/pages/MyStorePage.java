@@ -57,7 +57,7 @@ public class MyStorePage extends BasePage {
     By changePayMethodBtn = By.xpath("//button[text()='change']");
     By nextBillDate = By.xpath("(//div[@class='d-flex'])[2]");
     By defaultVisaMethod = By.xpath("//div[contains(@class,'d-flex justify-content-center align-items-center')]");
-    By configureBtnWithoutStripe = By.xpath("(//a[contains(@class,'float-end btn btn-link')][text()='Configure'])[5]");
+    By configureBtnWithoutStripe = By.xpath("(//a[contains(@class,'float-end btn btn-link')][text()='Configure'])[6]");
     By settingsSubTab = By.xpath("//a[text()='Settings']");
     By maxBillAmountTbx = By.xpath("//input[@name='maxBillAmountThreshold']");
     By tipGratuityToggleBtn = By.xpath("//span[@class='ms-2 custom-check-on'][text()='No']");
@@ -74,6 +74,8 @@ public class MyStorePage extends BasePage {
     By rewardPtsValue = By.xpath("//input[@name='ponitsValue']");
     By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
     By storeLinksBtn=By.xpath("//button[text()='Store links']");
+    By websiteURLField=By.xpath("//input[@name='StoreURLTypes[0].url']");
+    By earnRewardsToggleBtn=By.xpath("(//i[@class='far fa-toggle-off custom-check-off '])[2]");
 
     public MyStorePage() {
     }
@@ -529,5 +531,11 @@ public class MyStorePage extends BasePage {
     }
     public String getMinRewardPointsFieldValue() {
         return getAttributevalue(rewardPtsValue,"min");
+    }
+    public Editable getWebsiteURLField(){
+        return Editable.getElementBy(websiteURLField);
+    }
+    public Clickable getEarnRewardsPointsToggleButton() {
+        return Clickable.getElementBy(earnRewardsToggleBtn,"Earn Rewards Toggle Button");
     }
 }
