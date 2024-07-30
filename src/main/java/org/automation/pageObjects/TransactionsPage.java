@@ -42,7 +42,9 @@ public class TransactionsPage extends BasePage {
 	}
 
 	public void selectStore(String store) {
+		clickStoresDropdown();
 		click(By.xpath("//li[contains(text(),'" + store + "')]"));  // Select store
+		clickContinueBtn();
 	}
 
 	public void clickContinueBtn() {

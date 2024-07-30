@@ -178,7 +178,7 @@ public class PaymentsPage extends BasePage {
     }
 
     public String getTotalPaidAmount() {
-        WebdriverWaits.sleep(5000);
+        WebdriverWaits.sleep(10000);
         return getText_custom(totalPaidAmt).split(":")[1];
     }
 

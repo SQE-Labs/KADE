@@ -87,9 +87,7 @@ public class PaymentsAndRefundTest extends BaseTest {
 
         //Click on Transactions
         dashboard.clickTransactions();
-        transactions.clickStoresDropdown();
         transactions.selectStore("Automation Flow 1");
-        transactions.clickContinueBtn();
         transactions.clickLastTransaction();
         Assertions.assertEquals(transactions.getBillAmount(),"$"+bills.getAmount());
         Assertions.assertTrue(transactions.isUniqueTransactionIdDisplayed());
@@ -139,6 +137,14 @@ public class PaymentsAndRefundTest extends BaseTest {
         Assertions.assertTrue(payments.isPaidLabelDisplayed());
         Assertions.assertTrue(payments.isPaymentLogoDisplayed());
         payments.closeReceivedPopup();
+
+        // Open Transaction
+        dashboard.clickTransactions();
+        transactions.selectStore("Automation Flow 1");
+        transactions.clickLastTransaction();
+        Assertions.assertEquals(transactions.getBillAmount(),"$"+billsDetails.getAmount());
+        Assertions.assertTrue(transactions.isUniqueTransactionIdDisplayed());
+        transactions.clickCloseTransactionPopup();
     }
 
     @Test(description = "PYMT3 : Bill Creation and Successful Bill Payment by Venmo through Store manager.")
@@ -172,6 +178,14 @@ public class PaymentsAndRefundTest extends BaseTest {
         Assertions.assertTrue(payments.isVoidBtnDisplayed());
         Assertions.assertTrue(payments.isPaymentLogoDisplayed());
         payments.closeReceivedPopup();
+
+        // Open Transaction
+        dashboard.clickTransactions();
+        transactions.selectStore("Automation Flow 1");
+        transactions.clickLastTransaction();
+        Assertions.assertEquals(transactions.getBillAmount(),"$"+defaultBill.getAmount());
+        Assertions.assertTrue(transactions.isUniqueTransactionIdDisplayed());
+        transactions.clickCloseTransactionPopup();
     }
 
     @Test(description = "PYMT4 : Bill Creation and Successful Bill Payment by Zelle through Store manager.")
@@ -205,6 +219,15 @@ public class PaymentsAndRefundTest extends BaseTest {
         Assertions.assertTrue(payments.isVoidBtnDisplayed());
         Assertions.assertTrue(payments.isPaymentLogoDisplayed());
         payments.closeReceivedPopup();
+
+        // Open Transaction
+        dashboard.clickTransactions();
+        transactions.selectStore("Automation Flow 1");
+        transactions.clickLastTransaction();
+        Assertions.assertEquals(transactions.getBillAmount(),"$"+defaultBill.getAmount());
+        Assertions.assertTrue(transactions.isUniqueTransactionIdDisplayed());
+        transactions.clickCloseTransactionPopup();
+
     }
 
     @Test(description = "PYMT6 : Bill Creation and pay the bill by multiple payment mode through Store manager.")
@@ -288,6 +311,14 @@ public class PaymentsAndRefundTest extends BaseTest {
         Assertions.assertEquals(payments.getTotalPaidAmount(),"$"+amt);
         Assertions.assertTrue(payments.isPaidLabelDisplayed());
         payments.closeReceivedPopup();
+
+        // Open Transaction
+        dashboard.clickTransactions();
+        transactions.selectStore("Automation Flow 1");
+        transactions.clickLastTransaction();
+        Assertions.assertEquals(transactions.getBillAmount(),"$"+billsDetail.getAmount());
+        Assertions.assertTrue(transactions.isUniqueTransactionIdDisplayed());
+        transactions.clickCloseTransactionPopup();
     }
     @Test(description = "PYMT5 : Bill Creation and partial payment of the bill through Store manager.")
     public void partialPaymentThroughStoreManager(){
@@ -362,6 +393,7 @@ public class PaymentsAndRefundTest extends BaseTest {
 
         //Deleting unpaid bill
         bill.deleteUnpaidBill();
+
     }
 
     @Test(description = "PYMT8 : Bill Creation and Successful Bill Payment through Credit Card by Customer.")
@@ -379,6 +411,7 @@ public class PaymentsAndRefundTest extends BaseTest {
 
         //Login as Customer
         login.performSignIn("yonro@yopmail.com", "Test@123");
+
 
     }
 
