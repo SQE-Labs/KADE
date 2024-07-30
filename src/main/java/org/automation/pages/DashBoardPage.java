@@ -28,6 +28,9 @@ public class DashBoardPage extends BasePage {
 	public Clickable getBillButton(){
 		return getElementBy(billBtn);
 	}
+	public Clickable getMyStoresTab(){
+		return getElementBy(myStoreBtn);
+	}
 
 	protected Clickable getBillButton2(){
 		return new Clickable(billBtn);
