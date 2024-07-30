@@ -36,7 +36,7 @@ public class Clickable extends PerformActions {
             void clickElement() {
                 WebdriverWaits.waitForElementUntilVisible(target, 5);
                 WebdriverWaits.waitForElementClickable(target, 5);
-                clickElementByJS(target);
+                actionEngine.clickElementByJS(target);
             }
         };
         action.clickElement();
