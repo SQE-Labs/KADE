@@ -29,15 +29,15 @@ public class PaymentsAndRefundTest extends KadeSession {
 
 //    @Test(description = "Bill Creation and Successful Bill Payment by Cash through Store Manager.")
     public void cashPaymentThroughStoreManager(){
-        dashboard.clickOnBill();
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
         String amt = "1,999.00";
         BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
-        bill.createBill(bills);
+        session.getBillPage().createBill(bills);
 
-        bill.closeLogoConfigPopup();
+        session.getBillPage().getcloseLogoPopupBtn().clickIfExist();
 
         //Click on the bill created
-        bill.clickUnpaidBill(); // locator fix
+        session.getBillPage().getUnpaidBillButton().click();
 
         //Verify all the WebElements on Bill popup
         String expectedPopupHeader = bill.getBillPopupHeader();
@@ -52,7 +52,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed());
 
         // Click on Process payment button in Bill popup
-        bill.clickProcessPaymentBtn();
+        session.getBillPage().getProcessPaymentButton().click();
 
         // Verify popup title and elements
         String actualTitle = payments.getReceivedPaymentTitle();
@@ -67,7 +67,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         Assertions.assertTrue(payments.isOtherBtnDisplayed());
 
         // Click on Other btn
-        payments.clickOthersBtn();
+        session.getPaymentsPage().getOthersButton().click();
         // Verify Payment type panel
         String actualPaymentTypeHeader = payments.getPaymentTypePanelHeader();
         Assertions.assertEquals(actualPaymentTypeHeader,"Payment type");
@@ -77,7 +77,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         Assertions.assertTrue(payments.isMemoTextboxDisplayed());
 
         //Selecting cash payment method.
-        payments.clickCashBtn();
+        session.getPaymentsPage().getCashButton().click();
         Assertions.assertTrue(payments.isPaidLabelDisplayed());
         Assertions.assertTrue(payments.isVoidBtnDisplayed());
         Assertions.assertTrue(payments.isPaymentLogoDisplayed());
