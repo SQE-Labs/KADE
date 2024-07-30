@@ -67,7 +67,7 @@ public class PaymentsPage extends BasePage {
     }
 
     public Clickable getOthersButton(){
-        return Clickable.getElementBy(othersBtn,"Other button")
+        return Clickable.getElementBy(othersBtn,"Other button");
     }
 
     public Clickable getPaidLabel(){

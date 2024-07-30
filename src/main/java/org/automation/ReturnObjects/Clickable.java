@@ -4,8 +4,8 @@ import org.automation.utilities.ActionEngine;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 
-public class Clickable extends PerformActions {
-    ActionEngine actionEngine = new ActionEngine();
+public class Clickable extends ActionEngine{
+
     private By target = null;
     private String label;
 
@@ -19,46 +19,28 @@ public class Clickable extends PerformActions {
     }
 
     public void click() {
-        PerformActions action = new PerformActions() {
-            @Override
-            void clickElement() {
-                WebdriverWaits.waitForElementUntilVisible(target, 5);
-                WebdriverWaits.waitForElementClickable(target, 5);
-                actionEngine.clickBy(target, label);
-            }
-        };
-        action.clickElement();
+        performClickOperation(() -> clickBy(target, label));
     }
 
     public void clickbyJS() {
-        PerformActions action = new PerformActions() {
-            @Override
-            void clickElement() {
-                WebdriverWaits.waitForElementUntilVisible(target, 5);
-                WebdriverWaits.waitForElementClickable(target, 5);
-                actionEngine.clickElementByJS(target);
-            }
-        };
-        action.clickElement();
+        performClickOperation(() -> clickElementByJS(target));
     }
 
 
     public void clickIfExist() {
-        if (actionEngine.isElementPresent_custom(target, label)) {
-            PerformActions action = new PerformActions() {
-                @Override
-                void clickElement() {
-                    WebdriverWaits.waitForElementUntilVisible(target, 5);
-                    WebdriverWaits.waitForElementClickable(target, 5);
-                    actionEngine.clickBy(target, label);
-                }
-            };
-            action.clickElement();
+        if (isElementPresent_custom(target, label)) {
+            performClickOperation(() -> clickBy(target, label));
         }
     }
 
     public Boolean isDisplayed(){
-        return actionEngine.isElementPresent(target, label);
+        return isElementPresent(target, label);
+    }
+
+    private void performClickOperation(Runnable action) {
+        WebdriverWaits.waitForElementUntilVisible(target, 5);
+        WebdriverWaits.waitForElementClickable(target, 5);
+        action.run();
     }
 
     public static Clickable getElementByClassName(String byName) {
