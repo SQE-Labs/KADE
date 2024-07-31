@@ -73,7 +73,7 @@ public class BillTest extends BaseTest {
 
         //Verify toast message
         Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        //Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
 
         //Close popup
         session.getBillPage().getCloseLogoPopupBtn().click();
@@ -154,7 +154,7 @@ public class BillTest extends BaseTest {
         session.getBillPage().deleteUnpaidBill();
     }
 
-    @Test(enabled = false, description = "Bill creation by selecting customers from the suggestion list")
+    @Test(enabled = true, description = "Bill creation by selecting customers from the suggestion list")
     public void tc_03createBillForSuggestedCustomer() {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
@@ -189,7 +189,7 @@ public class BillTest extends BaseTest {
 
     }
 
-    @Test(enabled = false, description = "Bill Creation with already configured 'Tax' from store configuration page.")
+    @Test(enabled = true, description = "Bill Creation with already configured 'Tax' from store configuration page.")
     public void tc_04createBillForConfiguredTax() throws ParseException {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
@@ -236,7 +236,7 @@ public class BillTest extends BaseTest {
         session.getBillPage().deleteUnpaidBill();
     }
 
-    @Test(enabled = false, description = "Bill Creation with already configured 'Tax' from store configuration page.")
+    @Test(enabled = true, description = "Bill Creation with already configured 'Tax' from store configuration page.")
     public void tc_06createBillByAttachingImage() throws ParseException, AWTException {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
@@ -298,7 +298,7 @@ public class BillTest extends BaseTest {
 
     }
 
-    @Test(enabled = false, description = "Bill Creation with already configured 'Tax' from store configuration page.")
+    @Test(enabled = true, description = "Bill Creation with already configured 'Tax' from store configuration page.")
     public void tc_07createBillByAttachingPdf() throws AWTException {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
