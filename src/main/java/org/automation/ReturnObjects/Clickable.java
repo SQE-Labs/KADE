@@ -1,12 +1,13 @@
 package org.automation.ReturnObjects;
 
+import org.automation.utilities.ActionEngine;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
+import org.openqa.selenium.JavascriptExecutor;
 
-import static org.automation.utilities.ActionEngine.*;
-
-public class Clickable extends PerformActions {
-
+public class Clickable extends ActionEngine {
+    ActionEngine actionEngine = new ActionEngine();
+    JavascriptExecutor js = (JavascriptExecutor) getDriver();
     private By target = null;
     private String label;
 
@@ -20,30 +21,29 @@ public class Clickable extends PerformActions {
     }
 
     public void click() {
-        PerformActions action = new PerformActions() {
-            @Override
-            void clickElement() {
-                WebdriverWaits.waitForElementUntilVisible(target, 5);
-                WebdriverWaits.waitForElementClickable(target, 5);
-                clickBy(target, label);
-            }
-        };
-        action.clickElement();
+        performClickOperation(() -> clickBy(target, label));
+    }
+
+    public void clickbyJS() {
+        performClickOperation(() -> clickElementByJS(target));
     }
 
 
     public void clickIfExist() {
         if (isElementPresent_custom(target, label)) {
-            PerformActions action = new PerformActions() {
-                @Override
-                void clickElement() {
-                    WebdriverWaits.waitForElementUntilVisible(target, 5);
-                    WebdriverWaits.waitForElementClickable(target, 5);
-                    clickBy(target, label);
-                }
-            };
-            action.clickElement();
+            performClickOperation(() -> clickBy(target, label));
         }
+    }
+
+    public Boolean isDisplayed(){
+        return isElementPresent(target, label);
+    }
+
+    private void performClickOperation(Runnable action) {
+        WebdriverWaits.waitForElementUntilVisible(target, 5);
+        WebdriverWaits.waitForElementClickable(target, 5);
+        js.executeScript("arguments[0].scrollIntoView(true);", getDriver().findElement(target));
+        action.run();
     }
 
     public static Clickable getElementByClassName(String byName) {

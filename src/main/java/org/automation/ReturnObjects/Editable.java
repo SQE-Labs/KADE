@@ -7,35 +7,39 @@ import org.openqa.selenium.By;
 public class Editable extends ActionEngine {
 
     private By target = null;
+    private String label;
 
-    public Editable(By billBtn) {
+    public Editable(By billBtn, String label) {
         this.target = billBtn;
+        this.label = label;
     }
 
-    public void setText(String text){
-        PerformActions action = new PerformActions() {
-            @Override
-            void setText(String text){
-                WebdriverWaits.waitForElementUntilVisible(target, 5);
-                clear_custom(target);
-                pressKeys(target, text);
-                click(target);
-            }
-        };
-        action.setText(text);
+    public void setText(String text) {
+        WebdriverWaits.waitForElementUntilVisible(target, 5);
+        clear_custom(target);
+        pressKeys(target, text);
+        click(target);
     }
 
-    public String getText(){
+    public String getText() {
         WebdriverWaits.waitForElementUntilVisible(target, 5);
         return getElementText(target);
     }
 
-    public static Editable getElementByClassName(String byName){
-        return new Editable(By.name(byName));
+    public Boolean isDisplayed(){
+        return isElementPresent(target, "");
     }
 
-    public static Editable getElementBy(By xpath){
-        return new Editable(xpath);
+    public static Editable getElementByClassName(String byName, String nameOfElement) {
+        return new Editable(By.name(byName), nameOfElement);
+    }
+
+    public static Editable getElementBy(By xpath) {
+        return new Editable(xpath, "");
+    }
+
+    public static Editable getElementBy(By xpath, String nameOfElement) {
+        return new Editable(xpath, nameOfElement);
     }
 
 }

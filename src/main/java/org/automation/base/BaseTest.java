@@ -57,7 +57,7 @@ public class BaseTest {
 	@BeforeSuite
 	public void setExtent() throws InterruptedException, IOException {
 		extent = new ExtentReports();
-		extentSparkReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/test-report/Spark.html");
+		extentSparkReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/test-report/Report.html");
 		extentSparkReporter.config().thumbnailForBase64(true);
 		extent.attachReporter(extentSparkReporter);
 		extent.setSystemInfo("Environment", "QA");
