@@ -6,6 +6,7 @@ import java.nio.file.Paths;
 import org.automation.ReturnObjects.Clickable;
 import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
+import org.automation.utilities.ActionEngine;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 
@@ -66,6 +67,9 @@ public class MyStorePage extends BasePage {
     By tipPercentField1 = By.xpath("//input[@name='tipSelections[0].percentage']");
     By tipPercentField2 = By.xpath("//input[@name='tipSelections[1].percentage']");
     By tipPercentField3 = By.xpath("//input[@name='tipSelections[2].percentage']");
+    By tipFlatValueField1=By.xpath("//input[@name='tipSelections[0].amount']");
+    By tipFlatValueField2=By.xpath("//input[@name='tipSelections[1].amount']");
+    By tipFlatValueField3=By.xpath("//input[@name='tipSelections[2].amount']");
     By saveChangesBtn = By.xpath("//button[text()='Save changes']");
     By rewardConfigureBtn = By.xpath("(//button[@type='button'][text()='Configure'])[2]");
     By rewardConfigPopUpTitle = By.xpath("//h5[text()='Rewards Program Configuration']");
@@ -76,67 +80,21 @@ public class MyStorePage extends BasePage {
     By storeLinksBtn=By.xpath("//button[text()='Store links']");
     By websiteURLField=By.xpath("//input[@name='StoreURLTypes[0].url']");
     By earnRewardsToggleBtn=By.xpath("(//i[@class='far fa-toggle-off custom-check-off '])[2]");
+    By enterInPercentToggleBtn=By.xpath("//label[text()=' Enter in percentage']");
+    By paymentProcessingSubTab=By.xpath("//a[text()='Payment Processing']");
+    By acceptVenmoToggleBtn=By.xpath("//span[text()='Accept Venmo']");
+    By acceptZelleToggleBtn=By.xpath("//span[text()='Accept Zelle']");
 
     public MyStorePage() {
     }
-    public void clickRegisterNewBusinessBtn() {
-        click(registerNewBusinessBtn);
-    }
-    public void clickSkipStripeAccountBtn() {
-        WebdriverWaits.waitForElementClickable(skipStripeAccountBtn, 5);
-        click(skipStripeAccountBtn);
-    }
-//    public String getSkipPopUpTitle() {
-//        return getText_custom(skipPopUpTitle);
-//    }
-    public void clickSkipStripeAccountPopUpBtn() {
-        WebdriverWaits.waitForElementClickable(skipStripeAccountPopUpBtn, 5);
-        clickElementByJS(skipStripeAccountPopUpBtn);
-    }
-
-    public void clickDeleteStoreBtn() {
-        WebdriverWaits.waitForElementUntilVisible(deleteStoreBtn, 5);
-        clickElementByJS(deleteStoreBtn);
-    }
-
-//    public String getBlankFieldWarningMsg() {
-//        return getText_custom(blankFieldWarningMsg);
-//    }
-
-    public void clickDeleteStoreIcon() {
-        WebdriverWaits.waitForElementUntilVisible(deleteStoreIcon, 5);
-        clickElementByJS(deleteStoreIcon);
-    }
-
-    public void clickStoreLogo() {
-        moveToWebElement(storeLogo);
-        clickElementByJS(storeLogo);
-    }
-
     public void uploadImageAsAttachment(String relativePath) throws AWTException {
         String projectPath = System.getProperty("user.dir");
         String absolutePath = Paths.get(projectPath, relativePath).toString();
         uploadImageFile(absolutePath);
     }
-
-    public void enterBusinessName(String businessName) {
-        WebdriverWaits.waitForElementUntilVisible(businessNameTbx, 2);
-        clear_custom(businessNameTbx);
-        pressKeys(businessNameTbx, businessName);
-        click(businessNameTbx);
+    public void uploadImageInStoreLogo() throws AWTException {
+        uploadImageAsAttachment("src/main/resources/image/BillDummyImg.jpg");
     }
-
-    public void enterLocationDescription(String locDescription) {
-        WebdriverWaits.waitForElementUntilVisible(locationDescTbx, 2);
-        clear_custom(locationDescTbx);
-        pressKeys(locationDescTbx, locDescription);
-        click(locationDescTbx);
-    }
-
-//    public String getBusinessFieldMaxLen() {
-//        return getAttribute(businessNameTbx, "maxlength");
-//    }
-
     public void selectStoreAddress(String storeAddressName) {
         WebdriverWaits.waitForElementUntilVisible(storeAddressField, 2);
         clear_custom(storeAddressField);
@@ -144,269 +102,9 @@ public class MyStorePage extends BasePage {
         click(storeAddressField);
         click(storeAddressOption);
     }
-
-    public void enterPhone(String phone) {
-        WebdriverWaits.waitForElementUntilVisible(phoneTbx, 2);
-        clear_custom(phoneTbx);
-        pressKeys(phoneTbx, phone);
-        click(phoneTbx);
-    }
-
-    public String getPhoneFieldMaxLen() {
-        return getAttribute(phoneTbx, "maxlength");
-    }
-
     public void selectTimeZone() {
         click(timeZoneField);
         click(timeZoneOption);
-    }
-
-    public void enterTax(String taxRate) {
-        WebdriverWaits.waitForElementUntilVisible(taxRateTbx, 2);
-        clear_custom(taxRateTbx);
-        pressKeys(taxRateTbx, taxRate);
-        click(taxRateTbx);
-    }
-
-    public String getTaxFieldMinValue() {
-        return getAttribute(taxRateTbx, "min");
-    }
-
-    public String getTaxFieldDefaultValue() {
-        return getAttribute(taxRateTbx, "value");
-    }
-
-    public String getTaxFieldMaxValue() {
-        return getAttribute(taxRateTbx, "max");
-    }
-
-    public void clickSaveBtn() {
-        WebdriverWaits.waitForElementUntilVisible(saveBtn, 5);
-        moveToWebElement(saveBtn);
-        clickElementByJS(saveBtn);
-    }
-
-    public void clickStripeBtn() {
-        click(stripeBtn);
-    }
-
-//    public String getConnectStripePopUpTitle() {
-//        return getText_custom(connectStripePopUpTitle);
-//    }
-
-    public void clickTestStripeBtn() {
-        click(testStripeBtn);
-    }
-
-    public String getStripeAccountSuccessMsg() {
-        return getText_custom(stripeAccSuccessMsg);
-    }
-
-    public void enableBankTransfer() {
-        click(bankTransferToggleBtn);
-    }
-
-    public void clickConfigureCreditCardTerminals() {
-        click(configureCreditCardTerminal);
-    }
-
-    public void selectCreditCardTerminal() {
-        click(creditCardTerminalOption);
-    }
-
-    public void clickCreditSaveBtn() {
-        click(creditSaveBtn);
-    }
-
-    public void clickSkipForNowBtn() {
-        click(skipForNowBtn);
-    }
-
-    public void clickContinueBtn() {
-        moveToWebElement(continueBtn);
-        click(continueBtn);
-    }
-
-    public void clickConfigureLink() {
-        click(configureLink);
-    }
-
-    public void clickModifyBtn() {
-        moveToWebElement(modifyBtn);
-        click(modifyBtn);
-    }
-//
-//    public String getAddedStoreName() {
-//        return getText_custom(addedStoreName);
-//    }
-//
-//    public String getAddedBusinessName() {
-//        return getText_custom(addedBusinessName);
-//    }
-//
-//    public String getAddedStoreAddress() {
-//        return getText_custom(addedStoreAddress);
-//    }
-//
-//    public String getAddedStorePhone() {
-//        return getText_custom(addedStorePhone);
-//    }
-//
-//    public String getAddedCurrencyOfStore() {
-//        return getText_custom(addedCurrencyOfStore);
-//    }
-//
-//    public String getAddedTaxRate() {
-//        return getText_custom(addedTaxRate);
-//    }
-
-    public void clickPlansSubTab() {
-        click(plansSubTab);
-    }
-
-    public void clickPlanSignUpBtn() {
-        moveToWebElement(planSignUpBtn);
-        click(planSignUpBtn);
-    }
-
-    public void selectTermsCbx() {
-        click(termsCbx);
-    }
-
-    public void clickChangePlanBtn() {
-        click(changePlanBtn);
-    }
-
-    public void clickYearlyBtn() {
-        click(yearlyBtn);
-    }
-
-//    public String getCurrentPlanSuccessMSg() {
-//        return getText_custom(currentPlanMSg);
-//    }
-//
-//    public String defaultPaymentMethod() {
-//        return getText_custom(addedVisaMethod);
-//    }
-
-    public void selectVisaMethod() {
-        click(defaultVisaMethod);
-    }
-
-    public boolean isNewCreditCardBtnDisplayed() {
-        return isWebElementVisible(newCreditCardBtn);
-    }
-
-    public boolean isNewBankAccountBtnDisplayed() {
-        return isWebElementVisible(newBankAccountBtn);
-    }
-
-    public void clickChangePayMethodBtn() {
-        click(changePayMethodBtn);
-    }
-
-    public boolean isNextBillDateDisplayed() {
-        return isWebElementVisible(nextBillDate);
-    }
-
-    public void clickConfigureBtn() {
-        click(configureBtnWithoutStripe);
-    }
-
-    public void clickSettingsSubTab() {
-        click(settingsSubTab);
-    }
-
-    public void enterMaximumBillAmount(String maxBillAmt) {
-        WebdriverWaits.waitForElementUntilVisible(maxBillAmountTbx, 2);
-        clear_custom(maxBillAmountTbx);
-        pressKeys(maxBillAmountTbx, maxBillAmt);
-        click(maxBillAmountTbx);
-    }
-
-    public String getMinimumBillAmtValue() {
-        return getAttribute(maxBillAmountTbx, "min");
-    }
-
-    public String getMaximumBillAmtValue() {
-        return getAttribute(maxBillAmountTbx, "max");
-    }
-
-    public String getDefaultBillAmtValue() {
-        return getAttribute(maxBillAmountTbx, "value");
-    }
-
-    public void enableTipGratuityToggleBtn() {
-        click(tipGratuityToggleBtn);
-    }
-
-    public void clickTipConfigureBtn() {
-        moveToWebElement(tipConfigureBtn);
-        click(tipConfigureBtn);
-    }
-
-//    public String getTipConfigPopUpTitle() {
-//        return getText_custom(tipConfgPopUpTitle);
-//    }
-
-    public String getDefaultTipAmtValue() {
-        return getAttribute(tipPercentField1, "value");
-    }
-
-    public String getMaxTipAmtValue() {
-        return getAttribute(tipPercentField1, "max");
-    }
-
-    public void enterTipAmt1(String tipAmt1) {
-        WebdriverWaits.waitForElementUntilVisible(tipPercentField1, 2);
-        clear_custom(tipPercentField1);
-        pressKeys(tipPercentField1, tipAmt1);
-        click(tipPercentField1);
-    }
-
-    public void enterTipAmt2(String tipAmt2) {
-        WebdriverWaits.waitForElementUntilVisible(tipPercentField2, 2);
-        clear_custom(tipPercentField2);
-        pressKeys(tipPercentField2, tipAmt2);
-        click(tipPercentField2);
-    }
-
-    public void enterTipAmt3(String tipAmt3) {
-        WebdriverWaits.waitForElementUntilVisible(tipPercentField3, 2);
-        clear_custom(tipPercentField3);
-        pressKeys(tipPercentField3, tipAmt3);
-        click(tipPercentField3);
-    }
-
-    public void clickSaveChangesBtn() {
-        click(saveChangesBtn);
-    }
-
-    public void clickRewardConfigBtn() {
-        click(rewardConfigureBtn);
-    }
-
-//    public String getRewardConfigPopUpTitle() {
-//        return getText_custom(rewardConfigPopUpTitle);
-//    }
-
-    public void enableRewardPointToggleBtn() {
-        click(rewardPointToggleBtn);
-    }
-
-    public void enterRewardPoints(String rewardPoints) {
-        WebdriverWaits.waitForElementUntilVisible(rewardPointsField, 2);
-        clear_custom(rewardPointsField);
-        pressKeys(rewardPointsField, rewardPoints);
-        click(rewardPointsField);
-    }
-
-    public String getMinRewardPointsValue() {
-        return getAttribute(rewardPointsField, "min");
-    }
-
-    public String getMaxRewardPointsValue() {
-        return getAttribute(rewardPointsField, "max");
     }
 
     //New Methods for click and Enter
@@ -446,7 +144,19 @@ public class MyStorePage extends BasePage {
     public Editable getPhoneField() {
         return Editable.getElementBy(phoneTbx);
     }
+    public Editable getPhoneFieldMaxLen() {
+        return Editable.getElementBy(phoneTbx);
+    }
     public Editable getTaxRateField() {
+        return Editable.getElementBy(taxRateTbx);
+    }
+    public Editable getTaxFieldMinValue() {
+        return Editable.getElementBy(taxRateTbx);
+    }
+    public Editable getTaxFieldDefaultValue() {
+        return Editable.getElementBy(taxRateTbx);
+    }
+    public Editable getTaxFieldMaxValue() {
         return Editable.getElementBy(taxRateTbx);
     }
     public Clickable getSaveButton() {
@@ -479,7 +189,7 @@ public class MyStorePage extends BasePage {
     public Editable getAddedStoreName() {
         return Editable.getElementBy(addedStoreName);
     }
-    public Editable getAddedBusinessName(){
+    public Editable getAddedLocationDescription(){
         return Editable.getElementBy(addedBusinessName);
     }
     public Editable getAddedStoreAddress(){
@@ -518,6 +228,15 @@ public class MyStorePage extends BasePage {
     public Clickable getChangePayMethodLink() {
         return Clickable.getElementBy(changePayMethodBtn, "Change Plan Method Link");
     }
+    public Clickable getNewCreditCardButton() {
+        return Clickable.getElementBy(newCreditCardBtn);
+    }
+    public Clickable getNewBankAccountButton() {
+        return Clickable.getElementBy(newBankAccountBtn);
+    }
+    public Clickable getNextBillDate() {
+        return Clickable.getElementBy(nextBillDate);
+    }
     public Clickable getConfigureButton() {
         return Clickable.getElementBy(configureBtnWithoutStripe, "Configure Button");
     }
@@ -525,6 +244,15 @@ public class MyStorePage extends BasePage {
         return Clickable.getElementBy(settingsSubTab, "Settings Sub Tab");
     }
     public Editable getMaximumBillAmountField() {
+        return Editable.getElementBy(maxBillAmountTbx);
+    }
+    public Editable getMinimumBillAmtValue() {
+        return Editable.getElementBy(maxBillAmountTbx);
+    }
+    public Editable getMaximumBillAmtValue() {
+        return Editable.getElementBy(maxBillAmountTbx);
+    }
+    public Editable getDefaultBillAmtValue() {
         return Editable.getElementBy(maxBillAmountTbx);
     }
     public Clickable getTipGrauityToggleButton() {
@@ -536,14 +264,29 @@ public class MyStorePage extends BasePage {
     public Editable getTipConfigPopUpTitle(){
         return Editable.getElementBy(tipConfgPopUpTitle);
     }
-    public Editable getTipAmountField1() {
+    public Editable getDefaultTipAmtValue() {
         return Editable.getElementBy(tipPercentField1);
     }
-    public Editable getTipAmountField2() {
+    public Editable getMaxTipAmtValue() {
+        return Editable.getElementBy(tipPercentField1);
+    }
+    public Editable getTipAmountPerCentField1() {
+        return Editable.getElementBy(tipPercentField1);
+    }
+    public Editable getTipAmountPerCentField2() {
         return Editable.getElementBy(tipPercentField2);
     }
-    public Editable getTipAmountField3() {
+    public Editable getTipAmountPerCentField3() {
         return Editable.getElementBy(tipPercentField3);
+    }
+    public Editable getTipAmountFlatValueField1() {
+        return Editable.getElementBy(tipFlatValueField1);
+    }
+    public Editable getTipAmountFlatValueField2() {
+        return Editable.getElementBy(tipFlatValueField2);
+    }
+    public Editable getTipAmountFlatValueField3() {
+        return Editable.getElementBy(tipFlatValueField3);
     }
     public Clickable getSaveChangesButton() {
         return Clickable.getElementBy(saveChangesBtn, "Save Changes Button");
@@ -557,7 +300,19 @@ public class MyStorePage extends BasePage {
     public Clickable getRewardPointToggleButton() {
         return Clickable.getElementBy(rewardPointToggleBtn, "Reward Point Toggle Button");
     }
+    public Clickable getEnterInPerCentToggleButton(){
+        return Clickable.getElementBy(enterInPercentToggleBtn);
+    }
     public Editable getRewardPointsField() {
+        return Editable.getElementBy(rewardPointsField);
+    }
+    public Clickable getEarnRewardsPointsToggleButton(){
+        return Clickable.getElementBy(earnRewardsToggleBtn);
+    }
+    public Editable getMinRewardPointsValue() {
+        return Editable.getElementBy(rewardPointsField);
+    }
+    public Editable getMaxRewardPointsValue() {
         return Editable.getElementBy(rewardPointsField);
     }
     public Clickable getCheckButton() {
@@ -569,16 +324,23 @@ public class MyStorePage extends BasePage {
     public Editable getRewardPointsValueField() {
         return Editable.getElementBy(rewardPtsValue);
     }
-    public String getMaxRewardPointsFieldValue() {
-        return getAttributevalue(rewardPtsValue,"max");
+    public Editable getMaxRewardPointsFieldValue() {
+        return Editable.getElementBy(rewardPtsValue);
     }
-    public String getMinRewardPointsFieldValue() {
-        return getAttributevalue(rewardPtsValue,"min");
+    public Editable getMinRewardPointsFieldValue() {
+        return Editable.getElementBy(rewardPtsValue);
     }
     public Editable getWebsiteURLField(){
         return Editable.getElementBy(websiteURLField);
     }
-    public Clickable getEarnRewardsPointsToggleButton() {
-        return Clickable.getElementBy(earnRewardsToggleBtn,"Earn Rewards Toggle Button");
+    public Clickable getPaymentProcessingSubTab() {
+        return Clickable.getElementBy(paymentProcessingSubTab,"Payment Processing Sub Tab");
     }
+    public Clickable getAcceptVenmoToggleButton() {
+        return Clickable.getElementBy(acceptVenmoToggleBtn,"Earn Rewards Toggle Button");
+    }
+    public Clickable getAcceptZelleToggleButton() {
+        return Clickable.getElementBy(earnRewardsToggleBtn, "Earn Rewards Toggle Button");
+    }
+
 }
