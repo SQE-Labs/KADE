@@ -218,13 +218,9 @@ public class PaymentsAndRefundTest extends KadeSession {
         String amt = "2,999.00";
         BillsPage billsDetail = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
         session.getBillPage().createBill(billsDetail);
-        Thread.sleep(3000);
-        session.getBillPage().getcloseLogoPopupBtn();
-        Thread.sleep(2000);
+        session.getBillPage().getcloseLogoPopupBtn().clickIfExist(true, 2);
         session.getBillPage().getcloseLogoPopupBtn().clickIfExist();
-
         session.getBillPage().getUnpaidBillButton().click();
-
         session.getBillPage().getProcessPaymentButton().click();
         Thread.sleep(3000);
         // Verify popup title and elements of Receive Payment popup

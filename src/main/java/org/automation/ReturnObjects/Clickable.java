@@ -29,17 +29,38 @@ public class Clickable extends ActionEngine {
     }
 
 
-    public void clickIfExist() {
-        if (isElementPresent_custom(target, label)) {
-            performClickOperation(() -> clickBy(target, label));
+    public void clickIfExist(Boolean untillDispaeared, int numberOfRetry) {
+        if (!untillDispaeared) {
+            do {
+                if (isElementPresent_custom(target, label)) {
+                    performClickOperation(() -> clickBy(target, label));
+                    numberOfRetry--;
+                }
+            }
+            while (numberOfRetry > 0);
+        } else {
+            do {
+                if (isElementPresent_custom(target, label)) {
+                    performClickOperation(() -> clickBy(target, label));
+                }
+                if (!isElementPresent_custom(target, label)) {
+                    break;
+                }
+                numberOfRetry--;
+            } while (numberOfRetry > 0);
         }
+
     }
 
-    public Boolean isDisplayed(){
+    public void clickIfExist() {
+        clickIfExist(false, 0);
+    }
+
+    public Boolean isDisplayed() {
         return isElementPresent(target, label);
     }
 
-    public String getAttribute(String nameOfAttribute){
+    public String getAttribute(String nameOfAttribute) {
         return getAttribute(target, nameOfAttribute);
     }
 
