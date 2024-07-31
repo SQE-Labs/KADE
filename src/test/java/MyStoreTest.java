@@ -202,12 +202,13 @@ public class MyStoreTest extends BaseTest {
 		session.getDashBoardPage().getMyStoresTab().click();
 		MyStorePage myStore= session.getMyStorePage();
 
+		//Click on Configure Button
 		myStore.getConfigureButton().clickbyJS();
 
 		//Click on Settings Sub-Tab
 		myStore.getSettingsSubTab().click();
 
-		//Enter Max Bill Amount
+		//Enter Maximum Bill Amount
 		Assertions.assertEquals(myStore.getMinimumBillAmtValue(),"50.00");
 		Assertions.assertEquals(myStore.getMaximumBillAmtValue(),"50000.00");
 		Assertions.assertEquals(myStore.getDefaultBillAmtValue(),"3000.00");
