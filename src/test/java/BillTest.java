@@ -121,19 +121,19 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(session.getBillPage().getMessagePopupHeader().getText(), "Message");
         Assertions.assertTrue(session.getBillPage().getSelectCustomerButton().isDisplayed());
         Assertions.assertTrue(session.getBillPage().getContinueWithoutButton().isDisplayed());
-        
+
         session.getBillPage().getSelectACustomerButton().click();
 
         //Verify Customer popup
-        Assertions.assertTrue(session.getBillPage().getCustomerPhnNoField().isDisplayed()); 
-        Assertions.assertTrue(session.getBillPage().getEmailField().isDisplayed()); 
-        Assertions.assertTrue(session.getBillPage().getSearchField().isDisplayed()); 
+        Assertions.assertTrue(session.getBillPage().getCustomerPhnNoField().isDisplayed());
+        Assertions.assertTrue(session.getBillPage().getEmailField().isDisplayed());
+        Assertions.assertTrue(session.getBillPage().getSearchField().isDisplayed());
 
 
         //Select Customer
         session.getBillPage().getCustomerPhnNoField().setText("918877070727");
         session.getBillPage().getGoPhoneNumberButton().click();
-        
+
 
         //Click Confirm
         bill.disableTaxToggle();
@@ -298,7 +298,7 @@ public class BillTest extends BaseTest {
 
     }
 
-    @Test(enabled = false, description = "Bill Creation with already configured 'Tax' from store configuration page.")
+    @Test(enabled = true, description = "Bill Creation with already configured 'Tax' from store configuration page.")
     public void tc_07createBillByAttachingPdf() throws AWTException {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();

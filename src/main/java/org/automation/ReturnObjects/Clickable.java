@@ -28,6 +28,10 @@ public class Clickable extends ActionEngine {
         performClickOperation(() -> clickElementByJS(target));
     }
 
+    public String getText() {
+        WebdriverWaits.waitForElementUntilVisible(target, 5);
+        return getElementText(target);
+    }
 
     public void clickIfExist(Boolean untillDispaeared, int numberOfRetry) {
         if (!untillDispaeared) {
