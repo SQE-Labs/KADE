@@ -5,9 +5,9 @@ import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 
-public class Clickable extends ActionEngine{
-    JavascriptExecutor js = (JavascriptExecutor) getDriver();
+public class Clickable extends ActionEngine {
     ActionEngine actionEngine = new ActionEngine();
+    JavascriptExecutor js = (JavascriptExecutor) getDriver();
     private By target = null;
     private String label;
 
