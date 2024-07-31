@@ -30,6 +30,10 @@ public class Editable extends ActionEngine {
         return isElementPresent(target, "");
     }
 
+    public String getAttribute(String nameOfAttribute){
+        return getAttribute(target, nameOfAttribute);
+    }
+
     public static Editable getElementByClassName(String byName, String nameOfElement) {
         return new Editable(By.name(byName), nameOfElement);
     }

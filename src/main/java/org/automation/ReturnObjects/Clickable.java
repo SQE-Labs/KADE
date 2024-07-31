@@ -39,6 +39,10 @@ public class Clickable extends ActionEngine {
         return isElementPresent(target, label);
     }
 
+    public String getAttribute(String nameOfAttribute){
+        return getAttribute(target, nameOfAttribute);
+    }
+
     private void performClickOperation(Runnable action) {
         WebdriverWaits.waitForElementUntilVisible(target, 5);
         WebdriverWaits.waitForElementClickable(target, 5);
