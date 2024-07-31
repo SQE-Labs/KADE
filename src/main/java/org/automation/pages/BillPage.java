@@ -193,7 +193,7 @@ public class BillPage extends BasePage {
         return Editable.getElementBy(amtInput);
     }
 
-    public Clickable getcloseLogoPopupBtn(){
+    public Clickable getCloseLogoPopupBtn(){
         return getElementBy(closeLogoPopupBtn);
     }
 
@@ -384,6 +384,10 @@ public class BillPage extends BasePage {
     public void clickOnNewBill() {
         WebdriverWaits.waitForElementClickable(newBillBtn, 5);
         click(newBillBtn);
+    }
+
+    public Clickable getNewBillButton(){
+        return Clickable.getElementBy(newBillBtn,"New Bill Button");
     }
 
     public String getToastMessage() {

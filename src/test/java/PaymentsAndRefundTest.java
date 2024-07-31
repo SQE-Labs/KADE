@@ -34,8 +34,8 @@ public class PaymentsAndRefundTest extends KadeSession {
         BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
         session.getDashBoardPage().getBillButton().click();
         session.getBillPage().createBill(bills);
-        WebdriverWaits.sleep(5000);
-        session.getBillPage().getcloseLogoPopupBtn().clickIfExist();
+//        WebdriverWaits.sleep(5000);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist();
 
         //Click on the bill created
         session.getBillPage().getUnpaidBillButton().click();
@@ -103,7 +103,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getDashBoardPage().getBillButton().click();
         session.getBillPage().createBill(billsDetails);
         WebdriverWaits.sleep(5000);
-        session.getBillPage().getcloseLogoPopupBtn().clickIfExist();
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist();
         //Open Bill Details popup
         session.getBillPage().getUnpaidBillButton().click();
 
@@ -150,7 +150,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().createBill(defaultBill);
         WebdriverWaits.sleep(5000);
 
-        session.getBillPage().getcloseLogoPopupBtn().click();
+        session.getBillPage().getCloseLogoPopupBtn().click();
         session.getBillPage().getUnpaidBillButton().click();
         session.getBillPage().getProcessPaymentButton().click();
 
@@ -186,7 +186,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().createBill(defaultBill);
         WebdriverWaits.sleep(5000);
 
-        session.getBillPage().getcloseLogoPopupBtn().click();
+        session.getBillPage().getCloseLogoPopupBtn().click();
 
         session.getBillPage().getUnpaidBillButton().click();
         session.getBillPage().getProcessPaymentButton().click();
@@ -223,7 +223,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().createBill(billsDetail);
         WebdriverWaits.sleep(5000);
 
-        session.getBillPage().getcloseLogoPopupBtn().clickIfExist();
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist();
         session.getBillPage().getUnpaidBillButton().click();
         session.getBillPage().getProcessPaymentButton().click();
 
