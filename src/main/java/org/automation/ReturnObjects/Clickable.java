@@ -29,28 +29,48 @@ public class Clickable extends ActionEngine {
     }
 
 
-    public void clickIfExist() {
-        if (isElementPresent_custom(target, label)) {
-            performClickOperation(() -> clickBy(target, label));
+    public void clickIfExist(Boolean untillDispaeared, int numberOfRetry) {
+        if (!untillDispaeared) {
+            do {
+                if (isElementPresent_custom(target, label)) {
+                    performClickOperation(() -> clickBy(target, label));
+                    numberOfRetry--;
+                }
+            }
+            while (numberOfRetry > 0);
+        } else {
+            do {
+                if (isElementPresent_custom(target, label)) {
+                    performClickOperation(() -> clickBy(target, label));
+                }
+                if (!isElementPresent_custom(target, label)) {
+                    break;
+                }
+                numberOfRetry--;
+            } while (numberOfRetry > 0);
         }
+
     }
 
-    public Boolean isDisplayed(){
+    public void clickIfExist() {
+        clickIfExist(false, 0);
+    }
+
+    public Boolean isDisplayed() {
         return isElementPresent(target, label);
+    }
+
+    public String getAttribute(String nameOfAttribute) {
+        return getAttribute(target, nameOfAttribute);
     }
 
     public boolean isEnabled(){
         return isElementEnabled(target);
     }
 
-    public String getText() {
-        WebdriverWaits.waitForElementUntilVisible(target, 5);
-        return getElementText(target);
-    }
-
     private void performClickOperation(Runnable action) {
-        WebdriverWaits.waitForElementUntilVisible(target, 10);
-        WebdriverWaits.waitForElementClickable(target, 10);
+        WebdriverWaits.waitForElementUntilVisible(target, 5);
+        WebdriverWaits.waitForElementClickable(target, 5);
         js.executeScript("arguments[0].scrollIntoView(true);", getDriver().findElement(target));
         action.run();
     }

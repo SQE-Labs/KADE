@@ -220,6 +220,7 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist();
         session.getBillPage().getUnpaidBillButton().click();
+
         session.getBillPage().getProcessPaymentButton().click();
 
         // Verify popup title and elements of Receive Payment popup

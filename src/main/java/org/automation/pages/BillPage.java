@@ -101,7 +101,8 @@ public class BillPage extends BasePage {
     By storesCombobox = By.xpath("//span[@role='combobox']");
     By continueBtn = By.xpath("//button[@type='submit']");
     By messagePopupHeader = By.xpath("//*[@role='dialog'] //h5[text()='Message']");
-    By closeLogoPopupBtn = By.xpath("//div[@class='modal-sm modal-dialog']//button");
+    By closeLogoPopupBtn = By.xpath("//div[@class='modal fade show' and not(@data-bs-keyboard='false')]" +
+            "//child::button");
     By totalAmt = By.xpath("//span[@data-field='total']");
     By tapToAddFiles = By.cssSelector(".flex-column-reverse > div:nth-child(3)");
     By cameraIcon = By.xpath("(//button[contains(@onclick,'image')])[2]");
