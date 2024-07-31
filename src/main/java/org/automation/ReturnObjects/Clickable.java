@@ -39,9 +39,18 @@ public class Clickable extends ActionEngine {
         return isElementPresent(target, label);
     }
 
-    private void performClickOperation(Runnable action) {
+    public boolean isEnabled(){
+        return isElementEnabled(target);
+    }
+
+    public String getText() {
         WebdriverWaits.waitForElementUntilVisible(target, 5);
-        WebdriverWaits.waitForElementClickable(target, 5);
+        return getElementText(target);
+    }
+
+    private void performClickOperation(Runnable action) {
+        WebdriverWaits.waitForElementUntilVisible(target, 10);
+        WebdriverWaits.waitForElementClickable(target, 10);
         js.executeScript("arguments[0].scrollIntoView(true);", getDriver().findElement(target));
         action.run();
     }

@@ -47,7 +47,6 @@ public class PaymentsPage extends BasePage {
     By cashPaymentType = By.xpath("//span[text()='Cash']/../../..");
     By memoTextbox=By.xpath("//textarea[@name='message']");
     By receivingAmtPaymentTypePanel = By.xpath("//span[@data-field='amount']");
-    KadeSession session;
 
     public PaymentsPage(){
     }
