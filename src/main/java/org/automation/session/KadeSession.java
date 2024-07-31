@@ -30,6 +30,8 @@ public class KadeSession extends BaseTest {
         return new MyStorePage();
     }
 
+    public TransactionsPage getTransactionsPage(){return  new TransactionsPage();}
+
 
 
 }

@@ -64,6 +64,10 @@ public class Clickable extends ActionEngine {
         return getAttribute(target, nameOfAttribute);
     }
 
+    public boolean isEnabled(){
+        return isElementEnabled(target);
+    }
+
     private void performClickOperation(Runnable action) {
         WebdriverWaits.waitForElementUntilVisible(target, 5);
         WebdriverWaits.waitForElementClickable(target, 5);
