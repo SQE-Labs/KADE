@@ -17,11 +17,6 @@ public class PaymentsAndRefundTest extends KadeSession {
     PaymentsPage payments = new PaymentsPage();
     TransactionsPage transactions= new TransactionsPage();
 
-//    @BeforeMethod
-    public void loginApplication() {
-        login.performSignIn(PropertiesUtil.getPropertyValue("userName"), PropertiesUtil.getPropertyValue("password"));
-    }
-
     @AfterMethod
     public void logout() {
         dashboard.signOut();
