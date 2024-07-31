@@ -101,7 +101,8 @@ public class BillPage extends BasePage {
     By storesCombobox = By.xpath("//span[@role='combobox']");
     By continueBtn = By.xpath("//button[@type='submit']");
     By messagePopupHeader = By.xpath("//*[@role='dialog'] //h5[text()='Message']");
-    By closeLogoPopupBtn = By.xpath("//div[@class='modal-sm modal-dialog']//button");
+    By closeLogoPopupBtn = By.xpath("//div[@class='modal fade show' and not(@data-bs-keyboard='false')]" +
+            "//child::button");
     By totalAmt = By.xpath("//span[@data-field='total']");
     By tapToAddFiles = By.cssSelector(".flex-column-reverse > div:nth-child(3)");
     By cameraIcon = By.xpath("(//button[contains(@onclick,'image')])[2]");
@@ -114,8 +115,8 @@ public class BillPage extends BasePage {
     By moreOptions = By.cssSelector(".mb-3.border.p-2.py-3.rounded-3.advanced-d-none.position-relative");
     By referenceNo = By.xpath("(//div[@class='border p-2 py-3 mb-2 rounded-3  d-none advanced-d-block'])[1]");
     public By refNoField = By.xpath("(//input[@lbl-title='Reference No.'])[2]");
-    By description = By.xpath("(//div[@class='border p-2 py-3 mb-2 rounded-3  d-none advanced-d-block'])[2]");
-    public By descriptionField = By.xpath("(//textarea[@lbl-title='Description'])[2]");
+    By description = By.xpath("//textarea[@name='amount_description']");
+    public By descriptionField = By.xpath("//textarea[@name='amount_description']");
     By doneLink = By.xpath("(//button[@class='btn btn-link w-100 my-3'])[5]");
     By itemsDesc1 = By.xpath("(//textarea[@name='detail_description'])[2]");
     By itemsDesc2 = By.xpath("(//textarea[@name='detail_description'])[3]");
@@ -193,7 +194,7 @@ public class BillPage extends BasePage {
         return Editable.getElementBy(amtInput);
     }
 
-    public Clickable getcloseLogoPopupBtn(){
+    public Clickable getCloseLogoPopupBtn(){
         return getElementBy(closeLogoPopupBtn);
     }
 
@@ -202,106 +203,13 @@ public class BillPage extends BasePage {
         return getText_custom(popUpHeader);
     }
 
-    public void enterSubTotalAmount(int i) {
-        WebdriverWaits.waitForElementUntilVisible(subTotalBox, 5);
-        sendKeysUsingJavaScript(subTotalBox, "document.getElementsByName('subTotal')[0].value=" + i);
-    }
-
-    public void enterPhoneNumber(String number) {
-        sendKeys(customerNumber, number);
-    }
-
-    public void clickOnCreate() {
-        click(createBtn);
-    }
-
-    public void clickOnAddBillDetail() {
-        click(addBillDetails);
-    }
-
-    public boolean billDetailsHeader() {
-        return isElementPresent(addBillDescription, "Add Bill Details description");
-    }
-
-    public void clickOnAddMoreRow() {
-        click(addMoreRowLink);
-    }
-
-    public void moveToSubTotal() {
-        moveToWebElement(subTotalBox);
-
-    }
-
-    public String getToolTipMessage() {
-        return getText_custom(toolTipMessage);
-    }
-
-    public void switchOffAutoGenToggle() {
-        if (getAttribute(autoGenClass, "class").equalsIgnoreCase("mb-2 link-check checked")) {
-            WebdriverWaits.waitForElementClickable(autoGenToggleBtn, 5);
-            click(autoGenToggleBtn);
-        }
-    }
-
-    public void switchOnAutoGenToggle() {
-        if (!getAttribute(autoGenClass, "class").equalsIgnoreCase("mb-2 link-check checked")) {
-            WebdriverWaits.waitForElementClickable(autoGenToggleBtn, 5);
-            click(autoGenToggleBtn);
-        }
-    }
-
-    public boolean isReferenceNoTextboxPresent() {
-        return isElementPresent(refNoTextBox, "Reference No Text Box");
-    }
-
-
-    public void CloseBillPopup() {
-        click(closeBillBtn);
-    }
-
-    public void switchOnMoreToggleBtn() {
-        By moreClass = By.xpath("(//div[@class='d-flex align-items-center'])[2]/../..");
-        if (getAttribute(moreClass, "class").equalsIgnoreCase("mb-2 link-check checked"))
-            click(moreToggleBtn);
-    }
-
-    public void switchOffMoreToggleBtn() {
-        By moreClass = By.xpath("(//div[@class='d-flex align-items-center'])[2]/../..");
-        if (!getAttribute(moreClass, "class").equalsIgnoreCase("mb-2 link-check checked"))
-            click(moreToggleBtn);
-    }
-
-    public boolean isCustNamePresent() {
-        return isElementPresent(custName, "Customer Name");
-    }
-
-    public boolean isMemoPresent() {
-        return isElementPresent(memoTextField, "Memo");
-    }
-
-    public boolean isRefNoTextFieldPresent() {
-        return isElementPresent(refNoTextBox, "Ref No textbox");
-    }
-
-    public boolean isDescriptionDisplayed() {
-        return isWebElementVisible(addBillDescription);
-    }
-
-    public boolean isPricePresent() {
-        return isElementEnabled(addBillPrice);
-    }
-
-    public void enterCustomerEmail(String string) {
-        sendKeys(emailTbx, string);
+    public Editable getPopupTitle(){
+        return Editable.getElementBy(popUpHeader,"Popup Header");
     }
 
     public void enterCustomerPhnNo(String phnNo) {
         click(phoneNoTbx);
         pressKeys(phoneNoTbx, phnNo);
-    }
-
-    public void enterMemo(String string) {
-        sendKeys(memoTextField, string);
     }
 
     public void enterCustomerName(String string) {
@@ -333,77 +241,18 @@ public class BillPage extends BasePage {
         clickOnConfirm();
     }
 
-    public String getToolTipMessagePhoneNumber() {
-        return getToolTipMessage(phoneNoTbx);
-    }
-
-    public String getToolTipMessageEmail() {
-        return getToolTipMessage(emailTbx);
-    }
-
-    public void enterBillDetailValue1(String description, int price) {
-        sendKeys(description1, description);
-        sendKeysUsingJavaScript(price1, "document.getElementsByName('items[0].price')[0].value=" + price);
-    }
-
-    public void enterBillDetailValue2(String description, int price) {
-        sendKeys(description2, description);
-        sendKeysUsingJavaScript(price1, "document.getElementsByName('items[1].price')[0].value=" + price);
-    }
-
-    public Object getSubTotalValue() {
-        return getText_custom(subTotalBox);
-    }
-
-    public boolean isAleartMessageDisplayed() {
-        return isElementPresent(alertMessage, "Alert Message Section");
-    }
-
-    public boolean isFilterBtnPresent() {
-        return isElementPresent(filterBtn, "Filter Button");
-    }
-
     public void clickOnTransactions() {
         click(transactionsLink);
     }
 
-    public String getPageHeader() {
-        return getText_custom(pageHeader);
-    }
-
-    public void closeBtn() {
-        click(closeIcon);
-    }
-
-    public String getpPaidBillAmount() {
-        scrollToElement(paidBill1);
-        WebdriverWaits.waitForElementUntilVisible(paidBill1, 5);
-        return getText_custom(paidBill1).replace("$", "");
-    }
 
     public void clickOnNewBill() {
         WebdriverWaits.waitForElementClickable(newBillBtn, 5);
         click(newBillBtn);
     }
 
-    public String getToastMessage() {
-        return getText_custom(toastMessage);
-    }
-
     public void clickOnFilter() {
         click(filterBtn);
-    }
-
-    public boolean isDateFieldPresent() {
-        return isElementPresent(fromDatePicker, "From Date Picker");
-    }
-
-    public boolean isCustomerNamePresent() {
-        return isElementPresent(customerName, "Customer Name Textbox");
-    }
-
-    public boolean isUserPhoneFieldPresent() {
-        return isElementPresent(UserPhoneField, "User Phone Field");
     }
 
     public boolean isEmailFieldPresent() {
@@ -416,161 +265,12 @@ public class BillPage extends BasePage {
         click(applyBtn);
     }
 
-    public String getCustomerPhoneNumber() {
-        return getText_custom(customerNumberResult);
-    }
-
-    public void enterUserNumber(String string) {
-        sendKeys(userNumber, string);
-    }
-
-    public String getFirstRefNoBillDisplayed() {
-        return getText_custom(refNo);
-    }
-
-    public void closeToastBtn() {
-        WebdriverWaits.waitForElementClickable(toastCloseBtn, 5);
-        click(toastCloseBtn);
-    }
-
-    public void clickOnRefund() {
-        click(refundBtn);
-    }
-
-    public void enterReason(String string) {
-        sendKeys(reasonField, string);
-    }
-
-    public void clickOnProcessFullRefund() {
-        click(processFullRefund);
-    }
-
-    public String getRefundHeader() {
-        return getText_custom(refundHeader);
-    }
-
-    public int getCountOfAllBill() {
-        ScrollDownThePageMax();
-        WebdriverWaits.sleep(2000);
-        int count = countWebElements(billGrid);
-        scrollToPageTop(newBillBtn);
-        return count;
-        //return getListOfWebElements(billGrid).stream().allMatch(a->a.isDisplayed());
-    }
-
-//	public void enterCustomerName(String string) {
-//		sendKeys_withClear(customerName, string);
-//	}
-
     public boolean isTransactionDisplayed() {
         return isElementPresent(transactionsLink, "Transactions Link");
     }
 
-
-    public long countOfUserPhonePresent(String string) {
-        ScrollDownThePageMax();
-        By userPhoneOnBill = By.xpath("//p[text()='" + string + "']");
-        long count = getAllMatchingCount(userPhoneOnBill, string);
-        scrollToPageTop(newBillBtn);
-        return count;
-    }
-
-    public void enterUserEmail(String string) {
-        sendKeys(UserEmailField, string);
-    }
-
-    public long countOfUserEmailPresent(String string) {
-        ScrollDownThePageMax();
-        By userEmailOnBill = By.xpath("//p[text()='" + string + "']");
-        scrollToPageTop(newBillBtn);
-        long count = getAllMatchingCount(userEmailOnBill, string);
-        return count;
-    }
-
-    public void enterFrom(String fromDate, String toDate) {
-        String date = fromDate + " - " + toDate;
-        sendKeys(fromDatePicker, date);
-        getDriver().findElement(fromDatePicker).sendKeys(Keys.ENTER);
-    }
-
-    public String getInfoMessage() {
-        return getText_custom(infoMessage);
-    }
-
-    public String getEmailToolTiptMessage() {
-        WebdriverWaits.sleep(500);
-        return getToolTipMessage(UserEmailField);
-    }
-
-    public void clickOnBill() {
-        click(billGrid);
-    }
-
-    public boolean isBillViewPopUpHeaderPresent() {
-        return isElementPresent(billViewPopupTitleHeader, "Bill View Popup Title Header");
-    }
-
-    public boolean isRefNoPresent(String refNo2) {
-        By refNo = By.xpath("//p[text()='" + refNo2 + "']");
-        return isElementPresent(refNo, "Ref No.");
-    }
-
-    public void clickOnFirstPaidBills() {
-        clickOnFilter();
-        enterCustomerName("Ana");
-        clickOnApply();
-        click(bill);
-
-    }
-
-    public String getToolTipMemo() {
-        WebdriverWaits.waitForElementUntilVisible(memoNote, 5);
-        return getToolTipMessage(memoNote);
-    }
-
-    public String getToolTipUserPhone() {
-        WebdriverWaits.sleep(2000);
-        return getToolTipMessage(UserPhoneField);
-    }
-
-    public long countOfPartialCustName(String string) {
-        return getAllMatchingCount(name, string);
-    }
-
-    public boolean verifyRecordsDateRange(List<String> billDate, String fromDate, String toDate) {
-        for (String s : billDate) {
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("M/d/yyyy");
-            LocalDate actualDate = LocalDate.parse(s, formatter);
-            LocalDate fromdate = LocalDate.parse(fromDate, formatter);
-            LocalDate todate = LocalDate.parse(toDate, formatter);
-            if (!actualDate.isBefore(fromdate) && !actualDate.isAfter(todate)) {
-                continue;
-            } else
-                return false;
-        }
-        return true;
-
-    }
-
-    public List<String> getDateOfBill() {
-        By billDate = By.xpath("//tr[@class='none-workingEffect']/td[2]/p[2]");
-        List<WebElement> allDates = getListOfWebElements(billDate);
-        List<String> date = allDates.stream().map(str -> str.getText().split(" ")[0]).collect(Collectors.toList());
-        return date;
-    }
-
-    public boolean checkFieldContains(String string) {
-        List<String> custList = getListOfString(customerNames).stream().map(m -> m.toLowerCase()).collect(Collectors.toList());
-        String str = string.toLowerCase();
-        return custList.stream().allMatch(a -> a.contains(str));
-    }
-
     public boolean isNewBillBtnDisplayed() {
         return isWebElementVisible(newBillBtn);
-    }
-
-    public boolean isTransactionLinkDisplayed() {
-        return isWebElementVisible(transactionsLink);
     }
 
     public boolean isAmountTbxDisplayed() {
@@ -592,46 +292,20 @@ public class BillPage extends BasePage {
         click(amtInput);
     }
 
-    public void getAmtValue() {
-
-    }
-
-    public String getSelectedCustomer() {
-        return getText_custom(selectedCustomer);
-    }
-
     public void clickCustomer() {
         click(customerBtn);
+    }
+
+    public Clickable getCustomerButton(){
+        return getElementBy(customerBtn,"Customer Button");
     }
 
     public String getCustomerHeader() {
         return getText_custom(customerHeader);
     }
 
-    public void closeCustomerPopup() {
-        click(closeCustomerBtn);
-    }
-
     public void clickOnGoBtnPhoneNo() {
         click(goBtnPhnNo);
-    }
-
-    public void clickOnGoBtnEmail() {
-        click(goBtnEmail);
-    }
-
-    public void searchCustomer(String customer) {
-        WebdriverWaits.fluentWait_ElementIntactable(5, 500, searchTbx);
-        click(searchTbx);
-        sendKeys_withClear(searchTbx, customer);
-    }
-
-    public String getSearchedCustomer() {
-        return getText_custom(searcherName);
-    }
-
-    public void clickDiscardBtn() {
-        click(discardBtn);
     }
 
     public boolean isConfirmBtnEnabled() {
@@ -661,8 +335,8 @@ public class BillPage extends BasePage {
         click(continueBtn);
     }
 
-    public String getMessagePopupHeader() {
-        return getText_custom(messagePopupHeader);
+    public Editable getMessagePopupHeader() {
+        return Editable.getElementBy(messagePopupHeader,"Message popup");
     }
 
     public boolean isSelectACustomerBtnVisible() {
@@ -675,6 +349,10 @@ public class BillPage extends BasePage {
 
     public boolean isToastMessageDisplayed() {
         return isWebElementVisible(toastMessage);
+    }
+
+    public Clickable getToastMessage(){
+       return Clickable.getElementBy(toastMessage);
     }
 
     public boolean isNotPaidLabelDisplayed(String amt) {
@@ -709,6 +387,10 @@ public class BillPage extends BasePage {
         WebdriverWaits.waitForElementClickable(selectACustomerBtn, 5);
         moveToWebElement(selectACustomerBtn);
         click(selectACustomerBtn);
+    }
+
+    public Clickable getSelectACustomerButton(){
+        return Clickable.getElementBy(selectACustomerBtn,"Select Customer Button");
     }
 
     public boolean isSearchFieldPresent() {
@@ -1243,5 +925,65 @@ public class BillPage extends BasePage {
 
     public Clickable getProcessPaymentButton() {
         return getElementBy(processPaymentBtn);
+    }
+
+    public Clickable getTransactionLink() {
+        return Clickable.getElementBy(transactionsLink,"Transaction link ");
+    }
+
+    public Clickable getContinueButton() {
+        return Clickable.getElementBy(continueBtn,"Continue Button");
+    }
+
+    public Clickable getNewBillButton() {
+        return Clickable.getElementBy(newBillBtn,"New Bill Button");
+    }
+
+    public Editable getAmountTextbox() {
+        return Editable.getElementBy(amtTbx,"Amount Textbox");
+    }
+
+    public Clickable getDescriptionTextbox(){
+        return Clickable.getElementBy(descriptionField);
+    }
+
+    public Clickable getCustomerField() {
+        return Clickable.getElementBy(customerField,"Customer Field");
+    }
+
+    public Clickable getMoreOption() {
+        return Clickable.getElementBy(moreOptions,"More Options");
+    }
+
+    public Clickable getConfirmButton() {
+        return Clickable.getElementBy(confirmBtn,"Confirm Button");
+    }
+
+    public Clickable getSelectCustomerButton() {
+        return Clickable.getElementBy(selectedCustomer,"Select Customer Button");
+    }
+
+    public Clickable getContinueWithoutButton(){
+        return Clickable.getElementBy(continueWithoutBtn,"Continue Without Button");
+    }
+
+    public Editable getCustomerPhnNoField() {
+        return Editable.getElementBy(customerNumber,"Customer Number Field");
+    }
+
+    public Editable getEmailField() {
+        return Editable.getElementBy(emailTbx,"Customer Email field");
+    }
+
+    public Editable getSearchField() {
+        return Editable.getElementBy(searchTbx,"Search Textbox");
+    }
+
+    public Clickable getGoPhoneNumberButton() {
+       return Clickable.getElementBy(goBtnPhnNo,"Go button for Phn No.");
+    }
+
+    public Clickable getSuggestedCustomer() {
+        return Clickable.getElementBy(suggestionList,"Suggested Customer");
     }
 }
