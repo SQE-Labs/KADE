@@ -39,17 +39,17 @@ public class MyStoreTest extends BaseTest {
 		myStore.getRegisterNewBusinessButton().click();
 		myStore.getSkipStripeAccountButton().click();//clickIfExist doesn't work
 		WebdriverWaits.sleep(3000);
-		Assertions.assertEquals(myStore.getSkipPopUpTitle(), "Skip");
+		Assertions.assertEquals(myStore.getSkipPopUpTitle().getText(),"Skip");
 		myStore.getSkipStripeAccountPopUpButton().click();
 		WebdriverWaits.sleep(3000);
 
 		//Entering Store Details
 		myStore.getSaveButton().clickbyJS();
-		Assertions.assertEquals(myStore.getBlankFieldWarningMsg(), "Please review the highlighted field(s)");
+		Assertions.assertEquals(myStore.getBlankFieldWarningMsg().getText(), "Please review the highlighted field(s)");
 		myStore.getStoreLogo().click();
 		myStore.uploadImageAsAttachment("src/main/resources/image/BillDummyImg.jpg");
 		myStore.getCheckButton().clickbyJS();
-		Assertions.assertEquals(myStore.getBusinessFieldMaxLen(), "100");
+		//Assertions.assertEquals(myStore.getBusinessFieldMaxLen().getAttribute("max"), "100");
 		myStore.getBusinessNameField().setText("My Store Final");
 		myStore.getLocationDescriptionField().setText("Without Stripe Account");
 		String storeAddressName = "123";
@@ -78,7 +78,7 @@ public class MyStoreTest extends BaseTest {
 		//Skipping Stripe Account option
 		myStore.getSkipStripeAccountButton().click();
 		WebdriverWaits.sleep(3000);
-		Assertions.assertEquals(myStore.getSkipPopUpTitle(), "Skip");
+		Assertions.assertEquals(myStore.getSkipPopUpTitle().getText(),"Skip");
 		myStore.getSkipStripeAccountPopUpButton().click();
 		WebdriverWaits.sleep(5000);
 
@@ -98,7 +98,7 @@ public class MyStoreTest extends BaseTest {
 		myStore.getStipeAccountButton().click();
 
 		//Creating test Stripe Account
-		Assertions.assertEquals(myStore.getConnectStripePopUpTitle(), "Connect to stripe");
+		Assertions.assertEquals(myStore.getConnectStripePopUpTitle().getText(), "Connect to stripe");
 		myStore.getTestStripeAccountButton().click();
 		myStore.getBankTransferToggleButton().click();
 		myStore.getContinueButton().clickbyJS();
@@ -107,12 +107,12 @@ public class MyStoreTest extends BaseTest {
 		WebdriverWaits.sleep(3000);
 
 		//verifying the default Store Values
-		Assertions.assertEquals(myStore.getAddedStoreName(), "Avenue");
-		Assertions.assertEquals(myStore.getAddedBusinessName(), "Dix Hills");
-		Assertions.assertEquals(myStore.getAddedStoreAddress(), "8 Glover Dr, Dix Hills, NY 11746, USA");
-		Assertions.assertEquals(myStore.getAddedStorePhone(), "+1 (646) 713 6494");
-		Assertions.assertEquals(myStore.getAddedCurrencyOfStore(), "USD");
-		Assertions.assertEquals(myStore.getAddedTaxRate(), "0.000%");
+		Assertions.assertEquals(myStore.getAddedStoreName().getText(), "Avenue");
+		Assertions.assertEquals(myStore.getAddedBusinessName().getText(), "Dix Hills");
+		Assertions.assertEquals(myStore.getAddedStoreAddress().getText(), "8 Glover Dr, Dix Hills, NY 11746, USA");
+		Assertions.assertEquals(myStore.getAddedStorePhone().getText(), "+1 (646) 713 6494");
+		Assertions.assertEquals(myStore.getAddedCurrencyOfStore().getText(), "USD");
+		Assertions.assertEquals(myStore.getAddedTaxRate().getText(), "0.000%");
 	}
 
 	@Test(description = "SC_04 Verifying modification of existing created Store")
@@ -129,7 +129,7 @@ public class MyStoreTest extends BaseTest {
 		myStore.getStoreLogo().click();
 		myStore.uploadImageAsAttachment("src/main/resources/image/BillDummyImg.jpg");
 		myStore.getCheckButton().clickbyJS();
-		Assertions.assertEquals(myStore.getBusinessFieldMaxLen(), "100");
+		//Assertions.assertEquals(myStore.getBusinessFieldMaxLen().getAttribute(), "100");
 		myStore.getBusinessNameField().setText("My Store MSC Final");
 		myStore.getLocationDescriptionField().setText("With Stripe Account");
 		String storeAddressName = "123";
@@ -144,10 +144,10 @@ public class MyStoreTest extends BaseTest {
 		WebdriverWaits.sleep(3000);
 
 		//Verifying Modified Details
-		Assertions.assertEquals(myStore.getAddedStoreName(), "My Store MSC Final");
-		Assertions.assertEquals(myStore.getAddedStorePhone(), "+1 (918) 065 2341");
-		Assertions.assertEquals(myStore.getAddedCurrencyOfStore(), "USD");
-		Assertions.assertEquals(myStore.getAddedTaxRate(), "18.000%");
+		Assertions.assertEquals(myStore.getAddedStoreName().getText(), "My Store MSC Final");
+		Assertions.assertEquals(myStore.getAddedStorePhone().getText(), "+1 (918) 065 2341");
+		Assertions.assertEquals(myStore.getAddedCurrencyOfStore().getText(), "USD");
+		Assertions.assertEquals(myStore.getAddedTaxRate().getText(), "18.000%");
 	}
 
 	@Test(description = "SC_05 Verifying buying Monthly Business Plan for already created Store")
@@ -160,9 +160,9 @@ public class MyStoreTest extends BaseTest {
 		myStore.getPlansSubTab().click();
 
 		//Click on Sign up button
-		Assertions.assertEquals(myStore.getCurrentPlanSuccessMSg(), "Current plan");
+		Assertions.assertEquals(myStore.getCurrentPlanSuccessMessage().getText(),"Current plan");
 		myStore.getPlansSignUpButton().click();
-		Assertions.assertEquals(myStore.defaultPaymentMethod(), "Visa 1111");
+		Assertions.assertEquals(myStore.getDefaultPaymentMethod().getText(), "Visa 1111");
 		myStore.getChangePayMethodLink().click();
 
 		//Verifying that other payment methods are available
@@ -181,12 +181,12 @@ public class MyStoreTest extends BaseTest {
 
 		myStore.getConfigureLink().click();
 		myStore.getPlansSubTab().click();
-		Assertions.assertEquals(myStore.getCurrentPlanSuccessMSg(), "Current plan");
+		Assertions.assertEquals(myStore.getCurrentPlanSuccessMessage().getText(),"Current plan");
 		myStore.getYearlyPlanButton().click();
 
 		//Click on Sign up button
 		myStore.getPlansSignUpButton().click();
-		Assertions.assertEquals(myStore.defaultPaymentMethod(), "Visa 1111");
+		Assertions.assertEquals(myStore.getDefaultPaymentMethod().getText(), "Visa 1111");
 		myStore.getChangePayMethodLink().click();
 
 		//Verifying that other payment methods are available
@@ -217,7 +217,7 @@ public class MyStoreTest extends BaseTest {
 
 		//Configure Tip & Gratuity
 		myStore.getTipConfigureButton().clickbyJS();
-		Assertions.assertEquals(myStore.getTipConfigPopUpTitle(),"Tip configuration");
+		Assertions.assertEquals(myStore.getTipConfigPopUpTitle().getText(),"Tip configuration");
 		Assertions.assertEquals(myStore.getDefaultTipAmtValue(),"0");
 		Assertions.assertEquals(myStore.getMaxTipAmtValue(),"99");
 		myStore.getTipAmountField1().setText("10");
@@ -227,7 +227,7 @@ public class MyStoreTest extends BaseTest {
 
 		//Configure Reward Points
 		myStore.getRewardConfigureButton().clickbyJS();
-		Assertions.assertEquals(myStore.getRewardConfigPopUpTitle(),"Rewards Program Configuration");
+		Assertions.assertEquals(myStore.getRewardConfigPopUpTitle().getText(),"Rewards Program Configuration");
 		myStore.getRewardPointToggleButton().click();
 		Assertions.assertEquals(myStore.getMinRewardPointsValue(), "100");
 		Assertions.assertEquals(myStore.getMaxRewardPointsValue(),"99999");

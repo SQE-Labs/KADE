@@ -86,9 +86,9 @@ public class MyStorePage extends BasePage {
         WebdriverWaits.waitForElementClickable(skipStripeAccountBtn, 5);
         click(skipStripeAccountBtn);
     }
-    public String getSkipPopUpTitle() {
-        return getText_custom(skipPopUpTitle);
-    }
+//    public String getSkipPopUpTitle() {
+//        return getText_custom(skipPopUpTitle);
+//    }
     public void clickSkipStripeAccountPopUpBtn() {
         WebdriverWaits.waitForElementClickable(skipStripeAccountPopUpBtn, 5);
         clickElementByJS(skipStripeAccountPopUpBtn);
@@ -99,9 +99,9 @@ public class MyStorePage extends BasePage {
         clickElementByJS(deleteStoreBtn);
     }
 
-    public String getBlankFieldWarningMsg() {
-        return getText_custom(blankFieldWarningMsg);
-    }
+//    public String getBlankFieldWarningMsg() {
+//        return getText_custom(blankFieldWarningMsg);
+//    }
 
     public void clickDeleteStoreIcon() {
         WebdriverWaits.waitForElementUntilVisible(deleteStoreIcon, 5);
@@ -133,9 +133,9 @@ public class MyStorePage extends BasePage {
         click(locationDescTbx);
     }
 
-    public String getBusinessFieldMaxLen() {
-        return getAttribute(businessNameTbx, "maxlength");
-    }
+//    public String getBusinessFieldMaxLen() {
+//        return getAttribute(businessNameTbx, "maxlength");
+//    }
 
     public void selectStoreAddress(String storeAddressName) {
         WebdriverWaits.waitForElementUntilVisible(storeAddressField, 2);
@@ -190,9 +190,9 @@ public class MyStorePage extends BasePage {
         click(stripeBtn);
     }
 
-    public String getConnectStripePopUpTitle() {
-        return getText_custom(connectStripePopUpTitle);
-    }
+//    public String getConnectStripePopUpTitle() {
+//        return getText_custom(connectStripePopUpTitle);
+//    }
 
     public void clickTestStripeBtn() {
         click(testStripeBtn);
@@ -235,30 +235,30 @@ public class MyStorePage extends BasePage {
         moveToWebElement(modifyBtn);
         click(modifyBtn);
     }
-
-    public String getAddedStoreName() {
-        return getText_custom(addedStoreName);
-    }
-
-    public String getAddedBusinessName() {
-        return getText_custom(addedBusinessName);
-    }
-
-    public String getAddedStoreAddress() {
-        return getText_custom(addedStoreAddress);
-    }
-
-    public String getAddedStorePhone() {
-        return getText_custom(addedStorePhone);
-    }
-
-    public String getAddedCurrencyOfStore() {
-        return getText_custom(addedCurrencyOfStore);
-    }
-
-    public String getAddedTaxRate() {
-        return getText_custom(addedTaxRate);
-    }
+//
+//    public String getAddedStoreName() {
+//        return getText_custom(addedStoreName);
+//    }
+//
+//    public String getAddedBusinessName() {
+//        return getText_custom(addedBusinessName);
+//    }
+//
+//    public String getAddedStoreAddress() {
+//        return getText_custom(addedStoreAddress);
+//    }
+//
+//    public String getAddedStorePhone() {
+//        return getText_custom(addedStorePhone);
+//    }
+//
+//    public String getAddedCurrencyOfStore() {
+//        return getText_custom(addedCurrencyOfStore);
+//    }
+//
+//    public String getAddedTaxRate() {
+//        return getText_custom(addedTaxRate);
+//    }
 
     public void clickPlansSubTab() {
         click(plansSubTab);
@@ -281,13 +281,13 @@ public class MyStorePage extends BasePage {
         click(yearlyBtn);
     }
 
-    public String getCurrentPlanSuccessMSg() {
-        return getText_custom(currentPlanMSg);
-    }
-
-    public String defaultPaymentMethod() {
-        return getText_custom(addedVisaMethod);
-    }
+//    public String getCurrentPlanSuccessMSg() {
+//        return getText_custom(currentPlanMSg);
+//    }
+//
+//    public String defaultPaymentMethod() {
+//        return getText_custom(addedVisaMethod);
+//    }
 
     public void selectVisaMethod() {
         click(defaultVisaMethod);
@@ -345,9 +345,9 @@ public class MyStorePage extends BasePage {
         click(tipConfigureBtn);
     }
 
-    public String getTipConfigPopUpTitle() {
-        return getText_custom(tipConfgPopUpTitle);
-    }
+//    public String getTipConfigPopUpTitle() {
+//        return getText_custom(tipConfgPopUpTitle);
+//    }
 
     public String getDefaultTipAmtValue() {
         return getAttribute(tipPercentField1, "value");
@@ -386,9 +386,9 @@ public class MyStorePage extends BasePage {
         click(rewardConfigureBtn);
     }
 
-    public String getRewardConfigPopUpTitle() {
-        return getText_custom(rewardConfigPopUpTitle);
-    }
+//    public String getRewardConfigPopUpTitle() {
+//        return getText_custom(rewardConfigPopUpTitle);
+//    }
 
     public void enableRewardPointToggleBtn() {
         click(rewardPointToggleBtn);
@@ -408,12 +408,16 @@ public class MyStorePage extends BasePage {
     public String getMaxRewardPointsValue() {
         return getAttribute(rewardPointsField, "max");
     }
+
     //New Methods for click and Enter
     public Clickable getRegisterNewBusinessButton() {
         return Clickable.getElementBy(registerNewBusinessBtn, "Register New Business Button");
     }
     public Clickable getSkipStripeAccountButton() {
         return Clickable.getElementBy(skipStripeAccountBtn, "Skip Stripe Account Button");
+    }
+    public Editable getSkipPopUpTitle(){
+        return Editable.getElementBy(skipPopUpTitle);
     }
     public Clickable getSkipStripeAccountPopUpButton() {
         return Clickable.getElementBy(skipStripeAccountPopUpBtn, "Skip Stripe Account Pop Up Button");
@@ -424,10 +428,16 @@ public class MyStorePage extends BasePage {
     public Clickable getDeleteStoreIcon() {
         return Clickable.getElementBy(deleteStoreIcon, "Delete Store Icon");
     }
+    public Editable getBlankFieldWarningMsg() {
+        return Editable.getElementBy(blankFieldWarningMsg);
+    }
     public Clickable getStoreLogo() {
         return Clickable.getElementBy(storeLogo, "Store Logo");
     }
     public Editable getBusinessNameField() {
+        return Editable.getElementBy(businessNameTbx);
+    }
+    public Editable getBusinessFieldMaxLen() {
         return Editable.getElementBy(businessNameTbx);
     }
     public Editable getLocationDescriptionField() {
@@ -444,6 +454,9 @@ public class MyStorePage extends BasePage {
     }
     public Clickable getStipeAccountButton() {
         return Clickable.getElementBy(stripeBtn, "Stripe Account Button");
+    }
+    public Editable getConnectStripePopUpTitle(){
+        return Editable.getElementBy(connectStripePopUpTitle);
     }
     public Clickable getTestStripeAccountButton() {
         return Clickable.getElementBy(testStripeBtn, "Test Stripe Account Button");
@@ -463,6 +476,24 @@ public class MyStorePage extends BasePage {
     public Clickable getModifyButton() {
         return Clickable.getElementBy(modifyBtn, "Modify Button");
     }
+    public Editable getAddedStoreName() {
+        return Editable.getElementBy(addedStoreName);
+    }
+    public Editable getAddedBusinessName(){
+        return Editable.getElementBy(addedBusinessName);
+    }
+    public Editable getAddedStoreAddress(){
+        return Editable.getElementBy(addedStoreAddress);
+    }
+    public Editable getAddedStorePhone(){
+        return Editable.getElementBy(addedStorePhone);
+    }
+    public Editable getAddedCurrencyOfStore(){
+        return Editable.getElementBy(addedCurrencyOfStore);
+    }
+    public Editable getAddedTaxRate(){
+        return Editable.getElementBy(addedTaxRate);
+    }
     public Clickable getPlansSubTab() {
         return Clickable.getElementBy(plansSubTab, "Plans Sub Tab");
     }
@@ -477,6 +508,12 @@ public class MyStorePage extends BasePage {
     }
     public Clickable getYearlyPlanButton() {
         return Clickable.getElementBy(yearlyBtn, "Yearly Plan Button");
+    }
+    public Editable getCurrentPlanSuccessMessage(){
+        return Editable.getElementBy(currentPlanMSg);
+    }
+    public Editable getDefaultPaymentMethod(){
+        return Editable.getElementBy(addedVisaMethod);
     }
     public Clickable getChangePayMethodLink() {
         return Clickable.getElementBy(changePayMethodBtn, "Change Plan Method Link");
@@ -496,6 +533,9 @@ public class MyStorePage extends BasePage {
     public Clickable getTipConfigureButton() {
         return Clickable.getElementBy(tipConfigureBtn, "Tip Configure Button");
     }
+    public Editable getTipConfigPopUpTitle(){
+        return Editable.getElementBy(tipConfgPopUpTitle);
+    }
     public Editable getTipAmountField1() {
         return Editable.getElementBy(tipPercentField1);
     }
@@ -510,6 +550,9 @@ public class MyStorePage extends BasePage {
     }
     public Clickable getRewardConfigureButton() {
         return Clickable.getElementBy(rewardConfigureBtn, "Reward Configure Button");
+    }
+    public Editable getRewardConfigPopUpTitle(){
+        return Editable.getElementBy(rewardConfigPopUpTitle);
     }
     public Clickable getRewardPointToggleButton() {
         return Clickable.getElementBy(rewardPointToggleBtn, "Reward Point Toggle Button");
