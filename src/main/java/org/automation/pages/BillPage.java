@@ -171,7 +171,7 @@ public class BillPage extends BasePage {
     By customerCancelOption=By.xpath("//span[text()='Customer can cancel at any time']");
     By everyDayField=By.xpath("//input[@class='max-5c form-control']");
     By recurringBillText=By.xpath("//a[@class='btn btn-link']");
-
+    By partialPaidLabel = By.xpath("(//div[contains(@class,'row bg-white ')]//span[text()='PARTIAL'])[1]");
 
    /*
    Locators of Bill popup
@@ -878,21 +878,19 @@ public class BillPage extends BasePage {
         clickElementByJS(processPaymentBtn);
     }
 
-    public String getBillPopupHeader() {
-        WebdriverWaits.waitForElementVisible(billPopupHeader,5);
-        return getText_custom(billPopupHeader);
+    public Clickable getBillPopupHeader() {
+        return Clickable.getElementBy(billPopupHeader,"Bill popup header");
     }
 
-    public boolean isShareBtnDisplayed() {
-        return  isWebElementVisible(shareBtn);
+    public Clickable getShareButton() {
+        return  Clickable.getElementBy(shareBtn,"Share Button");
+    }
+    public Clickable getQrCodeButton() {
+        return  Clickable.getElementBy(qrCodeBtn,"Qr Button");
     }
 
-    public boolean isQrCodeBtnDisplayed() {
-        return isWebElementVisible(qrCodeBtn);
-    }
-
-    public boolean isEditBtnDisplayed() {
-        return isWebElementVisible(editBillBtn);
+    public Clickable getEditButton() {
+        return  Clickable.getElementBy(editBillBtn,"Edit Button");
     }
 
     public boolean isProcessPaymentBtnDisplayed() {
@@ -903,16 +901,31 @@ public class BillPage extends BasePage {
         return isWebElementVisible(deleteBillBtn);
     }
 
+    public Clickable getDeleteButton() {
+        return  Clickable.getElementBy(deleteBillBtn,"Delete Button");
+    }
+
     public boolean isUniqueRefNoDisplayed() {
         return isWebElementVisible(uniqueRefNo);
+    }
+
+    public Clickable getUniqueRefNo() {
+        return  Clickable.getElementBy(uniqueRefNo,"Unique Ref no");
     }
 
     public boolean isBillPopupTimeDisplayed() {
         return isWebElementVisible(billTimeOnPopup);
     }
+    public Clickable getBillPopupTime() {
+        return  Clickable.getElementBy(billTimeOnPopup,"Bill Time");
+    }
 
     public boolean isNotPaidLabelDisplayed(){
         return isWebElementVisible(notPaidLabel);
+    }
+
+    public Clickable getNotPaidLabel(){
+        return Clickable.getElementBy(notPaidLabel,"Not Paid label");
     }
 
     public void clickTransactionsLink() {
@@ -985,5 +998,9 @@ public class BillPage extends BasePage {
 
     public Clickable getSuggestedCustomer() {
         return Clickable.getElementBy(suggestionList,"Suggested Customer");
+    }
+
+    public Clickable getPartialPaidLabel(){
+        return Clickable.getElementBy(partialPaidLabel,"Partial Paid label");
     }
 }
