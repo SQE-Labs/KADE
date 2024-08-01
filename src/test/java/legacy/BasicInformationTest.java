@@ -1,3 +1,5 @@
+package legacy;
+
 import java.awt.AWTException;
 
 import org.automation.base.BaseTest;

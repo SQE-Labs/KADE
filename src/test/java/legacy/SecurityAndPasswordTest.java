@@ -1,3 +1,5 @@
+package legacy;
+
 import org.automation.base.BaseTest;
 import org.automation.pages.BasicInformationPage;
 import org.automation.pages.DashBoardPage;
