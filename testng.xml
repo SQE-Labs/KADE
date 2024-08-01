@@ -4,13 +4,13 @@
 	<test name="Test" thread-count="2" parallel="methods">
 		<classes>
 <!--			<class name="LoginTest"></class>-->
-<!--			<class name="CreateAccountTest"></class>-->
-<!--			<class name="SecurityAndPasswordTest"></class>-->
-<!--			<class name="BasicInformationTest"></class>-->
+<!--			<class name="legacy.CreateAccountTest"></class>-->
+<!--			<class name="legacy.SecurityAndPasswordTest"></class>-->
+<!--			<class name="legacy.BasicInformationTest"></class>-->
 <!--			<class name="MyStoreTest"></class>-->
 <!--			<class name="LoginTest"></class>-->
 			<class name="PaymentsAndRefundTest"></class>
-<!--			<class name="GiftCardDashboardTest"></class>-->
+<!--			<class name="legacy.GiftCardDashboardTest"></class>-->
 		</classes>
 	</test>
 	<listeners>
