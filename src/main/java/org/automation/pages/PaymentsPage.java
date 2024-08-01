@@ -26,6 +26,8 @@ public class PaymentsPage extends BasePage {
     By voidBtn = By.xpath("//button[text()='Void']");
     By paymentLogo = By.xpath("//span[@class='payment-logo-bg me-1']");
     By totalPaidAmt = By.xpath("//h4[contains(text(),'Total paid')]");
+    By voidedTag=By.xpath("//h6[text()='VOIDED']");
+
 
     /*
     Receive Payment popup locators
@@ -69,17 +71,21 @@ public class PaymentsPage extends BasePage {
         return Clickable.getElementBy(othersBtn,"Other button");
     }
 
+    public Editable getAmountTextbox(){
+        return Editable.getElementBy(receiveAmountTbx,"Receiving amount textbox");
+    }
+
     public Clickable getPaidLabel(){
         return Clickable.getElementBy(paidLabel,"Paid label on Bill");
     }
+
     public boolean isPaidLabelDisplayed(){
         WebdriverWaits.waitForElementVisible(paidLabel,5);
         return isWebElementVisible(paidLabel);
     }
 
-    public String getReceivedPaymentTitle(){
-        WebdriverWaits.waitForElementVisible(paymentPopupTitle,5);
-        return getText_custom(paymentPopupTitle);
+    public Clickable getReceivedPaymentTitle(){
+        return Clickable.getElementBy(paymentPopupTitle,"Receive Payment Popup Title");
     }
 
     public Clickable getReceivedPaymentPopupTitle(){
@@ -132,16 +138,16 @@ public class PaymentsPage extends BasePage {
         switchToFrame(creditCardInfoFrame);
     }
 
-    public String getBalanceDue() {
-        return getText_custom(balanceDue);
+    public Clickable getBalanceDue() {
+        return Clickable.getElementBy(balanceDue, "Balance Due Field");
     }
 
-    public String getTotalAmount(){
-        return getText_custom(totalAmount).split(" ")[1];
+    public Clickable getTotalAmount(){
+        return Clickable.getElementBy(totalAmount,"Total amount element");
     }
 
-    public String getReceivingAmount(){
-        return getAttribute(receiveAmountTbx,"value");
+    public Clickable getReceivingAmount(){
+        return Clickable.getElementBy(receiveAmountTbx,"value");
     }
 
     public boolean isCreditCardBtnDisplayed(){
@@ -152,8 +158,8 @@ public class PaymentsPage extends BasePage {
         return isWebElementVisible(othersBtn);
     }
 
-    public String getPaymentTypePanelHeader() {
-        return getText_custom(paymentTypeHeader);
+    public Clickable getPaymentTypePanelHeader() {
+        return Clickable.getElementBy(paymentTypeHeader,"Payment Type Header");
     }
 
     public boolean isVenmoPaymentTypeDisplayed() {
@@ -178,6 +184,10 @@ public class PaymentsPage extends BasePage {
 
     public boolean isPaymentLogoDisplayed(){
         return isWebElementVisible(paymentLogo);
+    }
+
+    public Clickable getPaymentLogo(){
+        return Clickable.getElementBy(paymentLogo,"Payment type logo");
     }
 
     public void payByCreditCard(){
@@ -209,16 +219,16 @@ public class PaymentsPage extends BasePage {
         return Editable.getElementBy(receiveAmountTbx);
     }
 
-    public Editable getAmountButton(){
-        return Editable.getElementBy(othersBtn);
+    public Clickable getOtherButton(){
+        return Clickable.getElementBy(othersBtn);
     }
 
     public String getReceivingAmountFromPaymentTypePanel() {
         return getText_custom(receivingAmtPaymentTypePanel);
     }
 
-    public String getTotalPaidAmount() {
-        return getText_custom(totalPaidAmt).split(":")[1];
+    public Clickable getTotalPaidAmount() {
+        return Clickable.getElementBy(totalPaidAmt,"Total Paid Amount");
     }
 
     public Clickable getZelleButton() {
@@ -236,5 +246,16 @@ public class PaymentsPage extends BasePage {
 
     public Clickable getCreditCardBtn() {
         return Clickable.getElementBy(creditCardBtn);
+    }
+
+    public Clickable getVoidButton() {
+        return Clickable.getElementBy(voidBtn,"Void Button");
+    }
+    public Clickable getVoidedTag() {
+        return Clickable.getElementBy(voidedTag,"Voided Tag");
+    }
+
+    public Clickable getMomoTextbox() {
+        return Clickable.getElementBy(memoTextbox,"Memo Textbox");
     }
 }
