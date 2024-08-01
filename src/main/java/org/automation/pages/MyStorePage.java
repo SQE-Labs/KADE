@@ -52,7 +52,7 @@ public class MyStorePage extends BasePage {
     By changePayMethodBtn = By.xpath("//button[text()='change']");
     By nextBillDate = By.xpath("(//div[@class='d-flex'])[2]");
     By defaultVisaMethod = By.xpath("//div[contains(@class,'d-flex justify-content-center align-items-center')]");
-    By configureBtnWithoutStripe = By.xpath("(//a[contains(@class,'float-end btn btn-link')][text()='Configure'])[6]");
+    By configureBtnWithoutStripe = By.xpath("(//a[contains(@class,'float-end btn btn-link')][text()='Configure'])[3]");
     By settingsSubTab = By.xpath("//a[text()='Settings']");
     By maxBillAmountTbx = By.xpath("//input[@name='maxBillAmountThreshold']");
     By tipGratuityToggleBtn = By.xpath("//span[@class='ms-2 custom-check-on'][text()='No']");
@@ -76,7 +76,7 @@ public class MyStorePage extends BasePage {
     By earnRewardsToggleBtn = By.xpath("(//i[@class='far fa-toggle-off custom-check-off '])[2]");
     By enterInPercentToggleBtn = By.xpath("//label[text()=' Enter in percentage']");
     By paymentProcessingSubTab = By.xpath("//a[text()='Payment Processing']");
-    By acceptVenmoToggleBtn = By.xpath("//span[text()='Accept Venmo']");
+    By acceptVenmoToggleBtn = By.xpath("(//span[text()='Accept Venmo'])[2]");
     By acceptZelleToggleBtn = By.xpath("//span[text()='Accept Zelle']");
     By venmoIDField = By.xpath("//label[text()='Venmo ID']/following-sibling::input");
     By venmoNameField = By.xpath("//label[text()='Venmo Name']/following-sibling::input");
@@ -419,11 +419,11 @@ public class MyStorePage extends BasePage {
     }
 
     public Clickable getAcceptVenmoToggleButton() {
-        return Clickable.getElementBy(acceptVenmoToggleBtn, "Earn Rewards Toggle Button");
+        return Clickable.getElementBy(acceptVenmoToggleBtn, "Accept Venmo Toggle Button");
     }
 
     public Clickable getAcceptZelleToggleButton() {
-        return Clickable.getElementBy(acceptZelleToggleBtn, "Earn Rewards Toggle Button");
+        return Clickable.getElementBy(acceptZelleToggleBtn, "Accept Zelle Toggle Button");
     }
 
     public Editable getVenmoIdField() {

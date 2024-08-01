@@ -274,16 +274,18 @@ public class MyStoreTest extends BaseTest {
 
         //Enabling Venmo Payment Method
         myStore.getAcceptVenmoToggleButton().click();
+        myStore.getSaveButton().click();
         String defaultVenmoIdLength = "40";
         Assertions.assertEquals(myStore.getVenmoIdField().getAttribute("maxlength"), defaultVenmoIdLength);
         myStore.getVenmoIdField().setText("1234");
         String defaultVenmoNameLength = "40";
         Assertions.assertEquals(myStore.getVenmoNameField().getAttribute("maxlength"), defaultVenmoNameLength);
         myStore.getVenmoNameField().setText("Ven1");
-        myStore.getSaveButton().click();//Doesn't Work
+        myStore.getSaveButton().click();
 
         //Enabling Zelle Payment Method
         myStore.getAcceptZelleToggleButton().click();
+        myStore.getSaveButton().click();
         String defaultZelleIdLength = "40";
         Assertions.assertEquals(myStore.getZellePhoneField().getAttribute("maxlength"), defaultZelleIdLength);
         myStore.getZellePhoneField().setText("1234567890");
