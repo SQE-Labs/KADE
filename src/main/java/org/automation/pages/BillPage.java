@@ -190,63 +190,10 @@ public class BillPage extends BasePage {
         super();
     }
 
-    public Clickable isTransactionDisplayed() {
-        return isElementPresent(transactionsLink, "Transactions Link");
-    }
 
-    public Clickable isNewBillBtnDisplayed() {
-        return isWebElementVisible(newBillBtn);
-    }
 
-    public Clickable isAmountTbxDisplayed() {
-        return isWebElementVisible(amtTbx);
-    }
 
-    public Clickable isCustomerFieldDisplayed() {
-        return isWebElementVisible(customerField);
-    }
 
-    public Clickable isMoreOptionDisplayed() {
-        return isWebElementVisible(moreOptionsField);
-    }
-
-    public void enterAmount(String amt) {
-        WebdriverWaits.waitForElementUntilVisible(amtInput, 5);
-        clear_custom(amtInput);
-        pressKeys(amtInput, amt);
-        click(amtInput);
-    }
-
-    public void clickCustomer() {
-        click(customerBtn);
-    }
-
-//    public Clickable CustomerButton() {
-//        return getElementBy(customerBtn, "Customer Button");
-//    }
-
-//    public String getCustomerHeader() {
-//        return getText_custom(customerHeader);
-//    }
-
-    public void clickOnGoBtnPhoneNo() {
-        click(goBtnPhnNo);
-    }
-
-    public Clickable isConfirmBtnEnabled() {
-        return isElementEnabled(confirmBtn);
-    }
-
-    public void clickOnConfirm() {
-        scrollToElement(confirmBtn);
-        click(confirmBtn);
-    }
-
-    public void clickOnContinueWithout() {
-        WebdriverWaits.waitForElementVisible(continueWithoutBtn, 5);
-        WebdriverWaits.waitForElementClickable(continueWithoutBtn, 5);
-        click(continueWithoutBtn);
-    }
 
     public Clickable getStoresDropdown() {
         return Clickable.getElementBy(storesCombobox);
@@ -633,7 +580,7 @@ public class BillPage extends BasePage {
         return getText_custom(memoFieldText);
     }
 
-    public String getMemoFieldText() {
+    public Editable getMemoFieldText() {
         return getText_custom(memoFieldMessage);
     }
 
@@ -706,32 +653,6 @@ public class BillPage extends BasePage {
         click(expDropDownOption);
     }
 
-    public Clickable isAddedExpTimerDisplayed() {
-        return isWebElementVisible(addedExpTimer);
-    }
-
-
-    public Clickable isExpPopUpBtnNoneDisplayed() {
-        return isWebElementVisible(expPopUpBtnNone);
-    }
-
-    public Clickable isExpPopUpBtn24HrDisplayed() {
-        return isWebElementVisible(expPopUpBtn24Hr);
-    }
-
-
-    public Clickable isExpPopUpBtn4HrDisplayed() {
-        return isWebElementVisible(expPopUpBtn4Hr);
-    }
-
-    public Clickable isExpPopUpBtn1HrDisplayed() {
-        return isWebElementVisible(expPopUpBtn1Hr);
-    }
-
-    public Clickable isExpPopUpBtn30MinDisplayed() {
-        return isWebElementVisible(expPopUpBtn30Min);
-    }
-
     public void clickRepeatOption() {
 
         click(repeatOption);
@@ -745,59 +666,11 @@ public class BillPage extends BasePage {
         click(doneBtn2);
     }
 
-//    public String getEveryDayFieldValue() {
-//        return getAttribute(everyDayField, "value");
-//    }
-//
-//    public String getRecurringBillText() {
-//        return getText_custom(recurringBillText);
-//    }
-
-
-    public void clickProcessPaymentBtn() {
-        WebdriverWaits.waitForElementVisible(processPaymentBtn, 5);
-        clickElementByJS(processPaymentBtn);
-    }
-
 //    public String getBillPopupHeader() {
 //        WebdriverWaits.waitForElementVisible(billPopupHeader, 5);
 //        return getText_custom(billPopupHeader);
 //    }
 
-    public Clickable isShareBtnDisplayed() {
-        return isWebElementVisible(shareBtn);
-    }
-
-    public Clickable isQrCodeBtnDisplayed() {
-        return isWebElementVisible(qrCodeBtn);
-    }
-
-    public Clickable isEditBtnDisplayed() {
-        return isWebElementVisible(editBillBtn);
-    }
-
-    public Clickable isProcessPaymentBtnDisplayed() {
-        return isWebElementVisible(processPaymentBtn);
-    }
-
-    public Clickable isDeleteBillBtnDisplayed() {
-        return isWebElementVisible(deleteBillBtn);
-    }
-
-    public Clickable isUniqueRefNoDisplayed() {
-        return isWebElementVisible(uniqueRefNo);
-    }
-
-    public Clickable isBillPopupTimeDisplayed() {
-        return isWebElementVisible(billTimeOnPopup);
-    }
-
-    public Clickable isNotPaidLabelDisplayed() {
-        return isWebElementVisible(notPaidLabel);
-    }
-
-
-    //New Methods
     public Clickable getUnpaidBillButton() {
         return getElementBy(unpaidBill, "Unpaid bill Button");
     }
@@ -1202,7 +1075,6 @@ public class BillPage extends BasePage {
         return Editable.getElementBy(addedExpTimer);
     }
 
-
     public Clickable getExpiryPopUpButton() {
         return Clickable.getElementBy(expPopUpBtnNone,"Expiry Pop Up Button");
     }
@@ -1218,6 +1090,9 @@ public class BillPage extends BasePage {
     }
     public Clickable getExpiry30MinOption() {
         return Clickable.getElementBy(expPopUpBtn24Hr,"Expiry 30 Min Option");
+    }
+    public Clickable getExpiryNoneOption() {
+        return Clickable.getElementBy(expPopUpBtnNone,"Expiry None Option");
     }
 
     public Clickable getRepeatOption() {
