@@ -6,6 +6,7 @@ import org.automation.data.KadeUserAccount;
 import org.automation.pages.BillPage;
 import org.automation.pages.DashBoardPage;
 import org.automation.pages.LoginPage;
+import org.automation.pages.MyStorePage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
@@ -19,192 +20,202 @@ public class BillTest extends BaseTest {
     DashBoardPage dashboard = new DashBoardPage();
     BillPage bill = new BillPage();
 
-    @AfterMethod
+    //@AfterMethod
     public void logout() {
         dashboard.signOut();
     }
 
-    @Test(enabled = true, description = "Verify that creating a bill by adding amount value only, without Selecting a Customer")
-    public void tc_01createBillWithoutSelectingCustomer() {
+    @Test(description = "BC_01 Verify that creating a bill by adding amount value only, without Selecting a Customer")
+    public void bc_01createBillWithoutSelectingCustomer() {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
+        BillPage bill = session.getBillPage();
 
         //Select Store
-        bill.clickStoresDropdown();
+        bill.getStoresDropdown().click();
         bill.selectStore("Automation Flow 1");
-        session.getBillPage().getContinueButton().click();
+        bill.getContinueButton().click();
 
         // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getNewBillButton().click();
 
         // Verify New Bill popup Web Elements
-         String popupTitle = session.getBillPage().getPopupTitle().getText();
-        Assertions.assertEquals(popupTitle, "Bill");
-        Assertions.assertTrue(session.getBillPage().getAmountTextbox().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getDescriptionTextbox().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getCustomerField().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getMoreOption().isDisplayed());
+        String billPopupTitle = bill.getPopupTitle().getText();
+        Assertions.assertEquals(billPopupTitle, "Bill");
+        Assertions.assertTrue(bill.getAmountTextbox().isDisplayed());
+        Assertions.assertTrue(bill.getDescriptionTextbox().isDisplayed());
+        Assertions.assertTrue(bill.getCustomerField().isDisplayed());
+        Assertions.assertTrue(bill.getMoreOption().isDisplayed());
 
         // Verify Default value of Amount tab
         String defaultAmt = bill.getAttribute(bill.amtInput, "value");
         Assertions.assertEquals(defaultAmt, "$0.00");
 
         //Verify Confirm Button is disabled before entering amount
-        Assertions.assertFalse(session.getBillPage().getConfirmButton().isEnabled());
+        Assertions.assertFalse(bill.getConfirmButton().isEnabled());
 
         //Enter amount
         String amt = "2,999.00";
-        session.getBillPage().getAmountTextbox().setText(amt);
+        bill.getAmountTextbox().setText(amt);
         bill.disableTaxToggle();
 
         // Verify Default Confirm button is enabled after entering amount
-        Assertions.assertTrue(session.getBillPage().getConfirmButton().isEnabled());
+        Assertions.assertTrue(bill.getConfirmButton().isEnabled());
 
         //Click Confirm
-        session.getBillPage().getConfirmButton().click();
+        bill.getConfirmButton().click();
 
         //Verify Message popup and Buttons
-        Assertions.assertEquals(session.getBillPage().getMessagePopupHeader().getText(), "Message");
-        Assertions.assertTrue(session.getBillPage().getSelectCustomerButton().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getContinueWithoutButton().isDisplayed());
+        Assertions.assertEquals(bill.getMessagePopupHeader().getText(), "Message");
+        Assertions.assertTrue(bill.getSelectCustomerButton().isDisplayed());
+        Assertions.assertTrue(bill.getContinueWithoutButton().isDisplayed());
 
         //Click On Continue Button
-        session.getBillPage().getContinueWithoutButton().click();
+        bill.getContinueWithoutButton().click();
 
         //Verify toast message
-        Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertTrue(bill.getToastMessage().isDisplayed());
+        String toastMessage="Bill was created successfully.Click here to open";
+        Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Close popup
-        session.getBillPage().getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().click();
 
         //Verify not paid label for generated amount
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
         Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
 
-        session.getBillPage().deleteUnpaidBill();
-
+        //Deleting Created Bill
+        //bill.deleteUnpaidBill();
     }
 
-    @Test(enabled = true, description = "Verify that creating a bill by adding amount value only, without Selecting a Customer")
-    public void tc_02createBillBySelectingCustomer() {
+    @Test(description = "BC_02 Verify that creating a bill by adding amount value only, without Selecting a Customer")
+    public void bc_02createBillBySelectingCustomer() {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
+        BillPage bill = session.getBillPage();
 
         //Select Store
-        bill.clickStoresDropdown();
+        bill.getStoresDropdown().click();
         bill.selectStore("Automation Flow 1");
-        session.getBillPage().getContinueButton().click();
+        bill.getContinueButton().click();
 
         // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getNewBillButton().click();
 
         // Verify New Bill popup
-        String popupTitle = session.getBillPage().getPopupTitle().getText();
+        String popupTitle = bill.getPopupTitle().getText();
         Assertions.assertEquals(popupTitle, "Bill");
 
         //Verify Confirm Button is disabled before entering amount
-        Assertions.assertFalse(session.getBillPage().getConfirmButton().isEnabled());
+        Assertions.assertFalse(bill.getConfirmButton().isEnabled());
 
         //Enter amount
         String amt = "1,000.00";
-        session.getBillPage().getAmountTextbox().setText(amt);
+        bill.getAmountTextbox().setText(amt);
 
         // Verify Default Confirm button is enabled after entering amount
-        Assertions.assertTrue(session.getBillPage().getConfirmButton().isEnabled());
+        Assertions.assertTrue(bill.getConfirmButton().isEnabled());
 
         //Click Confirm
-        session.getBillPage().getConfirmButton().click();
+        bill.getConfirmButton().click();
 
         //Verify Message popup and Buttons
-        Assertions.assertEquals(session.getBillPage().getMessagePopupHeader().getText(), "Message");
-        Assertions.assertTrue(session.getBillPage().getSelectCustomerButton().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getContinueWithoutButton().isDisplayed());
+        Assertions.assertEquals(bill.getMessagePopupHeader().getText(), "Message");
+        Assertions.assertTrue(bill.getSelectCustomerButton().isDisplayed());
+        Assertions.assertTrue(bill.getContinueWithoutButton().isDisplayed());
 
-        session.getBillPage().getSelectACustomerButton().click();
+        bill.getSelectACustomerButton().click();
 
         //Verify Customer popup
-        Assertions.assertTrue(session.getBillPage().getCustomerPhnNoField().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getEmailField().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getSearchField().isDisplayed());
-
+        Assertions.assertTrue(bill.getCustomerPhoneNoField().isDisplayed());
+        Assertions.assertTrue(bill.getEmailField().isDisplayed());
+        Assertions.assertTrue(bill.getSearchField().isDisplayed());
 
         //Select Customer
-        session.getBillPage().getCustomerPhnNoField().setText("918877070727");
-        session.getBillPage().getGoPhoneNumberButton().click();
-
+        bill.getCustomerPhoneNoField().setText("918877070727");
+        bill.getGoPhoneNumberButton().click();
 
         //Click Confirm
         bill.disableTaxToggle();
-        session.getBillPage().getConfirmButton().click();
+        bill.getConfirmButton().click();
 
         //Verify toast message
-        Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertTrue(bill.getToastMessage().isDisplayed());
+        String toastMessage="Bill was created successfully.Click here to open";
+        Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Close popup
-        session.getBillPage().getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().click();
 
         //Verify not paid label for generated amount
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
         Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
 
-        session.getBillPage().deleteUnpaidBill();
+        //Deleting Created Bill
+        //bill.deleteUnpaidBill();
     }
 
-    @Test(enabled = true, description = "Bill creation by selecting customers from the suggestion list")
-    public void tc_03createBillForSuggestedCustomer() {
+    @Test(description = "BC_03 Bill creation by selecting customers from the suggestion list")
+    public void bc_03createBillForSuggestedCustomer() {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
+        BillPage bill = session.getBillPage();
 
         //Select Store
-        bill.clickStoresDropdown();
+        bill.getStoresDropdown().click();
         bill.selectStore("Automation Flow 1");
-        session.getBillPage().getContinueButton().click();
-        // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getContinueButton().click();
+
+        //Click on New Bill Button
+        bill.getNewBillButton().click();
+
         //Enter amount
         String amt = "105.00";
-        session.getBillPage().getAmountTextbox().setText(amt);
+        bill.getAmountTextbox().setText(amt);
+
         //Select Suggested Customer
-        session.getBillPage().getCustomerButton().click();
-        session.getBillPage().getSuggestedCustomer().click();
+        bill.getCustomerButton().click();
+        bill.getSuggestedCustomer().click();
         bill.disableTaxToggle();
-        session.getBillPage().getConfirmButton().click();
+        bill.getConfirmButton().click();
+
         //Verify toast message
-        Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertTrue(bill.getToastMessage().isDisplayed());
+        String toastMessage="Bill was created successfully.Click here to open";
+        Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Close popup
-        session.getBillPage().getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().click();
 
         //Verify not paid label for generated amount
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
         Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
 
-        session.getBillPage().deleteUnpaidBill();
-
+        //Deleting Created Bill
+       // bill.deleteUnpaidBill();
     }
 
-    @Test(enabled = true, description = "Bill Creation with already configured 'Tax' from store configuration page.")
-    public void tc_04createBillForConfiguredTax() throws ParseException {
+    @Test(description = "BC_04 Bill Creation with already configured 'Tax' from store configuration page.")
+    public void bc_04createBillForConfiguredTax() throws ParseException {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
+        BillPage bill=session.getBillPage();
 
         //Select Store
-        bill.clickStoresDropdown();
+        bill.getStoresDropdown().click();
         bill.selectStore("Automation Flow 1");
-        session.getBillPage().getContinueButton().click();
+        bill.getContinueButton().click();
 
         // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getNewBillButton().click();
 
         //Enter amount
         String amt = "2500.00";
-        session.getBillPage().getAmountTextbox().setText(amt);
+        bill.getAmountTextbox().setText(amt);
 
         //Enable Tax toggle Button
         bill.enableTaxToggle();
@@ -217,50 +228,56 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(expectedTotal == totalAmt);
 
         //Select Suggested Customer
-        session.getBillPage().getCustomerButton().click();
-        ;
-        session.getBillPage().getSuggestedCustomer().click();
-        session.getBillPage().getConfirmButton().click();
+        bill.getCustomerButton().click();
+        bill.getSuggestedCustomer().click();
+        bill.getConfirmButton().click();
 
         //Verify toast message
-        Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertTrue(bill.getToastMessage().isDisplayed());
+        String toastMessage="Bill was created successfully.Click here to open";
+        Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
-        session.getBillPage().getCloseLogoPopupBtn().click();
+        //Close popup
+        bill.getCloseLogoPopupBtn().click();
         String total = bill.convertToNumberFormat(totalAmt);
         System.out.println(total);
+
+        //Verify not paid label for generated amount
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed(total));
         Assertions.assertTrue(bill.isRefNoDisplayed(total));
         Assertions.assertTrue(bill.isBillTimeDisplayed(total));
 
-        session.getBillPage().deleteUnpaidBill();
+        //Deleting Created Bill
+        bill.deleteUnpaidBill();
     }
 
-    @Test(enabled = true, description = "Bill Creation with already configured 'Tax' from store configuration page.")
-    public void tc_06createBillByAttachingImage() throws ParseException, AWTException {
+    @Test(description = "BC_05 Bill Creation with already configured 'Tax' from store configuration page.")
+    public void bc_05createBillByAttachingImage() throws ParseException, AWTException {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
+        BillPage bill=session.getBillPage();
 
         //Select Store
-        bill.clickStoresDropdown();
+        bill.getStoresDropdown().click();
         bill.selectStore("Automation Flow 1");
-        session.getBillPage().getContinueButton().click();
+        bill.getContinueButton().click();
 
         // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getNewBillButton().click();
 
         //Enter amount
         String amt = "1760.00";
-        session.getBillPage().getAmountTextbox().setText(amt);
+        bill.getAmountTextbox().setText(amt);
 
         //Enable Tax toggle Button
         bill.enableTaxToggle();
 
         //Add Attachment(Image)
-        bill.clickTapToAddFiles();
-        bill.clickCameraIcon();
-        bill.uploadImageAsAttachment("src/main/resources/image/BillDummyImg.jpg");
-        bill.ClickCheckBtn();
+        bill.getTapToAddFilesIcon().click();
+        bill.getCameraIcon().click();
+        bill.uploadImageInStoreLogo();
+        bill.getCheckButton().click();
+
         //Verify Added Image
         Assertions.assertTrue(bill.isAttachedFileDisplayed());
         Assertions.assertTrue(bill.getAttachedFilesCount() == 1);
@@ -273,16 +290,17 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(expectedTotal == totalAmt);
 
         //Select Suggested Customer
-        session.getBillPage().getCustomerButton().click();
-        session.getBillPage().getSuggestedCustomer().click();
-        session.getBillPage().getConfirmButton().click();
+        bill.getCustomerButton().click();
+        bill.getSuggestedCustomer().click();
+        bill.getConfirmButton().click();
 
         //Verify toast message
-        Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertTrue(bill.getToastMessage().isDisplayed());
+        String toastMessage="Bill was created successfully.Click here to open";
+        Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Close popup
-        session.getBillPage().getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().click();
 
         //Verify Created Bill
         String total = bill.convertToNumberFormat(totalAmt);
@@ -292,50 +310,52 @@ public class BillTest extends BaseTest {
 
         // Verify Attached File
         bill.openBillByAmt(total);
-        Assertions.assertTrue(bill.isAttachedFileDisplayed());
+        Assertions.assertTrue(bill.getAttachedImage().isDisplayed());
         Assertions.assertTrue(bill.getAttachedFilesCount() == 1);
-        bill.closeCreatedBill();
+        bill.getCloseBillButton().click();
 
     }
 
-    @Test(enabled = true, description = "Bill Creation with already configured 'Tax' from store configuration page.")
-    public void tc_07createBillByAttachingPdf() throws AWTException {
+    @Test(description = "BC_06 Bill Creation with already configured 'Tax' from store configuration page.")
+    public void bc_06createBillByAttachingPdf() throws AWTException {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
+        BillPage bill=session.getBillPage();
 
         //Select Store
-        bill.clickStoresDropdown();
+        bill.getStoresDropdown().click();
         bill.selectStore("Automation Flow 1");
-        session.getBillPage().getContinueButton().click();
+        bill.getContinueButton().click();
 
         // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getNewBillButton().click();
 
         //Enter amount
         String amt = "879.99";
-        session.getBillPage().getAmountTextbox().setText(amt);
+        bill.getAmountTextbox().setText(amt);
         bill.disableTaxToggle();
 
         //Add Attachment (PDF)
-        bill.clickTapToAddFiles();
-        bill.clickDocumentIcon();
-        bill.uploadImageAsAttachment("src/main/resources/Documents/Bills.pdf");
+        bill.getTapToAddFilesIcon().click();
+        bill.getDocumentIcon().click();
+        bill.uploadPdf();
 
         //Verify Added Image
-        Assertions.assertTrue(bill.isAttachedFileDisplayed());
+        Assertions.assertTrue(bill.getAttachedFile().isDisplayed());
         Assertions.assertTrue(bill.getAttachedFilesCount() == 1);
 
         //Select Suggested Customer
-        session.getBillPage().getCustomerButton().click();
-        session.getBillPage().getSuggestedCustomer().click();
-        session.getBillPage().getConfirmButton().click();
+        bill.getCustomerButton().click();
+        bill.getSuggestedCustomer().click();
+        bill.getConfirmButton().click();
 
         //Verify toast message
-        Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertTrue(bill.getToastMessage().isDisplayed());
+        String toastMessage="Bill was created successfully.Click here to open";
+        Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Verify Created Bill
-        session.getBillPage().getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().click();
 
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
@@ -343,58 +363,59 @@ public class BillTest extends BaseTest {
 
         // Verify Attached File
         bill.openBillByAmt(amt);
-        Assertions.assertTrue(bill.isAttachedFileDisplayed());
+        Assertions.assertTrue(bill.getAttachedFile().isDisplayed());
         Assertions.assertTrue(bill.getAttachedFilesCount() == 1);
+        bill.getCloseBillButton().click();
 
-        bill.closeCreatedBill();
-
-        session.getBillPage().deleteUnpaidBill();
+        //Deleting Created Bill
+        bill.deleteUnpaidBill();
     }
 
-    @Test(enabled = true, description = "Verify that unpaid bill gets deleted")
-    public void tc_08verifyBillDeletion() {
+    @Test(description = "BC_07 Verify that unpaid bill gets deleted")
+    public void bc_07verifyBillDeletion() {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
+        BillPage bill=session.getBillPage();
 
         //Select Store
-        bill.clickStoresDropdown();
+        bill.getStoresDropdown().click();
         bill.selectStore("Automation Flow 1");
-        session.getBillPage().getContinueButton().click();
+        bill.getContinueButton().click();
 
         //Delete the 1st unpaid bill
-        bill.clickUnpaidBill();
-        bill.clickDeleteButton();
-        bill.clickDeleteIcon();
+        bill.getUnpaidBill().click();
+        bill.getDeleteButton().click();
+        bill.getDeleteIcon().click();
     }
 
-    @Test(enabled = true, description = "Verify that creating a bill by adding 'Ref No.', 'Description' and 'Items' fields")
-    public void tc_09verifyBillCreationUsingOptionalFields() {
+    @Test(description = "BC_08 Verify that creating a bill by adding 'Ref No.', 'Description' and 'Items' fields")
+    public void bc_08verifyBillCreationUsingOptionalFields() {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
+        BillPage bill=session.getBillPage();
 
         //Select Store
-        bill.clickStoresDropdown();
+        bill.getStoresDropdown().click();
         bill.selectStore("Automation Flow 1");
-        session.getBillPage().getContinueButton().click();
+        bill.getContinueButton().click();
 
         // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getNewBillButton().click();
         bill.disableTaxToggle();
 
         //Select Suggested Customer
-        session.getBillPage().getCustomerButton().click();
-        session.getBillPage().getSuggestedCustomer().click();
+        bill.getCustomerButton().click();
+        bill.getSuggestedCustomer().click();
         bill.disableTaxToggle();
 
-
         //Verify that optional fields are added to the bill
-        bill.clickMoreOptions();
+        bill.getMoreOptionsButton().click();
         String defaultPriceValue = bill.getDefaultPriceValue();
         Assertions.assertEquals(defaultPriceValue, "$0.00");
 
         //Verifying that 'None' text should appear by default in 'Reference' field
         Assertions.assertEquals(bill.getDefaultRefNoText(), "None");
-        bill.clickRefNo();
+        bill.getReferenceNumber().click();
         Assertions.assertEquals(bill.getRefPopUpTitle(), "Reference No.");
         String actualMaxRefLen = bill.getMaxRefLen();
         Assertions.assertEquals(actualMaxRefLen, "50");
@@ -449,14 +470,14 @@ public class BillTest extends BaseTest {
         bill.enterItemDesc3(desc3);
         String price3 = "150.00";
         bill.enterItemPrice3(price3);
-        session.getBillPage().getConfirmButton().click();
+        bill.getConfirmButton().click();
 
         //Verify toast message
-        Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertTrue(bill.getToastMessage().isDisplayed());
+        Assertions.assertEquals(bill.getToastMessage().getText(), "Bill was created successfully.Click here to open");
 
         //Verify Created Bill
-        session.getBillPage().getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().click();
 
         //Verifying the total amount i.e 80+120+150
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed("350.00"));
@@ -464,7 +485,7 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.isBillTimeDisplayed("350.00"));
         Assertions.assertTrue(bill.isAddedDescriptionDisplayed());
 
-        session.getBillPage().deleteUnpaidBill();
+        bill.deleteUnpaidBill();
 
     }
 
@@ -472,11 +493,12 @@ public class BillTest extends BaseTest {
     public void tc_10verifyingBillCreationWithEssentialFreePlan() {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
+        BillPage bill=session.getBillPage();
 
         //Select Store
-        bill.clickStoresDropdown();
+        bill.getStoresDropdown();
         bill.selectStore("Automation Flow 1");
-        session.getBillPage().getContinueButton().click();
+        bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
         Assertions.assertTrue(bill.isNewBillBtnDisplayed());
@@ -484,16 +506,16 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.isFilterIconDisplayed());
 
         // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getNewBillButton().click();
 
         //Enter amount
         String amt = "90.00";
-        session.getBillPage().getAmountTextbox().setText(amt);
+        bill.getAmountTextbox().setText(amt);
         bill.disableTaxToggle();
 
         //Select Suggested Customer
-        session.getBillPage().getCustomerButton().click();
-        session.getBillPage().getSuggestedCustomer().click();
+        bill.getCustomerButton().click();
+        bill.getSuggestedCustomer().click();
 
         //Verify that optional fields are added to the bill
         bill.clickMoreOptions();
@@ -516,11 +538,12 @@ public class BillTest extends BaseTest {
     public void tc_11verifyingBillCreationWithConfiguredBillAmount() {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
+        BillPage bill=session.getBillPage();
 
         //Select Store
-        bill.clickStoresDropdown();
+        bill.getStoresDropdown();
         bill.selectStore("Automation Flow 1");
-        session.getBillPage().getContinueButton().click();
+        bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
         Assertions.assertTrue(bill.isNewBillBtnDisplayed());
@@ -528,36 +551,36 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.isFilterIconDisplayed());
 
         // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getNewBillButton().click();
 
         //Enter amount
         String amt = "50,000.00";
-        session.getBillPage().getAmountTextbox().setText(amt);
+        bill.getAmountTextbox().setText(amt);
         bill.disableTaxToggle();
         Assertions.assertEquals(bill.getMaxAmountInput(), "50000.00");
 
         //Select Suggested Customer
-        session.getBillPage().getCustomerButton().click();
-        session.getBillPage().getSuggestedCustomer().click();
+        bill.getCustomerButton().click();
+        bill.getSuggestedCustomer().click();
 
         //Confirming the Bill
-        session.getBillPage().getConfirmButton().click();
+        bill.getConfirmButton().click();
 
         //Verify toast message
-        Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertTrue(bill.getToastMessage().isDisplayed());
+        Assertions.assertEquals(bill.getToastMessage().getText(), "Bill was created successfully.Click here to open");
 
         //Verify Created Bill
-        session.getBillPage().getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().click();
 
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
         Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
 
-        session.getBillPage().deleteUnpaidBill();
+        bill.deleteUnpaidBill();
 
         // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getNewBillButton().click();
 
         //Enter amount
         String amt2 = "60,000.00";
@@ -565,24 +588,24 @@ public class BillTest extends BaseTest {
         bill.disableTaxToggle();
 
         //Select Suggested Customer
-        session.getBillPage().getCustomerButton().click();
-        session.getBillPage().getSuggestedCustomer().click();
+        bill.getCustomerButton().click();
+        bill.getSuggestedCustomer().click();
 
         //Confirming the Bill
-        session.getBillPage().getConfirmButton().click();
+        bill.getConfirmButton().click();
 
         //Verify toast message
-        Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertTrue(bill.getToastMessage().isDisplayed());
+        Assertions.assertEquals(bill.getToastMessage().getText(), "Bill was created successfully.Click here to open");
 
         //Verify Created Bill
-        session.getBillPage().getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().click();
         Assertions.assertNotEquals(bill.getUnpaidAmount(), amt2);
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed("6,000.00"));
         Assertions.assertTrue(bill.isRefNoDisplayed("6,000.00"));
         Assertions.assertTrue(bill.isBillTimeDisplayed("6,000.00"));
 
-        session.getBillPage().deleteUnpaidBill();
+        bill.deleteUnpaidBill();
 
     }
 
@@ -590,11 +613,12 @@ public class BillTest extends BaseTest {
     public void tc_12verifyingBillCreationWithOutConfiguredBillAmount() {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
+        BillPage bill=session.getBillPage();
 
         //Select Store
-        bill.clickStoresDropdown();
+        bill.getStoresDropdown();
         bill.selectStore("New Business");
-        session.getBillPage().getContinueButton().click();
+        bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
         Assertions.assertTrue(bill.isNewBillBtnDisplayed());
@@ -602,35 +626,35 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.isFilterIconDisplayed());
 
         // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getNewBillButton().click();
 
         //Enter amount
         String amt = "3,000.00";
-        session.getBillPage().getAmountTextbox().setText(amt);
+        bill.getAmountTextbox().setText(amt);
         bill.disableTaxToggle();
 
         //Select Suggested Customer
-        session.getBillPage().getCustomerButton().click();
-        session.getBillPage().getSuggestedCustomer().click();
+        bill.getCustomerButton().click();
+        bill.getSuggestedCustomer().click();
 
         //Confirming the Bill
-        session.getBillPage().getConfirmButton().click();
+        bill.getConfirmButton().click();
 
         //Verify toast message
-        Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertTrue(bill.getToastMessage().isDisplayed());
+        Assertions.assertEquals(bill.getToastMessage().getText(), "Bill was created successfully.Click here to open");
 
         //Verify Created Bill
-        session.getBillPage().getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().click();
 
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
         Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
 
-        session.getBillPage().deleteUnpaidBill();
+        bill.deleteUnpaidBill();
 
         // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getNewBillButton().click();
 
         //Enter amount
         String amt2 = "4,000.00";
@@ -638,25 +662,25 @@ public class BillTest extends BaseTest {
         bill.disableTaxToggle();
 
         //Select Suggested Customer
-        session.getBillPage().getCustomerButton().click();
-        session.getBillPage().getSuggestedCustomer().click();
+        bill.getCustomerButton().click();
+        bill.getSuggestedCustomer().click();
 
         //Confirming the Bill
-        session.getBillPage().getConfirmButton().click();
+        bill.getConfirmButton().click();
 
         //Verify toast message
-        Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertTrue(bill.getToastMessage().isDisplayed());
+        Assertions.assertEquals(bill.getToastMessage().getText(), "Bill was created successfully.Click here to open");
 
         //Verify Created Bill
-        session.getBillPage().getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().click();
 
         Assertions.assertNotEquals(bill.getUnpaidAmount(), amt2);
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed("400.00"));
         Assertions.assertTrue(bill.isRefNoDisplayed("400.00"));
         Assertions.assertTrue(bill.isBillTimeDisplayed("400.00"));
 
-        session.getBillPage().deleteUnpaidBill();
+        bill.deleteUnpaidBill();
 
     }
 
@@ -664,23 +688,24 @@ public class BillTest extends BaseTest {
     public void tc_13verifyingBillCreationWithAddingMemoField() {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
+        BillPage bill=session.getBillPage();
         //New Business 2
         //Select Store
-        bill.clickStoresDropdown();
+        bill.getStoresDropdown();
         bill.selectStore("Automation Flow 1");
-        session.getBillPage().getContinueButton().click();
+        bill.getContinueButton().click();
 
         // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getNewBillButton().click();
 
         //Enter amount
         String amt = "2,000.00";
-        session.getBillPage().getAmountTextbox().setText(amt);
+        bill.getAmountTextbox().setText(amt);
         bill.disableTaxToggle();
 
         //Select Suggested Customer
-        session.getBillPage().getCustomerButton().click();
-        session.getBillPage().getSuggestedCustomer().click();
+        bill.getCustomerButton().click();
+        bill.getSuggestedCustomer().click();
 
         bill.clickMoreOptions();
         Assertions.assertEquals(bill.getDefaultMemoFieldValue(), "None");
@@ -696,14 +721,14 @@ public class BillTest extends BaseTest {
 
 
         //Confirming the Bill
-        session.getBillPage().getConfirmButton().click();
+        bill.getConfirmButton().click();
 
         //Verify toast message
-        Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertTrue(bill.getToastMessage().isDisplayed());
+        Assertions.assertEquals(bill.getToastMessage().getText(), "Bill was created successfully.Click here to open");
 
         //Verify Created Bill
-        session.getBillPage().getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().click();
 
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
@@ -716,25 +741,26 @@ public class BillTest extends BaseTest {
     public void tc_14verifyingBillCreationAfterPurchasingBusinessPlan() {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
+        BillPage bill=session.getBillPage();
 
         //Select Store
-        bill.clickStoresDropdown();
+        bill.getStoresDropdown();
         bill.selectStore("New Business 2");
-        session.getBillPage().getContinueButton().click();
+        bill.getContinueButton().click();
 
         Assertions.assertTrue(bill.isRecurringBtnVisible());
 
         // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getNewBillButton().click();
 
         //Enter amount
         String amt = "2,000.00";
-        session.getBillPage().getAmountTextbox().setText(amt);
+        bill.getAmountTextbox().setText(amt);
         bill.disableTaxToggle();
 
         //Select Suggested Customer
-        session.getBillPage().getCustomerButton().click();
-        session.getBillPage().getSuggestedCustomer().click();
+        bill.getCustomerButton().click();
+        bill.getSuggestedCustomer().click();
 
         bill.clickMoreOptions();
         bill.clickRepeatField();
@@ -745,20 +771,20 @@ public class BillTest extends BaseTest {
         bill.clickDoneBtn();
 
         //Confirming the Bill
-        session.getBillPage().getConfirmButton().click();
+        bill.getConfirmButton().click();
 
         //Verify toast message
-        Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertTrue(bill.getToastMessage().isDisplayed());
+        Assertions.assertEquals(bill.getToastMessage().getText(), "Bill was created successfully.Click here to open");
 
         //Verify Created Bill
-        session.getBillPage().getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().click();
 
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
         Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
 
-        session.getBillPage().deleteUnpaidBill();
+        bill.deleteUnpaidBill();
 
     }
 
@@ -766,25 +792,26 @@ public class BillTest extends BaseTest {
     public void tc_15verifyingBillCreationByAddingExpirationDate() {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
+        BillPage bill=session.getBillPage();
 
         //Select Store
-        bill.clickStoresDropdown();
+        bill.getStoresDropdown();
         bill.selectStore("New Business 2");
-        session.getBillPage().getContinueButton().click();
+        bill.getContinueButton().click();
 
         Assertions.assertTrue(bill.isRecurringBtnVisible());
 
         // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getNewBillButton().click();
 
         //Enter amount
         String amt = "1,000.00";
-        session.getBillPage().getAmountTextbox().setText(amt);
+        bill.getAmountTextbox().setText(amt);
         bill.disableTaxToggle();
 
         //Select Suggested Customer
-        session.getBillPage().getCustomerButton().click();
-        session.getBillPage().getSuggestedCustomer().click();
+        bill.getCustomerButton().click();
+        bill.getSuggestedCustomer().click();
 
         bill.clickMoreOptions();
         bill.clickExpiryField();
@@ -803,46 +830,47 @@ public class BillTest extends BaseTest {
         bill.clickDoneBtn();
 
         //Confirming the Bill
-        session.getBillPage().getConfirmButton().click();
+        bill.getConfirmButton().click();
 
         //Verify toast message
-        Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertTrue(bill.getToastMessage().isDisplayed());
+        Assertions.assertEquals(bill.getToastMessage().getText(), "Bill was created successfully.Click here to open");
 
         //Verify Created Bill
-        session.getBillPage().getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().click();
 
         Assertions.assertTrue(bill.isAddedExpTimerDisplayed());
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
         Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
 
-        session.getBillPage().deleteUnpaidBill();
+        bill.deleteUnpaidBill();
 
     }
     @Test(enabled = true, description = "Verify that creating a store by adding recurring transactions, on Bills page")
     public void tc_16verifyingBillCreationByAddingRecurringTransactions() {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
+        BillPage bill=session.getBillPage();
 
         //Select Store
-        bill.clickStoresDropdown();
+        bill.getStoresDropdown().click();
         bill.selectStore("New Business");
-        session.getBillPage().getContinueButton().click();
+        bill.getContinueButton().click();
 
         Assertions.assertTrue(bill.isRecurringBtnVisible());
 
         // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getNewBillButton().click();
 
         //Enter amount
         String amt = "1,000.00";
-        session.getBillPage().getAmountTextbox().setText(amt);
+        bill.getAmountTextbox().setText(amt);
         bill.disableTaxToggle();
 
         //Select Suggested Customer
-        session.getBillPage().getCustomerButton().click();
-        session.getBillPage().getSuggestedCustomer().click();
+        bill.getCustomerButton().click();
+        bill.getSuggestedCustomer().click();
 
         bill.clickMoreOptions();
         bill.clickRepeatField();
@@ -856,14 +884,14 @@ public class BillTest extends BaseTest {
         bill.clickDoneBtn2();
 
         //Confirming the Bill
-        session.getBillPage().getConfirmButton().click();
+        bill.getConfirmButton().click();
 
         //Verify toast message
-        Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertTrue(bill.getToastMessage().isDisplayed());
+        Assertions.assertEquals(bill.getToastMessage().getText(), "Bill was created successfully.Click here to open");
 
         //Verify Created Bill
-        session.getBillPage().getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().click();
 
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
@@ -871,7 +899,7 @@ public class BillTest extends BaseTest {
 
         bill.openBillByAmt(amt);
         Assertions.assertEquals(bill.getRecurringBillText(), "This is a recurring bill");
-        session.getBillPage().deleteUnpaidBill();
+        bill.deleteUnpaidBill();
 
     }
 
@@ -879,16 +907,17 @@ public class BillTest extends BaseTest {
     public void tc_17verifyingBillCreationByAddingAllFeatures() throws AWTException {
         KadeSession session= KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
+        BillPage bill=session.getBillPage();
 
         //Select Store
-        bill.clickStoresDropdown();
+        bill.getStoresDropdown().click();
         bill.selectStore("New Business");
-        session.getBillPage().getContinueButton().click();
+        bill.getContinueButton().click();
 
         Assertions.assertTrue(bill.isRecurringBtnVisible());
 
         // Click on New Bill Button
-        session.getBillPage().getNewBillButton().click();
+        bill.getNewBillButton().click();
 
         bill.enableTaxToggle();
 
@@ -902,8 +931,8 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getAttachedFilesCount() == 1);
 
         //Select Suggested Customer
-        session.getBillPage().getCustomerButton().click();
-        session.getBillPage().getSuggestedCustomer().click();
+        bill.getCustomerButton().click();
+        bill.getSuggestedCustomer().click();
 
         bill.clickMoreOptions();
         //Verifying that 'None' text should appear by default in 'Reference' field
@@ -974,14 +1003,14 @@ public class BillTest extends BaseTest {
         bill.clickDoneBtn();
 
         //Confirming the Bill
-        session.getBillPage().getConfirmButton().click();
+        bill.getConfirmButton().click();
 
         //Verify toast message
-        Assertions.assertTrue(session.getBillPage().getToastMessage().isDisplayed());
-        Assertions.assertEquals(session.getBillPage().getToastMessage().getText(), "Bill was created successfully.Click here to open");
+        Assertions.assertTrue(bill.getToastMessage().isDisplayed());
+        Assertions.assertEquals(bill.getToastMessage().getText(), "Bill was created successfully.Click here to open");
 
         //Verify Created Bill
-        session.getBillPage().getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().click();
 
         Assertions.assertTrue(bill.isNotPaidLabelDisplayed("357.00"));
         Assertions.assertTrue(bill.isRefNoDisplayed("357.00"));
