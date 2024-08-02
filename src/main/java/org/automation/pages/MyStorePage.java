@@ -298,19 +298,7 @@ public class MyStorePage extends BasePage {
         return Editable.getElementBy(maxBillAmountTbx);
     }
 
-    public Editable getMinimumBillAmtValue() {
-        return Editable.getElementBy(maxBillAmountTbx);
-    }
-
-    public Editable getMaximumBillAmtValue() {
-        return Editable.getElementBy(maxBillAmountTbx);
-    }
-
-    public Editable getDefaultBillAmtValue() {
-        return Editable.getElementBy(maxBillAmountTbx);
-    }
-
-    public Clickable getTipGrauityToggleButton() {
+    public Clickable getTipGratuityToggleButton() {
         return Clickable.getElementBy(tipGratuityToggleBtn, "Tip Gratuity Toggle Button");
     }
 

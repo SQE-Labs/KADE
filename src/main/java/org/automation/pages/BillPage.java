@@ -1,9 +1,11 @@
 package org.automation.pages;
+
 import java.awt.*;
 import java.nio.file.Paths;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.util.Locale;
+
 import org.automation.ReturnObjects.Clickable;
 import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
@@ -145,7 +147,7 @@ public class BillPage extends BasePage {
     //    By paidRepeatField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative']");
     By paidRepeatField = By.xpath("(//div[contains(@class,'text-nowrap d-flex align-items-center w-100')])[3]");
     //By paidExpiryField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative -expdate-div-']");
-    By paidExpiryField=By.xpath("//label[text()='Expiration Date:']");
+    By paidExpiryField = By.xpath("//label[text()='Expiration Date:']");
     By repeatPopUpTitle = By.xpath("//h5[text()='Repeat']");
     By expiryDatePopUpTitle = By.xpath("//h5[text()='Expiration Date']");
     By unpaidAmount = By.cssSelector(".text-danger.fs-4");
@@ -189,11 +191,6 @@ public class BillPage extends BasePage {
 
     public void selectStore(String store) {
         click(By.xpath("//li[contains(text(),'" + store + "')]"));  // Select store
-    }
-
-    public boolean isRefNoDisplayed(String amt) {
-        By refNo = By.xpath("//span[text()='$" + amt + "']/../../div[1]/span");
-        return isWebElementVisible(refNo);
     }
 
     public Clickable getSelectACustomerButton() {
@@ -243,8 +240,9 @@ public class BillPage extends BasePage {
         By bill = By.xpath("(//span[text()='$" + amt + "']/../../..)[1]");
         click(bill);
     }
-    public Clickable getNotPaidBill(){
-        return Clickable.getElementBy(notPaidBill,"Not Paid Bill");
+
+    public Clickable getNotPaidBill() {
+        return Clickable.getElementBy(notPaidBill, "Not Paid Bill");
     }
 
     public Clickable getUnpaidBillButton() {
@@ -316,7 +314,7 @@ public class BillPage extends BasePage {
     }
 
     public Editable getAmountField() {
-        return Editable.getElementBy(amtInput);
+        return Editable.getElementBy(amtInput, "Amount Field");
     }
 
     public Clickable getCloseLogoPopupBtn() {
@@ -324,11 +322,11 @@ public class BillPage extends BasePage {
     }
 
     public Editable getPopupTitle() {
-        return Editable.getElementBy(popUpHeader);
+        return Editable.getElementBy(popUpHeader, "Bill Pop Up");
     }
 
     public Editable getCustomerNameField() {
-        return Editable.getElementBy(custName);
+        return Editable.getElementBy(custName, "Customer Name Field");
     }
 
     public void createBill(BillsPage billObj) {
@@ -356,19 +354,19 @@ public class BillPage extends BasePage {
     }
 
     public Clickable getFilterButton() {
-        return Clickable.getElementBy(filterBtn);
+        return Clickable.getElementBy(filterBtn, "Filter Button");
     }
 
     public Editable getUserEmailField() {
-        return Editable.getElementBy(UserEmailField);
+        return Editable.getElementBy(UserEmailField, "User Email Field");
     }
 
     public Clickable getApplyButton() {
-        return Clickable.getElementBy(applyBtn);
+        return Clickable.getElementBy(applyBtn, "Apply Button");
     }
 
     public Editable getMoreOptionField() {
-        return Editable.getElementBy(moreOptionsField);
+        return Editable.getElementBy(moreOptionsField, "More Options Field");
     }
 
     public Clickable getCustomerButton() {
@@ -376,7 +374,7 @@ public class BillPage extends BasePage {
     }
 
     public Editable getCustomerHeader() {
-        return Editable.getElementBy(customerHeader);
+        return Editable.getElementBy(customerHeader, "Customer Pop Up");
     }
 
     public Clickable GetGoButtonPhoneNo() {
@@ -400,7 +398,7 @@ public class BillPage extends BasePage {
     }
 
     public Clickable getTapToAddFilesIcon() {
-        return Clickable.getElementBy(tapToAddFiles);
+        return Clickable.getElementBy(tapToAddFiles, "Tap to Add Files Icon");
     }
 
     public void uploadImageAsAttachment(String relativePath) throws AWTException {
@@ -462,7 +460,7 @@ public class BillPage extends BasePage {
     }
 
     public Editable getReferenceNumberField() {
-        return Editable.getElementBy(refNoField);
+        return Editable.getElementBy(refNoField, "Reference Number Field");
     }
 
     public Clickable getDescription() {
@@ -470,7 +468,7 @@ public class BillPage extends BasePage {
     }
 
     public Editable getDescriptionField() {
-        return Editable.getElementBy(descriptionField);
+        return Editable.getElementBy(descriptionField, "Description Field");
     }
 
     public Clickable getDoneLink() {
@@ -478,27 +476,27 @@ public class BillPage extends BasePage {
     }
 
     public Editable getItemDescriptionField1() {
-        return Editable.getElementBy(itemsDesc1);
+        return Editable.getElementBy(itemsDesc1, "Item Description Field 1");
     }
 
     public Editable getItemDescriptionField2() {
-        return Editable.getElementBy(itemsDesc2);
+        return Editable.getElementBy(itemsDesc2, "Item Description Field 2");
     }
 
     public Editable getItemDescriptionField3() {
-        return Editable.getElementBy(itemsDesc3);
+        return Editable.getElementBy(itemsDesc3, "Item Description Field 3");
     }
 
     public Editable getItemPriceField1() {
-        return Editable.getElementBy(itemPrice1);
+        return Editable.getElementBy(itemPrice1, "Item Price Field 1");
     }
 
     public Editable getItemPriceField2() {
-        return Editable.getElementBy(itemPrice2);
+        return Editable.getElementBy(itemPrice2, "Item Price Field 2");
     }
 
     public Editable getItemPriceField3() {
-        return Editable.getElementBy(itemPrice3);
+        return Editable.getElementBy(itemPrice3, "Item Price Field 3");
     }
 
     public Clickable getAddALineButton() {
@@ -506,31 +504,31 @@ public class BillPage extends BasePage {
     }
 
     public Editable getReferencePopUpTitle() {
-        return Editable.getElementBy(refPopUp);
+        return Editable.getElementBy(refPopUp, "Reference Pop Up");
     }
 
     public Editable getDefaultReferenceNumberText() {
-        return Editable.getElementBy(defaultRefNoText);
+        return Editable.getElementBy(defaultRefNoText, "Default Reference Text");
     }
 
     public Editable getAddedReferenceNumberText() {
-        return Editable.getElementBy(refNoText);
+        return Editable.getElementBy(refNoText, "Added Reference Text");
     }
 
     public Editable getDescriptionFieldDefaultText() {
-        return Editable.getElementBy(defaultDescText);
+        return Editable.getElementBy(defaultDescText, "Default Description Text");
     }
 
     public Editable getDescriptionFieldAddedText() {
-        return Editable.getElementBy(descText);
+        return Editable.getElementBy(descText, "Description Field Text");
     }
 
     public Editable getAddedDescription() {
-        return Editable.getElementBy(addedDescription);
+        return Editable.getElementBy(addedDescription, "Added Description Text");
     }
 
     public Editable getDescriptionPopUpTitle() {
-        return Editable.getElementBy(descPopUp);
+        return Editable.getElementBy(descPopUp, "Description Pop Up Title");
     }
 
     public Clickable getRepeatButton() {
@@ -538,15 +536,15 @@ public class BillPage extends BasePage {
     }
 
     public Clickable getExpiryButton() {
-        return Clickable.getElementBy(expiryBtn);
+        return Clickable.getElementBy(expiryBtn, "Expiry Button");
     }
 
     public Clickable getNotNowButton() {
-        return Clickable.getElementBy(notNowBtn);
+        return Clickable.getElementBy(notNowBtn, "Not Now Button");
     }
 
     public Clickable getUpgradeButton() {
-        return Clickable.getElementBy(upgradeBtn);
+        return Clickable.getElementBy(upgradeBtn, "Upgrade Button");
     }
 
     public Clickable getFilterIcon() {
@@ -562,7 +560,7 @@ public class BillPage extends BasePage {
     }
 
     public Editable getUpgradePopUpTitle() {
-        return Editable.getElementBy(upgradePopUpTitle);
+        return Editable.getElementBy(upgradePopUpTitle, "Upgrade PopUp Title");
     }
 
     public Clickable getMemoButton() {
@@ -570,7 +568,7 @@ public class BillPage extends BasePage {
     }
 
     public Editable getMemoField() {
-        return Editable.getElementBy(memoField);
+        return Editable.getElementBy(memoField, "Memo Field");
     }
 
     public Clickable getDoneButton() {
@@ -578,19 +576,19 @@ public class BillPage extends BasePage {
     }
 
     public Editable getDefaultMemoFieldText() {
-        return Editable.getElementBy(memoFieldText);
+        return Editable.getElementBy(memoFieldText, "Memo Field Text");
     }
 
     public Editable getMemoFieldMessage() {
-        return Editable.getElementBy(memoFieldMessage);
+        return Editable.getElementBy(memoFieldMessage, "Memo Field Message");
     }
 
     public Editable getMemoPopUpTitle() {
-        return Editable.getElementBy(memoPopUpTitle);
+        return Editable.getElementBy(memoPopUpTitle, "Memo PopUp Title");
     }
 
     public Editable getAddedMemoText() {
-        return Editable.getElementBy(addedMemoText);
+        return Editable.getElementBy(addedMemoText, "Added Memo Text");
     }
 
     public Clickable getRepeatField() {
@@ -606,16 +604,16 @@ public class BillPage extends BasePage {
     }
 
     public Editable getRepeatPopUpTitle() {
-        return Editable.getElementBy(repeatPopUpTitle);
+        return Editable.getElementBy(repeatPopUpTitle, "Repeat PopUp");
     }
 
     public Editable getExpiryDatePopUpTitle() {
 
-        return Editable.getElementBy(expiryDatePopUpTitle);
+        return Editable.getElementBy(expiryDatePopUpTitle, "Expiry Date Pop Up");
     }
 
     public Editable getUnpaidAmount() {
-        return Editable.getElementBy(unpaidAmount);
+        return Editable.getElementBy(unpaidAmount, "Unpaid Amount");
     }
 
     public Clickable getCloseIcon() {
@@ -623,7 +621,7 @@ public class BillPage extends BasePage {
     }
 
     public Editable getExpiresInField() {
-        return Editable.getElementBy(expiresInField);
+        return Editable.getElementBy(expiresInField, "Expires in Field");
     }
 
     public Clickable getExpiryDropDown() {
@@ -635,7 +633,7 @@ public class BillPage extends BasePage {
     }
 
     public Editable getAddedExpiryTimer() {
-        return Editable.getElementBy(addedExpTimer);
+        return Editable.getElementBy(addedExpTimer, "Added Expiry Timer");
     }
 
     public Clickable getExpiryPopUpButton() {
@@ -675,11 +673,11 @@ public class BillPage extends BasePage {
     }
 
     public Editable getEveryDayFieldValue() {
-        return Editable.getElementBy(everyDayField);
+        return Editable.getElementBy(everyDayField, "Every Day Field");
     }
 
     public Editable getRecurringBillText() {
-        return Editable.getElementBy(recurringBillText);
+        return Editable.getElementBy(recurringBillText, "Recurring Bill Text");
     }
 
     public Clickable getProcessingPaymentButton() {
@@ -687,7 +685,7 @@ public class BillPage extends BasePage {
     }
 
     public Editable getBillPopupHeader() {
-        return Editable.getElementBy(billPopupHeader);
+        return Editable.getElementBy(billPopupHeader, "Bill PopUp Header");
     }
 
     public Clickable getShareButton() {
@@ -706,16 +704,16 @@ public class BillPage extends BasePage {
         return Clickable.getElementBy(deleteBillBtn, "Delete Bill Button");
     }
 
-    public Clickable getUniqueReferenceNoField() {
-        return Clickable.getElementBy(uniqueRefNo, "Unique Reference Number Field");
+    public Clickable getUniqueReferenceNumber() {
+        return Clickable.getElementBy(uniqueRefNo, "Unique Reference Number");
     }
 
     public Editable getBillTime() {
-        return Editable.getElementBy(billTimeOnPopup);
+        return Editable.getElementBy(billTimeOnPopup, "Bill Time");
     }
 
     public Editable getNotPaidLabel() {
-        return Editable.getElementBy(notPaidLabel);
+        return Editable.getElementBy(notPaidLabel, "Not Paid Label");
     }
 
 

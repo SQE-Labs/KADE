@@ -246,13 +246,13 @@ public class MyStoreTest extends BaseTest {
         String minimumBillAmount = "50.00";
 
         //Verifying Minimum, Maximum and Default values of 'Bill Amount' Field
-        Assertions.assertEquals(myStore.getMinimumBillAmtValue().getAttribute("min"), defaultBillAmount);
-        Assertions.assertEquals(myStore.getMaximumBillAmtValue().getAttribute("max"), maximumBillAmount);
-        Assertions.assertEquals(myStore.getDefaultBillAmtValue().getAttribute("value"), minimumBillAmount);
+        Assertions.assertEquals(myStore.getMaximumBillAmountField().getAttribute("value"), defaultBillAmount);
+        Assertions.assertEquals(myStore.getMaximumBillAmountField().getAttribute("max"), maximumBillAmount);
+        Assertions.assertEquals(myStore.getMaximumBillAmountField().getAttribute("min"), minimumBillAmount);
         myStore.getMaximumBillAmountField().setText("5000.00");
 
         //Configure Tip & Gratuity
-        myStore.getTipGrauityToggleButton().click();
+        myStore.getTipGratuityToggleButton().click();
         myStore.getTipConfigureButton().click();
         Assertions.assertEquals(myStore.getTipConfigPopUpTitle().getText(), "Tip configuration");
         Assertions.assertEquals(myStore.getDefaultTipAmtValue().getAttribute("value"), "0");
@@ -302,7 +302,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getSettingsSubTab().click();
 
         //Configure Tip & Gratuity
-        myStore.getTipGrauityToggleButton().click();
+        myStore.getTipGratuityToggleButton().click();
         myStore.getTipConfigureButton().click();
         Assertions.assertEquals(myStore.getTipConfigPopUpTitle().getText(), "Tip configuration");
         myStore.getEnterInPerCentToggleButton().click();
