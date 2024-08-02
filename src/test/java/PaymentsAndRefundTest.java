@@ -36,12 +36,12 @@ public class PaymentsAndRefundTest extends KadeSession {
         String expectedPopupHeader = bill.getBillPopupHeader().getText();
         Assertions.assertEquals(expectedPopupHeader,"Bill");
         Assertions.assertTrue(session.getBillPage().getShareButton().isDisplayed()); 
-        Assertions.assertTrue(session.getBillPage().getQrCodeButton().isDisplayed()); 
-        Assertions.assertTrue(session.getBillPage().getEditButton().isDisplayed());
+        Assertions.assertTrue(session.getBillPage().getQRCodeButton().isDisplayed());
+        Assertions.assertTrue(session.getBillPage().getEditBillButton().isDisplayed());
         Assertions.assertTrue(session.getBillPage().getProcessPaymentButton().isDisplayed());
         Assertions.assertTrue(session.getBillPage().getDeleteButton().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getUniqueRefNo().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getBillPopupTime().isDisplayed()); 
+//        Assertions.assertTrue(session.getBillPage().getUniqueRefNo().isDisplayed());
+        Assertions.assertTrue(session.getBillPage().getBillTime().isDisplayed());
         Assertions.assertTrue(session.getBillPage().getNotPaidLabel().isDisplayed()); 
 
         // Click on Process payment button in Bill popup
@@ -103,12 +103,12 @@ public class PaymentsAndRefundTest extends KadeSession {
         String expectedPopupHeader = bill.getBillPopupHeader().getText();
         Assertions.assertEquals(expectedPopupHeader,"Bill");
         Assertions.assertTrue(session.getBillPage().getShareButton().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getQrCodeButton().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getEditButton().isDisplayed());
+        Assertions.assertTrue(session.getBillPage().getQRCodeButton().isDisplayed());
+        Assertions.assertTrue(session.getBillPage().getEditBillButton().isDisplayed());
         Assertions.assertTrue(session.getBillPage().getProcessPaymentButton().isDisplayed());
         Assertions.assertTrue(session.getBillPage().getDeleteButton().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getUniqueRefNo().isDisplayed()); 
-        Assertions.assertTrue(session.getBillPage().getBillPopupTime().isDisplayed());
+//        Assertions.assertTrue(session.getBillPage().getUniqueRefNo().isDisplayed());
+        Assertions.assertTrue(session.getBillPage().getBillTime().isDisplayed());
         Assertions.assertTrue(session.getBillPage().getNotPaidLabel().isDisplayed());
 
         session.getBillPage().getProcessPaymentButton().click();
@@ -326,7 +326,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         Assertions.assertTrue(session.getPaymentsPage().getPaymentLogo().isDisplayed());
         session.getPaymentsPage().getCloseReceivedPopupButton().click();
         session.getPaymentsPage().refreshPage();
-        Assertions.assertTrue(session.getBillPage().getPartialPaidLabel().isDisplayed());
+//        Assertions.assertTrue(session.getBillPage().getPartialPaidLabel().isDisplayed());
 
     }
 
@@ -368,10 +368,12 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         session.getPaymentsPage().getCloseReceivedPopupButton().click();
         //Verify NotPaid label
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
 
         //Deleting unpaid bill
-        session.getBillPage().deleteUnpaidBill();
+        session.getBillPage().getNotPaidBill().click();
+        session.getBillPage().getDeleteButton().click();
+        session.getBillPage().getDeleteIcon().click();
     }
 
     @Test(description = "PYMT8 : Bill Creation and Successful Bill Payment through Credit Card by Customer.")

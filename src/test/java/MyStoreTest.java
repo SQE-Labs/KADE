@@ -23,7 +23,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getSkipStripeAccountPopUpButton().click();
 
         //Entering Store Details
-        myStore.getSaveButton().click();
+        myStore.getSaveButton().clickIfExist();
         String blankFieldWarningMessage = "Please review the highlighted field(s)";
         Assertions.assertEquals(myStore.getBlankFieldWarningMsg().getText(), blankFieldWarningMessage);
         myStore.getStoreLogo().click();

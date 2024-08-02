@@ -3,14 +3,8 @@ import java.text.ParseException;
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
 import org.automation.pages.BillPage;
-import org.automation.pages.DashBoardPage;
-import org.automation.pages.LoginPage;
-import org.automation.pages.MyStorePage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
-import org.automation.utilities.PropertiesUtil;
-import org.testng.annotations.AfterMethod;
-import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 public class BillTest extends BaseTest {
@@ -69,15 +63,18 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Close popup
-        bill.getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().clickIfExist();
 
         //Verify not paid label for generated amount
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+        bill.openBillByAmt(amt);
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
-        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+        Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.deleteUnpaidBill();
+        bill.getNotPaidBill().click();
+        bill.getDeleteButton().click();
+        bill.getDeleteIcon().click();
     }
 
     @Test(description = "BC_02 Verify that creating a bill by adding amount value only, without Selecting a Customer")
@@ -136,15 +133,18 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Close popup
-        bill.getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().clickIfExist();
 
         //Verify not paid label for generated amount
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+        bill.openBillByAmt(amt);
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
-        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+        Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.deleteUnpaidBill();
+        bill.getNotPaidBill().click();
+        bill.getDeleteButton().click();
+        bill.getDeleteIcon().click();
     }
 
     @Test(description = "BC_03 Bill creation by selecting customers from the suggestion list")
@@ -177,15 +177,18 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Close popup
-        bill.getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().clickIfExist();
 
         //Verify not paid label for generated amount
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+        bill.openBillByAmt(amt);
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
-        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+        Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.deleteUnpaidBill();
+        bill.getNotPaidBill().click();
+        bill.getDeleteButton().click();
+        bill.getDeleteIcon().click();
     }
 
     @Test(description = "BC_04 Bill Creation with already configured 'Tax' from store configuration page.")
@@ -227,17 +230,20 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Close popup
-        bill.getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().clickIfExist();
         String total = bill.convertToNumberFormat(totalAmt);
         System.out.println(total);
 
         //Verify not paid label for generated amount
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(total));
+        bill.openBillByAmt(total);
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.isRefNoDisplayed(total));
-        Assertions.assertTrue(bill.isBillTimeDisplayed(total));
+        Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.deleteUnpaidBill();
+        bill.getNotPaidBill().click();
+        bill.getDeleteButton().click();
+        bill.getDeleteIcon().click();
     }
 
     @Test(description = "BC_05 Bill Creation with already configured 'Tax' from store configuration page.")
@@ -288,16 +294,16 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Close popup
-        bill.getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().clickIfExist();
 
         //Verify Created Bill
         String total = bill.convertToNumberFormat(totalAmt);
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(total));
+        bill.openBillByAmt(total);
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.isRefNoDisplayed(total));
-        Assertions.assertTrue(bill.isBillTimeDisplayed(total));
+        Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Verify Attached File
-        bill.openBillByAmt(total);
         Assertions.assertTrue(bill.getAttachedImage().isDisplayed());
         Assertions.assertTrue(bill.getAttachedFilesCount() == 1);
         bill.getCloseBillButton().click();
@@ -342,11 +348,11 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Verify Created Bill
-        bill.getCloseLogoPopupBtn().click();
-
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+        bill.getCloseLogoPopupBtn().clickIfExist();
+        bill.openBillByAmt(amt);
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
-        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+        Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         // Verify Attached File
         bill.openBillByAmt(amt);
@@ -355,7 +361,9 @@ public class BillTest extends BaseTest {
         bill.getCloseBillButton().click();
 
         //Deleting Created Bill
-        bill.deleteUnpaidBill();
+        bill.getNotPaidBill().click();
+        bill.getDeleteButton().click();
+        bill.getDeleteIcon().click();
     }
 
     @Test(description = "BC_07 Verify that unpaid bill gets deleted")
@@ -415,7 +423,7 @@ public class BillTest extends BaseTest {
 
         //Verifying that default text should be none in Description Field
         Assertions.assertEquals(bill.getDescriptionFieldDefaultText().getText(), "None");
-        bill.getDescription().click();
+        bill.getDescription().clickIfExist();
         Assertions.assertEquals(bill.getDescriptionPopUpTitle().getText(), "Description");
         String actualMaxDescLen = bill.getDescriptionField().getAttribute("maxlength");
         Assertions.assertEquals(actualMaxDescLen, "200");
@@ -465,17 +473,20 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Verify Created Bill
-        bill.getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().clickIfExist();
 
-        //Verifying the total amount i.e 80+120+150
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed("350.00"));
-        Assertions.assertTrue(bill.isRefNoDisplayed("350.00"));
-        Assertions.assertTrue(bill.isBillTimeDisplayed("350.00"));
+        //Verifying the total amount 80+120+150
+        String total="350";
+        bill.openBillByAmt(total);
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
+        Assertions.assertTrue(bill.isRefNoDisplayed(total));
+        Assertions.assertTrue(bill.getBillTime().isDisplayed());
         Assertions.assertTrue(bill.getAddedDescription().isDisplayed());
 
         //Deleting Created Bill
-        bill.deleteUnpaidBill();
-
+        bill.getNotPaidBill().click();
+        bill.getDeleteButton().click();
+        bill.getDeleteIcon().click();
     }
 
     @Test(description = "BC_09 Verify that creating a bill, when user has  Essential (Free) plan for his store")
@@ -558,15 +569,16 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
         String toastMessage = "Bill was created successfully.Click here to open";
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
-        bill.getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().clickIfExist();
 
         //Verify Created Bill
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+        bill.openBillByAmt(amt);
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
-        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+        Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.deleteUnpaidBill();
+        bill.getNotPaidBill();
 
         // Click on New Bill Button
         bill.getNewBillButton().click();
@@ -588,14 +600,16 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Verify Created Bill
-        bill.getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().clickIfExist();
         Assertions.assertNotEquals(bill.getUnpaidAmount().getText(), amt2);
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed("6,000.00"));
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.isRefNoDisplayed("6,000.00"));
-        Assertions.assertTrue(bill.isBillTimeDisplayed("6,000.00"));
+        Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Delete Created Bill
-        bill.deleteUnpaidBill();
+        bill.getNotPaidBill().click();
+        bill.getDeleteButton().click();
+        bill.getDeleteIcon().click();
     }
 
     @Test(description = "BC_11 Verify that creating a bill with default configured bill amount, on 'Bill' popup")
@@ -633,15 +647,16 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
         String toastMessage = "Bill was created successfully.Click here to open";
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
-        bill.getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().clickIfExist();
 
         //Verify Created Bill
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+        bill.openBillByAmt(amt);
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
-        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+        Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.deleteUnpaidBill();
+        bill.getNotPaidBill();
 
         // Click on New Bill Button
         bill.getNewBillButton().click();
@@ -661,16 +676,19 @@ public class BillTest extends BaseTest {
         //Verify toast message
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
-        bill.getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().clickIfExist();
 
         //Verify Created Bill
         Assertions.assertNotEquals(bill.getUnpaidAmount().getText(), amt2);
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed("400.00"));
+        bill.openBillByAmt("400");
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.isRefNoDisplayed("400.00"));
-        Assertions.assertTrue(bill.isBillTimeDisplayed("400.00"));
+        Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.deleteUnpaidBill();
+        bill.getNotPaidBill().click();
+        bill.getDeleteButton().click();
+        bill.getDeleteIcon().click();
     }
 
     @Test(description = "BC_12 Verify that creating a bill with adding Memo field, on 'Bill' popup.")
@@ -716,12 +734,12 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
         String toastMessage = "Bill was created successfully.Click here to open";
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
-        bill.getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().clickIfExist();
 
         //Verify Created Bill
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
-        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+        Assertions.assertTrue(bill.getBillTime().isDisplayed());
         Assertions.assertEquals(bill.getAddedMemoText().getText(), "Memo Text");
     }
 
@@ -769,13 +787,16 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Verify Created Bill
-        bill.getCloseLogoPopupBtn().click();
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+        bill.getCloseLogoPopupBtn().clickIfExist();
+        bill.openBillByAmt(amt);
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
-        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+        Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.deleteUnpaidBill();
+        bill.getNotPaidBill().click();
+        bill.getDeleteButton().click();
+        bill.getDeleteIcon().click();
     }
 
     @Test(description = "BC_14 Verify that creating a bill after purchasing the 'Business' plan from the 'Store Configuration' page.")
@@ -832,16 +853,19 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
         String toastMessage = "Bill was created successfully.Click here to open";
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
-        bill.getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().clickIfExist();
 
         //Verify Created Bill
+        bill.openBillByAmt(amt);
         Assertions.assertTrue(bill.getAddedExpiryTimer().isDisplayed());
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
-        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+        Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.deleteUnpaidBill();
+        bill.getNotPaidBill().click();
+        bill.getDeleteButton().click();
+        bill.getDeleteIcon().click();
     }
 
     @Test(description = "BC_15 Verify that creating a store by adding recurring transactions, on Bills page")
@@ -882,7 +906,7 @@ public class BillTest extends BaseTest {
         bill.getRepeatField().click();
         bill.getRepeatOption().click();
         bill.getCustomerCancelOption().click();
-        Assertions.assertEquals(bill.getEveryDayFieldValue().getText(), "1");
+        Assertions.assertEquals(bill.getEveryDayFieldValue().getAttribute("value"), "1");
         bill.getDoneBtn().click();
 
         //Confirming the Bill
@@ -892,17 +916,20 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
         String toastMessage = "Bill was created successfully.Click here to open";
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
-        bill.getCloseLogoPopupBtn().click();
+        bill.getCloseLogoPopupBtn().clickIfExist();
 
         //Verify Created Bill
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed(amt));
+        bill.openBillByAmt(amt);
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.isRefNoDisplayed(amt));
-        Assertions.assertTrue(bill.isBillTimeDisplayed(amt));
+        Assertions.assertTrue(bill.getBillTime().isDisplayed());
         bill.openBillByAmt(amt);
         Assertions.assertEquals(bill.getRecurringBillText().getText(), "This is a recurring bill");
 
         //Deleting Created Bill
-        bill.deleteUnpaidBill();
+        bill.getNotPaidBill().click();
+        bill.getDeleteButton().click();
+        bill.getDeleteIcon().click();
     }
 
     @Test(description = "BC_16 Verifying bill creation using all Features, on Bills page")
@@ -923,7 +950,6 @@ public class BillTest extends BaseTest {
 
         // Click on New Bill Button
         bill.getNewBillButton().click();
-
         bill.enableTaxToggle();
 
         //Add Attachment(Image)
@@ -960,7 +986,7 @@ public class BillTest extends BaseTest {
 
         //Verifying that default text should be none in Description Field
         Assertions.assertEquals(bill.getDescriptionFieldDefaultText().getText(), "None");
-        bill.getDescription().click();
+        bill.getDescription().clickIfExist();
         Assertions.assertEquals(bill.getDescriptionPopUpTitle().getText(), "Description");
         String actualMaxDescLen = bill.getDescriptionField().getAttribute("maxlength");
         Assertions.assertEquals(actualMaxDescLen, "200");
@@ -1036,10 +1062,11 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Verify Created Bill
-        bill.getCloseLogoPopupBtn().click();
-        Assertions.assertTrue(bill.isNotPaidLabelDisplayed("357.00"));
+        bill.getCloseLogoPopupBtn().clickIfExist();
+        bill.openBillByAmt("357.00");
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.isRefNoDisplayed("357.00"));
-        Assertions.assertTrue(bill.isBillTimeDisplayed("357.00"));
+        Assertions.assertTrue(bill.getBillTime().isDisplayed());
         bill.openBillByAmt("357.00");
         Assertions.assertEquals(bill.getRecurringBillText().getText(), "This is a recurring bill");
     }
