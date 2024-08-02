@@ -22,7 +22,8 @@ public class KadeSession extends BaseTest {
         return new BillPage();
     }
 
-    public PaymentsPage getPaymentsPage(){
+    public PaymentsPage
+    getPaymentsPage(){
         return new PaymentsPage();
     }
 
@@ -32,7 +33,13 @@ public class KadeSession extends BaseTest {
 
     public TransactionsPage getTransactionsPage(){return  new TransactionsPage();}
 
+    public LoginPage getLoginPage(){
+        return new LoginPage();
+    }
 
+    public NotificationsPage getNotificationPage(){
+        return new NotificationsPage();
+    }
 
 }
 

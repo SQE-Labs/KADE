@@ -1,5 +1,7 @@
 package org.automation.pages;
 
+import org.automation.ReturnObjects.Clickable;
+import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
 import org.openqa.selenium.By;
 
@@ -15,65 +17,38 @@ public class LoginPage extends BasePage {
     By validation = By.xpath("//p[@class='alert-content']");
     By termsOfUse = By.linkText("Terms Of Use");
     // Methods
-    /**C:\Users\HP\Downloads\stretched-1920-1080-413842.jpg
-     * Method to Enter UserName
-     * @param userNameText need to be set
-     */
-    public void enterUsername(String userNameText) {
-
-        sendKeys(userNameField, userNameText);
+    public Editable getUserNameTextbox(){
+        return Editable.getElementBy(userNameField,"User Name Textbox");
     }
 
-    /**
-     * Method to Enter Password
-     * @param passNameText need to be set
-     */
-    public void enterPassword(String passNameText) {
-        sendKeys(passwordField, passNameText);
+    public Editable getPasswordTextbox(){
+        return Editable.getElementBy(passwordField,"Password Field");
     }
 
-    /**
-     * Method to Click 'Sign in' Button
-     */
-    public void clickSignInButton() {
-        clickBtn(signInButton);
+    public Clickable getSignInButton(){
+        return Clickable.getElementBy(signInButton,"Sign In Button");
     }
 
-    /**
-     * Method to perform Sign In
-     * @param userName need to be set
-     * @param password need to be set
-     * @throws InterruptedException 
-     */
     public void performSignIn(String userName, String password) {
     	sendKeys_withClear(userNameField, userName);
     	sendKeys_withClear(passwordField,password);
-        clickSignInButton();
+        getSignInButton().click();
     }
 
-    /**
-     * Method to Click 'Forgot Password' link
-     */
-    public void clickForgotPasswordLink(){
-        clickBtn(forgotPasswordLink);
+    public Clickable getForgotPasswordLink(){
+        return Clickable.getElementBy(forgotPasswordLink,"Forgot password link");
     }
 
-
-    public void clickSignUpLink(){
-
-        clickBtn(signUpLink);
-    }
-
-
-    public String getAttribute() {
-    	return getAttributevalue(userNameField, "class");
+    public Clickable getSignUpLink(){
+       return Clickable.getElementBy(signUpLink,"Signup Link");
     }
   
-    public String getValidationMessage() {
-    	return getText_custom(validation);
+    public Clickable getValidationMessage() {
+    	return Clickable.getElementBy(validation,"Validation Message");
     }
-    	
-    public void clickOnTermsOfUse() {
-    	clickBtn(termsOfUse);
+
+
+    public Clickable getTermOfUseButton(){
+        return Clickable.getElementBy(termsOfUse,"Term of Use Button");
     }
 }
