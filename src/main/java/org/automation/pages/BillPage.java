@@ -8,7 +8,6 @@ import org.automation.ReturnObjects.Clickable;
 import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
 import org.automation.objectBuilder.pages.BillsPage;
-import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.*;
 
 import static org.automation.ReturnObjects.Clickable.getElementBy;
@@ -166,7 +165,6 @@ public class BillPage extends BasePage {
     By customerCancelOption = By.xpath("//span[text()='Customer can cancel at any time']");
     By everyDayField = By.xpath("//input[@class='max-5c form-control']");
     By recurringBillText = By.xpath("//a[@class='btn btn-link']");
-
 
     /*
     Locators of Bill popup

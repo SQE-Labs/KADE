@@ -16,35 +16,51 @@ public class MyStoreTest extends BaseTest {
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
-        //Creating New Store
+        //Click on 'Register New Business' Button
         myStore.getRegisterNewBusinessButton().click();
         myStore.getSkipStripeAccountButton().click();
         Assertions.assertEquals(myStore.getSkipPopUpTitle().getText(), "Skip");
         myStore.getSkipStripeAccountPopUpButton().click();
 
-        //Entering Store Details
+        //Click on 'Save' Button
         myStore.getSaveButton().clickIfExist();
+
+        //Verify the validation message
         String blankFieldWarningMessage = "Please review the highlighted field(s)";
         Assertions.assertEquals(myStore.getBlankFieldWarningMsg().getText(), blankFieldWarningMessage);
+
+        //Upload Image for Store Logo
         myStore.getStoreLogo().click();
         myStore.uploadImageInStoreLogo();
         myStore.getCheckButton().click();
+
+        //Enter Store Name
         String businessFieldMaximumLength = "100";
         Assertions.assertEquals(myStore.getBusinessFieldMaxLen().getAttribute("maxlength"), businessFieldMaximumLength);
         myStore.getBusinessNameField().setText("My Store Final");
+
+        //Enter Location Description
         myStore.getLocationDescriptionField().setText("Without Stripe Account");
+
+        //Select Store Address
         String storeAddressName = "123";
         myStore.selectStoreAddress(storeAddressName);
+
+        //Enter Phone Number
         String phoneFieldMaximumLength = "22";
         Assertions.assertEquals(myStore.getPhoneFieldMaxLen().getAttribute("maxlength"), phoneFieldMaximumLength);
         myStore.getPhoneField().setText("9180652348");
+
+        //Select Time Zone
         myStore.selectTimeZone();
 
-        //Verifying the min, max and default values of taxRate field
+        //Verifying the minimum, maximum and default values of taxRate field
         Assertions.assertEquals(myStore.getTaxFieldMinValue().getAttribute("min"), "0");
         Assertions.assertEquals(myStore.getTaxFieldDefaultValue().getAttribute("value"), "0.000");
         Assertions.assertEquals(myStore.getTaxFieldMaxValue().getAttribute("max"), "100");
         myStore.getTaxRateField().setText("10.000");
+
+        //Click on 'Save' Button
         myStore.getSaveButton().click();
         myStore.getContinueButton().click();
     }
@@ -55,16 +71,16 @@ public class MyStoreTest extends BaseTest {
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
+        //Click on 'Register New Business' Button
         myStore.getRegisterNewBusinessButton().click();
 
-        //Skipping Stripe Account option
+        //Click on 'Skip' Button
         myStore.getSkipStripeAccountButton().click();
         Assertions.assertEquals(myStore.getSkipPopUpTitle().getText(), "Skip");
         myStore.getSkipStripeAccountPopUpButton().click();
 
-        //Deleting the Store
+        //Delete the Store
         myStore.getDeleteStoreButton().click();
-        WebdriverWaits.sleep(3000);
         myStore.getDeleteStoreIcon().click();
     }
 
@@ -74,19 +90,21 @@ public class MyStoreTest extends BaseTest {
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
+        //Click on 'Register New Business' Button
         myStore.getRegisterNewBusinessButton().click();
         myStore.getStipeAccountButton().click();
 
-        //Creating test Stripe Account
+        //Create test Stripe Account
         Assertions.assertEquals(myStore.getConnectStripePopUpTitle().getText(), "Connect to stripe");
         myStore.getTestStripeAccountButton().click();
         myStore.getBankTransferToggleButton().click();
+
+        //Click on 'Continue' Button
         myStore.getContinueButton().click();
         myStore.getSkipForNowButton().click();
         myStore.getContinueButton().click();
-        WebdriverWaits.sleep(3000);
 
-        //verifying the default Store Values
+        //verifying the default Values of the Store
         String defaultStoreName = "Avenue";
         String defaultLocationDescription = "Dix Hills";
         String defaultStoreAddress = "8 Glover Dr, Dix Hills, NY 11746, USA";
@@ -107,24 +125,40 @@ public class MyStoreTest extends BaseTest {
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
-        //Click on Configure Link
+        //Click on 'Configure' Link
         myStore.getConfigureLink().click();
 
-        //Click on Modify Button
+        //Click on 'Modify' Button
         myStore.getModifyButton().click();
+
+        //Upload Image for Store Logo
         myStore.getStoreLogo().click();
         myStore.uploadImageInStoreLogo();
         myStore.getCheckButton().click();
+
+        //Enter Store Name
         Assertions.assertEquals(myStore.getBusinessFieldMaxLen().getAttribute("max"), "100");
         myStore.getBusinessNameField().setText("My Store MSC Final");
+
+        //Enter Location Description
         myStore.getLocationDescriptionField().setText("With Stripe Account");
+
+        //Select Store Address
         String storeAddressName = "123";
         myStore.selectStoreAddress(storeAddressName);
+
+        //Enter Phone Number
         Assertions.assertEquals(myStore.getPhoneFieldMaxLen().getAttribute("maxlength"), "22");
         myStore.getPhoneField().setText("9180652341");
+
+        //Select Time Zone
         myStore.selectTimeZone();
+
+        //Verifying the Maximum and Default Values of 'Tax Rate'
         Assertions.assertEquals(myStore.getTaxFieldDefaultValue().getAttribute("value"), "0.000");
         Assertions.assertEquals(myStore.getTaxFieldMaxValue().getAttribute("max"), "100");
+
+        //Enter Tax Rate
         myStore.getTaxRateField().setText("18.000");
         myStore.getSaveButton().click();
         WebdriverWaits.sleep(3000);
@@ -146,10 +180,13 @@ public class MyStoreTest extends BaseTest {
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
+        //Click on 'Configure' Link
         myStore.getConfigureLink().click();
+
+        //Click on 'Plans' sub-tab
         myStore.getPlansSubTab().click();
 
-        //Click on Sign up button
+        //Click on 'Sign up' button
         Assertions.assertEquals(myStore.getCurrentPlanSuccessMessage().getText(), "Current plan");
         myStore.getPlansSignUpButton().click();
         Assertions.assertEquals(myStore.getDefaultPaymentMethod().getText(), "Visa 1111");
@@ -160,6 +197,8 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertTrue(myStore.getNewBankAccountButton().isDisplayed());
         myStore.getTermsCheckbox().click();
         myStore.getChangePlanButton().click();
+
+        //Verifying that next bill date is generated
         Assertions.assertTrue(myStore.getNextBillDate().isDisplayed());
     }
 
@@ -169,12 +208,15 @@ public class MyStoreTest extends BaseTest {
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
+        //Click on 'Configure' Link
         myStore.getConfigureLink().click();
         myStore.getPlansSubTab().click();
         Assertions.assertEquals(myStore.getCurrentPlanSuccessMessage().getText(), "Current plan");
+
+        //Click on 'Yearly Plan' Button
         myStore.getYearlyPlanButton().click();
 
-        //Click on Sign up button
+        //Click on 'Sign up' button
         myStore.getPlansSignUpButton().click();
         Assertions.assertEquals(myStore.getDefaultPaymentMethod().getText(), "Visa 1111");
         myStore.getChangePayMethodLink().click();
@@ -202,6 +244,8 @@ public class MyStoreTest extends BaseTest {
         String defaultBillAmount = "3000.00";
         String maximumBillAmount = "50000.00";
         String minimumBillAmount = "50.00";
+
+        //Verifying Minimum, Maximum and Default values of 'Bill Amount' Field
         Assertions.assertEquals(myStore.getMinimumBillAmtValue().getAttribute("min"), defaultBillAmount);
         Assertions.assertEquals(myStore.getMaximumBillAmtValue().getAttribute("max"), maximumBillAmount);
         Assertions.assertEquals(myStore.getDefaultBillAmtValue().getAttribute("value"), minimumBillAmount);
@@ -213,6 +257,8 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getTipConfigPopUpTitle().getText(), "Tip configuration");
         Assertions.assertEquals(myStore.getDefaultTipAmtValue().getAttribute("value"), "0");
         Assertions.assertEquals(myStore.getMaxTipAmtValue().getAttribute("max"), "99");
+
+        //Enter Tip Values
         myStore.getTipAmountPerCentField1().setText("10");
         myStore.getTipAmountPerCentField2().setText("20");
         myStore.getTipAmountPerCentField3().setText("30");
@@ -224,6 +270,8 @@ public class MyStoreTest extends BaseTest {
         myStore.getRewardPointToggleButton().click();
         Assertions.assertEquals(myStore.getMinRewardPointsValue().getAttribute("min"), "100");
         Assertions.assertEquals(myStore.getMaxRewardPointsValue().getAttribute("max"), "99999");
+
+        //Enter Reward Points
         myStore.getRewardPointsField().setText("1000");
         myStore.getSaveChangesButton().click();
 
@@ -231,7 +279,11 @@ public class MyStoreTest extends BaseTest {
         myStore.getStoreLinksButton().click();
         Assertions.assertEquals(myStore.getMinRewardPointsFieldValue().getAttribute("min"), "1");
         Assertions.assertEquals(myStore.getMaxRewardPointsFieldValue().getAttribute("max"), "9999");
+
+        //Enter Reward Point Values
         myStore.getRewardPointsValueField().setText("1000");
+
+        //Enter Website URL
         myStore.getWebsiteURLField().setText("www.KadePay.com");
         myStore.getEarnRewardsPointsToggleButton().click();
         myStore.getSaveChangesButton().click();
@@ -242,6 +294,7 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
+
         //Click on Configure Button
         myStore.getConfigureButton().click();
 
@@ -255,9 +308,13 @@ public class MyStoreTest extends BaseTest {
         myStore.getEnterInPerCentToggleButton().click();
         Assertions.assertEquals(myStore.getDefaultTipAmtValue().getAttribute("value"), "0");
         Assertions.assertEquals(myStore.getMaxTipAmtValue().getAttribute("max"), "99");
+
+        //Enter Tip Values
         myStore.getTipAmountFlatValueField1().setText("10.00");
         myStore.getTipAmountFlatValueField2().setText("20.00");
         myStore.getTipAmountFlatValueField3().setText("30.00");
+
+        //Click on 'Save Changes' Button
         myStore.getSaveChangesButton().click();
     }
 
@@ -266,6 +323,7 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
+
         //Click on Configure Button
         myStore.getConfigureButton().click();
 
@@ -277,9 +335,13 @@ public class MyStoreTest extends BaseTest {
         myStore.getSaveButton().click();
         String defaultVenmoIdLength = "40";
         Assertions.assertEquals(myStore.getVenmoIdField().getAttribute("maxlength"), defaultVenmoIdLength);
+
+        //Enter Venmo ID
         myStore.getVenmoIdField().setText("1234");
         String defaultVenmoNameLength = "40";
         Assertions.assertEquals(myStore.getVenmoNameField().getAttribute("maxlength"), defaultVenmoNameLength);
+
+        //Enter Venmo Name
         myStore.getVenmoNameField().setText("Ven1");
         myStore.getSaveButton().click();
 
@@ -288,9 +350,13 @@ public class MyStoreTest extends BaseTest {
         myStore.getSaveButton().click();
         String defaultZelleIdLength = "40";
         Assertions.assertEquals(myStore.getZellePhoneField().getAttribute("maxlength"), defaultZelleIdLength);
+
+        //Enter Phone Number
         myStore.getZellePhoneField().setText("1234567890");
         String defaultZelleNameLength = "40";
         Assertions.assertEquals(myStore.getZelleNameField().getAttribute("maxlength"), defaultZelleNameLength);
+
+        //Enter Zelle Account Name
         myStore.getZelleNameField().setText("Zel1");
         myStore.getSaveButton().click();
 
