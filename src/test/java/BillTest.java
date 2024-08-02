@@ -21,7 +21,7 @@ public class BillTest extends BaseTest {
 
     @AfterMethod
     public void logout() {
-        dashboard.signOut();
+        new KadeSession().getDashBoardPage().getSignOutButton().click();
     }
 
     @Test(enabled = true, description = "Verify that creating a bill by adding amount value only, without Selecting a Customer")

@@ -27,6 +27,7 @@ public class PaymentsPage extends BasePage {
     By paymentLogo = By.xpath("//span[@class='payment-logo-bg me-1']");
     By totalPaidAmt = By.xpath("//h4[contains(text(),'Total paid')]");
     By voidedTag=By.xpath("//h6[text()='VOIDED']");
+    By changeButton=By.xpath("//div[contains(text(),'Change')]");
 
 
     /*
@@ -37,6 +38,8 @@ public class PaymentsPage extends BasePage {
     By receiveAmountTbx = By.xpath("//input[@name='amount']");
     By creditCardBtn = By.xpath("//button[text()='Credit Card']");
     By othersBtn =By.xpath("//button[text()='Other']");
+    By savedCreditcard=By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]");
+
 
     /*
     Payment Type Panel
@@ -49,6 +52,7 @@ public class PaymentsPage extends BasePage {
     By cashPaymentType = By.xpath("//span[text()='Cash']/../../..");
     By memoTextbox=By.xpath("//textarea[@name='message']");
     By receivingAmtPaymentTypePanel = By.xpath("//span[@data-field='amount']");
+    By payNowButton = By.xpath("//button[@type=\"button\" and text()='Pay Now']");
 
     public PaymentsPage(){
     }
@@ -150,41 +154,10 @@ public class PaymentsPage extends BasePage {
         return Clickable.getElementBy(receiveAmountTbx,"value");
     }
 
-    public boolean isCreditCardBtnDisplayed(){
-        return isWebElementVisible(creditCardBtn);
-    }
-
-    public boolean isOtherBtnDisplayed(){
-        return isWebElementVisible(othersBtn);
-    }
-
     public Clickable getPaymentTypePanelHeader() {
         return Clickable.getElementBy(paymentTypeHeader,"Payment Type Header");
     }
 
-    public boolean isVenmoPaymentTypeDisplayed() {
-        return isWebElementVisible(venmoPaymentLogo);
-    }
-
-    public boolean isZellePaymentTypeDisplayed() {
-        return isWebElementVisible(zellePaymentLogo);
-    }
-
-    public boolean isCashPaymentTypeDisplayed() {
-        return isWebElementVisible(cashPaymentType);
-    }
-
-    public boolean isMemoTextboxDisplayed() {
-        return isWebElementVisible(memoTextbox);
-    }
-
-    public boolean isVoidBtnDisplayed() {
-        return isWebElementVisible(voidBtn);
-    }
-
-    public boolean isPaymentLogoDisplayed(){
-        return isWebElementVisible(paymentLogo);
-    }
 
     public Clickable getPaymentLogo(){
         return Clickable.getElementBy(paymentLogo,"Payment type logo");
@@ -201,16 +174,6 @@ public class PaymentsPage extends BasePage {
         clickProcessBtn();
     }
 
-    public void payByVenmo() {
-        WebdriverWaits.waitForElementVisible(paymentPopupTitle,5);
-        clickElementByJS(venmoPaymentType);
-    }
-
-    public void payByZelle() {
-        WebdriverWaits.waitForElementVisible(paymentPopupTitle,5);
-        clickElementByJS(zellePaymentType);
-    }
-
     public void enterAmount(String amount) {
         pressKeys(receiveAmountTbx,amount);
     }
@@ -223,8 +186,8 @@ public class PaymentsPage extends BasePage {
         return Clickable.getElementBy(othersBtn);
     }
 
-    public String getReceivingAmountFromPaymentTypePanel() {
-        return getText_custom(receivingAmtPaymentTypePanel);
+    public Clickable getReceivingAmountFromPaymentTypePanel() {
+        return Clickable.getElementBy(receivingAmtPaymentTypePanel,"Receiving Amount Payment Type Panel");
     }
 
     public Clickable getTotalPaidAmount() {
@@ -257,5 +220,17 @@ public class PaymentsPage extends BasePage {
 
     public Clickable getMomoTextbox() {
         return Clickable.getElementBy(memoTextbox,"Memo Textbox");
+    }
+
+    public Clickable getPayNowButton() {
+        return Clickable.getElementBy(payNowButton,"Pay Now Button");
+    }
+
+    public Clickable getChangePaymentButton() {
+        return Clickable.getElementBy(changeButton,"change Payment type button");
+    }
+
+    public Clickable getSavedCreditCard() {
+        return Clickable.getElementBy(savedCreditcard,"Saved Credit card");
     }
 }

@@ -68,14 +68,13 @@ public class DashBoardPage extends BasePage {
 		click(reportBtn);
 	}
 
-	public void signOut() {
-		click(signOutBtn);
-	}
-
-
 	public Clickable getTransactionButton() {
 		return Clickable.getElementBy(transactionsButton,"Transactions Button");
 	}
+
+    public Clickable getSignOutButton() {
+		return Clickable.getElementBy(signOutBtn,"Sign Out Button");
+    }
 }
 
 
