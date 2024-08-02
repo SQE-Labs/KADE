@@ -1,67 +1,65 @@
 import org.automation.base.BaseTest;
+import org.automation.data.KadeUserAccount;
 import org.automation.pages.DashBoardPage;
 import org.automation.pages.LoginPage;
+import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
 import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest{
 
-	LoginPage login = new LoginPage();
-	DashBoardPage dashboard=new DashBoardPage();
+	KadeSession session=new KadeSession();
 
-	@Test(enabled = true, description = "Verify that user get directed to 'Create New Account' page")
-    public void tc04_validateSignUpLink() throws InterruptedException {
-        login.clickSignUpLink();
-        String actualTitle=login.getPageTitle();
+	@Test(description = "Log04 : Verify that user get directed to 'Create New Account' page")
+    public void tc04_validateSignUpLink() {
+        session.getLoginPage().getSignUpLink().click(); 
+        String actualTitle=session.getLoginPage().getPageTitle();
         String expectedTitle="Sign Up";
         Assertions.assertEquals(actualTitle, expectedTitle);
-        login.goBackToPreviousPage();
     }
 	
-	@Test(enabled = true, description = "Verify mandatory field gets highlighted on clicking 'SignIn',When mandatory field are left blank")
+	@Test(description = "Log01 : Verify mandatory field gets highlighted on clicking 'SignIn',When mandatory field are left blank")
     public void tc01_blankMandatoryField() {
-		login.clickSignInButton();
-		String actualAttribute=login.getAttribute();
+		session.getLoginPage().getSignInButton().click();
+		String actualAttribute=session.getLoginPage().getUserNameTextbox().getAttribute("class");
 		String expectedAttribute="form-control form-control-lg is-invalid";
 		Assertions.assertEquals(actualAttribute, expectedAttribute);
 	}
 	
-	@Test(enabled = true, description = "Invalid Email or PhoneNumber")
+	@Test(description = " Log02 : Invalid Email or PhoneNumber")
     public void tc02_invalidEmailOrPhone() {
-		login.enterUsername("invalid123");
-		login.enterPassword("password");
-		login.clickSignInButton();
-		String actualValidation = login.getValidationMessage();
+		session.getLoginPage().getUserNameTextbox().setText("invalid123");
+		session.getLoginPage().getPasswordTextbox().setText("password");
+		session.getLoginPage().getSignInButton().click();
+		String actualValidation = session.getLoginPage().getValidationMessage().getText();
 		String expectedValidation ="Please review the highlighted field(s)";
 		Assertions.assertEquals(actualValidation, expectedValidation);
 	}
 	
-	@Test(enabled = true, description = "Verify Tool Tip Appear on enterin invalid email")
+	@Test(description = "Log03 : Verify Tool Tip Appear on enterin invalid email")
     public void tc03_validateForgotPasswordLink() {
-		login.clickForgotPasswordLink();
-		String actualTitle = login.getPageTitle();
-		String expectedTitle = "Forget Password";
+		session.getLoginPage().getForgotPasswordLink().click();
+		String actualTitle = session.getLoginPage().getPageTitle();
+		String expectedTitle = "Forget password";
 		Assertions.assertEquals(actualTitle, expectedTitle);
-		login.goBackToPreviousPage();
 	}
 	
-	@Test(enabled = true, description = "Verify Tool Tip Appear on enterin invalid email")
+	@Test(description = "Log05 : Verify Tool Tip Appear on enter in invalid email")
     public void tc05_termsOfUsePage() {
-		login.clickOnTermsOfUse();
-		login.switchToWindow("Terms of Use Page");
-		String actualTitle = login.getPageTitle();
+		session.getLoginPage().getTermOfUseButton().click();
+		session.getLoginPage().switchToWindow("Terms of Use Page");
+		String actualTitle = session.getLoginPage().getPageTitle();
 		String expectedTitle = "Terms Of Use";
 		Assertions.assertEquals(actualTitle, expectedTitle);
-		login.switchToParentWindow("Sign in");
 	}
 	
-	@Test(enabled = true, description = "Successfull Login" ,groups="Regression")
-	public void tc06_successfullLogin() throws InterruptedException {
-		login.performSignIn(PropertiesUtil.getPropertyValue("userName"), PropertiesUtil.getPropertyValue("password"));
-		String actualTitle = dashboard.getPageHeader();
+	@Test(description = "Log06 : Successful Login" ,groups="Regression")
+	public void tc06_successfulLogin(){
+		KadeSession session=KadeSession.login(KadeUserAccount.Default);
+		String actualTitle = session.getDashBoardPage().getPageHeader();
 		String expectedTitle = "Dashboard";
-		System.out.println(actualTitle);
 		Assertions.assertEquals(actualTitle, expectedTitle);
+		session.getDashBoardPage().getSignOutButton().click();
 	}
 }
