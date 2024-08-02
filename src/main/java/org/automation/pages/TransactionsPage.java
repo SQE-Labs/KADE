@@ -13,38 +13,21 @@ public class TransactionsPage extends BasePage {
 	By closeTransactionPopupBtn = By.xpath("(//button[@class='btn-close'])[1]");
 	By storesCombobox = By.xpath("//span[@role='combobox']");
 	By continueBtn = By.xpath("//button[@type='submit']");
+	By uniqueTransactionId = By.xpath("//span[@class='badge position-relative bg-light text-dark p-1 px-2 text-truncate']");
 
-	public void clickContinueBtn() {
-		click(continueBtn);
-	}
-	public void clickLastTransaction(){
-		click(transactionRow,"Last Transaction");
+	public Clickable getContinueButton(){
+		return Clickable.getElementBy(continueBtn,"Continue Button");
 	}
 
 	public Clickable getLastTransactionRow(){
 		return Clickable.getElementBy(transactionRow,"Last Transaction");
 	}
 
-	public String getBillAmount() {
-		WebdriverWaits.sleep(5000);
-		WebdriverWaits.waitForElementVisible(billAmount,5);
-		return getText_custom(billAmount);
+	public Clickable getBillAmount() {
+		return Clickable.getElementBy(billAmount,"Bill Amount");
 	}
-
-	public String getMemoMessage(){
-		return getText_custom(memoMessage);
-	}
-
-	public boolean isUniqueTransactionIdDisplayed() {
-		return isWebElementVisible(transactionRow);
-	}
-
-	public String getBillPaymentTime() {
-		return getText_custom(billPaymentTime);
-	}
-
-	public void clickCloseTransactionPopup() {
-		click(closeTransactionPopupBtn);
+	public Clickable getUniqueTransactionId(){
+		return Clickable.getElementBy(uniqueTransactionId,"Transaction ID");
 	}
 
 	public Clickable getCloseTransactionPopupButton(){
@@ -53,9 +36,10 @@ public class TransactionsPage extends BasePage {
 	public void clickStoresDropdown() {
 		click(storesCombobox);
 	}
+
 	public void selectStore(String store) {
 		clickStoresDropdown();
 		click(By.xpath("//li[contains(text(),'" + store + "')]"));
-		clickContinueBtn();
+		getContinueButton().click();
 	}
 }

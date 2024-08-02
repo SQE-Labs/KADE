@@ -33,6 +33,8 @@ public class KadeSession extends BaseTest {
     public TransactionsPage getTransactionsPage(){return  new TransactionsPage();}
 
 
-
+    public LoginPage getLoginPage() {
+        return new LoginPage();
+    }
 }
 

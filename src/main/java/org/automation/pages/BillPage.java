@@ -104,7 +104,8 @@ public class BillPage extends BasePage {
     By documentIcon = By.xpath("(//button[contains(@onclick,'pdf')])[2]");
     By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
     By attachedImage = By.xpath("//img[@class='img-thumbnail  bg-black']");
-    By notPaidBill = By.xpath("//div[contains(@class,'row bg-white ')]");
+    //By notPaidBill = By.xpath("//div[contains(@class,'row bg-white ')]");
+    By notPaidBill=By.xpath("//span[text()='NOT PAID']");
     By deleteButton = By.cssSelector(".btn-outline-danger");
     By deleteIcon = By.cssSelector(".fa.fa-check");
     By moreOptions = By.cssSelector(".mb-3.border.p-2.py-3.rounded-3.advanced-d-none.position-relative");
