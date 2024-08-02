@@ -1,15 +1,9 @@
 package org.automation.pages;
-
 import java.awt.*;
 import java.nio.file.Paths;
 import java.text.NumberFormat;
 import java.text.ParseException;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 import java.util.Locale;
-import java.util.stream.Collectors;
-
 import org.automation.ReturnObjects.Clickable;
 import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
@@ -191,10 +185,6 @@ public class BillPage extends BasePage {
     }
 
 
-
-
-
-
     public Clickable getStoresDropdown() {
         return Clickable.getElementBy(storesCombobox);
     }
@@ -202,11 +192,6 @@ public class BillPage extends BasePage {
     public void selectStore(String store) {
         click(By.xpath("//li[contains(text(),'" + store + "')]"));  // Select store
     }
-
-    public void clickContinueBtn() {
-        click(continueBtn);
-    }
-
 
     public boolean isNotPaidLabelDisplayed(String amt) {
         By notPaidLabel = By.xpath("//span[text()='$" + amt + "']/../../div[1]/span");
@@ -226,17 +211,9 @@ public class BillPage extends BasePage {
     }
 
 
-
-    public void clickOnSelectACustomer() {
-        WebdriverWaits.waitForElementClickable(selectACustomerBtn, 5);
-        moveToWebElement(selectACustomerBtn);
-        click(selectACustomerBtn);
-    }
-
     public Clickable getSelectACustomerButton() {
         return Clickable.getElementBy(selectACustomerBtn, "Select Customer Button");
     }
-
 
 
     public void enableTaxToggle() {
@@ -273,325 +250,14 @@ public class BillPage extends BasePage {
         return formatter.format(num);
     }
 
-    public void clickTapToAddFiles() {
-        WebdriverWaits.waitForElementClickable(tapToAddFiles, 5);
-        clickElementByJS(tapToAddFiles);
-        click(tapToAddFiles);
-    }
-
-//    public void uploadImageAsAttachment(String relativePath) throws AWTException {
-//        String projectPath = System.getProperty("user.dir");
-//        String absolutePath = Paths.get(projectPath, relativePath).toString();
-//        uploadImageFile(absolutePath);
-//    }
-
-    public void ClickCheckBtn() {
-        click(checkBtn);
-    }
-
-    public void clickCameraIcon() {
-        click(cameraIcon);
-    }
-
     public int getAttachedFilesCount() {
         int count = getListOfWebElements(attachedImage).size();
         return count;
     }
 
-//    public Clickable isAttachedFileDisplayed() {
-//        return isWebElementVisible(attachedImage);
-//    }
-
     public void openBillByAmt(String amt) {
         By bill = By.xpath("(//span[text()='$" + amt + "']/../../..)[1]");
         click(bill);
-    }
-
-    public void clickUnpaidBill() {
-        WebdriverWaits.waitForElementClickable(unpaidBill, 5);
-        click(unpaidBill);
-    }
-
-    public void clickDeleteButton() {
-        WebdriverWaits.waitForElementUntilVisible(deleteButton, 5);
-        click(deleteButton);
-
-    }
-
-    public void clickDeleteIcon() {
-        WebdriverWaits.waitForElementUntilVisible(deleteIcon, 5);
-        click(deleteIcon);
-    }
-
-    public void clickMoreOptions() {
-        click(moreOptions);
-    }
-
-    public void clickRefNo() {
-        click(referenceNo);
-    }
-
-    public void enterRefNo(String refNum) {
-        WebdriverWaits.waitForElementUntilVisible(refNoField, 2);
-        pressKeys(refNoField, refNum);
-        click(refNoField);
-    }
-
-    public void clickDescription() {
-        click(description);
-    }
-
-    public void enterDescription(String descriptionValue) {
-        WebdriverWaits.waitForElementUntilVisible(descriptionField, 2);
-        pressKeys(descriptionField, descriptionValue);
-        click(descriptionField);
-    }
-
-//    public void clickDone() {
-//        click(doneLink);
-//    }
-
-
-    public void enterItemDesc1(String desc1) {
-        WebdriverWaits.waitForElementUntilVisible(itemsDesc1, 2);
-        pressKeys(itemsDesc1, desc1);
-        click(itemsDesc1);
-    }
-
-    public void enterItemDesc2(String desc2) {
-        WebdriverWaits.waitForElementUntilVisible(itemsDesc2, 2);
-        pressKeys(itemsDesc2, desc2);
-        click(itemsDesc2);
-    }
-
-    public void enterItemDesc3(String desc3) {
-        WebdriverWaits.waitForElementUntilVisible(itemsDesc3, 2);
-        pressKeys(itemsDesc3, desc3);
-        click(itemsDesc3);
-    }
-
-    public void enterItemPrice1(String price1) {
-        WebdriverWaits.waitForElementUntilVisible(itemPrice1, 2);
-        pressKeys(itemPrice1, price1);
-        click(itemPrice1);
-    }
-
-    public void enterItemPrice2(String price2) {
-        WebdriverWaits.waitForElementUntilVisible(itemPrice2, 2);
-        pressKeys(itemPrice2, price2);
-        click(itemPrice2);
-    }
-
-    public void enterItemPrice3(String price3) {
-        WebdriverWaits.waitForElementUntilVisible(itemPrice3, 2);
-        pressKeys(itemPrice3, price3);
-        click(itemPrice3);
-    }
-
-    public void clickAddALineBtn() {
-        click(addALineBtn);
-    }
-
-
-//    public String getRefPopUpTitle() {
-//        WebdriverWaits.waitForElementVisible(refPopUp, 2);
-//        return getText_custom(refPopUp);
-//    }
-
-
-//    public String getMaxRefLen() {
-//        return getAttribute(refNoField, "maxlength");
-//
-//    }
-
-//    public String getDefaultRefNoText() {
-//        WebdriverWaits.waitForElementVisible(defaultRefNoText, 2);
-//        return getText_custom(defaultRefNoText);
-//
-//    }
-//
-    public String getRefNoText() {
-
-        return getText_custom(refNoText);
-
-    }
-
-    public String getAddALineBtnText() {
-
-        return getText_custom(addALineBtn);
-
-    }
-
-    public Clickable isAddALineBtnDisplayed() {
-
-        return isWebElementVisible(addALineBtn);
-    }
-
-    public Clickable isItemDesc1Displayed() {
-
-        return isWebElementVisible(itemsDesc1);
-    }
-
-    public Clickable isItemDesc2Displayed() {
-
-        return isWebElementVisible(itemsDesc2);
-    }
-
-    public Clickable isItemDesc3Displayed() {
-
-        return isWebElementVisible(itemsDesc3);
-    }
-
-    public Clickable isItemPrice1Displayed() {
-
-        return isWebElementVisible(itemPrice1);
-    }
-
-    public Clickable isItemPrice2Displayed() {
-
-        return isWebElementVisible(itemPrice2);
-    }
-
-    public Clickable isItemPrice3Displayed() {
-
-        return isWebElementVisible(itemPrice3);
-    }
-
-    public String getMaxItemDescLen() {
-        return getAttribute(itemsDesc1, "maxlength");
-    }
-
-    public String getMaxItemPriceLen() {
-        return getAttribute(itemPrice1, "max");
-    }
-
-    public String getDefaultDescText() {
-
-        return getText_custom(defaultDescText);
-    }
-
-    public String getDescText() {
-        return getText_custom(descText);
-    }
-
-    public Clickable isAddedDescriptionDisplayed() {
-        return isWebElementVisible(addedDescription);
-    }
-
-
-    public String getDescPopUpTitle() {
-        WebdriverWaits.waitForElementVisible(descPopUp, 2);
-        return getText_custom(descPopUp);
-
-    }
-
-    public String getMaxDescLen() {
-        return getAttribute(descriptionField, "maxlength");
-    }
-
-    public String getDefaultPriceValue() {
-        return getAttribute(itemPrice1, "value");
-    }
-
-    //Essential Free plan Methods of Bill Creation
-//    public Clickable getRepeatButton() {
-//
-//        return Clickable.getElementBy(repeatBtn);
-    //}
-
-    public void clickExpiryBtn() {
-        WebdriverWaits.waitForElementVisible(expiryBtn, 2);
-        click(expiryBtn);
-    }
-
-    public void clickNotNowBtn() {
-        WebdriverWaits.waitForElementVisible(notNowBtn, 2);
-        click(notNowBtn);
-
-
-    }
-
-    public void clickUpgradeBtn() {
-        WebdriverWaits.waitForElementVisible(upgradeBtn, 2);
-        click(upgradeBtn);
-    }
-
-    //Assertions Methods
-
-    public Clickable isFilterIconDisplayed() {
-        return isWebElementVisible(filterIcon);
-    }
-
-    public Clickable isFreezeIcon1Present() {
-        return isWebElementVisible(freezeIcon1);
-    }
-
-    public Clickable isFreezeIcon2Present() {
-        return isWebElementVisible(freezeIcon2);
-    }
-
-//    public String getUpgradePopUpTitle() {
-//        WebdriverWaits.waitForElementVisible(upgradePopUpTitle, 5);
-//        return getText_custom(upgradePopUpTitle);
-//    }
-
-    public Clickable isNotNowBtnPresent() {
-        WebdriverWaits.waitForElementVisible(notNowBtn, 2);
-        return isWebElementVisible(notNowBtn);
-    }
-
-    public Clickable isUpgradeBtnPresent() {
-        WebdriverWaits.waitForElementVisible(upgradeBtn, 2);
-        return isWebElementVisible(upgradeBtn);
-    }
-
-    public String getMaxAmountInput() {
-        return getAttribute(amtInput, "max");
-
-    }
-
-    //
-//    public String getEnteredAmount(){
-//        WebdriverWaits.waitForElementVisible(amtInput, 2);
-//        return getText_custom(amtInput);
-//    }
-    public void clickMemoBtn() {
-        WebdriverWaits.waitForElementUntilVisible(memoBtn, 5);
-        click(memoBtn);
-    }
-
-    public void enterMemoField(String memoText) {
-        WebdriverWaits.waitForElementUntilVisible(memoField, 5);
-        pressKeys(memoField, memoText);
-        click(memoField);
-    }
-
-    public void clickDoneBtn() {
-
-
-        // WebdriverWaits.waitForElementUntilVisible(doneBtn, 15);
-        scrollToElement(doneBtn);
-        moveToWebElement(doneBtn);
-        WebdriverWaits.waitForElementUntilVisible(doneBtn, 8);
-        click(doneBtn);
-    }
-
-    public String getDefaultMemoFieldValue() {
-        return getText_custom(memoFieldText);
-    }
-
-    public Editable getMemoFieldText() {
-        return getText_custom(memoFieldMessage);
-    }
-
-//    public String getMemoPopUpTitle() {
-//        WebdriverWaits.waitForElementUntilVisible(memoPopUpTitle, 5);
-//        return getText_custom(memoPopUpTitle);
-//    }
-
-    public String getMaxMemoPopUpField() {
-        WebdriverWaits.waitForElementVisible(memoField, 5);
-        return getAttribute(memoField, "maxlength");
     }
 
     public void deleteUnpaidBill() {
@@ -602,74 +268,6 @@ public class BillPage extends BasePage {
         WebdriverWaits.waitForElementVisible(deleteIcon, 5);
         click(deleteIcon);
     }
-
-//    public String getAddedMemoText() {
-//        return getText_custom(addedMemoText);
-//    }
-
-    public void clickRepeatField() {
-        WebdriverWaits.waitForElementUntilVisible(paidRepeatField, 5);
-        click(paidRepeatField);
-    }
-
-    public void clickExpiryField() {
-        WebdriverWaits.waitForElementUntilVisible(paidExpiryField, 5);
-        click(paidExpiryField);
-    }
-
-    public Clickable isRecurringBtnVisible() {
-        return isWebElementVisible(recurringBtn);
-    }
-
-//    public String getRepeatPopUpTitle() {
-//        WebdriverWaits.waitForElementVisible(repeatPopUpTitle, 5);
-//        return getText_custom(repeatPopUpTitle);
-//    }
-
-//    public String getExpiryDatePopUpTitle() {
-//        WebdriverWaits.waitForElementVisible(expiryDatePopUpTitle, 5);
-//        return getText_custom(expiryDatePopUpTitle);
-//    }
-
-//    public String getUnpaidAmount() {
-//        return getText_custom(unpaidAmount);
-//    }
-
-    public void clickCloseIcon() {
-        click(expCloseIcon);
-    }
-
-    public void enterExpiresInField(String expiresIn) {
-        WebdriverWaits.waitForElementUntilVisible(expiresInField, 2);
-        pressKeys(expiresInField, expiresIn);
-        click(expiresInField);
-    }
-
-    public void clickExpiryDropDown() {
-        click(expDropDown);
-    }
-
-    public void clickExpDropDownOption() {
-        click(expDropDownOption);
-    }
-
-    public void clickRepeatOption() {
-
-        click(repeatOption);
-    }
-
-    public void checkCustomerCancelOption() {
-        click(customerCancelOption);
-    }
-
-    public void clickDoneBtn2() {
-        click(doneBtn2);
-    }
-
-//    public String getBillPopupHeader() {
-//        WebdriverWaits.waitForElementVisible(billPopupHeader, 5);
-//        return getText_custom(billPopupHeader);
-//    }
 
     public Clickable getUnpaidBillButton() {
         return getElementBy(unpaidBill, "Unpaid bill Button");
@@ -764,7 +362,7 @@ public class BillPage extends BasePage {
         createBill(billObj, true);
     }
 
-    public void createBill(BillsPage billObj, Clickable navigateToBillSection) {
+    public void createBill(BillsPage billObj, boolean navigateToBillSection) {
         if (navigateToBillSection) {
             getStoresDropdown();
             selectStore(billObj.getStore());
@@ -892,64 +490,66 @@ public class BillPage extends BasePage {
     }
 
     public Editable getReferenceNumberField() {
-      return Editable.getElementBy(refNoField);
+        return Editable.getElementBy(refNoField);
     }
 
-    public Clickable getDescription(){
-        return Clickable.getElementBy(description,"Description");
+    public Clickable getDescription() {
+        return Clickable.getElementBy(description, "Description");
     }
 
-    public Editable getDescriptionField(){
+    public Editable getDescriptionField() {
         return Editable.getElementBy(descriptionField);
     }
 
-    public Clickable getDoneLink(){
-        return Clickable.getElementBy(doneLink,"Done Link");
+    public Clickable getDoneLink() {
+        return Clickable.getElementBy(doneLink, "Done Link");
     }
 
-    public Editable getItemDescriptionField1(){
+    public Editable getItemDescriptionField1() {
         return Editable.getElementBy(itemsDesc1);
     }
 
-    public Editable getItemDescriptionField2(){
+    public Editable getItemDescriptionField2() {
         return Editable.getElementBy(itemsDesc2);
     }
 
-    public Editable getItemDescriptionField3(){
+    public Editable getItemDescriptionField3() {
         return Editable.getElementBy(itemsDesc3);
     }
 
-    public Editable getItemPriceField1(){
+    public Editable getItemPriceField1() {
         return Editable.getElementBy(itemPrice1);
     }
-    public Editable getItemPriceField2(){
+
+    public Editable getItemPriceField2() {
         return Editable.getElementBy(itemPrice2);
     }
-    public Editable getItemPriceField3(){
+
+    public Editable getItemPriceField3() {
         return Editable.getElementBy(itemPrice3);
     }
 
-    public Clickable getAddALineButton(){
-        return Clickable.getElementBy(addALineBtn,"Add A Line Button");
+    public Clickable getAddALineButton() {
+        return Clickable.getElementBy(addALineBtn, "Add A Line Button");
     }
 
-    public Editable getReferencePopUpTitle(){
+    public Editable getReferencePopUpTitle() {
         return Editable.getElementBy(refPopUp);
     }
 
-    public Editable getDefaultReferenceNumberText(){
+    public Editable getDefaultReferenceNumberText() {
         return Editable.getElementBy(defaultRefNoText);
     }
 
-    public Editable getAddedReferenceNumberText(){
+    public Editable getAddedReferenceNumberText() {
         return Editable.getElementBy(refNoText);
     }
 
-    public Editable getDescriptionFieldDefaultText(){
+    public Editable getDescriptionFieldDefaultText() {
         return Editable.getElementBy(defaultDescText);
     }
 
-    public Editable getDescriptionFieldAddedText(){
+    public Editable getDescriptionFieldAddedText() {
         return Editable.getElementBy(descText);
     }
 
@@ -962,7 +562,7 @@ public class BillPage extends BasePage {
     }
 
     public Clickable getRepeatButton() {
-        return Clickable.getElementBy(repeatBtn,"Repeat Button");
+        return Clickable.getElementBy(repeatBtn, "Repeat Button");
     }
 
     public Clickable getExpiryButton() {
@@ -970,7 +570,7 @@ public class BillPage extends BasePage {
     }
 
     public Clickable getNotNowButton() {
-       return Clickable.getElementBy(notNowBtn);
+        return Clickable.getElementBy(notNowBtn);
     }
 
     public Clickable getUpgradeButton() {
@@ -978,15 +578,15 @@ public class BillPage extends BasePage {
     }
 
     public Clickable getFilterIcon() {
-        return Clickable.getElementBy(filterIcon,"Filter Icon");
+        return Clickable.getElementBy(filterIcon, "Filter Icon");
     }
 
     public Clickable getFreezeIcon1() {
-        return Clickable.getElementBy(freezeIcon1,"Freeze Icon 1");
+        return Clickable.getElementBy(freezeIcon1, "Freeze Icon 1");
     }
 
     public Clickable getFreezeIcon2() {
-        return Clickable.getElementBy(freezeIcon2,"Freeze Icon 2");
+        return Clickable.getElementBy(freezeIcon2, "Freeze Icon 2");
     }
 
     public Editable getUpgradePopUpTitle() {
@@ -994,15 +594,15 @@ public class BillPage extends BasePage {
     }
 
     public Clickable getMemoButton() {
-        return Clickable.getElementBy(memoBtn,"Memo Button");
+        return Clickable.getElementBy(memoBtn, "Memo Button");
     }
 
-    public Editable getMemoField(){
+    public Editable getMemoField() {
         return Editable.getElementBy(memoField);
     }
 
     public Clickable getDoneButton() {
-        return Clickable.getElementBy(doneBtn,"Done Button");
+        return Clickable.getElementBy(doneBtn, "Done Button");
     }
 
     public Editable getDefaultMemoFieldText() {
@@ -1031,15 +631,15 @@ public class BillPage extends BasePage {
     }
 
     public Clickable getRepeatField() {
-        return Clickable.getElementBy(paidRepeatField,"Paid Repeat Field");
+        return Clickable.getElementBy(paidRepeatField, "Paid Repeat Field");
     }
 
     public Clickable getExpiryField() {
-        return Clickable.getElementBy(paidExpiryField,"Paid Expiry Field");
+        return Clickable.getElementBy(paidExpiryField, "Paid Expiry Field");
     }
 
     public Clickable getRecurringButtton() {
-        return Clickable.getElementBy(recurringBtn,"Recurring Button");
+        return Clickable.getElementBy(recurringBtn, "Recurring Button");
     }
 
     public Editable getRepeatPopUpTitle() {
@@ -1056,19 +656,19 @@ public class BillPage extends BasePage {
     }
 
     public Clickable getCloseIcon() {
-        return Clickable.getElementBy(expCloseIcon,"Expiry Close Icon");
+        return Clickable.getElementBy(expCloseIcon, "Expiry Close Icon");
     }
 
-    public Editable getExpiresInField(){
-    return Editable.getElementBy(expiresInField);
+    public Editable getExpiresInField() {
+        return Editable.getElementBy(expiresInField);
     }
 
     public Clickable getExpiryDropDown() {
-        return Clickable.getElementBy(expDropDown,"Expiry Dropdown");
+        return Clickable.getElementBy(expDropDown, "Expiry Dropdown");
     }
 
     public Clickable getExpiryDropDownOption() {
-        return Clickable.getElementBy(expDropDownOption,"Expiry Drop Down Option");
+        return Clickable.getElementBy(expDropDownOption, "Expiry Drop Down Option");
     }
 
     public Editable getAddedExpiryTimer() {
@@ -1076,35 +676,39 @@ public class BillPage extends BasePage {
     }
 
     public Clickable getExpiryPopUpButton() {
-        return Clickable.getElementBy(expPopUpBtnNone,"Expiry Pop Up Button");
+        return Clickable.getElementBy(expPopUpBtnNone, "Expiry Pop Up Button");
     }
 
     public Clickable getExpiry24HrOption() {
-        return Clickable.getElementBy(expPopUpBtn24Hr,"Expiry 24 Hr Option");
+        return Clickable.getElementBy(expPopUpBtn24Hr, "Expiry 24 Hr Option");
     }
+
     public Clickable getExpiry4HrOption() {
-        return Clickable.getElementBy(expPopUpBtn4Hr,"Expiry 4 Hr Option");
+        return Clickable.getElementBy(expPopUpBtn4Hr, "Expiry 4 Hr Option");
     }
+
     public Clickable getExpiry1HrOption() {
-        return Clickable.getElementBy(expPopUpBtn1Hr,"Expiry 1 Hr Option");
+        return Clickable.getElementBy(expPopUpBtn1Hr, "Expiry 1 Hr Option");
     }
+
     public Clickable getExpiry30MinOption() {
-        return Clickable.getElementBy(expPopUpBtn24Hr,"Expiry 30 Min Option");
+        return Clickable.getElementBy(expPopUpBtn24Hr, "Expiry 30 Min Option");
     }
+
     public Clickable getExpiryNoneOption() {
-        return Clickable.getElementBy(expPopUpBtnNone,"Expiry None Option");
+        return Clickable.getElementBy(expPopUpBtnNone, "Expiry None Option");
     }
 
     public Clickable getRepeatOption() {
-        return Clickable.getElementBy(repeatOption,"Repeat Option");
+        return Clickable.getElementBy(repeatOption, "Repeat Option");
     }
 
     public Clickable getCustomerCancelOption() {
-        return Clickable.getElementBy(customerCancelOption,"Customer Cancel Option");
+        return Clickable.getElementBy(customerCancelOption, "Customer Cancel Option");
     }
 
     public Clickable getDoneBtn() {
-        return Clickable.getElementBy(doneBtn2,"Done Button");
+        return Clickable.getElementBy(doneBtn2, "Done Button");
     }
 
     public Editable getEveryDayFieldValue() {
@@ -1115,24 +719,24 @@ public class BillPage extends BasePage {
         return Editable.getElementBy(recurringBillText);
     }
 
-public Clickable getProcessingPaymentButton(){
-        return Clickable.getElementBy(processPaymentBtn,"Processing Payment Button");
-}
-  
+    public Clickable getProcessingPaymentButton() {
+        return Clickable.getElementBy(processPaymentBtn, "Processing Payment Button");
+    }
+
     public Editable getBillPopupHeader() {
         return Editable.getElementBy(billPopupHeader);
     }
 
     public Clickable getShareButton() {
-        return Clickable.getElementBy(shareBtn,"Share Button");
+        return Clickable.getElementBy(shareBtn, "Share Button");
     }
 
     public Clickable getQRButton() {
-        return Clickable.getElementBy(qrCodeBtn,"QR Code Button");
+        return Clickable.getElementBy(qrCodeBtn, "QR Code Button");
     }
 
     public Clickable getEditBillButton() {
-        return Clickable.getElementBy(editBillBtn,"Edit Bill Button");
+        return Clickable.getElementBy(editBillBtn, "Edit Bill Button");
     }
 
 //    public Clickable getProcessPaymentButton() {
@@ -1140,11 +744,11 @@ public Clickable getProcessingPaymentButton(){
 //    }
 
     public Clickable getDeleteBillButton() {
-        return Clickable.getElementBy(deleteBillBtn,"Delete Bill Button");
+        return Clickable.getElementBy(deleteBillBtn, "Delete Bill Button");
     }
 
     public Clickable getUniqueReferenceNoField() {
-        return Clickable.getElementBy(uniqueRefNo,"Unique Reference No. Field");
+        return Clickable.getElementBy(uniqueRefNo, "Unique Reference No. Field");
     }
 
     public Editable getBillTime() {
