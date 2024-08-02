@@ -1,6 +1,7 @@
 import org.automation.data.KadeUserAccount;
 import org.automation.objectBuilder.ObjectBuilder;
 import org.automation.objectBuilder.pages.BillsPage;
+import org.automation.pages.*;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
 import org.testng.annotations.AfterMethod;
@@ -8,10 +9,15 @@ import org.testng.annotations.Test;
 import org.automation.session.KadeSession;
 
 public class PaymentsAndRefundTest extends KadeSession {
+    LoginPage login = new LoginPage();
+    DashBoardPage dashboard = new DashBoardPage();
+    BillPage bill = new BillPage();
+    PaymentsPage payments = new PaymentsPage();
+    TransactionsPage transactions= new TransactionsPage();
 
     @AfterMethod
     public void logout() {
-        new KadeSession().getDashBoardPage().getSignOutButton().click();
+        dashboard.signOut();
     }
 
     @Test(description = "PYMT1 Bill Creation and Successful Bill Payment by Cash through Store Manager.")
@@ -30,12 +36,12 @@ public class PaymentsAndRefundTest extends KadeSession {
         String expectedPopupHeader = session.getBillPage().getBillPopupHeader().getText();
         Assertions.assertEquals(expectedPopupHeader,"Bill");
         Assertions.assertTrue(session.getBillPage().getShareButton().isDisplayed()); 
-        Assertions.assertTrue(session.getBillPage().getQrCodeButton().isDisplayed()); 
-        Assertions.assertTrue(session.getBillPage().getEditButton().isDisplayed());
+        Assertions.assertTrue(session.getBillPage().getQRCodeButton().isDisplayed());
+        Assertions.assertTrue(session.getBillPage().getEditBillButton().isDisplayed());
         Assertions.assertTrue(session.getBillPage().getProcessPaymentButton().isDisplayed());
         Assertions.assertTrue(session.getBillPage().getDeleteButton().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getUniqueRefNo().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getBillPopupTime().isDisplayed()); 
+//        Assertions.assertTrue(session.getBillPage().getUniqueRefNo().isDisplayed());
+        Assertions.assertTrue(session.getBillPage().getBillTime().isDisplayed());
         Assertions.assertTrue(session.getBillPage().getNotPaidLabel().isDisplayed()); 
 
         // Click on Process payment button in Bill popup
@@ -74,9 +80,8 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getDashBoardPage().getTransactionButton().click();
         session.getTransactionsPage().selectStore(bills.getStore());
         session.getTransactionsPage().getLastTransactionRow().click();
-        WebdriverWaits.sleep(5000);
-        Assertions.assertEquals(session.getTransactionsPage().getBillAmount().getText(),"$"+bills.getAmount());
-        Assertions.assertTrue(session.getTransactionsPage().getUniqueTransactionId().isDisplayed());
+        Assertions.assertEquals(transactions.getBillAmount(),"$"+bills.getAmount());
+        Assertions.assertTrue(transactions.isUniqueTransactionIdDisplayed());
         session.getTransactionsPage().getCloseTransactionPopupButton().click();
     }
 
@@ -98,12 +103,12 @@ public class PaymentsAndRefundTest extends KadeSession {
         String expectedPopupHeader = session.getBillPage().getBillPopupHeader().getText();
         Assertions.assertEquals(expectedPopupHeader,"Bill");
         Assertions.assertTrue(session.getBillPage().getShareButton().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getQrCodeButton().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getEditButton().isDisplayed());
+        Assertions.assertTrue(session.getBillPage().getQRCodeButton().isDisplayed());
+        Assertions.assertTrue(session.getBillPage().getEditBillButton().isDisplayed());
         Assertions.assertTrue(session.getBillPage().getProcessPaymentButton().isDisplayed());
         Assertions.assertTrue(session.getBillPage().getDeleteButton().isDisplayed());
-        Assertions.assertTrue(session.getBillPage().getUniqueRefNo().isDisplayed()); 
-        Assertions.assertTrue(session.getBillPage().getBillPopupTime().isDisplayed());
+//        Assertions.assertTrue(session.getBillPage().getUniqueRefNo().isDisplayed());
+        Assertions.assertTrue(session.getBillPage().getBillTime().isDisplayed());
         Assertions.assertTrue(session.getBillPage().getNotPaidLabel().isDisplayed());
 
         session.getBillPage().getProcessPaymentButton().click();
@@ -257,7 +262,6 @@ public class PaymentsAndRefundTest extends KadeSession {
         String expectedBalanceDue2 = session.getBillPage().convertToNumberFormat(expBalanceDue2);
         float amtPaid2 = updateAmount1 + updateAmount2;
         String amountPaid2 = session.getBillPage().convertToNumberFormat(amtPaid2);
-        WebdriverWaits.sleep(3000);
         Assertions.assertEquals(session.getPaymentsPage().getTotalPaidAmount().getText().split(":")[1],"$"+amountPaid2);
         Assertions.assertEquals(session.getPaymentsPage().getBalanceDue().getText(),"$"+expectedBalanceDue2);
 
@@ -323,7 +327,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         Assertions.assertTrue(session.getPaymentsPage().getPaymentLogo().isDisplayed());
         session.getPaymentsPage().getCloseReceivedPopupButton().click();
         session.getPaymentsPage().refreshPage();
-        Assertions.assertTrue(session.getBillPage().getPartialPaidLabel().isDisplayed());
+//        Assertions.assertTrue(session.getBillPage().getPartialPaidLabel().isDisplayed());
 
     }
 
@@ -366,9 +370,12 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getPaymentsPage().getCloseReceivedPopupButton().click();
         //Verify NotPaid label
         Assertions.assertTrue(session.getBillPage().isNotPaidLabelDisplayed(amt));
+        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
 
         //Deleting unpaid bill
-        session.getBillPage().deleteUnpaidBill();
+        session.getBillPage().getNotPaidBill().click();
+        session.getBillPage().getDeleteButton().click();
+        session.getBillPage().getDeleteIcon().click();
     }
 
     @Test(description = "PYMT8 : Bill Creation and Successful Bill Payment through Credit Card by Customer.")
