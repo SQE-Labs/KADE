@@ -6,6 +6,8 @@ import org.automation.base.BasePage;
 import org.automation.session.KadeSession;
 import org.openqa.selenium.By;
 import org.automation.utilities.WebdriverWaits;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 public class PaymentsPage extends BasePage {
 
@@ -28,7 +30,7 @@ public class PaymentsPage extends BasePage {
     By totalPaidAmt = By.xpath("//h4[contains(text(),'Total paid')]");
     By voidedTag=By.xpath("//h6[text()='VOIDED']");
     By changeButton=By.xpath("//div[contains(text(),'Change')]");
-
+    By swipeBtn = By.xpath("//input[@type='range']");
 
     /*
     Receive Payment popup locators
@@ -232,5 +234,11 @@ public class PaymentsPage extends BasePage {
 
     public Clickable getSavedCreditCard() {
         return Clickable.getElementBy(savedCreditcard,"Saved Credit card");
+    }
+
+    public void swipeToPay() {
+        Actions actions = new Actions(getDriver());
+        WebElement elm = getDriver().findElement(swipeBtn);
+        actions.moveToElement(elm).moveByOffset(-100,0).clickAndHold().moveByOffset(200, 0).release().perform();
     }
 }
