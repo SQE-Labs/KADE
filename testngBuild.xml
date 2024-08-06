@@ -3,8 +3,8 @@
 <suite name="Suite">
     <test thread-count="1" parallel="classes" name="Test">
         <classes>
-            <class name="test.LoginTest"/>
-            <class name="test.CreateAccountTest"/>
+            <class name="LoginTest"/>
+            <class name="legacy.CreateAccountTest"/>
         </classes>
     </test> <!-- Test -->
 </suite> <!-- Suite -->

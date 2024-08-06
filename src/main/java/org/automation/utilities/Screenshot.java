@@ -1,7 +1,7 @@
 package org.automation.utilities;
 
-import org.apache.commons.io.FileUtils;
 import org.automation.base.BaseTest;
+import org.apache.commons.io.FileUtils;
 import org.automation.logger.Log;
 import org.openqa.selenium.OutputType;
 import org.openqa.selenium.TakesScreenshot;
@@ -85,6 +85,8 @@ public final class Screenshot extends BaseTest {
         return ImagePath;
     }
 
+
+
     /**
      * Take <b>Screenshot</b> of the current page.
      *
@@ -110,4 +112,10 @@ public final class Screenshot extends BaseTest {
         }
         return base64;
     }
+
+    public static String takeScreenShotAsBase64(){
+        TakesScreenshot ts = (TakesScreenshot) getDriver();
+        return ts.getScreenshotAs(OutputType.BASE64);
+    }
+
 }

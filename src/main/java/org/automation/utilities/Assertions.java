@@ -4,9 +4,8 @@ import org.automation.base.BaseTest;
 import org.automation.logger.Log;
 import org.testng.Assert;
 
-import static com.relevantcodes.extentreports.LogStatus.FAIL;
-import static com.relevantcodes.extentreports.LogStatus.PASS;
-
+import static com.aventstack.extentreports.Status.FAIL;
+import static com.aventstack.extentreports.Status.PASS;
 
 public class Assertions extends BaseTest {
 
@@ -15,10 +14,11 @@ public class Assertions extends BaseTest {
 
         try {
             Assert.assertEquals(actual, expected);
-            extentTest.log(PASS, "Assertion passed , Value is : " + actual);
+            getExtentTest().log(PASS, "Assertion passed , Value is : " + actual);
         } catch (AssertionError e) {
-            Log.info("excpetion in assertEquals method");
-            extentTest.log(FAIL, "Assertion failed => " + "Actual Value : '" + actual + "' | Expected Value : '" + expected + "'");
+            Log.info("exception in assertEquals method");
+            getExtentTest().log(FAIL, "Assertion failed => " + "Actual Value : '" + actual + "' | Expected Value : '" + expected + "'");
+            throw e;
         }
     }
 
@@ -27,10 +27,11 @@ public class Assertions extends BaseTest {
 
         try {
             Assert.assertNotEquals(actual, expected);
-            extentTest.log(PASS, "Assertion passed , Value is : " + actual);
+            getExtentTest().log(PASS, "Assertion passed , Value is : " + actual);
         } catch (AssertionError e) {
             Log.info("excpetion in assertEquals method");
-            extentTest.log(FAIL, "Assertion failed : " + "Actual Value is " + actual + " , Expected Value is " + expected);
+            getExtentTest().log(FAIL, "Assertion failed : " + "Actual Value is " + actual + " , Expected Value is " + expected);
+            throw e;
         }
     }
 
@@ -38,11 +39,11 @@ public class Assertions extends BaseTest {
     public static void assertTrue(boolean value) {
         try {
             Assert.assertTrue(value);
-            extentTest.log(PASS, "Assertion passed  : " + value);
+            getExtentTest().log(PASS, "Assertion passed  : " + value);
 
         } catch (Exception e) {
-            extentTest.log(FAIL, "Assertion failed : " + "Actual Value " + value);
-            //  throw new RuntimeException(e);
+            getExtentTest().log(FAIL, "Assertion failed : " + "Actual Value " + value);
+            throw e;
         }
 
     }
@@ -50,11 +51,11 @@ public class Assertions extends BaseTest {
     public static void assertFalse(boolean value) {
         try {
             Assert.assertFalse(value);
-            extentTest.log(PASS, "Assertion passed :  " + value);
+            getExtentTest().log(PASS, "Assertion passed :  " + value);
 
         } catch (Exception e) {
-            extentTest.log(FAIL, "Assertion failed : " + "Actual Value " + value);
-            //  throw new RuntimeException(e);
+            getExtentTest().log(FAIL, "Assertion failed : " + "Actual Value " + value);
+            throw e;
         }
 
     }
@@ -62,11 +63,11 @@ public class Assertions extends BaseTest {
     public void assertNotNull(String value) {
         try {
             Assert.assertNotNull(FAIL);
-            extentTest.log(PASS, "Assertion passed " + value);
+            getExtentTest().log(PASS, "Assertion passed " + value);
 
         } catch (Exception e) {
-            extentTest.log(FAIL, "Assertion failed : " + "Actual Value " + value);
-            //  throw new RuntimeException(e);
+            getExtentTest().log(FAIL, "Assertion failed : " + "Actual Value " + value);
+            throw e;
         }
 
     }

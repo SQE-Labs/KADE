@@ -3,6 +3,7 @@ package org.automation.base;
 
 import org.automation.elements.Element;
 import org.automation.logger.Log;
+import org.automation.session.KadeSession;
 import org.automation.utilities.ActionEngine;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
@@ -10,6 +11,17 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.NoSuchWindowException;
 
 public class BasePage extends ActionEngine {
+    KadeSession session;
+    public BasePage(KadeSession session){
+        this.session = session;
+    }
+
+    public BasePage(){
+    }
+
+    public KadeSession getSession(){
+        return this.session;
+    }
 
     private String parentWindow;
 
@@ -116,12 +128,12 @@ public class BasePage extends ActionEngine {
     /**
      * Switch to the frame containing the specified element.
      *
-     * @param description description of the frame
+     * @param description of the frame
      * @param element     element of the frame
      */
-    public void switchToFrame(Element element) {
-        Log.info("Switch to frame [" + element.getDescription() + "]");
-        getDriver().switchTo().frame(element.getWebElement());
+    public void switchToFrame(By element) {
+//        Log.info("Switch to frame [" + element.getDescription() + "]");
+        getDriver().switchTo().frame(getDriver().findElement(element));
     }
 
     /**
