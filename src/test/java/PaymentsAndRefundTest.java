@@ -17,10 +17,10 @@ public class PaymentsAndRefundTest extends KadeSession {
         BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
         session.getDashBoardPage().getBillButton().click();
         session.getBillPage().createBill(bills);
-        session.getBillPage().getCloseLogoPopupBtn().clickIfEist(true,2);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Click on the bill created
-        session.getBillPage().getUnpaidBillButton().clbhick();
+        session.getBillPage().getUnpaidBillButton().click();
 
         //Verify all the WebElements on Bill popup
         String expectedPopupHeader = session.getBillPage().getBillPopupHeader().getText();
