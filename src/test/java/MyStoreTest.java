@@ -31,7 +31,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getSkipStripeAccountPopUpButton().click();
 
         //Step 5: Click on 'Save' Button
-        myStore.getSaveButton().clickIfExist();
+        myStore.getSaveButton().click();
 
         //Verify the validation message
         String blankFieldWarningMessage = "Please review the highlighted field(s)";
