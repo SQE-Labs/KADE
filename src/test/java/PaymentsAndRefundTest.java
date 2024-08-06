@@ -23,7 +23,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().getUnpaidBillButton().click();
 
         //Verify all the WebElements on Bill popup
-        String expectedPopupHeader = session.getBillPage().getBillPopupHeader().getText();
+        String expectedPopupHeader = session.getBillPage().getBillPopupHeader().getTex();
         Assertions.assertEquals(expectedPopupHeader,"Bill");
         Assertions.assertTrue(session.getBillPage().getShareButton().isDisplayed()); 
         Assertions.assertTrue(session.getBillPage().getQRCodeButton().isDisplayed());
