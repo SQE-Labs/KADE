@@ -4,6 +4,7 @@ on: [push]
 
 jobs:
   build:
+    name : build check
     runs-on: self-hosted
     steps:
     - uses: actions/checkout@v3
