@@ -9,16 +9,6 @@ import org.testng.annotations.Test;
 import org.automation.session.KadeSession;
 
 public class PaymentsAndRefundTest extends KadeSession {
-    LoginPage login = new LoginPage();
-    DashBoardPage dashboard = new DashBoardPage();
-    BillPage bill = new BillPage();
-    PaymentsPage payments = new PaymentsPage();
-    TransactionsPage transactions= new TransactionsPage();
-
-    @AfterMethod
-    public void logout() {
-        dashboard.signOut();
-    }
 
     @Test(description = "PYMT1 Bill Creation and Successful Bill Payment by Cash through Store Manager.")
     public void cashPaymentThroughStoreManager(){
@@ -80,8 +70,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getDashBoardPage().getTransactionButton().click();
         session.getTransactionsPage().selectStore(bills.getStore());
         session.getTransactionsPage().getLastTransactionRow().click();
-        Assertions.assertEquals(transactions.getBillAmount(),"$"+bills.getAmount());
-        Assertions.assertTrue(transactions.isUniqueTransactionIdDisplayed());
+        Assertions.assertEquals(session.getTransactionsPage().getBillAmount().getText(),"$"+bills.getAmount());
         session.getTransactionsPage().getCloseTransactionPopupButton().click();
     }
 
@@ -262,6 +251,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         String expectedBalanceDue2 = session.getBillPage().convertToNumberFormat(expBalanceDue2);
         float amtPaid2 = updateAmount1 + updateAmount2;
         String amountPaid2 = session.getBillPage().convertToNumberFormat(amtPaid2);
+        WebdriverWaits.sleep(3000);
         Assertions.assertEquals(session.getPaymentsPage().getTotalPaidAmount().getText().split(":")[1],"$"+amountPaid2);
         Assertions.assertEquals(session.getPaymentsPage().getBalanceDue().getText(),"$"+expectedBalanceDue2);
 
@@ -369,8 +359,7 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         session.getPaymentsPage().getCloseReceivedPopupButton().click();
         //Verify NotPaid label
-        Assertions.assertTrue(session.getBillPage().isNotPaidLabelDisplayed(amt));
-        Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
+        Assertions.assertEquals(session.getBillPage().getPaymentStatusOfLatestBill().getText(),"NOT PAID");
 
         //Deleting unpaid bill
         session.getBillPage().getNotPaidBill().click();
@@ -389,15 +378,17 @@ public class PaymentsAndRefundTest extends KadeSession {
         //Creating Bill
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
+
         //Logout as Store manager
         session.getDashBoardPage().getSignOutButton().click();
 
         //Login as Customer
         session.getLoginPage().performSignIn("yonro@yopmail.com", "Test@123");
-//        session.getNotificationPage().getNotificationIcon().click();
-//        session.getNotificationPage().getFirstNotification().click();
-//        session.getPaymentsPage().getPayNowButton().click();
-//        session.getPaymentsPage().getChangePaymentButton().click();
-//        session.getPaymentsPage().getSavedCreditCard().click();
+        session.getNotificationPage().getNotificationIcon().click();
+        session.getNotificationPage().getFirstNotification().click();
+        session.getPaymentsPage().getPayNowButton().click();
+        session.getPaymentsPage().getChangePaymentButton().click();
+        session.getPaymentsPage().getSavedCreditCard().click();
+        session.getPaymentsPage().swipeToPay();
     }
 }

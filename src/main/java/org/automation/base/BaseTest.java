@@ -13,8 +13,6 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
-
-import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -30,23 +28,16 @@ import static org.automation.logger.Log.error;
 
 @Listeners({ TestRunListener.class })
 public class BaseTest {
-
-
-	KadeSession kadeSession;
 	public static ExtentReports extent;
 	ExtentSparkReporter extentSparkReporter;
 	private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 	private static ThreadLocal<ExtentTest> extentTest = new ThreadLocal<>();
-
 	public static WebDriver getDriver() {
 		return driver.get();
 	}
-
 	public static ExtentTest getExtentTest() {
 		return extentTest.get();
 	}
-
-
 
 	public static void closeDriver() {
 		getDriver().close();
@@ -120,8 +111,8 @@ public class BaseTest {
 	 */
 	@AfterMethod(alwaysRun = true)
 	public void afterClass() {
-//		closeDriver();
-
+		KadeSession session = new KadeSession();
+		session.getDashBoardPage().getSignOutButton().click();
 	}
 
 	@AfterSuite(alwaysRun = true)

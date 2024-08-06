@@ -36,5 +36,9 @@ public class KadeSession extends BaseTest {
     public LoginPage getLoginPage() {
         return new LoginPage();
     }
+
+    public NotificationsPage getNotificationPage() {
+        return new NotificationsPage();
+    }
 }
 

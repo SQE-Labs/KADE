@@ -168,6 +168,7 @@ public class BillPage extends BasePage {
     By customerCancelOption = By.xpath("//span[text()='Customer can cancel at any time']");
     By everyDayField = By.xpath("//input[@class='max-5c form-control']");
     By recurringBillText = By.xpath("//a[@class='btn btn-link']");
+    By billTag = By.xpath("//div[contains(@class,'col-5  text-end') ]//div[1]/span");
 
     /*
     Locators of Bill popup
@@ -336,22 +337,22 @@ public class BillPage extends BasePage {
 
     public void createBill(BillsPage billObj, boolean navigateToBillSection) {
         if (navigateToBillSection) {
-            getStoresDropdown();
+            getStoresDropdown().click();
             selectStore(billObj.getStore());
-            getContinueButton();
+            getContinueButton().click();
         }
 
-        getNewBillButton();
+        getNewBillButton().click();
         if (billObj.getAmount() != null) {
             getAmountField().setText(billObj.getAmount());
         }
         disableTaxToggle();
-        getCustomerButton();
+        getCustomerButton().click();
         if (billObj.getCustomerPhnNo() != null) {
             getCustomerPhoneNoField().setText(billObj.getCustomerPhnNo());
         }
-        getGoPhoneNumberButton();
-        getConfirmButton();
+        getGoPhoneNumberButton().click();
+        getConfirmButton().click();
     }
 
     public Clickable getFilterButton() {
@@ -718,4 +719,7 @@ public class BillPage extends BasePage {
     }
 
 
+    public Clickable getPaymentStatusOfLatestBill() {
+        return Clickable.getElementBy(billTag,"Bill Status");
+    }
 }
