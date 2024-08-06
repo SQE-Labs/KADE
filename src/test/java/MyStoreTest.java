@@ -10,8 +10,8 @@ import org.testng.annotations.Test;
 
 public class MyStoreTest extends BaseTest {
 
-    @Test(description = "SC_01 Verifying creation of Store without Stripe Payment Account Configuration")
-    public void sc01_StoreCreationWithoutStripeAccount() throws AWTException {
+    @Test(description = "SC_01(A) Verifying creation of Store without Stripe Payment Account Configuration")
+    public void sc01a_StoreCreationWithoutStripeAccount() throws AWTException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
@@ -36,8 +36,8 @@ public class MyStoreTest extends BaseTest {
 
         //Enter Store Name
         String businessFieldMaximumLength = "100";
-        Assertions.assertEquals(myStore.getBusinessFieldMaxLen().getAttribute("maxlength"), businessFieldMaximumLength);
-        myStore.getBusinessNameField().setText("My Store Final");
+        Assertions.assertEquals(myStore.getStoreNameField().getAttribute("maxlength"), businessFieldMaximumLength);
+        myStore.getStoreNameField().setText("My Store Final");
 
         //Enter Location Description
         myStore.getLocationDescriptionField().setText("Without Stripe Account");
@@ -48,16 +48,16 @@ public class MyStoreTest extends BaseTest {
 
         //Enter Phone Number
         String phoneFieldMaximumLength = "22";
-        Assertions.assertEquals(myStore.getPhoneFieldMaxLen().getAttribute("maxlength"), phoneFieldMaximumLength);
+        Assertions.assertEquals(myStore.getPhoneField().getAttribute("maxlength"), phoneFieldMaximumLength);
         myStore.getPhoneField().setText("9180652348");
 
         //Select Time Zone
         myStore.selectTimeZone();
 
         //Verifying the minimum, maximum and default values of taxRate field
-        Assertions.assertEquals(myStore.getTaxFieldMinValue().getAttribute("min"), "0");
-        Assertions.assertEquals(myStore.getTaxFieldDefaultValue().getAttribute("value"), "0.000");
-        Assertions.assertEquals(myStore.getTaxFieldMaxValue().getAttribute("max"), "100");
+        Assertions.assertEquals(myStore.getTaxRateField().getAttribute("min"), "0");
+        Assertions.assertEquals(myStore.getTaxRateField().getAttribute("value"), "0.000");
+        Assertions.assertEquals(myStore.getTaxRateField().getAttribute("max"), "100");
         myStore.getTaxRateField().setText("10.000");
 
         //Click on 'Save' Button
@@ -65,8 +65,8 @@ public class MyStoreTest extends BaseTest {
         myStore.getContinueButton().click();
     }
 
-    @Test(description = "SC_02 Verifying deletion of Store when Stripe Account is not Configured")
-    public void sc02_DeletionOfStore() {
+    @Test(description = "SC_01(B) Verifying deletion of Store when Stripe Account is not Registered Yet")
+    public void sc01b_DeletionOfStore() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
@@ -84,8 +84,8 @@ public class MyStoreTest extends BaseTest {
         myStore.getDeleteStoreIcon().click();
     }
 
-    @Test(description = "SC_03 Verify creation of Store with Stripe Payment Account")
-    public void sc03_CreationOfStoreWithStripeAccount() {
+    @Test(description = "SC_02 Verify creation of Store with Stripe Payment Account")
+    public void sc02_CreationOfStoreWithStripeAccount() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
@@ -119,8 +119,8 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getAddedTaxRate().getText(), defaultTaxRate);
     }
 
-    @Test(description = "SC_04 Verifying modification of existing created Store")
-    public void sc04_VerifyingModificationOfExistingCreatedStore() throws AWTException {
+    @Test(description = "SC_03 Verifying modification of existing created Store")
+    public void sc03_VerifyingModificationOfExistingCreatedStore() throws AWTException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
@@ -137,8 +137,8 @@ public class MyStoreTest extends BaseTest {
         myStore.getCheckButton().click();
 
         //Enter Store Name
-        Assertions.assertEquals(myStore.getBusinessFieldMaxLen().getAttribute("max"), "100");
-        myStore.getBusinessNameField().setText("My Store MSC Final");
+        Assertions.assertEquals(myStore.getStoreNameField().getAttribute("max"), "100");
+        myStore.getStoreNameField().setText("My Store MSC Final");
 
         //Enter Location Description
         myStore.getLocationDescriptionField().setText("With Stripe Account");
@@ -148,15 +148,15 @@ public class MyStoreTest extends BaseTest {
         myStore.selectStoreAddress(storeAddressName);
 
         //Enter Phone Number
-        Assertions.assertEquals(myStore.getPhoneFieldMaxLen().getAttribute("maxlength"), "22");
+        Assertions.assertEquals(myStore.getPhoneField().getAttribute("maxlength"), "22");
         myStore.getPhoneField().setText("9180652341");
 
         //Select Time Zone
         myStore.selectTimeZone();
 
         //Verifying the Maximum and Default Values of 'Tax Rate'
-        Assertions.assertEquals(myStore.getTaxFieldDefaultValue().getAttribute("value"), "0.000");
-        Assertions.assertEquals(myStore.getTaxFieldMaxValue().getAttribute("max"), "100");
+        Assertions.assertEquals(myStore.getTaxRateField().getAttribute("value"), "0.000");
+        Assertions.assertEquals(myStore.getTaxRateField().getAttribute("max"), "100");
 
         //Enter Tax Rate
         myStore.getTaxRateField().setText("18.000");
@@ -174,8 +174,8 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getAddedTaxRate().getText(), defaultTaxRate);
     }
 
-    @Test(description = "SC_05 Verifying buying Monthly Business Plan for already created Store")
-    public void sc05_VerifyingBuyingMonthlyBusinessPlanForAlreadyCreatedStore() {
+    @Test(description = "SC_04(A) Verifying buying Monthly Business Plan for already created Store")
+    public void sc04a_VerifyingBuyingMonthlyBusinessPlanForAlreadyCreatedStore() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
@@ -202,8 +202,8 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertTrue(myStore.getNextBillDate().isDisplayed());
     }
 
-    @Test(description = "SC_06 Verifying buying Yearly Business Plan for already created Store")
-    public void sc06_VerifyingBuyingYearlyBusinessPlanForAlreadyCreatedStore() {
+    @Test(description = "SC_04(B) Verifying buying Yearly Business Plan for already created Store")
+    public void sc04b_VerifyingBuyingYearlyBusinessPlanForAlreadyCreatedStore() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
@@ -228,8 +228,8 @@ public class MyStoreTest extends BaseTest {
         myStore.getChangePlanButton().click();
     }
 
-    @Test(description = "SC_07 Verifying the Configuration of already created Store using Settings Sub-Tabs")
-    public void sc07_VerifyingConfigurationsOfStoreUsingSettings() {
+    @Test(description = "SC_05(A) Verifying the Configuration of already created Store using Settings Sub-Tabs")
+    public void sc05a_VerifyingConfigurationsOfStoreUsingSettings() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
@@ -255,8 +255,8 @@ public class MyStoreTest extends BaseTest {
         myStore.getTipGratuityToggleButton().click();
         myStore.getTipConfigureButton().click();
         Assertions.assertEquals(myStore.getTipConfigPopUpTitle().getText(), "Tip configuration");
-        Assertions.assertEquals(myStore.getDefaultTipAmtValue().getAttribute("value"), "0");
-        Assertions.assertEquals(myStore.getMaxTipAmtValue().getAttribute("max"), "99");
+        Assertions.assertEquals(myStore.getTipAmountPerCentField1().getAttribute("value"), "0");
+        Assertions.assertEquals(myStore.getTipAmountPerCentField1().getAttribute("max"), "99");
 
         //Enter Tip Values
         myStore.getTipAmountPerCentField1().setText("10");
@@ -268,8 +268,8 @@ public class MyStoreTest extends BaseTest {
         myStore.getRewardConfigureButton().click();
         Assertions.assertEquals(myStore.getRewardConfigPopUpTitle().getText(), "Rewards Program Configuration");
         myStore.getRewardPointToggleButton().click();
-        Assertions.assertEquals(myStore.getMinRewardPointsValue().getAttribute("min"), "100");
-        Assertions.assertEquals(myStore.getMaxRewardPointsValue().getAttribute("max"), "99999");
+        Assertions.assertEquals(myStore.getRewardPointsField().getAttribute("min"), "100");
+        Assertions.assertEquals(myStore.getRewardPointsField().getAttribute("max"), "99999");
 
         //Enter Reward Points
         myStore.getRewardPointsField().setText("1000");
@@ -277,8 +277,8 @@ public class MyStoreTest extends BaseTest {
 
         //Configure Store Links
         myStore.getStoreLinksButton().click();
-        Assertions.assertEquals(myStore.getMinRewardPointsFieldValue().getAttribute("min"), "1");
-        Assertions.assertEquals(myStore.getMaxRewardPointsFieldValue().getAttribute("max"), "9999");
+        Assertions.assertEquals(myStore.getRewardPointsValueField().getAttribute("min"), "1");
+        Assertions.assertEquals(myStore.getRewardPointsValueField().getAttribute("max"), "9999");
 
         //Enter Reward Point Values
         myStore.getRewardPointsValueField().setText("1000");
@@ -289,8 +289,8 @@ public class MyStoreTest extends BaseTest {
         myStore.getSaveChangesButton().click();
     }
 
-    @Test(description = "SC_07(b) Verifying the Configuration of the Store using flat value in 'tip or gratuity' field")
-    public void sc07b_VerifyingConfigurationsOfStoreUsingFlatValueInTipField() {
+    @Test(description = "SC_05(B) Verifying the Configuration of the Store using flat value in 'tip or gratuity' field")
+    public void sc05b_VerifyingConfigurationsOfStoreUsingFlatValueInTipField() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
@@ -306,8 +306,8 @@ public class MyStoreTest extends BaseTest {
         myStore.getTipConfigureButton().click();
         Assertions.assertEquals(myStore.getTipConfigPopUpTitle().getText(), "Tip configuration");
         myStore.getEnterInPerCentToggleButton().click();
-        Assertions.assertEquals(myStore.getDefaultTipAmtValue().getAttribute("value"), "0");
-        Assertions.assertEquals(myStore.getMaxTipAmtValue().getAttribute("max"), "99");
+        Assertions.assertEquals(myStore.getTipAmountFlatValueField1().getAttribute("value"), "0");
+        Assertions.assertEquals(myStore.getTipAmountFlatValueField1().getAttribute("max"), "99");
 
         //Enter Tip Values
         myStore.getTipAmountFlatValueField1().setText("10.00");
@@ -318,16 +318,18 @@ public class MyStoreTest extends BaseTest {
         myStore.getSaveChangesButton().click();
     }
 
-    @Test(description = "SC_08 Verifying the Configuration of the Store using Payment Processing Sub-Tab")
-    public void sc08_VerifyingConfigurationOfStoreUsingPaymentProcessingSubTab() {
+    @Test(description = "SC_06 Verifying the Configuration of the Store using Payment Processing Sub-Tab")
+    public void sc06_VerifyingConfigurationOfStoreUsingPaymentProcessingSubTab() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
+
+        //Step 1: Click on 'Manage User' sub-tab
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
-        //Click on Configure Button
+        //Step 2: Click on 'Configure' Button
         myStore.getConfigureButton().click();
 
-        //Click on Payment-Processing Sub-Tab
+        //Step 3: Click on 'Payment-Processing' Sub-Tab
         myStore.getPaymentProcessingSubTab().click();
 
         //Enabling Venmo Payment Method
@@ -366,5 +368,93 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getNewTerminalPopUpTitle().getText(), "New Terminal");
         myStore.getCreditTerminalOption().click();
         myStore.getSaveButton().click();
+    }
+    @Test(description = "SC_07(A) Verifying the Configuration of the Store using 'Manage Users' Sub-Tab")
+    public void sc07a_VerifyingConfigurationOfStoreUsingManageUsersSubTabs(){
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getDashBoardPage().getMyStoresTab().click();
+        MyStorePage myStore = session.getMyStorePage();
+
+        //Click on Configure Button
+        myStore.getConfigureButton().click();
+
+        //Click on Manage User Sub Tab
+        myStore.getManageUserSubTab().click();
+
+        // Click on Add User button
+        myStore.getAddUserButton().click();
+        Assertions.assertEquals(myStore.getAddUserPopUpTitle().getText(), "Add User");
+
+        // Enter Manage UserName
+        myStore.getManageUserNameField().setText("Manage store user");
+
+        // Checking max length of Username field.
+        Assertions.assertEquals(myStore.getManageUserNameField().getAttribute("maxlength"), "30");
+
+        // Click on the Manage User's Profile Drop Down
+        myStore.getUserProfileDropDown().click();
+
+        //selecting profile of Manage User
+        myStore.getManagerProfileOption().click();
+        myStore.getManageUserPassword().setText("Test@123");
+        Assertions.assertEquals(myStore.getManageUserPassword().getAttribute("maxlength"), "18");
+        myStore.getCreateUserButton().click();
+    }
+
+    @Test(description = "SC_07(B) Verifying the Configuration of the store using Manage User sub tab to invite any existing user to manage store.")
+    public void sc_07b_VerifyingConfigurationOfStoreUsingManageUserSubTabToInviteAnyExistingUserToManageStore() {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+
+        //Step 1:Click on 'Manage User' sub-tab
+        session.getDashBoardPage().getMyStoresTab().click();
+        MyStorePage myStore = session.getMyStorePage();
+
+        //Step 2: Click on 'Configure' Button
+        myStore.getConfigureButton().click();
+
+        //Step 3: Click on Manage User Sub Tab
+        myStore.getManageUserSubTab().click();
+
+        // Click on Invite Existing User Button
+        myStore.getInviteExistingUserButton().click();
+        Assertions.assertEquals(myStore.getInviteExistingUserPopupTitle().getText(), "Invite users");
+
+        // Enter Email Or Phone Number
+        myStore.getInviteUserEmailOrPhoneField().setText("6465551106");
+
+        // Click on the Manage User's Profile Drop Down
+        myStore.getUserProfileDropDown().click();
+
+        //selecting profile of Manage User
+        myStore.getManagerProfileOption().click();
+
+        // Click on 'Send Invite' button.
+        myStore.getSendInviteButton().click();
+    }
+    @Test(description = "SC_08 Verify deactivating an activated Store")
+    public void sc_08_VerifyDeactivatingAnActivatedStore(){
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+
+        //Step 1:Click on 'Manage User' sub-tab
+        session.getDashBoardPage().getMyStoresTab().click();
+        MyStorePage myStore = session.getMyStorePage();
+
+        //Step 2: Click on 'Configure' Button
+        myStore.getConfigureButton().click();
+
+        //Step 3: Click on 'Active' Sub-tab
+        myStore.getActiveSubTab().click();
+
+        //Step 4: Click on 'Deactivate' Button
+        myStore.getDeactivateButton().click();
+
+        //Verifying that store gets Deactivated and success message appears
+        Assertions.assertEquals(myStore.getNotActiveStoreLabel().getText(), "Store is NOT active (Deactivated)");
+
+        //Step 5: Click on 'Activate' Button
+        myStore.getActivateButton().click();
+
+        //Verifying that store gets Deactivated and success message appears
+        Assertions.assertEquals(myStore.getActiveStoreLabel().getText(), "Store is active and ready to receive payments");
     }
 }
