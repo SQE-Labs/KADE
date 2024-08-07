@@ -411,6 +411,7 @@ public class BillTest extends BaseTest {
 
         //Verify that optional fields are added to the bill
         bill.getMoreOptionsButton().click();
+
         String defaultPriceValue = bill.getItemPriceField1().getAttribute("value");
         Assertions.assertEquals(defaultPriceValue, "$0.00");
 
@@ -429,7 +430,7 @@ public class BillTest extends BaseTest {
 
         //Verifying that default text should be none in Description Field
         Assertions.assertEquals(bill.getDescriptionFieldDefaultText().getText(), "None");
-        bill.getDescription().clickIfExist();
+        bill.getDescription().scrollPopupAndClick();
         Assertions.assertEquals(bill.getDescriptionPopUpTitle().getText(), "Description");
         String actualMaxDescLen = bill.getDescriptionField().getAttribute("maxlength");
         Assertions.assertEquals(actualMaxDescLen, "200");
