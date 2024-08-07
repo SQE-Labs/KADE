@@ -5,6 +5,7 @@ import java.nio.file.Paths;
 import org.automation.ReturnObjects.Clickable;
 import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
+import org.automation.utilities.ActionEngine;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 
@@ -17,7 +18,7 @@ public class MyStorePage extends BasePage {
     By deleteStoreIcon = By.cssSelector(".fa.fa-check");
     By blankFieldWarningMsg = By.xpath("//p[@class='alert-content']");
     By storeLogo = By.xpath("(//img[contains(@alt,'')])[3]");
-    By businessNameTbx = By.xpath("//input[@name='name']");
+    By StoreNameTbx = By.xpath("//input[@name='name']");
     By locationDescTbx = By.xpath("//input[@name='description']");
     By storeAddressField = By.cssSelector(".form-control.pac-target-input");
     By storeAddressOption = By.xpath("(//div[@class='pac-item'])[1]");
@@ -41,7 +42,7 @@ public class MyStorePage extends BasePage {
     By termsCbx = By.xpath("//span[text()='     I agree to the']");
     By changePlanBtn = By.xpath("//button[text()='Change plan']");
     By addedStoreName = By.cssSelector("div[class='form-group mb-3'] h4");
-    By addedBusinessName = By.cssSelector("div[class='display-none -readonly-div-'] span");
+    By addedLocationDescription = By.cssSelector("div[class='display-none -readonly-div-'] span");
     By addedStoreAddress = By.xpath("//label[text()='Store Address']/following-sibling::p");
     By addedStorePhone = By.xpath("//label[text()='Store Phone']/following-sibling::p");
     By addedCurrencyOfStore = By.xpath("//label[text()='Currency of the Store']/following-sibling::p");
@@ -51,13 +52,12 @@ public class MyStorePage extends BasePage {
     By newBankAccountBtn = By.xpath("//span[text()='New Bank Account']");
     By changePayMethodBtn = By.xpath("//button[text()='change']");
     By nextBillDate = By.xpath("(//div[@class='d-flex'])[2]");
-    By defaultVisaMethod = By.xpath("//div[contains(@class,'d-flex justify-content-center align-items-center')]");
     By configureBtnWithoutStripe = By.xpath("(//a[contains(@class,'float-end btn btn-link')][text()='Configure'])[3]");
     By settingsSubTab = By.xpath("//a[text()='Settings']");
     By maxBillAmountTbx = By.xpath("//input[@name='maxBillAmountThreshold']");
     By tipGratuityToggleBtn = By.xpath("//span[@class='ms-2 custom-check-on'][text()='No']");
     By tipConfigureBtn = By.xpath("//div[@class='checked-d-none']//button[@type='button'][text()='Configure']");
-    By tipConfgPopUpTitle = By.xpath("//h5[text()='Tip configuration']");
+    By tipConfigPopUpTitle = By.xpath("//h5[text()='Tip configuration']");
     By tipPercentField1 = By.xpath("//input[@name='tipSelections[0].percentage']");
     By tipPercentField2 = By.xpath("//input[@name='tipSelections[1].percentage']");
     By tipPercentField3 = By.xpath("//input[@name='tipSelections[2].percentage']");
@@ -86,6 +86,23 @@ public class MyStorePage extends BasePage {
     By addNewTerminalBtn = By.xpath("//button[text()='Add new terminal']");
     By newTerminalPopUpTitle = By.xpath("//h5[text()='New Terminal']");
     By creditCardTerminalOption = By.xpath("//span[text()=' Tap-To-Pay on phone']");
+    By manageUserSubTab = By.xpath("//a[text()='Manage Users']");
+    By addUserButton = By.xpath("//button[text()='Add User']");
+    By manageUserNameField = By.xpath("//div[@class='mb-2']//div[@class='input-group']//input");
+    By userProfileDropDown = By.xpath("//select[@name='profileId']");
+    By managerProfileOption = By.xpath("//option[@value='3000']");
+    By manageUserPassword = By.xpath("//input[@name='passWord']");
+    By createManagerUserButton = By.xpath("//button[@class='btn btn-primary']");
+    By addUserPopUpTitle = By.cssSelector(".modal-title");
+    By inviteExistingUserButton = By.xpath("//button[@class='position-relative btn btn-outline-primary']");
+    By inviteExistingUserPopupTitle = By.cssSelector(".modal-title");
+    By inviteMangeUserEmailOrPhoneField = By.xpath("//input[@name='email_phones']");
+    By sendInviteButton = By.xpath("//button[text()='Send Invite']");
+    By activeSubTab = By.xpath("//span[text()='Active']");
+    By deactivateBtn=By.xpath("//button[text()='Deactivate']");
+    By activateButton=By.xpath("//button[text()='Activate']");
+    By notActiveStoreLabel=By.xpath("//h4[@class='me-2 text-danger']");
+    By activeStoreLabel=By.xpath("//h4[@class='me-2 text-success']");
 
     public MyStorePage() {
     }
@@ -123,7 +140,7 @@ public class MyStorePage extends BasePage {
     }
 
     public Editable getSkipPopUpTitle() {
-        return Editable.getElementBy(skipPopUpTitle);
+        return Editable.getElementBy(skipPopUpTitle,"Skip PopUp Title");
     }
 
     public Clickable getSkipStripeAccountPopUpButton() {
@@ -139,47 +156,27 @@ public class MyStorePage extends BasePage {
     }
 
     public Editable getBlankFieldWarningMsg() {
-        return Editable.getElementBy(blankFieldWarningMsg);
+        return Editable.getElementBy(blankFieldWarningMsg,"Blank Field Message");
     }
 
     public Clickable getStoreLogo() {
         return Clickable.getElementBy(storeLogo, "Store Logo");
     }
 
-    public Editable getBusinessNameField() {
-        return Editable.getElementBy(businessNameTbx);
-    }
-
-    public Editable getBusinessFieldMaxLen() {
-        return Editable.getElementBy(businessNameTbx);
+    public Editable getStoreNameField() {
+        return Editable.getElementBy(StoreNameTbx,"Store Name Field");
     }
 
     public Editable getLocationDescriptionField() {
-        return Editable.getElementBy(locationDescTbx);
+        return Editable.getElementBy(locationDescTbx,"Location Description Field");
     }
 
     public Editable getPhoneField() {
-        return Editable.getElementBy(phoneTbx);
-    }
-
-    public Editable getPhoneFieldMaxLen() {
-        return Editable.getElementBy(phoneTbx);
+        return Editable.getElementBy(phoneTbx,"Phone Field");
     }
 
     public Editable getTaxRateField() {
-        return Editable.getElementBy(taxRateTbx);
-    }
-
-    public Editable getTaxFieldMinValue() {
-        return Editable.getElementBy(taxRateTbx);
-    }
-
-    public Editable getTaxFieldDefaultValue() {
-        return Editable.getElementBy(taxRateTbx);
-    }
-
-    public Editable getTaxFieldMaxValue() {
-        return Editable.getElementBy(taxRateTbx);
+        return Editable.getElementBy(taxRateTbx,"Tax Rate Field");
     }
 
     public Clickable getSaveButton() {
@@ -191,7 +188,7 @@ public class MyStorePage extends BasePage {
     }
 
     public Editable getConnectStripePopUpTitle() {
-        return Editable.getElementBy(connectStripePopUpTitle);
+        return Editable.getElementBy(connectStripePopUpTitle,"Connect Stripe PopUp Title");
     }
 
     public Clickable getTestStripeAccountButton() {
@@ -219,27 +216,27 @@ public class MyStorePage extends BasePage {
     }
 
     public Editable getAddedStoreName() {
-        return Editable.getElementBy(addedStoreName);
+        return Editable.getElementBy(addedStoreName,"Added Store Name");
     }
 
     public Editable getAddedLocationDescription() {
-        return Editable.getElementBy(addedBusinessName);
+        return Editable.getElementBy(addedLocationDescription,"Added Location Description");
     }
 
     public Editable getAddedStoreAddress() {
-        return Editable.getElementBy(addedStoreAddress);
+        return Editable.getElementBy(addedStoreAddress,"Added Store Address");
     }
 
     public Editable getAddedStorePhone() {
-        return Editable.getElementBy(addedStorePhone);
+        return Editable.getElementBy(addedStorePhone,"Added Store Phone");
     }
 
     public Editable getAddedCurrencyOfStore() {
-        return Editable.getElementBy(addedCurrencyOfStore);
+        return Editable.getElementBy(addedCurrencyOfStore,"Added Currency of Store");
     }
 
     public Editable getAddedTaxRate() {
-        return Editable.getElementBy(addedTaxRate);
+        return Editable.getElementBy(addedTaxRate,"Added Tax Rate");
     }
 
     public Clickable getPlansSubTab() {
@@ -263,11 +260,11 @@ public class MyStorePage extends BasePage {
     }
 
     public Editable getCurrentPlanSuccessMessage() {
-        return Editable.getElementBy(currentPlanMSg);
+        return Editable.getElementBy(currentPlanMSg,"current Plan Message");
     }
 
     public Editable getDefaultPaymentMethod() {
-        return Editable.getElementBy(addedVisaMethod);
+        return Editable.getElementBy(addedVisaMethod,"Added Visa Method");
     }
 
     public Clickable getChangePayMethodLink() {
@@ -275,15 +272,15 @@ public class MyStorePage extends BasePage {
     }
 
     public Clickable getNewCreditCardButton() {
-        return Clickable.getElementBy(newCreditCardBtn);
+        return Clickable.getElementBy(newCreditCardBtn,"New Credit Card Button");
     }
 
     public Clickable getNewBankAccountButton() {
-        return Clickable.getElementBy(newBankAccountBtn);
+        return Clickable.getElementBy(newBankAccountBtn,"New Bank Account Button");
     }
 
     public Clickable getNextBillDate() {
-        return Clickable.getElementBy(nextBillDate);
+        return Clickable.getElementBy(nextBillDate,"Next Bill Date");
     }
 
     public Clickable getConfigureButton() {
@@ -295,7 +292,7 @@ public class MyStorePage extends BasePage {
     }
 
     public Editable getMaximumBillAmountField() {
-        return Editable.getElementBy(maxBillAmountTbx);
+        return Editable.getElementBy(maxBillAmountTbx,"Maximum Bill Amount Field");
     }
 
     public Clickable getTipGratuityToggleButton() {
@@ -307,39 +304,31 @@ public class MyStorePage extends BasePage {
     }
 
     public Editable getTipConfigPopUpTitle() {
-        return Editable.getElementBy(tipConfgPopUpTitle);
-    }
-
-    public Editable getDefaultTipAmtValue() {
-        return Editable.getElementBy(tipPercentField1);
-    }
-
-    public Editable getMaxTipAmtValue() {
-        return Editable.getElementBy(tipPercentField1);
+        return Editable.getElementBy(tipConfigPopUpTitle,"Tip Configuration Pop Up");
     }
 
     public Editable getTipAmountPerCentField1() {
-        return Editable.getElementBy(tipPercentField1);
+        return Editable.getElementBy(tipPercentField1,"Tip Amount Percentage Field 1");
     }
 
     public Editable getTipAmountPerCentField2() {
-        return Editable.getElementBy(tipPercentField2);
+        return Editable.getElementBy(tipPercentField2,"Tip Amount Percentage Field 2");
     }
 
     public Editable getTipAmountPerCentField3() {
-        return Editable.getElementBy(tipPercentField3);
+        return Editable.getElementBy(tipPercentField3,"Tip Amount Percentage Field 3");
     }
 
     public Editable getTipAmountFlatValueField1() {
-        return Editable.getElementBy(tipFlatValueField1);
+        return Editable.getElementBy(tipFlatValueField1,"Tip Amount Flat Value Field 1");
     }
 
     public Editable getTipAmountFlatValueField2() {
-        return Editable.getElementBy(tipFlatValueField2);
+        return Editable.getElementBy(tipFlatValueField2,"Tip Amount Flat Value Field 2");
     }
 
     public Editable getTipAmountFlatValueField3() {
-        return Editable.getElementBy(tipFlatValueField3);
+        return Editable.getElementBy(tipFlatValueField3,"Tip Amount Flat Value Field 1");
     }
 
     public Clickable getSaveChangesButton() {
@@ -351,7 +340,7 @@ public class MyStorePage extends BasePage {
     }
 
     public Editable getRewardConfigPopUpTitle() {
-        return Editable.getElementBy(rewardConfigPopUpTitle);
+        return Editable.getElementBy(rewardConfigPopUpTitle,"Reward Configuration PopUp");
     }
 
     public Clickable getRewardPointToggleButton() {
@@ -359,26 +348,18 @@ public class MyStorePage extends BasePage {
     }
 
     public Clickable getEnterInPerCentToggleButton() {
-        return Clickable.getElementBy(enterInPercentToggleBtn);
+        return Clickable.getElementBy(enterInPercentToggleBtn,"Enter in Percentage Toggle Button");
     }
 
     public Editable getRewardPointsField() {
-        return Editable.getElementBy(rewardPointsField);
+        return Editable.getElementBy(rewardPointsField,"Reward Points Field");
     }
 
     public Clickable getEarnRewardsPointsToggleButton() {
-        return Clickable.getElementBy(earnRewardsToggleBtn);
+        return Clickable.getElementBy(earnRewardsToggleBtn,"Earn Rewards Toggle Button");
     }
 
-    public Editable getMinRewardPointsValue() {
-        return Editable.getElementBy(rewardPointsField);
-    }
-
-    public Editable getMaxRewardPointsValue() {
-        return Editable.getElementBy(rewardPointsField);
-    }
-
-    public Clickable getCheckButton() {
+     public Clickable getCheckButton() {
         return Clickable.getElementBy(checkBtn, "Check Button");
     }
 
@@ -387,19 +368,11 @@ public class MyStorePage extends BasePage {
     }
 
     public Editable getRewardPointsValueField() {
-        return Editable.getElementBy(rewardPtsValue);
-    }
-
-    public Editable getMaxRewardPointsFieldValue() {
-        return Editable.getElementBy(rewardPtsValue);
-    }
-
-    public Editable getMinRewardPointsFieldValue() {
-        return Editable.getElementBy(rewardPtsValue);
+        return Editable.getElementBy(rewardPtsValue,"Reward Points Value");
     }
 
     public Editable getWebsiteURLField() {
-        return Editable.getElementBy(websiteURLField);
+        return Editable.getElementBy(websiteURLField,"Website URL Field");
     }
 
     public Clickable getPaymentProcessingSubTab() {
@@ -415,35 +388,103 @@ public class MyStorePage extends BasePage {
     }
 
     public Editable getVenmoIdField() {
-        return Editable.getElementBy(venmoIDField);
+        return Editable.getElementBy(venmoIDField,"Venmo ID Field");
     }
 
     public Editable getVenmoNameField() {
-        return Editable.getElementBy(venmoNameField);
+        return Editable.getElementBy(venmoNameField,"Venmo Name Field");
     }
 
     public Editable getZellePhoneField() {
-        return Editable.getElementBy(zellePhoneField);
+        return Editable.getElementBy(zellePhoneField,"Zelle Phone Field");
     }
 
     public Editable getZelleNameField() {
-        return Editable.getElementBy(zelleNameField);
+        return Editable.getElementBy(zelleNameField,"Zelle Name Field");
     }
 
     public Clickable getCreditCardTerminalButton() {
-        return Clickable.getElementBy(creditCardTerminalBtn);
+        return Clickable.getElementBy(creditCardTerminalBtn,"Credit Card Terminal Button");
     }
 
     public Clickable getAddNewTerminalButton() {
-        return Clickable.getElementBy(addNewTerminalBtn);
+        return Clickable.getElementBy(addNewTerminalBtn,"Add New Terminal Button");
     }
 
     public Editable getNewTerminalPopUpTitle() {
-        return Editable.getElementBy(newTerminalPopUpTitle);
+        return Editable.getElementBy(newTerminalPopUpTitle,"New Terminal Pop Up Title");
     }
 
     public Clickable getCreditTerminalOption() {
-        return Clickable.getElementBy(creditCardTerminalOption);
+        return Clickable.getElementBy(creditCardTerminalOption,"Credit Card Terminal Option");
     }
 
+    public Clickable getManageUserSubTab() {
+        return Clickable.getElementBy(manageUserSubTab, "Manage User Sub Tab");
+    }
+
+    public Clickable getAddUserButton() {
+        return Clickable.getElementBy(addUserButton, "Add User Button");
+    }
+
+    public Editable getManageUserNameField() {
+        return Editable.getElementBy(manageUserNameField,"Manage User Name Field");
+    }
+
+    public Clickable getUserProfileDropDown() {
+        return Clickable.getElementBy(userProfileDropDown,"User Profile Drop Down");
+    }
+
+    public Clickable getManagerProfileOption() {
+        return Clickable.getElementBy(managerProfileOption,"Manager Profile Option");
+    }
+
+    public Editable getManageUserPassword() {
+        return Editable.getElementBy(manageUserPassword,"Manage User Password");
+    }
+
+    public Clickable getCreateUserButton() {
+        return Clickable.getElementBy(createManagerUserButton,"Create User Button");
+    }
+
+    public Clickable getAddUserPopUpTitle() {
+        return Clickable.getElementBy(addUserPopUpTitle,"Add User Pop Up Title");
+    }
+
+    public Clickable getInviteExistingUserButton() {
+        return Clickable.getElementBy(inviteExistingUserButton,"Invite Existing User Button");
+    }
+
+    public Clickable getInviteExistingUserPopupTitle() {
+        return Clickable.getElementBy(inviteExistingUserPopupTitle,"Invite Existing User Pop Up Title");
+    }
+
+    public Editable getInviteUserEmailOrPhoneField() {
+        return Editable.getElementBy(inviteMangeUserEmailOrPhoneField,"Invite User Email or Phone Field");
+    }
+
+    public Clickable getSendInviteButton() {
+        return Clickable.getElementBy(sendInviteButton,"Send Invite Button");
+    }
+
+    public Clickable getActiveSubTab() {
+        return Clickable.getElementBy(activeSubTab,"Active Sub Tab");
+    }
+
+    public Clickable getDeactivateButton(){
+        return Clickable.getElementBy(deactivateBtn,"Deactivate Button");
+    }
+
+    public Clickable getActivateButton() {
+        return Clickable.getElementBy(activateButton,"Activate Button");
+    }
+
+    public Editable getNotActiveStoreLabel(){
+        return Editable.getElementBy(notActiveStoreLabel,"Not Active Store Label");
+    }
+
+    public Editable getActiveStoreLabel(){
+        return Editable.getElementBy(activeStoreLabel,"Active Store Label");
+    }
 }
+
