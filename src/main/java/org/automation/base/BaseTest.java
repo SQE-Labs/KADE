@@ -3,12 +3,10 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import org.automation.ReturnObjects.Clickable;
 import org.automation.listeners.TestRunListener;
 import org.automation.session.KadeSession;
 import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.Screenshot;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -93,7 +91,7 @@ public class BaseTest {
 
 	@AfterMethod
 	public void tearDown(ITestResult result) throws IOException {
-
+		new KadeSession().getDashBoardPage().getSignOutButton().click();
 		if (result.getStatus() == ITestResult.FAILURE) {
 			String screenshotPath = Screenshot.takeScreenShotAsBase64();
 			getExtentTest().addScreenCaptureFromBase64String(screenshotPath);
@@ -105,14 +103,6 @@ public class BaseTest {
 		}
 		extent.flush();
 		closeDriver();
-	}
-
-	/**
-	 * Method to execute at the end of the suite execution
-	 */
-	@AfterMethod(alwaysRun = true)
-	public void afterClass() {
-		new KadeSession().getDashBoardPage().getSignOutButton().click();
 	}
 
 	@AfterSuite(alwaysRun = true)
