@@ -8,7 +8,7 @@ public class NotificationsPage extends BasePage {
 
     // Locators
     By notificationIcon= By.xpath("//a[@data-bs-toggle='dropdown']");
-    By firstNotification = By.xpath("(//div[@class='list-group']/a)['1']");
+    By firstNotification = By.xpath("(//div[@class='list-group']/a)[1]");
 
     //PerformActions
     public Clickable getNotificationIcon(){

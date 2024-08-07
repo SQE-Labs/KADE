@@ -1,10 +1,10 @@
+package scenarios;
+
 import org.automation.data.KadeUserAccount;
 import org.automation.objectBuilder.ObjectBuilder;
 import org.automation.objectBuilder.pages.BillsPage;
-import org.automation.pages.*;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import org.automation.session.KadeSession;
 
@@ -390,5 +390,6 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getPaymentsPage().getChangePaymentButton().click();
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
+        session.getPaymentsPage().getCloseButton().clickIfExist(true, 3);
     }
 }

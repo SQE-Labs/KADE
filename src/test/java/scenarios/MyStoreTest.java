@@ -1,3 +1,5 @@
+package scenarios;
+
 import java.awt.*;
 
 import org.automation.base.BaseTest;
