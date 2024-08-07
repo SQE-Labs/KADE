@@ -104,8 +104,8 @@ public class BillPage extends BasePage {
     By documentIcon = By.xpath("(//button[contains(@onclick,'pdf')])[2]");
     By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
     By attachedImage = By.xpath("//img[@class='img-thumbnail  bg-black']");
-    By notPaidBill = By.xpath("//div[contains(@class,'row bg-white rounded-2')]");
-//    By notPaidBill=By.xpath("//span[text()='NOT PAID']");
+    //By notPaidBill = By.xpath("//div[contains(@class,'row bg-white ')]");
+    By notPaidBill=By.xpath("//span[text()='NOT PAID']");
     By deleteButton = By.cssSelector(".btn-outline-danger");
     By deleteIcon = By.cssSelector(".fa.fa-check");
     By moreOptions = By.cssSelector(".mb-3.border.p-2.py-3.rounded-3.advanced-d-none.position-relative");
@@ -182,8 +182,6 @@ public class BillPage extends BasePage {
     By uniqueRefNo = By.xpath("//div[@class='modal-content']//i[@class='fad fa-hashtag me-2']/..");
     By notPaidLabel = By.xpath("//span[@class='badge bg-danger fs-6']");
     By billTimeOnPopup = By.xpath("//div[@class='fs-pn15 mb-1']");
-    By taxValue = By.xpath("//input[@name='applyTax']/../span");
-    By taxToggleBtnDisable = By.xpath("//input[@name='applyTax']/../i[1]");
 
     public BillPage() {
         super();
@@ -201,20 +199,28 @@ public class BillPage extends BasePage {
         return Clickable.getElementBy(selectACustomerBtn, "Select Customer Button");
     }
 
-    public Clickable getEnableTaxToggleButton() {
-           return Clickable.getElementBy(taxToggleBtn,"Tax Toggle Button");
+    public void enableTaxToggle() {
+        if (isWebElementVisible(By.cssSelector(".fa-toggle-on.custom-check-off"))) {
+            click(taxToggleBtn);
+        }
     }
 
-    public Clickable getDisableTaxToggleButton() {
-            return Clickable.getElementBy(taxToggleBtnDisable,"Disable Toggle button");
+    public void disableTaxToggle() {
+        By taxToggleBtnDisable = By.xpath("//input[@name='applyTax']/../i[1]");
+        if (isWebElementVisible(By.cssSelector(".fa-toggle-on.custom-check-on"))) {
+            click(taxToggleBtnDisable);
+        }
     }
 
-    public Clickable getTotalAmt() {
-        return Clickable.getElementBy(totalAmt,"Total amount");
+    public float getTotalAmt() throws ParseException {
+        String total = getText_custom(totalAmt);
+        return NumberFormat.getInstance(Locale.US).parse(total).floatValue();
     }
 
-    public Clickable getTaxValue() {
-        return Clickable.getElementBy(taxValue,"Tax value");
+    public float getTaxValue() {
+        By taxValue = By.xpath("//input[@name='applyTax']/../span");
+        String tax = getText_custom(taxValue).split(" ")[2].replace("%", "");
+        return Float.parseFloat(tax);
     }
 
     public String convertToNumberFormat(float num) {
@@ -227,15 +233,15 @@ public class BillPage extends BasePage {
         return formatter.format(num);
     }
 
-    public Clickable getAttachedFiles() {
-        return Clickable.getElementBy(attachedImage,"Attached Image");
+    public int getAttachedFilesCount() {
+        int count = getListOfWebElements(attachedImage).size();
+        return count;
     }
 
     public void openBillByAmt(String amt) {
         By bill = By.xpath("(//span[text()='$" + amt + "']/../../..)[1]");
         click(bill);
     }
-
 
     public Clickable getNotPaidBill() {
         return Clickable.getElementBy(notPaidBill, "Not Paid Bill");
@@ -340,25 +346,13 @@ public class BillPage extends BasePage {
         if (billObj.getAmount() != null) {
             getAmountField().setText(billObj.getAmount());
         }
-        getDisableTaxToggleButton().clickIfExist();
-
+        disableTaxToggle();
+        getCustomerButton().click();
         if (billObj.getCustomerPhnNo() != null) {
-            getCustomerButton().click();
             getCustomerPhoneNoField().setText(billObj.getCustomerPhnNo());
-            getGoPhoneNumberButton().click();
-            getConfirmButton().click();
         }
-        if(billObj.getCustomerEmail() != null){
-            getCustomerButton().click();
-            getUserEmailField().setText(billObj.getCustomerEmail());
-            getEmailGoButton().click();
-        }
+        getGoPhoneNumberButton().click();
         getConfirmButton().click();
-        getContinueWithoutButton().clickIfExist();
-    }
-
-    public Clickable getEmailGoButton(){
-        return Clickable.getElementBy(goBtnEmail,"Email go button");
     }
 
     public Clickable getFilterButton() {
@@ -491,20 +485,20 @@ public class BillPage extends BasePage {
         return Editable.getElementBy(itemsDesc2, "Item Description Field 2");
     }
 
-    public Editable getItemPriceField2() {
-        return Editable.getElementBy(itemPrice2, "Item Price Field 2");
-    }
-
-    public Editable getItemPriceField3() {
-        return Editable.getElementBy(itemPrice3, "Item Price Field 3");
-    }
-
     public Editable getItemDescriptionField3() {
         return Editable.getElementBy(itemsDesc3, "Item Description Field 3");
     }
 
     public Editable getItemPriceField1() {
         return Editable.getElementBy(itemPrice1, "Item Price Field 1");
+    }
+
+    public Editable getItemPriceField2() {
+        return Editable.getElementBy(itemPrice2, "Item Price Field 2");
+    }
+
+    public Editable getItemPriceField3() {
+        return Editable.getElementBy(itemPrice3, "Item Price Field 3");
     }
 
     public Clickable getAddALineButton() {
@@ -706,6 +700,10 @@ public class BillPage extends BasePage {
 
     public Clickable getEditBillButton() {
         return Clickable.getElementBy(editBillBtn, "Edit Bill Button");
+    }
+
+    public Clickable getDeleteBillButton() {
+        return Clickable.getElementBy(deleteBillBtn, "Delete Bill Button");
     }
 
     public Clickable getUniqueReferenceNumber() {

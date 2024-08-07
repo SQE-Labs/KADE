@@ -3,12 +3,10 @@ import com.aventstack.extentreports.ExtentReports;
 import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
-import org.automation.ReturnObjects.Clickable;
 import org.automation.listeners.TestRunListener;
 import org.automation.session.KadeSession;
 import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.Screenshot;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -40,6 +38,7 @@ public class BaseTest {
 	public static ExtentTest getExtentTest() {
 		return extentTest.get();
 	}
+
 	public static void closeDriver() {
 		getDriver().close();
 		getDriver().quit();
@@ -112,7 +111,8 @@ public class BaseTest {
 	 */
 	@AfterMethod(alwaysRun = true)
 	public void afterClass() {
-		new KadeSession().getDashBoardPage().getSignOutButton().click();
+		KadeSession session = new KadeSession();
+		session.getDashBoardPage().getSignOutButton().click();
 	}
 
 	@AfterSuite(alwaysRun = true)
@@ -191,6 +191,5 @@ public class BaseTest {
 	public void switchToDefaultWindow(){
 		getDriver().switchTo().defaultContent();
 	}
-
 
 }

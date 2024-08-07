@@ -31,8 +31,6 @@ public class PaymentsPage extends BasePage {
     By voidedTag=By.xpath("//h6[text()='VOIDED']");
     By changeButton=By.xpath("//div[contains(text(),'Change')]");
     By swipeBtn = By.xpath("//input[@type='range']");
-    By closeBtn = By.xpath("//a[text()='Close']");
-
 
     /*
     Receive Payment popup locators
@@ -56,13 +54,23 @@ public class PaymentsPage extends BasePage {
     By cashPaymentType = By.xpath("//span[text()='Cash']/../../..");
     By memoTextbox=By.xpath("//textarea[@name='message']");
     By receivingAmtPaymentTypePanel = By.xpath("//span[@data-field='amount']");
-    By payNowButton = By.xpath("//button[@type='button' and text()='Pay Now']");
+    By payNowButton = By.xpath("//button[@type=\"button\" and text()='Pay Now']");
 
     public PaymentsPage(){
     }
 
+    public void clickCashBtn(){
+        WebdriverWaits.waitForElementVisible(paymentPopupTitle,5);
+        moveToWebElement(cashBtn);
+        clickElementByJS(cashBtn);
+    }
+
     public Clickable getCashButton(){
         return Clickable.getElementBy(cashPaymentType,"Cash Button");
+    }
+    //PerformActions
+    public void clickOthersBtn(){
+        click(othersBtn);
     }
 
     public Clickable getOthersButton(){
@@ -77,34 +85,64 @@ public class PaymentsPage extends BasePage {
         return Clickable.getElementBy(paidLabel,"Paid label on Bill");
     }
 
+    public boolean isPaidLabelDisplayed(){
+        WebdriverWaits.waitForElementVisible(paidLabel,5);
+        return isWebElementVisible(paidLabel);
+    }
+
     public Clickable getReceivedPaymentTitle(){
         return Clickable.getElementBy(paymentPopupTitle,"Receive Payment Popup Title");
     }
 
+    public Clickable getReceivedPaymentPopupTitle(){
+        return Clickable.getElementBy(paymentPopupTitle,"Received Payment Title");
+    }
+
+    public void closeReceivedPopup(){
+        click(closeIcon);
+    }
+
+    public void clickCreditCardBtn(){
+        click(creditCardBtn);
+    }
     public Clickable getCreditCardButton(){
         return Clickable.getElementBy(creditCardBtn,"Credit card button");
     }
 
+    public void enterCardNumber(String cardNumber){
+        pressKeys(cardNumberTbx,cardNumber);
+    }
+
     public Editable getCardNumberTextbox(){
-        return Editable.getElementBy(cardNumberTbx,"Card Number textbox");
+        return Editable.getElementBy(cardNumberTbx);
+    }
+    public void enterExpirationDate(String expiryDate){
+        pressKeys(expirationDateTbx,expiryDate);
     }
 
     public Editable getExpirationDateTextbox(){
-        return Editable.getElementBy(expirationDateTbx,"Expiration Date textbox");
+        return Editable.getElementBy(expirationDateTbx);
     }
 
-    public Editable getCvcTextbox(){
-        return Editable.getElementBy(cvcTbx,"CVC textbox");
+    public void enterCvcNumber(String cvcNumber){
+        pressKeys(cvcTbx,cvcNumber);
+    }
+
+    public Editable getCvcNumberTextbox(){
+        return Editable.getElementBy(cvcTbx);
     }
 
     public void selectCountry(String country){
         selectDropDownByVisibleText_custom(countryDropDown,country);
     }
 
+    public void clickProcessBtn(){
+        click(processBtn);
+    }
+
     public void switchToCreditCardFrame() {
         switchToFrame(creditCardInfoFrame);
     }
-
 
     public Clickable getBalanceDue() {
         return Clickable.getElementBy(balanceDue, "Balance Due Field");
@@ -122,6 +160,7 @@ public class PaymentsPage extends BasePage {
         return Clickable.getElementBy(paymentTypeHeader,"Payment Type Header");
     }
 
+
     public Clickable getPaymentLogo(){
         return Clickable.getElementBy(paymentLogo,"Payment type logo");
     }
@@ -129,20 +168,24 @@ public class PaymentsPage extends BasePage {
     public void payByCreditCard(){
         WebdriverWaits.sleep(10);
         switchToCreditCardFrame();
-        getCardNumberTextbox().setText("4111111111111111");
-        getExpirationDateTextbox().setText("0230");
-        getCvcTextbox().setText("123");
+        enterCardNumber("4111111111111111");
+        enterExpirationDate("0230");
+        enterCvcNumber("123");
         selectCountry("Australia");
         switchToDefaultWindow();
-        getProcessPaymentButton().click();
+        clickProcessBtn();
     }
 
-    private Clickable getProcessPaymentButton() {
-        return Clickable.getElementBy(processBtn,"Process Payment Button");
+    public void enterAmount(String amount) {
+        pressKeys(receiveAmountTbx,amount);
     }
 
     public Editable getReceivingAmountTextbox(){
         return Editable.getElementBy(receiveAmountTbx);
+    }
+
+    public Clickable getOtherButton(){
+        return Clickable.getElementBy(othersBtn);
     }
 
     public Clickable getReceivingAmountFromPaymentTypePanel() {
@@ -197,9 +240,5 @@ public class PaymentsPage extends BasePage {
         Actions actions = new Actions(getDriver());
         WebElement elm = getDriver().findElement(swipeBtn);
         actions.moveToElement(elm).moveByOffset(-100,0).clickAndHold().moveByOffset(200, 0).release().perform();
-    }
-
-    public Clickable getCloseButton() {
-        return Clickable.getElementBy(closeBtn, "Close Button");
     }
 }
