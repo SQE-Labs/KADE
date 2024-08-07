@@ -6,7 +6,7 @@
 			<class name="LoginTest"></class>
 			<class name="MyStoreTest"></class>
 			<class name="BillTest"></class>
-			<class name="PaymentsAndRefundTest"></class>
+			<class name="PaymentsAndRefundTest"> </class>
 		</classes>
 	</test>
 	<listeners>
