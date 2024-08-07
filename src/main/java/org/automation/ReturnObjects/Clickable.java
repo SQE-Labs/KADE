@@ -4,6 +4,9 @@ import org.automation.utilities.ActionEngine;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class Clickable extends ActionEngine {
     ActionEngine actionEngine = new ActionEngine();
@@ -91,5 +94,7 @@ public class Clickable extends ActionEngine {
         return getElementBy(by, "");
     }
 
-
+    public List<WebElement> getListOfWebElements() {
+        return super.getListOfWebElements(target);
+    }
 }
