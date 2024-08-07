@@ -92,7 +92,7 @@ public class BaseTest {
 
 	@AfterMethod
 	public void tearDown(ITestResult result) throws IOException {
-
+		new KadeSession().getDashBoardPage().getSignOutButton().click();
 		if (result.getStatus() == ITestResult.FAILURE) {
 			String screenshotPath = Screenshot.takeScreenShotAsBase64();
 			getExtentTest().addScreenCaptureFromBase64String(screenshotPath);
@@ -104,15 +104,6 @@ public class BaseTest {
 		}
 		extent.flush();
 		closeDriver();
-	}
-
-	/**
-	 * Method to execute at the end of the suite execution
-	 */
-	@AfterMethod(alwaysRun = true)
-	public void afterClass() {
-		KadeSession session = new KadeSession();
-		session.getDashBoardPage().getSignOutButton().click();
 	}
 
 	@AfterSuite(alwaysRun = true)
@@ -191,5 +182,6 @@ public class BaseTest {
 	public void switchToDefaultWindow(){
 		getDriver().switchTo().defaultContent();
 	}
+
 
 }
