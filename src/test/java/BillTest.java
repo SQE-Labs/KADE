@@ -69,6 +69,7 @@ public class BillTest extends BaseTest {
         bill.getCloseLogoPopupBtn().clickIfExist();
 
         //Verify not paid label for generated amount
+        //bill.openBillByAmt(amt);
         bill.getNotPaidBill().click();
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
@@ -139,7 +140,7 @@ public class BillTest extends BaseTest {
         bill.getCloseLogoPopupBtn().clickIfExist();
 
         //Verify not paid label for generated amount
-        //bill.getNotPaidBill().click();
+        //bill.openBillByAmt(amt);
         bill.getNotPaidBill().click();
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
@@ -184,7 +185,7 @@ public class BillTest extends BaseTest {
         bill.getCloseLogoPopupBtn().clickIfExist();
 
         //Verify not paid label for generated amount
-        //bill.getNotPaidBill().click();
+        //bill.openBillByAmt(amt);
         bill.getNotPaidBill().click();
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
@@ -478,7 +479,9 @@ public class BillTest extends BaseTest {
         //Verify Created Bill
         bill.getCloseLogoPopupBtn().clickIfExist();
 
-        bill.getNotPaidBill().click();
+        //Verifying the total amount 80+120+150
+        String total = "350";
+        bill.openBillByAmt(total);
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
         Assertions.assertTrue(bill.getBillTime().isDisplayed());

@@ -61,8 +61,18 @@ public class PaymentsPage extends BasePage {
     public PaymentsPage(){
     }
 
+    public void clickCashBtn(){
+        WebdriverWaits.waitForElementVisible(paymentPopupTitle,5);
+        moveToWebElement(cashBtn);
+        clickElementByJS(cashBtn);
+    }
+
     public Clickable getCashButton(){
         return Clickable.getElementBy(cashPaymentType,"Cash Button");
+    }
+    //PerformActions
+    public void clickOthersBtn(){
+        click(othersBtn);
     }
 
     public Clickable getOthersButton(){
@@ -81,6 +91,17 @@ public class PaymentsPage extends BasePage {
         return Clickable.getElementBy(paymentPopupTitle,"Receive Payment Popup Title");
     }
 
+    public Clickable getReceivedPaymentPopupTitle(){
+        return Clickable.getElementBy(paymentPopupTitle,"Received Payment Title");
+    }
+
+    public void closeReceivedPopup(){
+        click(closeIcon);
+    }
+
+    public void clickCreditCardBtn(){
+        click(creditCardBtn);
+    }
     public Clickable getCreditCardButton(){
         return Clickable.getElementBy(creditCardBtn,"Credit card button");
     }
@@ -99,6 +120,10 @@ public class PaymentsPage extends BasePage {
 
     public void selectCountry(String country){
         selectDropDownByVisibleText_custom(countryDropDown,country);
+    }
+
+    public void clickProcessBtn(){
+        click(processBtn);
     }
 
     public void switchToCreditCardFrame() {
@@ -143,6 +168,10 @@ public class PaymentsPage extends BasePage {
 
     public Editable getReceivingAmountTextbox(){
         return Editable.getElementBy(receiveAmountTbx);
+    }
+
+    public Clickable getOtherButton(){
+        return Clickable.getElementBy(othersBtn);
     }
 
     public Clickable getReceivingAmountFromPaymentTypePanel() {

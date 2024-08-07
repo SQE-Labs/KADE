@@ -38,6 +38,7 @@ public class BaseTest {
 	public static ExtentTest getExtentTest() {
 		return extentTest.get();
 	}
+
 	public static void closeDriver() {
 		getDriver().close();
 		getDriver().quit();
@@ -181,6 +182,5 @@ public class BaseTest {
 	public void switchToDefaultWindow(){
 		getDriver().switchTo().defaultContent();
 	}
-
 
 }
