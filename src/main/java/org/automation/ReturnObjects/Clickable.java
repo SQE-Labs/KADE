@@ -42,7 +42,7 @@ public class Clickable extends ActionEngine {
     public void clickIfExist(Boolean untillDispaeared, int numberOfRetry) {
         if (!untillDispaeared) {
             do {
-                if (isElementPresent_custom(target, label)) {
+                if (isElementPresent_custom(target, label, false)) {
                     performClickOperation(() -> clickBy(target, label));
                     numberOfRetry--;
                 }
@@ -50,10 +50,10 @@ public class Clickable extends ActionEngine {
             while (numberOfRetry > 0);
         } else {
             do {
-                if (isElementPresent_custom(target, label)) {
+                if (isElementPresent_custom(target, label, false)) {
                     performClickOperation(() -> clickBy(target, label));
                 }
-                if (!isElementPresent_custom(target, label)) {
+                if (!isElementPresent_custom(target, label, false)) {
                     break;
                 }
                 numberOfRetry--;

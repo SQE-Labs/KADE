@@ -166,14 +166,18 @@ public class ActionEngine extends BaseTest {
 	}
 
 	// check if element is Present
-	public static boolean isElementPresent_custom(By element, String fieldName) {
+	public static boolean isElementPresent_custom(By element, String fieldName, Boolean printLog) {
 		boolean flag = false;
 		try {
 			flag = getDriver().findElement(element).isDisplayed();
-			getExtentTest().log(PASS, "==> Is  " + fieldName + " element present => " + flag);
+			if (printLog){
+				getExtentTest().log(PASS, "==> Is  " + fieldName + " element present => " + flag);
+			}
 			return flag;
 		} catch (Exception e) {
-			getExtentTest().log(FAIL, "Checking for presence of field: " + fieldName + " not tested due to exception: " + e);
+			if (printLog){
+				getExtentTest().log(FAIL, "Checking for presence of field: " + fieldName + " not tested due to exception: " + e);
+			}
 			return flag;
 
 		}
