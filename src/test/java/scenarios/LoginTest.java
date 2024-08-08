@@ -1,10 +1,9 @@
+package scenarios;
+
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
-import org.automation.pages.DashBoardPage;
-import org.automation.pages.LoginPage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
-import org.automation.utilities.PropertiesUtil;
 import org.testng.annotations.Test;
 
 public class LoginTest extends BaseTest{

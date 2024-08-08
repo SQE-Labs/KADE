@@ -1,10 +1,10 @@
+package scenarios;
+
 import org.automation.data.KadeUserAccount;
 import org.automation.objectBuilder.ObjectBuilder;
 import org.automation.objectBuilder.pages.BillsPage;
-import org.automation.pages.*;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
-import org.testng.annotations.AfterMethod;
 import org.testng.annotations.Test;
 import org.automation.session.KadeSession;
 
@@ -373,7 +373,8 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getDashBoardPage().getBillButton().click();
         String amt = "4999.00";
 
-        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
+        String customerEmail ="yonro@yopmail.com" ;
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
 
         //Creating Bill
         session.getBillPage().createBill(bills);
@@ -383,12 +384,13 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getDashBoardPage().getSignOutButton().click();
 
         //Login as Customer
-        session.getLoginPage().performSignIn("yonro@yopmail.com", "Test@123");
+        session.getLoginPage().performSignIn(customerEmail, "Test@123");
         session.getNotificationPage().getNotificationIcon().click();
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
         session.getPaymentsPage().getChangePaymentButton().click();
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
+        session.getPaymentsPage().getCloseButton().clickIfExist(true, 3);
     }
 }

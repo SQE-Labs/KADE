@@ -62,8 +62,9 @@ public class BaseTest {
 		switch (browser) {
 		case "chrome":
 			ChromeOptions chromeOptions = new ChromeOptions();
-//			chromeOptions.addArguments("--headless");
 			chromeOptions.addArguments("--remote-allow-origins=*");
+			chromeOptions.addArguments("--window-size=1920,1080");
+//			chromeOptions.addArguments("--headless");
 			driver.set(new ChromeDriver(chromeOptions));
 			break;
 
@@ -92,7 +93,7 @@ public class BaseTest {
 
 	@AfterMethod
 	public void tearDown(ITestResult result) throws IOException {
-
+		new KadeSession().getDashBoardPage().getSignOutButton().clickIfExist();
 		if (result.getStatus() == ITestResult.FAILURE) {
 			String screenshotPath = Screenshot.takeScreenShotAsBase64();
 			getExtentTest().addScreenCaptureFromBase64String(screenshotPath);
@@ -104,15 +105,6 @@ public class BaseTest {
 		}
 		extent.flush();
 		closeDriver();
-	}
-
-	/**
-	 * Method to execute at the end of the suite execution
-	 */
-	@AfterMethod(alwaysRun = true)
-	public void afterClass() {
-		KadeSession session = new KadeSession();
-		session.getDashBoardPage().getSignOutButton().click();
 	}
 
 	@AfterSuite(alwaysRun = true)
@@ -191,5 +183,6 @@ public class BaseTest {
 	public void switchToDefaultWindow(){
 		getDriver().switchTo().defaultContent();
 	}
+
 
 }
