@@ -5,7 +5,6 @@ import java.nio.file.Paths;
 import org.automation.ReturnObjects.Clickable;
 import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
-import org.automation.utilities.ActionEngine;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 
@@ -94,7 +93,7 @@ public class MyStorePage extends BasePage {
     By manageUserPassword = By.xpath("//input[@name='passWord']");
     By createManagerUserButton = By.xpath("//button[@class='btn btn-primary']");
     By addUserPopUpTitle = By.cssSelector(".modal-title");
-    By inviteExistingUserButton = By.xpath("//button[@class='position-relative btn btn-outline-primary']");
+    By inviteExistingUserButton = By.xpath("//button[text()='Invite Existing User']");
     By inviteExistingUserPopupTitle = By.cssSelector(".modal-title");
     By inviteMangeUserEmailOrPhoneField = By.xpath("//input[@name='email_phones']");
     By sendInviteButton = By.xpath("//button[text()='Send Invite']");
@@ -130,7 +129,6 @@ public class MyStorePage extends BasePage {
         click(timeZoneOption);
     }
 
-    //New Methods for click and Enter
     public Clickable getRegisterNewBusinessButton() {
         return Clickable.getElementBy(registerNewBusinessBtn, "Register New Business Button");
     }
