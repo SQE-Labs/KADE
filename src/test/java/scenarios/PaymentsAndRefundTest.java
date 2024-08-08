@@ -373,7 +373,8 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getDashBoardPage().getBillButton().click();
         String amt = "4999.00";
 
-        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
+        String customerEmail ="yonro@yopmail.com" ;
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
 
         //Creating Bill
         session.getBillPage().createBill(bills);
@@ -383,7 +384,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getDashBoardPage().getSignOutButton().click();
 
         //Login as Customer
-        session.getLoginPage().performSignIn("yonro@yopmail.com", "Test@123");
+        session.getLoginPage().performSignIn(customerEmail, "Test@123");
         session.getNotificationPage().getNotificationIcon().click();
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
