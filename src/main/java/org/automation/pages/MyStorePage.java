@@ -16,7 +16,8 @@ public class MyStorePage extends BasePage {
     By deleteStoreBtn = By.xpath("//button[text()='Delete the store']");
     By deleteStoreIcon = By.cssSelector(".fa.fa-check");
     By blankFieldWarningMsg = By.xpath("//p[@class='alert-content']");
-    By storeLogo = By.xpath("(//img[contains(@alt,'')])[3]");
+    By storeLogo=By.xpath("(//img[contains(@alt,'')])[3]");
+    By storeLogoModify = By.xpath("(//div[@role=\"tabpanel\"] //img[contains(@alt,'')])[2]");
     By StoreNameTbx = By.xpath("//input[@name='name']");
     By locationDescTbx = By.xpath("//input[@name='description']");
     By storeAddressField = By.cssSelector(".form-control.pac-target-input");
@@ -32,7 +33,7 @@ public class MyStorePage extends BasePage {
     By bankTransferToggleBtn = By.xpath("//span[text()='Accept bank transfer']");
     By skipForNowBtn = By.xpath("//button[text()='Skip for now']");
     By continueBtn = By.xpath("//button[text()='Continue']");
-    By configureLink = By.xpath("(//a[contains(@class,'float-end btn btn-link')][text()='Configure'])[3]");
+    By configureStore2 = By.xpath("(//a[contains(@class,'float-end btn btn-link')][text()='Configure'])[4]");
     By modifyBtn = By.xpath("//button[text()='Modify']");
     By plansSubTab = By.partialLinkText("Plans");
     By currentPlanMSg = By.xpath("//span[@class='text-success me-1']");
@@ -51,7 +52,7 @@ public class MyStorePage extends BasePage {
     By newBankAccountBtn = By.xpath("//span[text()='New Bank Account']");
     By changePayMethodBtn = By.xpath("//button[text()='change']");
     By nextBillDate = By.xpath("(//div[@class='d-flex'])[2]");
-    By configureBtnWithoutStripe = By.xpath("(//a[contains(@class,'float-end btn btn-link')][text()='Configure'])[3]");
+    By configureStore1 = By.xpath("(//a[contains(@class,'float-end btn btn-link')][text()='Configure'])[3]");
     By settingsSubTab = By.xpath("//a[text()='Settings']");
     By maxBillAmountTbx = By.xpath("//input[@name='maxBillAmountThreshold']");
     By tipGratuityToggleBtn = By.xpath("//span[@class='ms-2 custom-check-on'][text()='No']");
@@ -75,7 +76,7 @@ public class MyStorePage extends BasePage {
     By earnRewardsToggleBtn = By.xpath("(//i[@class='far fa-toggle-off custom-check-off '])[2]");
     By enterInPercentToggleBtn = By.xpath("//label[text()=' Enter in percentage']");
     By paymentProcessingSubTab = By.xpath("//a[text()='Payment Processing']");
-    By acceptVenmoToggleBtn = By.xpath("(//span[text()='Accept Venmo'])[2]");
+    By acceptVenmoToggleBtn = By.xpath("//span[text()='Accept Venmo']");
     By acceptZelleToggleBtn = By.xpath("//span[text()='Accept Zelle']");
     By venmoIDField = By.xpath("//label[text()='Venmo ID']/following-sibling::input");
     By venmoNameField = By.xpath("//label[text()='Venmo Name']/following-sibling::input");
@@ -91,7 +92,7 @@ public class MyStorePage extends BasePage {
     By userProfileDropDown = By.xpath("//select[@name='profileId']");
     By managerProfileOption = By.xpath("//option[@value='3000']");
     By manageUserPassword = By.xpath("//input[@name='passWord']");
-    By createManagerUserButton = By.xpath("//button[@class='btn btn-primary']");
+    By createManagerUserButton = By.xpath("//button[text()='Create User']");
     By addUserPopUpTitle = By.cssSelector(".modal-title");
     By inviteExistingUserButton = By.xpath("//button[text()='Invite Existing User']");
     By inviteExistingUserPopupTitle = By.cssSelector(".modal-title");
@@ -157,6 +158,9 @@ public class MyStorePage extends BasePage {
         return Editable.getElementBy(blankFieldWarningMsg,"Blank Field Message");
     }
 
+    public Clickable getStoreLogoModify() {
+        return Clickable.getElementBy(storeLogoModify, "Store Logo Modify");
+    }
     public Clickable getStoreLogo() {
         return Clickable.getElementBy(storeLogo, "Store Logo");
     }
@@ -205,8 +209,8 @@ public class MyStorePage extends BasePage {
         return Clickable.getElementBy(continueBtn, "Continue Button");
     }
 
-    public Clickable getConfigureLink() {
-        return Clickable.getElementBy(configureLink, "Configure Link");
+    public Clickable getConfigureButton2() {
+        return Clickable.getElementBy(configureStore2, "Configure Link");
     }
 
     public Clickable getModifyButton() {
@@ -282,7 +286,7 @@ public class MyStorePage extends BasePage {
     }
 
     public Clickable getConfigureButton() {
-        return Clickable.getElementBy(configureBtnWithoutStripe, "Configure Button");
+        return Clickable.getElementBy(configureStore1, "Configure Button");
     }
 
     public Clickable getSettingsSubTab() {
