@@ -17,7 +17,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
         session.getDashBoardPage().getBillButton().click();
         session.getBillPage().createBill(bills);
-        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
 
         //Click on the bill created
         session.getBillPage().getUnpaidBillButton().click();
@@ -83,8 +83,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         BillsPage billsDetails= ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
         session.getDashBoardPage().getBillButton().click();
         session.getBillPage().createBill(billsDetails);
-        WebdriverWaits.sleep(5000);
-        session.getBillPage().getCloseLogoPopupBtn().clickIfExist();
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
         //Open Bill Details popup
         session.getBillPage().getUnpaidBillButton().click();
 
@@ -129,9 +128,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         BillsPage defaultBill = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
         session.getDashBoardPage().getBillButton().click();
         session.getBillPage().createBill(defaultBill);
-        WebdriverWaits.sleep(5000);
-
-        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
         session.getBillPage().getUnpaidBillButton().click();
         session.getBillPage().getProcessPaymentButton().click();
 
@@ -165,9 +162,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         String amt = "900.00";
         BillsPage defaultBill = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
         session.getBillPage().createBill(defaultBill);
-        WebdriverWaits.sleep(5000);
-
-        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
 
         session.getBillPage().getUnpaidBillButton().click();
         session.getBillPage().getProcessPaymentButton().click();
@@ -206,7 +201,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         BillsPage billsDetail = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt);
         //Creating Bill
         session.getBillPage().createBill(billsDetail);
-        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
         session.getBillPage().getUnpaidBillButton().click();
 
         session.getBillPage().getProcessPaymentButton().click();
@@ -298,7 +293,7 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         //Creating Bill
         session.getBillPage().createBill(bills);
-        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
         session.getBillPage().getUnpaidBillButton().click();
         session.getBillPage().getProcessPaymentButton().click();
 
@@ -331,7 +326,7 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         //Creating Bill
         session.getBillPage().createBill(bills);
-        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
         session.getBillPage().getUnpaidBillButton().click();
         session.getBillPage().getProcessPaymentButton().click();
         // Process payment successfully
@@ -378,7 +373,7 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         //Creating Bill
         session.getBillPage().createBill(bills);
-        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
 
         //Logout as Store manager
         session.getDashBoardPage().getSignOutButton().click();

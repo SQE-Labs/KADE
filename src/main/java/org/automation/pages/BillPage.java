@@ -355,7 +355,7 @@ public class BillPage extends BasePage {
             getUserEmailField().setText(billObj.getCustomerEmail());
             getEmailGoButton().click();
         }
-        getConfirmButton().click();
+        getConfirmButton().clickIfExist(true,2);
         getContinueWithoutButton().clickIfExist();
     }
 
