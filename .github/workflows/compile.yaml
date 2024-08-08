@@ -1,4 +1,4 @@
-name: Build a WAR file using Maven
+name: check compilations
 
 on: [push]
 

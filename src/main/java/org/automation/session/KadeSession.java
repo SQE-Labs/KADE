@@ -21,6 +21,9 @@ public class KadeSession extends BaseTest {
     public BillPage getBillPage(){
         return new BillPage();
     }
+    public GiftCardDashboardPage getGiftCardDashboardPage(){
+        return new GiftCardDashboardPage();
+    }
 
     public PaymentsPage getPaymentsPage(){
         return new PaymentsPage();

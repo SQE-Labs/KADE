@@ -31,6 +31,8 @@ public class PaymentsPage extends BasePage {
     By voidedTag=By.xpath("//h6[text()='VOIDED']");
     By changeButton=By.xpath("//div[contains(text(),'Change')]");
     By swipeBtn = By.xpath("//input[@type='range']");
+    By closeBtn = By.xpath("//a[text()='Close']");
+
 
     /*
     Receive Payment popup locators
@@ -114,22 +116,15 @@ public class PaymentsPage extends BasePage {
     }
 
     public Editable getCardNumberTextbox(){
-        return Editable.getElementBy(cardNumberTbx);
-    }
-    public void enterExpirationDate(String expiryDate){
-        pressKeys(expirationDateTbx,expiryDate);
+        return Editable.getElementBy(cardNumberTbx,"Card Number textbox");
     }
 
     public Editable getExpirationDateTextbox(){
-        return Editable.getElementBy(expirationDateTbx);
+        return Editable.getElementBy(expirationDateTbx,"Expiration Date textbox");
     }
 
-    public void enterCvcNumber(String cvcNumber){
-        pressKeys(cvcTbx,cvcNumber);
-    }
-
-    public Editable getCvcNumberTextbox(){
-        return Editable.getElementBy(cvcTbx);
+    public Editable getCvcTextbox(){
+        return Editable.getElementBy(cvcTbx,"CVC textbox");
     }
 
     public void selectCountry(String country){
@@ -168,9 +163,9 @@ public class PaymentsPage extends BasePage {
     public void payByCreditCard(){
         WebdriverWaits.sleep(10);
         switchToCreditCardFrame();
-        enterCardNumber("4111111111111111");
-        enterExpirationDate("0230");
-        enterCvcNumber("123");
+        getCardNumberTextbox().setText("4111111111111111");
+        getExpirationDateTextbox().setText("0230");
+        getCvcTextbox().setText("123");
         selectCountry("Australia");
         switchToDefaultWindow();
         clickProcessBtn();
@@ -240,5 +235,9 @@ public class PaymentsPage extends BasePage {
         Actions actions = new Actions(getDriver());
         WebElement elm = getDriver().findElement(swipeBtn);
         actions.moveToElement(elm).moveByOffset(-100,0).clickAndHold().moveByOffset(200, 0).release().perform();
+    }
+
+    public Clickable getCloseButton() {
+        return Clickable.getElementBy(closeBtn, "Close Button");
     }
 }
