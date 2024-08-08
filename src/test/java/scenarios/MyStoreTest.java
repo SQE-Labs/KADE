@@ -437,58 +437,52 @@ public class MyStoreTest extends BaseTest {
         //Step 4: Click on 'Accept Venmo' Toggle Button
         myStore.getAcceptVenmoToggleButton().clickbyJS();
 
-        //Step 5: Click on 'Save' Button
-        myStore.getSaveButton().clickbyJS();
-
         //Verifying Maximum length of 'VenmoID' field
         Assertions.assertEquals(myStore.getVenmoIdField().getAttribute("maxlength"), "40");
 
-        //Step 6: Enter ID in 'Venmo ID" field
+        //Step 5: Enter ID in 'Venmo ID" field
         myStore.getVenmoIdField().setText("1234");
 
         //Verifying maximum length of 'Venmo Name' field
         Assertions.assertEquals(myStore.getVenmoNameField().getAttribute("maxlength"), "40");
 
-        //Step 7: Enter name in 'Venmo Name' Field
+        //Step 6: Enter name in 'Venmo Name' Field
         myStore.getVenmoNameField().setText("Ven1");
 
-        //Step 8: Click on 'Save' Button
+        //Step 7: Click on 'Save' Button
         myStore.getSaveButton().clickbyJS();
 
-        //Step 9: Click on 'Accept Zelle" toggle button
+        //Step 8: Click on 'Accept Zelle" toggle button
         myStore.getAcceptZelleToggleButton().clickbyJS();
-
-        //Step 10: Click on 'Save' Button
-        myStore.getSaveButton().clickbyJS();
 
         //Verifying maximum length of 'Zelle Phone' field
         Assertions.assertEquals(myStore.getZellePhoneField().getAttribute("maxlength"), "40");
 
-        //Step 11: Enter Phone Number in 'Zelle Phone' Field
+        //Step 9: Enter Phone Number in 'Zelle Phone' Field
         myStore.getZellePhoneField().setText("1234567890");
 
         //Verifying maximum length of 'Zelle Name' field
         Assertions.assertEquals(myStore.getZelleNameField().getAttribute("maxlength"), "40");
 
-        //Step 12: Enter Zelle Account Name
+        //Step 10: Enter Zelle Account Name
         myStore.getZelleNameField().setText("Zel1");
 
         //Step 13: Click on 'Save' Button
         myStore.getSaveButton().clickbyJS();
 
-        //Step 14: Click on 'Credit Card Terminal' button
+        //Step 11: Click on 'Credit Card Terminal' button
         myStore.getCreditCardTerminalButton().click();
 
-        //Step 15: Click on 'Add new Terminal' button
+        //Step 12: Click on 'Add new Terminal' button
         myStore.getAddNewTerminalButton().click();
 
         //Verifying the 'New Terminal' Pop-Up Title
         Assertions.assertEquals(myStore.getNewTerminalPopUpTitle().getText(), "New Terminal");
 
-        //Step 16: Select an option
+        //Step 13: Select an option
         myStore.getCreditTerminalOption().click();
 
-        //Step 17: Click on 'Save' Button
+        //Step 14: Click on 'Save' Button
         myStore.getSaveButton().clickbyJS();
     }
     @Test(description = "SC_07(A) Verifying the Configuration of the Store using 'Manage Users' Sub-Tab")

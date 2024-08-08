@@ -9,6 +9,9 @@ import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 
+import java.awt.*;
+import java.nio.file.Paths;
+
 public class PaymentsPage extends BasePage {
 
     /*
@@ -57,6 +60,34 @@ public class PaymentsPage extends BasePage {
     By memoTextbox=By.xpath("//textarea[@name='message']");
     By receivingAmtPaymentTypePanel = By.xpath("//span[@data-field='amount']");
     By payNowButton = By.xpath("//button[@type=\"button\" and text()='Pay Now']");
+    By rejectButton=By.xpath("//button[text()='Reject']");
+    By rejectReason=By.xpath("(//i[contains(@class,'fal fa-circle custom-check-off')])[1]");
+    By submitButton=By.xpath("//button[text()='Submit']");
+    By rejectToastMessage=By.xpath("//div[@class='toast-message']");
+    By confirmationPopUp=By.xpath("//h5[text()='Confirmation']");
+
+   // By savedCreditcard = By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]");
+    By savedBankAccount = By.xpath("(//span[text()='Bank Account 6789'])[1]");
+    By SavedVenmoCard = By.xpath("//div//span[text()='Venmo']");
+    By iMadeMyPaymentButtonVenmo = By.xpath("//div/div/button[text()='I made the payment']");
+    By personalMessageVenmo = By.xpath("//textarea[@placeholder='Personal message']");
+    By screenshotButton = By.xpath("//button[text()='Do you have a screenshot?']");
+    By confirmVenmoCheckbox = By.xpath(" //span[@class='ms-1']");
+    By venmoSubmitButton = By.xpath(" //button[text()='Submit']");
+    By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");// C
+    By selectedBankDisplay = By.xpath("//div[@class='-placeholder- link-empty']");
+
+    // Assertion elements of Venmo Card
+    By qrVenmoPopup = By.xpath("//div[@class='fs-4 text-center py-2 ']");
+    By venmoPopup = By.xpath("(//h5[@class='modal-title'])[1]");
+    By copyLink = By.xpath("//span[text()='Copy']");
+    By getUploadedImage = By.xpath("//form[@id='_EBX']/child::div[2]/img");
+
+    By proccessSucessMsg = By.xpath("//span[@class='fs-4']");
+    By rateYourExperienceLink = By.xpath("//div[@class='col-sm fs-4 pb-2']");
+    By viewReceipt = By.xpath("//div[@class='mt-4']/child::div/a[1]");
+    By closeBlueBtn = By.xpath("//a[text()='Close']");
+
 
     public PaymentsPage(){
     }
@@ -227,10 +258,6 @@ public class PaymentsPage extends BasePage {
         return Clickable.getElementBy(changeButton,"change Payment type button");
     }
 
-    public Clickable getSavedCreditCard() {
-        return Clickable.getElementBy(savedCreditcard,"Saved Credit card");
-    }
-
     public void swipeToPay() {
         Actions actions = new Actions(getDriver());
         WebElement elm = getDriver().findElement(swipeBtn);
@@ -240,4 +267,77 @@ public class PaymentsPage extends BasePage {
     public Clickable getCloseButton() {
         return Clickable.getElementBy(closeBtn, "Close Button");
     }
+
+    public Clickable getSavedCreditCard() {
+        return Clickable.getElementBy(savedCreditcard, "Saved Credit card");
+    }
+
+    public Clickable getSavedBankAccount() {
+        return Clickable.getElementBy(savedBankAccount, "Saved Bank Account Card");
+    }
+
+    public Clickable getSavedVenmoCard() {
+        return Clickable.getElementBy(SavedVenmoCard, "Venmo Card");
+    }
+
+    public Clickable getIMadeMyPaymentButton() {
+        return Clickable.getElementBy(iMadeMyPaymentButtonVenmo);
+    }
+
+    public Editable getVenmoPaymentText() {
+        return Editable.getElementBy(personalMessageVenmo);
+    }
+
+    public Clickable getScreenshotButton() {
+        return Clickable.getElementBy(screenshotButton);
+    }
+
+    // For Attaching image for Venmo payment Screenshot
+    public void uploadImageAsAttachment(String relativePath) throws AWTException {
+        String projectPath = System.getProperty("user.dir");
+        String absolutePath = Paths.get(projectPath, relativePath).toString();
+        uploadImageFile(absolutePath);
+    }
+
+    public void uploadVenmoImageScreenshot() throws AWTException {
+        uploadImageAsAttachment("src/main/resources/image/BillDummyImg.jpg");
+    }
+    public void uploadVenmoPdfScreenshot() throws AWTException {uploadImageAsAttachment("src/main/resources/Documents/Bills.pdf");   }
+    public Clickable  getCheckButton() { return Clickable.getElementBy(checkBtn, "Check Button");    }
+    public Clickable getConfirmVenmoCheckbox() {return Clickable.getElementBy(confirmVenmoCheckbox);    }
+    public Clickable getVenmoSubmitButton() {return Clickable.getElementBy(venmoSubmitButton); }
+
+
+    //Assertion for Venmo
+    public Clickable getVenmoPopup() { return Clickable.getElementBy(venmoPopup);   }
+    public Clickable getVenmoQrCode() {return Clickable.getElementBy(qrVenmoPopup);  }
+    public Clickable getCopyLink() { return Clickable.getElementBy(copyLink);  }
+    public Clickable getUploadedImage() { return Clickable.getElementBy(getUploadedImage);}
+
+
+    public Clickable getRejectButton() {
+        return Clickable.getElementBy(rejectButton, "Reject Button");
+    }
+
+    public Clickable getRejectReason() {
+        return Clickable.getElementBy(rejectReason, "Reject Reason");
+    }
+
+    public Clickable getSubmitButton() {
+        return Clickable.getElementBy(submitButton, "Submit Button");
+    }
+
+    public Editable getRejectToastMessage() {
+        return Editable.getElementBy(rejectToastMessage, "Reject Toast Message");
+    }
+    public Editable getConfirmationPopUpTitle() {
+        return Editable.getElementBy(confirmationPopUp, "Confirmation Pop Up");
+    }
+    public Clickable getSelectedBankDisplay () {return Clickable.getElementBy(selectedBankDisplay);    }
+    public Clickable getproccessSucessMsg() { return Clickable.getElementBy(proccessSucessMsg);}
+    public Clickable getRateYourExperienceLink() { return Clickable.getElementBy(rateYourExperienceLink);}
+    public Clickable getViewReceiptLink() { return Clickable.getElementBy(viewReceipt);}
+    public Clickable getBlueCloseButton() { return Clickable.getElementBy(closeBlueBtn);}
+
+
 }

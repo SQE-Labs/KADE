@@ -8,6 +8,8 @@ import org.automation.utilities.WebdriverWaits;
 import org.testng.annotations.Test;
 import org.automation.session.KadeSession;
 
+import java.awt.*;
+
 public class PaymentsAndRefundTest extends KadeSession {
 
     @Test(description = "PYMT1 Bill Creation and Successful Bill Payment by Cash through Store Manager.")
@@ -392,5 +394,165 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
         session.getPaymentsPage().getCloseButton().clickIfExist(true, 3);
+    }
+    @Test(description = "PYMT9 : Bill Creation and Successfull Bill Payment through Bank account by Customer.")
+    public void BillCreationByBankAccountByCustomer() {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getDashBoardPage().getBillButton().click();
+        String amt = "4999.00";
+        String customerEmail = "yonro@yopmail.com";
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
+
+        //Creating Bill
+        session.getBillPage().createBill(bills);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
+
+        //Logout as Store manager
+        session.getDashBoardPage().getSignOutButton().click(); // Signing out
+
+        //Login as Customer
+        session.getLoginPage().performSignIn(customerEmail, "Test@123");
+        session.getNotificationPage().getNotificationIcon().click(); // Click on Notification icon
+        session.getNotificationPage().getFirstNotification().click(); // click on first bill notification
+        session.getPaymentsPage().getPayNowButton().click(); // click pay now button
+        session.getPaymentsPage().getChangePaymentButton().clickbyJS();
+        session.getPaymentsPage().getSavedBankAccount().click(); // Selecting bank account method
+        Assertions.assertTrue(session.getPaymentsPage().getSelectedBankDisplay().isDisplayed());
+        session.getPaymentsPage().swipeToPay();
+        Assertions.assertEquals(session.getPaymentsPage().getproccessSucessMsg().getText().split(":")[1], "$4999.00");
+        Assertions.assertTrue(session.getPaymentsPage().getRateYourExperienceLink().isDisplayed());
+        Assertions.assertTrue(session.getPaymentsPage().getViewReceiptLink().isDisplayed());
+        Assertions.assertTrue(session.getPaymentsPage().getBlueCloseButton().isDisplayed());
+        WebdriverWaits.sleep(3000);
+        session.getPaymentsPage().getBlueCloseButton().clickbyJS();
+    }
+
+    @Test(description = "PYMT12 :Reject a Bill by customer")
+    public void RejectingABillByCustomer() {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        //Step 1: Click on 'Bill' sub-Tab
+        session.getDashBoardPage().getBillButton().click();
+
+        //Step 2: Enter Amount
+        String amt = "4999.00";
+
+        //Step 3: Enter Customer Email
+        String customerEmail ="yonro@yopmail.com" ;
+
+        //Step 4: Create Bill
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
+        session.getBillPage().createBill(bills);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
+
+        //Step 5: Logout as Store manager
+        session.getDashBoardPage().getSignOutButton().click();
+
+        //Step 6: Login as Customer
+        session.getLoginPage().performSignIn(customerEmail, "Test@123");
+
+        //Step 7: Click on 'Notifications' Icon
+        session.getNotificationPage().getNotificationIcon().click();
+
+        //Step 8: Click on first notification
+        session.getNotificationPage().getFirstNotification().click();
+
+        //Step 9: Click on 'Reject' button
+        session.getPaymentsPage().getRejectButton().click();
+
+        //Verifying Confirmation Pop-Up Title
+        Assertions.assertEquals(session.getPaymentsPage().getConfirmationPopUpTitle().getText(),"Confirmation");
+
+        //Step 10: Select any Reason
+        session.getPaymentsPage().getRejectReason().click();
+
+        //Step 11: Click on 'Submit' Button
+        session.getPaymentsPage().getSubmitButton().click();
+
+        //Verifying the success Message
+        Assertions.assertEquals(session.getPaymentsPage().getRejectToastMessage().getText(),"Bill has been rejected successfully");
+    }
+
+    @Test(description = "PYMT14 : Create Bill for a customer and pay using Venmo.")
+    public void CreateBillForCustomerPayUsingVenmo () throws AWTException {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+
+        //Step 1: Click on 'Bill' sub-Tab
+        session.getDashBoardPage().getBillButton().click();
+
+        //Step 2: Enter Amount
+        String amt = "4999.00";
+
+        //Step 3: Enter Customer Email
+        String customerEmail = "yonro@yopmail.com";
+
+        //Step 4: Create Bill
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
+        session.getBillPage().createBill(bills);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
+
+        //Step 5: Logout as Store manager
+        session.getDashBoardPage().getSignOutButton().click(); // Signing out
+
+        //Step 6: Login as Customer
+        session.getLoginPage().performSignIn(customerEmail, "Test@123");
+
+        //Step 7: Click on Notification icon
+        session.getNotificationPage().getNotificationIcon().click();
+
+        //Step 8: click on first notification
+        session.getNotificationPage().getFirstNotification().click();
+
+        //Step 9: click 'pay now' button
+        session.getPaymentsPage().getPayNowButton().click();
+
+        //Step 10: Click on 'Change Payment' Button
+        session.getPaymentsPage().getChangePaymentButton().clickbyJS();
+
+        //Step 11:  Selecting Venmo Card
+        session.getPaymentsPage().getSavedVenmoCard().clickbyJS();
+        WebdriverWaits.sleep(3000);
+
+        //Verifying that Venmo PopUp is displayed
+        Assertions.assertTrue(session.getPaymentsPage().getVenmoPopup().isDisplayed());
+
+        //Verifying that QR code is displayed
+        Assertions.assertTrue(session.getPaymentsPage().getVenmoQrCode().isDisplayed());
+
+        //Verifying that Copy link is visible
+        Assertions.assertTrue(session.getPaymentsPage().getCopyLink().isDisplayed());
+
+        //Verifying that 'Made my Payment' button is visible
+        Assertions.assertTrue(session.getPaymentsPage(). getIMadeMyPaymentButton().isDisplayed());
+
+        //Step 12: Click on 'Made my Payment' Button
+        session.getPaymentsPage().getIMadeMyPaymentButton().clickbyJS();
+
+        //Verifying that Venmo Payment Text is displayed
+        Assertions.assertTrue(session.getPaymentsPage().getVenmoPaymentText().isDisplayed());
+
+        //Step 13: Enter Text
+        session.getPaymentsPage().getVenmoPaymentText().setText("Paid the bill");
+
+        //Verify that Screenshot button is Displayed
+        Assertions.assertTrue(session.getPaymentsPage().getScreenshotButton().isDisplayed());
+
+        //Step 14: Upload Screenshot
+        session.getPaymentsPage().getScreenshotButton ().click();
+        session.getPaymentsPage().uploadVenmoImageScreenshot();
+        session.getPaymentsPage().getCheckButton().clickbyJS();
+
+        //Verify that attached image is displayed
+        Assertions.assertTrue(session.getPaymentsPage().getUploadedImage().isDisplayed());
+        WebdriverWaits.sleep(2000);
+
+        //Step 15: Click on 'Confirm Venmo' Checkbox
+        session.getPaymentsPage().getConfirmVenmoCheckbox().click();
+
+        //Step 16: Click on 'Submit' Button
+        session.getPaymentsPage().getVenmoSubmitButton().click();
+
+        //Step 17: Click on 'Close' Icon
+        session.getPaymentsPage().getCloseButton().clickbyJS();
+
     }
 }
