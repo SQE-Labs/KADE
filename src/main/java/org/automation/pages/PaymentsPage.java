@@ -74,18 +74,26 @@ public class PaymentsPage extends BasePage {
     By screenshotButton = By.xpath("//button[text()='Do you have a screenshot?']");
     By confirmVenmoCheckbox = By.xpath(" //span[@class='ms-1']");
     By venmoSubmitButton = By.xpath(" //button[text()='Submit']");
-    By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");// C
+    By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
     By selectedBankDisplay = By.xpath("//div[@class='-placeholder- link-empty']");
 
     // Assertion elements of Venmo Card
     By qrVenmoPopup = By.xpath("//div[@class='fs-4 text-center py-2 ']");
-    By venmoPopup = By.xpath("h5[class='modal-title'] span[class='payment-logo-bg']");
+    By venmoPopup = By.xpath("(//h5[@class='modal-title'])[1]");
     By copyLink = By.xpath("//span[text()='Copy']");
     By getUploadedImage = By.xpath("//div[@class='my-2 display-none']/img");
     By processSuccessMsg = By.xpath("//span[@class='fs-4']");
     By rateYourExperienceLink = By.xpath("//div[@class='col-sm fs-4 pb-2']");
     By viewReceipt = By.xpath("//div[@class='mt-4']/child::div/a[1]");
     By closeBlueBtn = By.xpath("//a[text()='Close']");
+    By tapToPayMoreLink=By.partialLinkText("Tap to pay more");
+    //By tapToPayMoreLink=By.xpath("//a[text()='Tap to pay more']");
+    By moreAmountTbx=By.xpath("//input[@lbl-title='Amount']");
+    By updateButton=By.xpath("(//button[contains(text(),'Update')])[2]");
+    By swipeButton=By.xpath("//a[contains(@class,' -updateamount-')]");
+    By savedZellePaymentButton = By.xpath("//div//span[text()='Zelle']");
+    By zellePopup = By.xpath("//h5[@class='modal-title']//span");
+    By zelleCopyLink = By.xpath("//span[text()='Copy']");
 
 
     public PaymentsPage(){
@@ -338,5 +346,31 @@ public class PaymentsPage extends BasePage {
     public Clickable getViewReceiptLink() { return Clickable.getElementBy(viewReceipt);}
     public Clickable getBlueCloseButton() { return Clickable.getElementBy(closeBlueBtn);}
 
+    public Clickable getTapToPayMoreLink(){
+        return Clickable.getElementBy(tapToPayMoreLink,"Tap To Pay More Link");
+    }
+
+    public Clickable getSwipeToPayButton(){
+        return Clickable.getElementBy(swipeButton,"Swipe To Pay Button");
+    }
+    public Clickable getAmountUpdateButton(){
+        return Clickable.getElementBy(updateButton,"Amount Update Button");
+    }
+
+    public Editable getMoreAmountField() {
+        return Editable.getElementBy(moreAmountTbx, "More Amount Field");
+    }
+    // Zelle Payment Methods
+    public Clickable getSavedZelleCard() {
+        return Clickable.getElementBy(savedZellePaymentButton);
+    }
+
+    public Clickable getZellePopup() {
+        return Clickable.getElementBy(zellePopup);
+    }
+
+    public Clickable getZelleCopyLink() {
+        return Clickable.getElementBy(zelleCopyLink);
+    }
 
 }
