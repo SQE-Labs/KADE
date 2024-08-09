@@ -388,12 +388,26 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         //Step 6: Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
+
+        //Step 7: Click on 'Notifications' icon
         session.getNotificationPage().getNotificationIcon().click();
+
+        //Step 8: Click on first Notification
         session.getNotificationPage().getFirstNotification().click();
+
+        //Step 9: Click on 'Pay Now' Button
         session.getPaymentsPage().getPayNowButton().click();
+
+        //Step 10: Click on 'Change' Button
         session.getPaymentsPage().getChangePaymentMethodButton().click();
+
+        //step 11: Select Credit Card Method
         session.getPaymentsPage().getSavedCreditCard().click();
+
+        //step 12: Swipe to Pay the Amount
         session.getPaymentsPage().swipeToPay();
+
+        //Step 13: Click on 'Close' Button
         session.getPaymentsPage().getCloseButton().clickIfExist(true, 3);
     }
 

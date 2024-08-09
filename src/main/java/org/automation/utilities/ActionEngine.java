@@ -488,10 +488,6 @@ public class ActionEngine extends BaseTest {
 		js.executeScript("arguments[0].click();", getDriver().findElement(element));
 	}
 
-	public void scrollToBottomPage() {
-		JavascriptExecutor js = (JavascriptExecutor) getDriver();
-		js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
-	}
 	public void clickByMouse(By xpath){
 		Actions a= new Actions(getDriver());
 		a.click(getDriver().findElement(xpath));
