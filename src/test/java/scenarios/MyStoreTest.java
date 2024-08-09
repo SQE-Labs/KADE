@@ -33,7 +33,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getSkipStripeAccountPopUpButton().click();
 
         //Step 5: Click on 'Save' Button
-        myStore.getSaveButton().click();
+        myStore.getSaveButton().clickbyJS();
 
         //Verify the validation message
         String blankFieldWarningMessage = "Please review the highlighted field(s)";
@@ -75,10 +75,10 @@ public class MyStoreTest extends BaseTest {
         myStore.getTaxRateField().setText("10.000");
 
         //Step 13: Click on 'Save' Button
-        myStore.getSaveButton().click();
+        myStore.getSaveButton().clickbyJS();
 
         //Step 14: Click on 'Continue' Button
-        myStore.getContinueButton().click();
+        myStore.getContinueButton().clickbyJS();
     }
 
     @Test(description = "SC_01(B) Verifying deletion of Store when Stripe Account is not Registered Yet")
@@ -102,7 +102,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getSkipStripeAccountPopUpButton().click();
 
         //Step 5: Click on 'Delete' Button
-        myStore.getDeleteStoreButton().click();
+        myStore.getDeleteStoreButton().clickbyJS();
 
         //Step 6: Click on 'Confirmation' icon
         myStore.getDeleteStoreIcon().click();
@@ -132,13 +132,13 @@ public class MyStoreTest extends BaseTest {
         myStore.getBankTransferToggleButton().click();
 
         //Step 6: Click on 'Continue' Button
-        myStore.getContinueButton().click();
+        myStore.getContinueButton().clickbyJS();
 
         //Step 7: Click on 'Skip For Now' Button
         myStore.getSkipForNowButton().click();
 
         //Step 8: Click on 'Continue' Button
-        myStore.getContinueButton().click();
+        myStore.getContinueButton().clickbyJS();
 
         //verifying the default Values of the Store
         String defaultStoreName = "Avenue";
@@ -164,18 +164,18 @@ public class MyStoreTest extends BaseTest {
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Link
-        myStore.getConfigureLink().click();
+        myStore.getConfigureButton().click();
 
         //step 3: Click on 'Modify' Button
-        myStore.getModifyButton().click();
+        myStore.getModifyButton().clickbyJS();
 
         //Step 4: Upload Image for Store Logo
-        myStore.getStoreLogo().click();
+        myStore.getStoreLogoModify().click();
         myStore.uploadImageInStoreLogo();
         myStore.getCheckButton().click();
 
         //Verifying the Maximum length of 'Store Name' field
-        Assertions.assertEquals(myStore.getStoreNameField().getAttribute("max"), "100");
+        Assertions.assertEquals(myStore.getStoreNameField().getAttribute("maxlength"), "100");
 
         //Step 5: Enter Store Name
         myStore.getStoreNameField().setText("My Store MSC Final");
@@ -202,7 +202,7 @@ public class MyStoreTest extends BaseTest {
 
         //Step 10 Enter Tax Rate
         myStore.getTaxRateField().setText("18.000");
-        myStore.getSaveButton().click();
+        myStore.getSaveButton().clickbyJS();
         WebdriverWaits.sleep(3000);
 
         //Verifying Modified Details
@@ -225,7 +225,7 @@ public class MyStoreTest extends BaseTest {
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Link
-        myStore.getConfigureLink().click();
+        myStore.getConfigureButton().click();
 
         //Step 3: Click on 'Plans' sub-tab
         myStore.getPlansSubTab().click();
@@ -265,7 +265,7 @@ public class MyStoreTest extends BaseTest {
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Link
-        myStore.getConfigureLink().click();
+        myStore.getConfigureButton2().click();
 
         //Step 3: Click on 'Plans' Sub-Tab
         myStore.getPlansSubTab().click();
@@ -343,7 +343,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getSaveChangesButton().click();
 
         //Step 9: Click on 'Configure' button
-        myStore.getRewardConfigureButton().click();
+        myStore.getRewardConfigureButton().clickbyJS();
 
         //Verifying the 'Rewards Configuration' Pop-Up Title
         Assertions.assertEquals(myStore.getRewardConfigPopUpTitle().getText(), "Rewards Program Configuration");
@@ -362,7 +362,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getSaveChangesButton().click();
 
         //Step 13: Click on 'Store Links' button
-        myStore.getStoreLinksButton().click();
+        myStore.getStoreLinksButton().clickbyJS();
 
         //Verifying the minimum and maximum values of 'Reward Points' field
         Assertions.assertEquals(myStore.getRewardPointsValueField().getAttribute("min"), "1");
@@ -390,7 +390,7 @@ public class MyStoreTest extends BaseTest {
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Button
-        myStore.getConfigureButton().click();
+        myStore.getConfigureButton2().click();
 
         //Step 3: Click on 'Settings' Sub-Tab
         myStore.getSettingsSubTab().click();
@@ -409,7 +409,7 @@ public class MyStoreTest extends BaseTest {
 
         //Verifying the maximum and minimum values of 'Tip Amount' field
         Assertions.assertEquals(myStore.getTipAmountFlatValueField1().getAttribute("value"), "0");
-        Assertions.assertEquals(myStore.getTipAmountFlatValueField1().getAttribute("max"), "99");
+        Assertions.assertEquals(myStore.getTipAmountFlatValueField1().getAttribute("max"), "999.00");
 
         //Step 7: Enter Tip Values
         myStore.getTipAmountFlatValueField1().setText("10.00");
@@ -435,61 +435,55 @@ public class MyStoreTest extends BaseTest {
         myStore.getPaymentProcessingSubTab().click();
 
         //Step 4: Click on 'Accept Venmo' Toggle Button
-        myStore.getAcceptVenmoToggleButton().click();
-
-        //Step 5: Click on 'Save' Button
-        myStore.getSaveButton().click();
+        myStore.getAcceptVenmoToggleButton().clickbyJS();
 
         //Verifying Maximum length of 'VenmoID' field
         Assertions.assertEquals(myStore.getVenmoIdField().getAttribute("maxlength"), "40");
 
-        //Step 6: Enter ID in 'Venmo ID" field
+        //Step 5: Enter ID in 'Venmo ID" field
         myStore.getVenmoIdField().setText("1234");
 
         //Verifying maximum length of 'Venmo Name' field
         Assertions.assertEquals(myStore.getVenmoNameField().getAttribute("maxlength"), "40");
 
-        //Step 7: Enter name in 'Venmo Name' Field
+        //Step 6: Enter name in 'Venmo Name' Field
         myStore.getVenmoNameField().setText("Ven1");
 
-        //Step 8: Click on 'Save' Button
-        myStore.getSaveButton().click();
+        //Step 7: Click on 'Save' Button
+        myStore.getSaveButton().clickbyJS();
 
-        //Step 9: Click on 'Accept Zelle" toggle button
-        myStore.getAcceptZelleToggleButton().click();
-
-        //Step 10: Click on 'Save' Button
-        myStore.getSaveButton().click();
+        //Step 8: Click on 'Accept Zelle" toggle button
+        myStore.getAcceptZelleToggleButton().clickbyJS();
 
         //Verifying maximum length of 'Zelle Phone' field
         Assertions.assertEquals(myStore.getZellePhoneField().getAttribute("maxlength"), "40");
 
-        //Step 11: Enter Phone Number in 'Zelle Phone' Field
+        //Step 9: Enter Phone Number in 'Zelle Phone' Field
         myStore.getZellePhoneField().setText("1234567890");
 
         //Verifying maximum length of 'Zelle Name' field
         Assertions.assertEquals(myStore.getZelleNameField().getAttribute("maxlength"), "40");
 
-        //Step 12: Enter Zelle Account Name
+        //Step 10: Enter Zelle Account Name
         myStore.getZelleNameField().setText("Zel1");
 
         //Step 13: Click on 'Save' Button
-        myStore.getSaveButton().click();
+        myStore.getSaveButton().clickbyJS();
 
-        //Step 14: Click on 'Credit Card Terminal' button
+        //Step 11: Click on 'Credit Card Terminal' button
         myStore.getCreditCardTerminalButton().click();
 
-        //Step 15: Click on 'Add new Terminal' button
+        //Step 12: Click on 'Add new Terminal' button
         myStore.getAddNewTerminalButton().click();
 
         //Verifying the 'New Terminal' Pop-Up Title
         Assertions.assertEquals(myStore.getNewTerminalPopUpTitle().getText(), "New Terminal");
 
-        //Step 16: Select an option
+        //Step 13: Select an option
         myStore.getCreditTerminalOption().click();
 
-        //Step 17: Click on 'Save' Button
-        myStore.getSaveButton().click();
+        //Step 14: Click on 'Save' Button
+        myStore.getSaveButton().clickbyJS();
     }
     @Test(description = "SC_07(A) Verifying the Configuration of the Store using 'Manage Users' Sub-Tab")
     public void sc07a_VerifyingConfigurationOfStoreUsingManageUsersSubTabs(){
