@@ -3,7 +3,7 @@
 <suite name="Suite">
 	<test name="Test" thread-count="1" parallel="methods">
 		<packages>
-			<package name="scenarios"></package>
+			<package name="scenarios.PaymentsAndRefundTest"></package>
 		</packages>
 	</test>
 	<listeners>
