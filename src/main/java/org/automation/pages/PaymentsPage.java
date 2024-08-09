@@ -79,11 +79,10 @@ public class PaymentsPage extends BasePage {
 
     // Assertion elements of Venmo Card
     By qrVenmoPopup = By.xpath("//div[@class='fs-4 text-center py-2 ']");
-    By venmoPopup = By.xpath("(//h5[@class='modal-title'])[1]");
+    By venmoPopup = By.xpath("h5[class='modal-title'] span[class='payment-logo-bg']");
     By copyLink = By.xpath("//span[text()='Copy']");
-    By getUploadedImage = By.xpath("//form[@id='_EBX']/child::div[2]/img");
-
-    By proccessSucessMsg = By.xpath("//span[@class='fs-4']");
+    By getUploadedImage = By.xpath("//div[@class='my-2 display-none']/img");
+    By processSuccessMsg = By.xpath("//span[@class='fs-4']");
     By rateYourExperienceLink = By.xpath("//div[@class='col-sm fs-4 pb-2']");
     By viewReceipt = By.xpath("//div[@class='mt-4']/child::div/a[1]");
     By closeBlueBtn = By.xpath("//a[text()='Close']");
@@ -254,8 +253,8 @@ public class PaymentsPage extends BasePage {
         return Clickable.getElementBy(payNowButton,"Pay Now Button");
     }
 
-    public Clickable getChangePaymentButton() {
-        return Clickable.getElementBy(changeButton,"change Payment type button");
+    public Clickable getChangePaymentMethodButton() {
+        return Clickable.getElementBy(changeButton,"change Payment Method button");
     }
 
     public void swipeToPay() {
@@ -334,7 +333,7 @@ public class PaymentsPage extends BasePage {
         return Editable.getElementBy(confirmationPopUp, "Confirmation Pop Up");
     }
     public Clickable getSelectedBankDisplay () {return Clickable.getElementBy(selectedBankDisplay);    }
-    public Clickable getproccessSucessMsg() { return Clickable.getElementBy(proccessSucessMsg);}
+    public Clickable getProcessSuccessMsg() { return Clickable.getElementBy(processSuccessMsg);}
     public Clickable getRateYourExperienceLink() { return Clickable.getElementBy(rateYourExperienceLink);}
     public Clickable getViewReceiptLink() { return Clickable.getElementBy(viewReceipt);}
     public Clickable getBlueCloseButton() { return Clickable.getElementBy(closeBlueBtn);}

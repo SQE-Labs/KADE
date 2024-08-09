@@ -390,40 +390,63 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getNotificationPage().getNotificationIcon().click();
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
-        session.getPaymentsPage().getChangePaymentButton().click();
+        session.getPaymentsPage().getChangePaymentMethodButton().click();
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
         session.getPaymentsPage().getCloseButton().clickIfExist(true, 3);
     }
-    @Test(description = "PYMT9 : Bill Creation and Successfull Bill Payment through Bank account by Customer.")
-    public void BillCreationByBankAccountByCustomer() {
+    @Test(description = "PYMT9 : Bill Creation and Successful Bill Payment through Bank account by Customer.")
+    public void BillPaymentByCustomerThroughBankAccount() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
-        String amt = "4999.00";
-        String customerEmail = "yonro@yopmail.com";
-        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
 
-        //Creating Bill
+        //Step 1: Click on 'Bill' sub-Tab
+        session.getDashBoardPage().getBillButton().click();
+
+        //Step 2: Enter Amount
+        String amt = "4999.00";
+
+        //Step 3: Enter Customer Email
+        String customerEmail = "yonro@yopmail.com";
+
+        //Step 4: Create Bill
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
 
-        //Logout as Store manager
+        //Step 5: Logout as Store manager
         session.getDashBoardPage().getSignOutButton().click(); // Signing out
 
-        //Login as Customer
+        //Step 6: Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
-        session.getNotificationPage().getNotificationIcon().click(); // Click on Notification icon
-        session.getNotificationPage().getFirstNotification().click(); // click on first bill notification
-        session.getPaymentsPage().getPayNowButton().click(); // click pay now button
-        session.getPaymentsPage().getChangePaymentButton().clickbyJS();
-        session.getPaymentsPage().getSavedBankAccount().click(); // Selecting bank account method
+
+        //Step 7: Click on Notification Icon
+        session.getNotificationPage().getNotificationIcon().click();
+
+        //Step 8: Click on First Notification
+        session.getNotificationPage().getFirstNotification().click();
+
+        //Step 9: Click on 'Pay Now' Button
+        session.getPaymentsPage().getPayNowButton().click();
+
+        //Step 10: Click on 'Change Payment Method' Button
+        session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
+
+        //Step 11: Select 'Bank Account' Method
+        session.getPaymentsPage().getSavedBankAccount().click();
+
+        //Verify that Selected Bank Method is Displayed
         Assertions.assertTrue(session.getPaymentsPage().getSelectedBankDisplay().isDisplayed());
+
+        //Step 12: Swipe to Pay
         session.getPaymentsPage().swipeToPay();
-        Assertions.assertEquals(session.getPaymentsPage().getproccessSucessMsg().getText().split(":")[1], "$4999.00");
+
+        //Verify that success message appears after Payment is made successfully
+        Assertions.assertEquals(session.getPaymentsPage().getProcessSuccessMsg().getText().split(":")[0], "$4,999.00 processed successfully");
         Assertions.assertTrue(session.getPaymentsPage().getRateYourExperienceLink().isDisplayed());
         Assertions.assertTrue(session.getPaymentsPage().getViewReceiptLink().isDisplayed());
         Assertions.assertTrue(session.getPaymentsPage().getBlueCloseButton().isDisplayed());
-        WebdriverWaits.sleep(3000);
+
+        //Step 13: Close the Pop-up
         session.getPaymentsPage().getBlueCloseButton().clickbyJS();
     }
 
@@ -491,7 +514,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Step 5: Logout as Store manager
-        session.getDashBoardPage().getSignOutButton().click(); // Signing out
+        session.getDashBoardPage().getSignOutButton().click();
 
         //Step 6: Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -506,7 +529,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getPaymentsPage().getPayNowButton().click();
 
         //Step 10: Click on 'Change Payment' Button
-        session.getPaymentsPage().getChangePaymentButton().clickbyJS();
+        session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
 
         //Step 11:  Selecting Venmo Card
         session.getPaymentsPage().getSavedVenmoCard().clickbyJS();
@@ -553,6 +576,5 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         //Step 17: Click on 'Close' Icon
         session.getPaymentsPage().getCloseButton().clickbyJS();
-
     }
 }
