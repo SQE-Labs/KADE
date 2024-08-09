@@ -161,7 +161,6 @@ public class PaymentsPage extends BasePage {
     }
 
     public void payByCreditCard(){
-        WebdriverWaits.sleep(10);
         switchToCreditCardFrame();
         getCardNumberTextbox().setText("4111111111111111");
         getExpirationDateTextbox().setText("0230");
