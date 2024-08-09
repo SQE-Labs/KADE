@@ -473,6 +473,11 @@ public class ActionEngine extends BaseTest {
 
 	}
 
+	public void scrollToBottomPage() {
+		JavascriptExecutor js = (JavascriptExecutor) getDriver();
+		js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
+	}
+
 	// Method to get list of web elements
 	public List<WebElement> getListOfWebElements(By element) {
 		return getDriver().findElements(element);

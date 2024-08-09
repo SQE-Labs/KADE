@@ -361,11 +361,6 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getPaymentsPage().getCloseReceivedPopupButton().click();
         //Verify NotPaid label
         Assertions.assertEquals(session.getBillPage().getPaymentStatusOfLatestBill().getText(),"NOT PAID");
-
-        //Deleting unpaid bill
-        session.getBillPage().getNotPaidBill().click();
-        session.getBillPage().getDeleteButton().click();
-        session.getBillPage().getDeleteIcon().click();
     }
 
     @Test(description = "PYMT8 : Bill Creation and Successful Bill Payment through Credit Card by Customer.")
