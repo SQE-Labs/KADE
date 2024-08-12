@@ -23,6 +23,7 @@ public class Clickable extends ActionEngine {
         this.label = label;
     }
 
+
     public void click() {
         performClickOperation(() -> clickBy(target, label));
     }
@@ -97,4 +98,19 @@ public class Clickable extends ActionEngine {
     public List<WebElement> getListOfWebElements() {
         return super.getListOfWebElements(target);
     }
-}
+    public void scrollPopupAndClick(Runnable action) {
+        WebElement popupContainer = getDriver().findElement(By.xpath("//div[@class='w-100 max-45c m-sm-2 p-2  bg-white']"));
+        WebElement element = getDriver().findElement(target);
+        WebdriverWaits.waitForElementUntilVisible(target, 5);
+        WebdriverWaits.waitForElementClickable(target, 5);
+        js.executeScript("arguments[0].scrollTop = arguments[1].offsetTop;", popupContainer, element);
+        if (element.isDisplayed() && element.isEnabled()) {
+            action.run();
+        } else {
+            js.executeScript("arguments[0].scrollTop = arguments[1].offsetTop;", popupContainer, element);
+            action.run();
+        }
+    }
+        public void scrollPopupAndClick(){scrollPopupAndClick(() -> clickBy(target, label));}
+
+    }

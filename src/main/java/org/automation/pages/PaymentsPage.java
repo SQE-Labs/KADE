@@ -3,11 +3,13 @@ package org.automation.pages;
 import org.automation.ReturnObjects.Clickable;
 import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
-import org.automation.session.KadeSession;
 import org.openqa.selenium.By;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
+
+import java.awt.*;
+import java.nio.file.Paths;
 
 public class PaymentsPage extends BasePage {
 
@@ -17,7 +19,7 @@ public class PaymentsPage extends BasePage {
     By cashBtn = By.xpath("//button[@name='payType']");
     By paidLabel = By.xpath("//div[contains(text(),'Paid')]");
     public By paymentPopupTitle = By.xpath("//h5[text()='Receive Payment']");
-    By closeIcon =By.xpath("(//button[@class=\"btn-close\"])[1]");
+    By closeIcon = By.xpath("(//button[@class=\"btn-close\"])[1]");
     By creditCardInfoPopupTitle = By.xpath("//h5[text()='Credit card information']");
     By cardNumberTbx = By.id("Field-numberInput");
     By expirationDateTbx = By.id("Field-expiryInput");
@@ -28,8 +30,8 @@ public class PaymentsPage extends BasePage {
     By voidBtn = By.xpath("//button[text()='Void']");
     By paymentLogo = By.xpath("//span[@class='payment-logo-bg me-1']");
     By totalPaidAmt = By.xpath("//h4[contains(text(),'Total paid')]");
-    By voidedTag=By.xpath("//h6[text()='VOIDED']");
-    By changeButton=By.xpath("//div[contains(text(),'Change')]");
+    By voidedTag = By.xpath("//h6[text()='VOIDED']");
+    By changeButton = By.xpath("//div[contains(text(),'Change')]");
     By swipeBtn = By.xpath("//input[@type='range']");
     By closeBtn = By.xpath("//a[text()='Close']");
 
@@ -37,68 +39,93 @@ public class PaymentsPage extends BasePage {
     /*
     Receive Payment popup locators
      */
-    By balanceDue=By.xpath("//span[text()='Balance Due:']//following-sibling::span");
-    By totalAmount= By.xpath("//span[contains(text(),'Total')]");
+    By balanceDue = By.xpath("//span[text()='Balance Due:']//following-sibling::span");
+    By totalAmount = By.xpath("//span[contains(text(),'Total')]");
     By receiveAmountTbx = By.xpath("//input[@name='amount']");
     By creditCardBtn = By.xpath("//button[text()='Credit Card']");
-    By othersBtn =By.xpath("//button[text()='Other']");
-    By savedCreditcard=By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]");
-
-
+    By othersBtn = By.xpath("//button[text()='Other']");
+    By savedCreditcard = By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]");
+    By savedBankAccount = By.xpath("(//span[text()='Bank Account 6789'])[1]");
+    By SavedVenmoCard = By.xpath("//div//span[text()='Venmo']");
+    By iMadeMyPaymentButtonVenmo = By.xpath("//div/div/button[text()='I made the payment']");
+    By personalMessageVenmo = By.xpath("//textarea[@placeholder='Personal message']");
+    By screenshotButton = By.xpath("//button[text()='Do you have a screenshot?']");
+    By confirmVenmoCheckbox = By.xpath(" //span[@class='ms-1']");
+    By venmoSubmitButton = By.xpath(" //button[text()='Submit']");
+    By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");//
+    // Assertion for bank account
+    By selectedBankDisplay = By.xpath("//div[@class='-placeholder- link-empty']");
+    By proccessSucessMsg = By.xpath("//span[@class='fs-4']");
+    By rateYourExperienceLink = By.xpath("//div[@class='col-sm fs-4 pb-2']");
+    By viewReceipt = By.xpath("//div[@class='mt-4']/child::div/a[1]");
+    By closeBlueBtn = By.xpath("//a[text()='Close']");
     /*
     Payment Type Panel
      */
     public By paymentTypeHeader = By.xpath("//h5[@class='offcanvas-title' and text()='Payment type']");
-    By venmoPaymentType= By.xpath("(//button[@name='payType'])[1]/..");
+    By venmoPaymentType = By.xpath("(//button[@name='payType'])[1]/..");
     By venmoPaymentLogo = By.xpath("//span[text()='Venmo']");
     By zellePaymentLogo = By.xpath("//span[text()='Zelle']");
     By zellePaymentType = By.xpath("(//button[@name='payType'])[2]/..");
     By cashPaymentType = By.xpath("//span[text()='Cash']/../../..");
-    By memoTextbox=By.xpath("//textarea[@name='message']");
+    By memoTextbox = By.xpath("//textarea[@name='message']");
     By receivingAmtPaymentTypePanel = By.xpath("//span[@data-field='amount']");
     By payNowButton = By.xpath("//button[@type='button' and text()='Pay Now']");
+    public By swipeText = By.xpath("//span[text()='Swipe to pay']");
 
-    public PaymentsPage(){
+    // Assertion elements of Venmo Card
+    By qrVenmoPopup = By.xpath("//div[@class='fs-4 text-center py-2 ']");
+    By venmoPopup = By.xpath("(//h5[@class='modal-title'])[1]");
+    By copyLink = By.xpath("//span[text()='Copy']");
+    By getUploadedImage = By.xpath("//form[@id='_EBX']/child::div[2]/img");
+
+    // Zelle Locators
+    By savedZellePaymentButton = By.xpath("//div//span[text()='Zelle']");
+    By zellePopup = By.xpath("//h5[@class='modal-title']//span");
+    By zelleCopyLink = By.xpath("//span[text()='Copy']");
+
+
+    public PaymentsPage() {
     }
 
-    public Clickable getCashButton(){
-        return Clickable.getElementBy(cashPaymentType,"Cash Button");
+    public Clickable getCashButton() {
+        return Clickable.getElementBy(cashPaymentType, "Cash Button");
     }
 
-    public Clickable getOthersButton(){
-        return Clickable.getElementBy(othersBtn,"Other button");
+    public Clickable getOthersButton() {
+        return Clickable.getElementBy(othersBtn, "Other button");
     }
 
-    public Editable getAmountTextbox(){
-        return Editable.getElementBy(receiveAmountTbx,"Receiving amount textbox");
+    public Editable getAmountTextbox() {
+        return Editable.getElementBy(receiveAmountTbx, "Receiving amount textbox");
     }
 
-    public Clickable getPaidLabel(){
-        return Clickable.getElementBy(paidLabel,"Paid label on Bill");
+    public Clickable getPaidLabel() {
+        return Clickable.getElementBy(paidLabel, "Paid label on Bill");
     }
 
-    public Clickable getReceivedPaymentTitle(){
-        return Clickable.getElementBy(paymentPopupTitle,"Receive Payment Popup Title");
+    public Clickable getReceivedPaymentTitle() {
+        return Clickable.getElementBy(paymentPopupTitle, "Receive Payment Popup Title");
     }
 
-    public Clickable getCreditCardButton(){
-        return Clickable.getElementBy(creditCardBtn,"Credit card button");
+    public Clickable getCreditCardButton() {
+        return Clickable.getElementBy(creditCardBtn, "Credit card button");
     }
 
-    public Editable getCardNumberTextbox(){
-        return Editable.getElementBy(cardNumberTbx,"Card Number textbox");
+    public Editable getCardNumberTextbox() {
+        return Editable.getElementBy(cardNumberTbx, "Card Number textbox");
     }
 
-    public Editable getExpirationDateTextbox(){
-        return Editable.getElementBy(expirationDateTbx,"Expiration Date textbox");
+    public Editable getExpirationDateTextbox() {
+        return Editable.getElementBy(expirationDateTbx, "Expiration Date textbox");
     }
 
-    public Editable getCvcTextbox(){
-        return Editable.getElementBy(cvcTbx,"CVC textbox");
+    public Editable getCvcTextbox() {
+        return Editable.getElementBy(cvcTbx, "CVC textbox");
     }
 
-    public void selectCountry(String country){
-        selectDropDownByVisibleText_custom(countryDropDown,country);
+    public void selectCountry(String country) {
+        selectDropDownByVisibleText_custom(countryDropDown, country);
     }
 
     public void switchToCreditCardFrame() {
@@ -110,23 +137,23 @@ public class PaymentsPage extends BasePage {
         return Clickable.getElementBy(balanceDue, "Balance Due Field");
     }
 
-    public Clickable getTotalAmount(){
-        return Clickable.getElementBy(totalAmount,"Total amount element");
+    public Clickable getTotalAmount() {
+        return Clickable.getElementBy(totalAmount, "Total amount element");
     }
 
-    public Clickable getReceivingAmount(){
-        return Clickable.getElementBy(receiveAmountTbx,"value");
+    public Clickable getReceivingAmount() {
+        return Clickable.getElementBy(receiveAmountTbx, "value");
     }
 
     public Clickable getPaymentTypePanelHeader() {
-        return Clickable.getElementBy(paymentTypeHeader,"Payment Type Header");
+        return Clickable.getElementBy(paymentTypeHeader, "Payment Type Header");
     }
 
-    public Clickable getPaymentLogo(){
-        return Clickable.getElementBy(paymentLogo,"Payment type logo");
+    public Clickable getPaymentLogo() {
+        return Clickable.getElementBy(paymentLogo, "Payment type logo");
     }
 
-    public void payByCreditCard(){
+    public void payByCreditCard() {
         WebdriverWaits.sleep(10);
         switchToCreditCardFrame();
         getCardNumberTextbox().setText("4111111111111111");
@@ -138,24 +165,24 @@ public class PaymentsPage extends BasePage {
     }
 
     private Clickable getProcessPaymentButton() {
-        return Clickable.getElementBy(processBtn,"Process Payment Button");
+        return Clickable.getElementBy(processBtn, "Process Payment Button");
     }
 
-    public Editable getReceivingAmountTextbox(){
+    public Editable getReceivingAmountTextbox() {
         return Editable.getElementBy(receiveAmountTbx);
     }
 
     public Clickable getReceivingAmountFromPaymentTypePanel() {
-        return Clickable.getElementBy(receivingAmtPaymentTypePanel,"Receiving Amount Payment Type Panel");
+        return Clickable.getElementBy(receivingAmtPaymentTypePanel, "Receiving Amount Payment Type Panel");
     }
 
     public Clickable getTotalPaidAmount() {
-        return Clickable.getElementBy(totalPaidAmt,"Total Paid Amount");
+        return Clickable.getElementBy(totalPaidAmt, "Total Paid Amount");
     }
 
     public Clickable getZelleButton() {
-        WebdriverWaits.waitForElementVisible(paymentPopupTitle,5);
-        return  Clickable.getElementBy(zellePaymentType);
+        WebdriverWaits.waitForElementVisible(paymentPopupTitle, 5);
+        return Clickable.getElementBy(zellePaymentType);
     }
 
     public Clickable getCloseReceivedPopupButton() {
@@ -171,35 +198,90 @@ public class PaymentsPage extends BasePage {
     }
 
     public Clickable getVoidButton() {
-        return Clickable.getElementBy(voidBtn,"Void Button");
+        return Clickable.getElementBy(voidBtn, "Void Button");
     }
+
     public Clickable getVoidedTag() {
-        return Clickable.getElementBy(voidedTag,"Voided Tag");
+        return Clickable.getElementBy(voidedTag, "Voided Tag");
     }
 
     public Clickable getMomoTextbox() {
-        return Clickable.getElementBy(memoTextbox,"Memo Textbox");
+        return Clickable.getElementBy(memoTextbox, "Memo Textbox");
     }
 
     public Clickable getPayNowButton() {
-        return Clickable.getElementBy(payNowButton,"Pay Now Button");
+        return Clickable.getElementBy(payNowButton, "Pay Now Button");
     }
 
     public Clickable getChangePaymentButton() {
-        return Clickable.getElementBy(changeButton,"change Payment type button");
+        return Clickable.getElementBy(changeButton, "change Payment type button");
     }
 
     public Clickable getSavedCreditCard() {
-        return Clickable.getElementBy(savedCreditcard,"Saved Credit card");
+        return Clickable.getElementBy(savedCreditcard, "Saved Credit card");
     }
+
+    public Clickable getSavedBankAccount() {
+        return Clickable.getElementBy(savedBankAccount, "Saved Bank Account Card");
+    }
+
+    // Assertion methods for bank account
+    public Clickable getSelectedBankDisplay() {return Clickable.getElementBy(selectedBankDisplay);    }
+
+    public Clickable getproccessSucessMsg() { return Clickable.getElementBy(proccessSucessMsg); }
+
+    public Clickable getRateYourExperienceLink() {return Clickable.getElementBy(rateYourExperienceLink); }
+
+    public Clickable getViewReceiptLink() {return Clickable.getElementBy(viewReceipt); }
+
+    public Clickable getBlueCloseButton() {return Clickable.getElementBy(closeBlueBtn); }
+
+    // Venmo Payment methods
+    public Clickable getSavedVenmoCard() {
+        return Clickable.getElementBy(SavedVenmoCard, "Venmo Card");
+    }
+    public Clickable getIMadeMyPaymentButton() {
+        return Clickable.getElementBy(iMadeMyPaymentButtonVenmo);
+    }
+    public Editable getVenmoPaymentText() { return Editable.getElementBy(personalMessageVenmo);    }
+    public Clickable getScreenshotButton() {
+        return Clickable.getElementBy(screenshotButton);
+    }
+
+    // For Attaching image for Venmo payment Screenshot
+    public void uploadImageAsAttachment(String relativePath) throws AWTException {
+        String projectPath = System.getProperty("user.dir");
+        String absolutePath = Paths.get(projectPath, relativePath).toString();
+        uploadImageFile(absolutePath);
+    }
+
+    public void uploadVenmoImageScreenshot() throws AWTException { uploadImageAsAttachment("src/main/resources/image/BillDummyImg.jpg");}
+    public void uploadVenmoPdfScreenshot() throws AWTException {uploadImageAsAttachment("src/main/resources/Documents/Bills.pdf");}
+    public Clickable getCheckButton() {return Clickable.getElementBy(checkBtn, "Check Button");    }
+
+    public Clickable getConfirmVenmoCheckbox() {return Clickable.getElementBy(confirmVenmoCheckbox); }
+    public Clickable getVenmoSubmitButton() {return Clickable.getElementBy(venmoSubmitButton);   }
 
     public void swipeToPay() {
         Actions actions = new Actions(getDriver());
         WebElement elm = getDriver().findElement(swipeBtn);
-        actions.moveToElement(elm).moveByOffset(-100,0).clickAndHold().moveByOffset(200, 0).release().perform();
+        actions.moveToElement(elm).moveByOffset(-100, 0).clickAndHold().moveByOffset(200, 0).release().perform();
     }
 
-    public Clickable getCloseButton() {
-        return Clickable.getElementBy(closeBtn, "Close Button");
-    }
+    public Clickable getCloseButton() { return Clickable.getElementBy(closeBtn, "Close Button"); } // Closing the Post sale close button
+
+    //Assertion for Venmo
+    public Clickable getVenmoPopup() {return Clickable.getElementBy(venmoPopup);  }
+    public Clickable getVenmoQrCode() {return Clickable.getElementBy(qrVenmoPopup);    }
+    public Clickable getCopyLink() { return Clickable.getElementBy(copyLink);   }
+    public Clickable getUploadedImage() { return Clickable.getElementBy(getUploadedImage);   }
+
+
+    // Zelle Payment Methods
+    public Clickable getSavedZelleCard() { return Clickable.getElementBy(savedZellePaymentButton); }
+    public Clickable getZellePopup() { return Clickable.getElementBy(zellePopup);}
+    public Clickable getZelleCopyLink() { return Clickable.getElementBy(zelleCopyLink);  }
 }
+
+
+

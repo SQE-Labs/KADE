@@ -27,6 +27,7 @@ public class DashBoardPage extends BasePage {
 	}
 
 	public Clickable getBillButton(){
+		scrollToElement(billBtn);
 		return getElementBy(billBtn);
 	}
 	public Clickable getMyStoresTab(){
