@@ -105,7 +105,7 @@ public class BillPage extends BasePage {
     By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
     By attachedImage = By.xpath("//img[@class='img-thumbnail  bg-black']");
     By notPaidBill = By.xpath("(//div[contains(@class,'row bg-white ')])[1]");
-//    By notPaidBill=By.xpath("//span[text()='NOT PAID']");
+    By unPaidBill=By.xpath("(//div[contains(@class,'row bg-white ')])[1]/div[2]");
     By deleteButton = By.cssSelector(".btn-outline-danger");
     By deleteIcon = By.cssSelector(".fa.fa-check");
     By moreOptions = By.cssSelector(".mb-3.border.p-2.py-3.rounded-3.advanced-d-none.position-relative");
@@ -233,11 +233,9 @@ public class BillPage extends BasePage {
         return Clickable.getElementBy(attachedImage,"Attached Image");
     }
 
-    public void openBillByAmt(String amt) {
-        By bill = By.xpath("(//span[text()='$" + amt + "']/../../..)[1]");
-        click(bill);
+    public  Clickable getUnPaidBill(){
+        return Clickable.getElementBy(unPaidBill,"Unpaid Bill");
     }
-
 
     public Clickable getNotPaidBill() {
         return Clickable.getElementBy(notPaidBill, "Not Paid Bill");
@@ -343,7 +341,7 @@ public class BillPage extends BasePage {
             getAmountField().setText(billObj.getAmount());
         }
         getDisableTaxToggleButton().clickIfExist();
-
+        getDescriptionTextbox().click();
         if (billObj.getCustomerPhnNo() != null) {
             getCustomerButton().click();
             getCustomerPhoneNoField().setText(billObj.getCustomerPhnNo());
@@ -355,7 +353,6 @@ public class BillPage extends BasePage {
             getUserEmailField().setText(billObj.getCustomerEmail());
             getEmailGoButton().click();
         }
-        getDescriptionTextbox().click();
         getConfirmButton().click();
         getContinueWithoutButton().clickIfExist();
     }

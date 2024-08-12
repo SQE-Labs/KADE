@@ -303,7 +303,6 @@ public class BillTest extends BaseTest {
         //Verify Attached File
         Assertions.assertTrue(bill.getAttachedImage().isDisplayed());
         Assertions.assertTrue(bill.getAttachedFiles().getListOfWebElements().size()  == 1);
-        bill.getCloseBillButton().click();
     }
 
     @Test(description = "BC_06 Bill Creation with already configured 'Tax' from store configuration page.")
@@ -354,7 +353,6 @@ public class BillTest extends BaseTest {
         // Verify Attached File
         Assertions.assertTrue(bill.getAttachedFile().isDisplayed());
         Assertions.assertTrue(bill.getAttachedFiles().getListOfWebElements().size()  == 1);
-        bill.getCloseBillButton().click();
 
         //Deleting Created Bill
         bill.getDeleteButton().click();
@@ -472,7 +470,7 @@ public class BillTest extends BaseTest {
         bill.getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Verifying the total amount 80+120+150
-        bill.getNotPaidBill().click();
+        bill.getUnPaidBill().click();
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
