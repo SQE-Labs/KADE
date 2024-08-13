@@ -741,7 +741,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         Assertions.assertTrue(session.getPaymentsPage().getCopyLink().isDisplayed());
 
         //Verifying that 'Made my Payment' button is visible
-        Assertions.assertTrue(session.getPaymentsPage(). getIMadeMyPaymentButton().isDisplayed());
+        Assertions.assertTrue(session.getPaymentsPage().getIMadeMyPaymentButton().isDisplayed());
 
         //Step 12: Click on 'Made my Payment' Button
         session.getPaymentsPage().getIMadeMyPaymentButton().clickbyJS();

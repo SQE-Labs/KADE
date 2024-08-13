@@ -476,7 +476,7 @@ public class BillPage extends BasePage {
     }
 
     public Editable getDescriptionField() {
-        return Editable.getElementBy(descriptionField, "Description Field");
+        return Editable.getElementBy(descriptionBox, "Description Field");
     }
 
     public Clickable getDoneLink() {

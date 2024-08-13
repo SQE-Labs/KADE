@@ -490,7 +490,7 @@ public class ActionEngine extends BaseTest {
 
 	public void clickByMouse(By xpath){
 		Actions a= new Actions(getDriver());
-		a.click(getDriver().findElement(xpath));
+		a.moveToElement(getDriver().findElement(xpath)).click().perform();
 	}
 
 }
