@@ -114,4 +114,9 @@ public class Clickable extends ActionEngine {
     public List<WebElement> getListOfWebElements() {
         return super.getListOfWebElements(target);
     }
+
+    public void clickByMouse(){
+        clickByMouse(target);
+    }
+
 }

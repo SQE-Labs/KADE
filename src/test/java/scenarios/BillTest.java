@@ -10,6 +10,7 @@ import org.automation.data.KadeUserAccount;
 import org.automation.pages.BillPage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
+import org.automation.utilities.WebdriverWaits;
 import org.testng.annotations.Test;
 
 public class BillTest extends BaseTest {
@@ -303,7 +304,6 @@ public class BillTest extends BaseTest {
         //Verify Attached File
         Assertions.assertTrue(bill.getAttachedImage().isDisplayed());
         Assertions.assertTrue(bill.getAttachedFiles().getListOfWebElements().size()  == 1);
-        bill.getCloseBillButton().click();
     }
 
     @Test(description = "BC_06 Bill Creation with already configured 'Tax' from store configuration page.")
@@ -354,7 +354,6 @@ public class BillTest extends BaseTest {
         // Verify Attached File
         Assertions.assertTrue(bill.getAttachedFile().isDisplayed());
         Assertions.assertTrue(bill.getAttachedFiles().getListOfWebElements().size()  == 1);
-        bill.getCloseBillButton().click();
 
         //Deleting Created Bill
         bill.getDeleteButton().click();
@@ -472,7 +471,7 @@ public class BillTest extends BaseTest {
         bill.getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Verifying the total amount 80+120+150
-        bill.getNotPaidBill().click();
+        bill.getUnPaidBill().clickByMouse();
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
@@ -572,7 +571,8 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.getNotPaidBill();
+        bill.getDeleteButton().click();
+        bill.getDeleteIcon().click();
 
         // Click on New Bill Button
         bill.getNewBillButton().click();
@@ -594,8 +594,9 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Verify Created Bill
+        WebdriverWaits.sleep(2000);
         bill.getCloseLogoPopupBtn().clickIfExist(true,2);
-        bill.getNotPaidBill().click();
+        bill.getNotPaidBill().clickByMouse();
         Assertions.assertNotEquals(bill.getUnpaidAmount().getText(), amt2);
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
@@ -681,7 +682,6 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.getNotPaidBill().click();
         bill.getDeleteButton().click();
         bill.getDeleteIcon().click();
     }
@@ -732,10 +732,15 @@ public class BillTest extends BaseTest {
         bill.getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Verify Created Bill
+        bill.getUnPaidBill().clickByMouse();
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
         Assertions.assertEquals(bill.getAddedMemoText().getText(), "Memo Text");
+
+        //Delete Bill
+        bill.getDeleteButton().click();
+        bill.getDeleteIcon().click();
     }
 
     @Test(description = "BC_13 Verify that creating a bill after purchasing the 'Business' plan from the 'Store Configuration' page.")
@@ -773,7 +778,7 @@ public class BillTest extends BaseTest {
         bill.getDoneButton().click();
 
         //Click on 'Expiry' Field
-        bill.getExpiryField().click();
+        bill.getExpiryField().clickByMouse();
         Assertions.assertEquals(bill.getExpiryDatePopUpTitle().getText(), "Expiration Date");
         bill.getDoneButton().click();
 
@@ -787,7 +792,7 @@ public class BillTest extends BaseTest {
 
         //Verify Created Bill
         bill.getCloseLogoPopupBtn().clickIfExist(true,2);
-        bill.getNotPaidBill().click();
+        bill.getUnPaidBill().clickByMouse();
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
@@ -827,17 +832,18 @@ public class BillTest extends BaseTest {
 
         //Click on More Option
         bill.getMoreOption().click();
-        bill.getExpiryField().click();
+        WebdriverWaits.sleep(500);
+        bill.getExpiryField().clickByMouse();
         Assertions.assertEquals(bill.getExpiryDatePopUpTitle().getText(), "Expiration Date");
         Assertions.assertTrue(bill.getExpiryNoneOption().isDisplayed());
         Assertions.assertTrue(bill.getExpiry24HrOption().isDisplayed());
         Assertions.assertTrue(bill.getExpiry4HrOption().isDisplayed());
         Assertions.assertTrue(bill.getExpiry1HrOption().isDisplayed());
         Assertions.assertTrue(bill.getExpiry30MinOption().isDisplayed());
-        bill.getCloseIcon().click();
+        bill.getDoneButton().click();
 
         //Click on Expiry Field
-        bill.getExpiryField().click();
+        bill.getExpiryField().clickByMouse();
         String expiresIn = "20";
         bill.getExpiresInField().setText(expiresIn);
         bill.getExpiryDropDown().click();
@@ -854,7 +860,7 @@ public class BillTest extends BaseTest {
         bill.getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Verify Created Bill
-        bill.getNotPaidBill().click();
+        bill.getNotPaidBill().clickByMouse();
         Assertions.assertTrue(bill.getAddedExpiryTimer().isDisplayed());
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
@@ -935,7 +941,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("New Business");
+        bill.selectStore("Automation Flow 1");
         bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
@@ -983,10 +989,10 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getDescriptionFieldDefaultText().getText(), "None");
         bill.getDescription().clickIfExist();
         Assertions.assertEquals(bill.getDescriptionPopUpTitle().getText(), "Description");
-        String actualMaxDescLen = bill.getDescriptionField().getAttribute("maxlength");
+        String actualMaxDescLen = bill.getDescriptionBox().getAttribute("maxlength");
         Assertions.assertEquals(actualMaxDescLen, "200");
         String descriptionValue = "Test Description";
-        bill.getDescriptionField().setText(descriptionValue);
+        bill.getDescriptionBox().setText(descriptionValue);
 
         //Verifying that added reference number should appear under the 'Description' field.
         bill.getDoneLink().click();
@@ -1022,11 +1028,11 @@ public class BillTest extends BaseTest {
         String desc3 = "Shake";
         bill.getItemDescriptionField3().setText(desc3);
         String price3 = "150.00";
-        bill.getItemDescriptionField3().setText(price3);
-        bill.getConfirmButton().click();
+        bill.getItemPriceField3().setText(price3);
 
         //Click on Repeat Field
-        bill.getRepeatField().click();
+        WebdriverWaits.sleep(2000);
+        bill.getRepeatField().clickByMouse();
         Assertions.assertEquals(bill.getRepeatPopUpTitle().getText(), "Repeat");
         bill.getDoneButton().click();
         bill.getRepeatField().click();
@@ -1058,7 +1064,7 @@ public class BillTest extends BaseTest {
 
         //Verify Created Bill
         bill.getCloseLogoPopupBtn().clickIfExist(true,2);
-        bill.getNotPaidBill().click();
+        bill.getNotPaidBill().clickByMouse();
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
