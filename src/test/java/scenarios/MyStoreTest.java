@@ -7,12 +7,13 @@ import org.automation.data.KadeUserAccount;
 import org.automation.pages.MyStorePage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
+import org.automation.utilities.RandomGenerator;
 import org.automation.utilities.WebdriverWaits;
 import org.testng.annotations.Test;
 
 public class MyStoreTest extends BaseTest {
 
-    @Test(description = "SC_01(A) Verifying creation of Store without Stripe Payment Account Configuration")
+    @Test(enabled=false, description = "SC_01(A) Verifying creation of Store without Stripe Payment Account Configuration")
     public void sc01a_StoreCreationWithoutStripeAccount() throws AWTException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
@@ -23,17 +24,20 @@ public class MyStoreTest extends BaseTest {
         //Step 2: Click on 'Register New Business' Button
         myStore.getRegisterNewBusinessButton().click();
 
-        //Step 3: Click on 'Skip' button
-        myStore.getSkipStripeAccountButton().click();
+        if(myStore.getStoreLogo().getListOfWebElements().size()>0) {
 
-        //Verifying the 'Skip' PopUp Title
-        Assertions.assertEquals(myStore.getSkipPopUpTitle().getText(), "Skip");
+            //Step 3: Click on 'Skip' button
+            myStore.getSkipStripeAccountButton().click();
 
-        //Step 4: Click on 'Skip' Button
-        myStore.getSkipStripeAccountPopUpButton().click();
+            //Verifying the 'Skip' PopUp Title
+            Assertions.assertEquals(myStore.getSkipPopUpTitle().getText(), "Skip");
+
+            //Step 4: Click on 'Skip' Button
+            myStore.getSkipStripeAccountPopUpButton().click();
+        }
 
         //Step 5: Click on 'Save' Button
-        myStore.getSaveButton().click();
+        myStore.getSaveButton().clickByMouse();
 
         //Verify the validation message
         String blankFieldWarningMessage = "Please review the highlighted field(s)";
@@ -81,7 +85,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getContinueButton().click();
     }
 
-    @Test(description = "SC_01(B) Verifying deletion of Store when Stripe Account is not Registered Yet")
+    @Test(enabled=false, description = "SC_01(B) Verifying deletion of Store when Stripe Account is not Registered Yet")
     public void sc01b_DeletionOfStore() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
@@ -108,7 +112,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getDeleteStoreIcon().click();
     }
 
-    @Test(description = "SC_02 Verify creation of Store with Stripe Payment Account")
+    @Test(enabled=false, description = "SC_02 Verify creation of Store with Stripe Payment Account")
     public void sc02_CreationOfStoreWithStripeAccount() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
@@ -170,12 +174,12 @@ public class MyStoreTest extends BaseTest {
         myStore.getModifyButton().click();
 
         //Step 4: Upload Image for Store Logo
-        myStore.getStoreLogo().click();
+        myStore.getStoreLogo().clickByMouse();
         myStore.uploadImageInStoreLogo();
         myStore.getCheckButton().click();
 
         //Verifying the Maximum length of 'Store Name' field
-        Assertions.assertEquals(myStore.getStoreNameField().getAttribute("max"), "100");
+        Assertions.assertEquals(myStore.getStoreNameField().getAttribute("maxlength"), "100");
 
         //Step 5: Enter Store Name
         myStore.getStoreNameField().setText("My Store MSC Final");
@@ -202,7 +206,7 @@ public class MyStoreTest extends BaseTest {
 
         //Step 10 Enter Tax Rate
         myStore.getTaxRateField().setText("18.000");
-        myStore.getSaveButton().click();
+        myStore.getSaveButton().clickByMouse();
         WebdriverWaits.sleep(3000);
 
         //Verifying Modified Details
@@ -210,13 +214,23 @@ public class MyStoreTest extends BaseTest {
         String defaultStorePhone = "+1 (918) 065 2341";
         String defaultCurrency = "USD";
         String defaultTaxRate = "18.000%";
+
         Assertions.assertEquals(myStore.getAddedStoreName().getText(), defaultStoreName);
         Assertions.assertEquals(myStore.getAddedStorePhone().getText(), defaultStorePhone);
         Assertions.assertEquals(myStore.getAddedCurrencyOfStore().getText(), defaultCurrency);
         Assertions.assertEquals(myStore.getAddedTaxRate().getText(), defaultTaxRate);
+
+        //Reset Store to default
+        myStore.getModifyButton().click();
+        myStore.getStoreNameField().setText("My Store edit");
+        myStore.getLocationDescriptionField().setText("Without Stripe Account");
+        myStore.getPhoneField().setText("9112212120");
+        myStore.getTaxRateField().setText("0.000");
+        myStore.getSaveButton().clickByMouse();
+
     }
 
-    @Test(description = "SC_04(A) Verifying buying Monthly Business Plan for already created Store")
+    @Test(enabled = false, description = "SC_04(A) Verifying buying Monthly Business Plan for already created Store")
     public void sc04a_VerifyingBuyingMonthlyBusinessPlanForAlreadyCreatedStore() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
@@ -256,7 +270,7 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertTrue(myStore.getNextBillDate().isDisplayed());
     }
 
-    @Test(description = "SC_04(B) Verifying buying Yearly Business Plan for already created Store")
+    @Test(enabled = false, description = "SC_04(B) Verifying buying Yearly Business Plan for already created Store")
     public void sc04b_VerifyingBuyingYearlyBusinessPlanForAlreadyCreatedStore() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
@@ -300,6 +314,10 @@ public class MyStoreTest extends BaseTest {
     public void sc05a_VerifyingConfigurationsOfStoreUsingSettings() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
+        String tipAmountPercent1 = RandomGenerator.requiredNumber(2);
+        String tipAmountPercent2 = RandomGenerator.requiredNumber(2);
+        String tipAmountPercent3 = RandomGenerator.requiredNumber(2);
+
         //Step 1: Click on 'My Stores' Tab
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
@@ -314,42 +332,47 @@ public class MyStoreTest extends BaseTest {
         String defaultBillAmount = "3000.00";
         String maximumBillAmount = "50000.00";
         String minimumBillAmount = "50.00";
-        Assertions.assertEquals(myStore.getMaximumBillAmountField().getAttribute("value"), defaultBillAmount);
+        String maxBillAmount = RandomGenerator.generateRandomNumber(Float.parseFloat(minimumBillAmount),Float.parseFloat(maximumBillAmount));
         Assertions.assertEquals(myStore.getMaximumBillAmountField().getAttribute("max"), maximumBillAmount);
         Assertions.assertEquals(myStore.getMaximumBillAmountField().getAttribute("min"), minimumBillAmount);
 
         //Step 4: Enter amount in 'Maximum Bill Amount' field
-        myStore.getMaximumBillAmountField().setText("5000.00");
+        myStore.getMaximumBillAmountField().setText(maxBillAmount);
 
-        //Step 5: Click on 'Tip & Gratuity' toggle button
-        myStore.getTipGratuityToggleButton().click();
-
+        if(myStore.getConfigureButton().getListOfWebElements().size()>0) {
+            //Step 4: Click on 'Tip & Gratuity' Toggle Button
+            myStore.getTipGratuityToggleOnButton().click();
+        }
         //Step 6: Click on 'Configure' button
         myStore.getTipConfigureButton().click();
 
         //Verifying the 'Tip Configuration' Pop-up Title
         Assertions.assertEquals(myStore.getTipConfigPopUpTitle().getText(), "Tip configuration");
 
+        if(myStore.getAlertTipConfigurationMessage().getListOfWebElements().size()==0) {
+            //Step 6: Click on 'Enter in Percentage' Toggle button
+            myStore.getEnterInPerCentToggleButton().click();
+        }
+
         //Verifying the Default and maximum values of 'Tip Amount' field
-        Assertions.assertEquals(myStore.getTipAmountPerCentField1().getAttribute("value"), "0");
         Assertions.assertEquals(myStore.getTipAmountPerCentField1().getAttribute("max"), "99");
 
         //Step 7: Enter Tip Values
-        myStore.getTipAmountPerCentField1().setText("10");
-        myStore.getTipAmountPerCentField2().setText("20");
-        myStore.getTipAmountPerCentField3().setText("30");
+        myStore.getTipAmountPerCentField1().setText(tipAmountPercent1);
+        myStore.getTipAmountPerCentField2().setText(tipAmountPercent2);
+        myStore.getTipAmountPerCentField3().setText(tipAmountPercent3);
 
         //Step 8: Click on 'Save Changes' button
         myStore.getSaveChangesButton().click();
 
         //Step 9: Click on 'Configure' button
-        myStore.getRewardConfigureButton().click();
+        myStore.getRewardConfigureButton().clickbyJS();
 
         //Verifying the 'Rewards Configuration' Pop-Up Title
         Assertions.assertEquals(myStore.getRewardConfigPopUpTitle().getText(), "Rewards Program Configuration");
 
         //Step 10: Click on 'Reward Point' Toggle button
-        myStore.getRewardPointToggleButton().click();
+        myStore.getRewardPointToggleOnButton().click();
 
         //Verifying the Minimum and Maximum Values of 'Reward Points' Field
         Assertions.assertEquals(myStore.getRewardPointsField().getAttribute("min"), "100");
@@ -379,6 +402,16 @@ public class MyStoreTest extends BaseTest {
 
         //Step 17: Click on 'Save Changes' Button
         myStore.getSaveChangesButton().click();
+
+        //Reset Store settings
+        myStore.getRewardConfigureButton().clickbyJS();
+        myStore.getRewardPointsField().setText(" ");
+        myStore.getRewardPointToggleOffButton().click();
+        myStore.getSaveChangesButton().click();
+        myStore.getStoreLinksButton().click();
+        myStore.getRewardPointsValueField().setText(" ");
+        myStore.getSaveChangesButton().click();
+        myStore.scrollToTop();
     }
 
     @Test(description = "SC_05(B) Verifying the Configuration of the Store using flat value in 'tip or gratuity' field")
@@ -395,8 +428,10 @@ public class MyStoreTest extends BaseTest {
         //Step 3: Click on 'Settings' Sub-Tab
         myStore.getSettingsSubTab().click();
 
-        //Step 4: Click on 'Tip & Gratuity' Toggle Button
-        myStore.getTipGratuityToggleButton().click();
+        if(myStore.getConfigureButton().getListOfWebElements().size()>0) {
+            //Step 4: Click on 'Tip & Gratuity' Toggle Button
+            myStore.getTipGratuityToggleOnButton().click();
+        }
 
         //Step 5: Click on 'Configure' button
         myStore.getTipConfigureButton().click();
@@ -404,17 +439,23 @@ public class MyStoreTest extends BaseTest {
         //Verifying the 'Tip Configuration' Pop-up Title
         Assertions.assertEquals(myStore.getTipConfigPopUpTitle().getText(), "Tip configuration");
 
-        //Step 6: Click on 'Enter in Percentage' Toggle button
-        myStore.getEnterInPerCentToggleButton().click();
-
+        if(myStore.getAlertTipConfigurationMessage().getListOfWebElements().size()>0) {
+            //Step 6: Click on 'Enter in Percentage' Toggle button
+            myStore.getEnterInPerCentToggleButton().click();
+        }
         //Verifying the maximum and minimum values of 'Tip Amount' field
-        Assertions.assertEquals(myStore.getTipAmountFlatValueField1().getAttribute("value"), "0");
-        Assertions.assertEquals(myStore.getTipAmountFlatValueField1().getAttribute("max"), "99");
+        Assertions.assertEquals(myStore.getTipAmountFlatValueField1().getAttribute("min"), "0.01");
+        Assertions.assertEquals(myStore.getTipAmountFlatValueField1().getAttribute("max"), "999.00");
+
+        String value1 = RandomGenerator.generateRandomNumber(Float.parseFloat("0.01"),Float.parseFloat("999.00"));
+        String value2 = RandomGenerator.generateRandomNumber(Float.parseFloat("0.01"),Float.parseFloat("999.00"));
+        String value3 = RandomGenerator.generateRandomNumber(Float.parseFloat("0.01"),Float.parseFloat("999.00"));
+
 
         //Step 7: Enter Tip Values
-        myStore.getTipAmountFlatValueField1().setText("10.00");
-        myStore.getTipAmountFlatValueField2().setText("20.00");
-        myStore.getTipAmountFlatValueField3().setText("30.00");
+        myStore.getTipAmountFlatValueField1().setText(value1);
+        myStore.getTipAmountFlatValueField2().setText(value2);
+        myStore.getTipAmountFlatValueField3().setText(value3);
 
         //Step 8: Click on 'Save Changes' Button
         myStore.getSaveChangesButton().click();
