@@ -16,8 +16,10 @@ public class MyStorePage extends BasePage {
     By skipStripeAccountPopUpBtn = By.xpath("//div[@class='modal-content']//button[text()='Skip']");
     By deleteStoreBtn = By.xpath("//button[text()='Delete the store']");
     By deleteStoreIcon = By.cssSelector(".fa.fa-check");
+    By alertMessage = By.cssSelector("form.link-check.checked div.alert-message");
+
     By blankFieldWarningMsg = By.xpath("//p[@class='alert-content']");
-    By storeLogo = By.xpath("(//img[contains(@alt,'')])[3]");
+    By storeLogo = By.xpath("//div[@class='display-none -update-div-']//a");
     By StoreNameTbx = By.xpath("//input[@name='name']");
     By locationDescTbx = By.xpath("//input[@name='description']");
     By storeAddressField = By.cssSelector(".form-control.pac-target-input");
@@ -33,7 +35,7 @@ public class MyStorePage extends BasePage {
     By bankTransferToggleBtn = By.xpath("//span[text()='Accept bank transfer']");
     By skipForNowBtn = By.xpath("//button[text()='Skip for now']");
     By continueBtn = By.xpath("//button[text()='Continue']");
-    By configureLink = By.xpath("(//a[contains(@class,'float-end btn btn-link')][text()='Configure'])[3]");
+    By configureLink = By.xpath("(//h6[text()='My Store edit']/../..//a)[1]");
     By modifyBtn = By.xpath("//button[text()='Modify']");
     By plansSubTab = By.partialLinkText("Plans");
     By currentPlanMSg = By.xpath("//span[@class='text-success me-1']");
@@ -56,6 +58,7 @@ public class MyStorePage extends BasePage {
     By settingsSubTab = By.xpath("//a[text()='Settings']");
     By maxBillAmountTbx = By.xpath("//input[@name='maxBillAmountThreshold']");
     By tipGratuityToggleBtn = By.xpath("//span[@class='ms-2 custom-check-on'][text()='No']");
+    By tipGratuityToggleOffBtn = By.xpath("//span[@class='ms-2 custom-check-off' and text()='Yes']");
     By tipConfigureBtn = By.xpath("//div[@class='checked-d-none']//button[@type='button'][text()='Configure']");
     By tipConfigPopUpTitle = By.xpath("//h5[text()='Tip configuration']");
     By tipPercentField1 = By.xpath("//input[@name='tipSelections[0].percentage']");
@@ -68,12 +71,14 @@ public class MyStorePage extends BasePage {
     By rewardConfigureBtn = By.xpath("(//button[@type='button'][text()='Configure'])[2]");
     By rewardConfigPopUpTitle = By.xpath("//h5[text()='Rewards Program Configuration']");
     By rewardPointToggleBtn = By.xpath("//span[@class='ms-2 fs-6 custom-check-off']");
+    By rewardPointToggleOffBtn = By.xpath("//span[@class='ms-2 fs-6 custom-check-on']");
     By rewardPointsField = By.xpath("//input[@name='pointsForGiftcard']");
     By rewardPtsValue = By.xpath("//input[@name='ponitsValue']");
     By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
     By storeLinksBtn = By.xpath("//button[text()='Store links']");
     By websiteURLField = By.xpath("//input[@name='StoreURLTypes[0].url']");
-    By earnRewardsToggleBtn = By.xpath("(//i[@class='far fa-toggle-off custom-check-off '])[2]");
+    By earnRewardsToggleBtn = By.xpath("//label[text()=' Website']/../..//i[@class='far fa-toggle-off custom-check-off ']");
+    By earnRewardsToggleOffBtn = By.xpath("//label[text()=' Website']/../..//i[@class='far fa-toggle-on custom-check-on ']");
     By enterInPercentToggleBtn = By.xpath("//label[text()=' Enter in percentage']");
     By paymentProcessingSubTab = By.xpath("//a[text()='Payment Processing']");
     By acceptVenmoToggleBtn = By.xpath("(//span[text()='Accept Venmo'])[2]");
@@ -295,8 +300,12 @@ public class MyStorePage extends BasePage {
         return Editable.getElementBy(maxBillAmountTbx,"Maximum Bill Amount Field");
     }
 
-    public Clickable getTipGratuityToggleButton() {
+    public Clickable getTipGratuityToggleOnButton() {
         return Clickable.getElementBy(tipGratuityToggleBtn, "Tip Gratuity Toggle Button");
+    }
+
+    public Clickable getTipGratuityToggleOffButton() {
+        return Clickable.getElementBy(tipGratuityToggleOffBtn, "Tip Gratuity Toggle Button");
     }
 
     public Clickable getTipConfigureButton() {
@@ -343,8 +352,12 @@ public class MyStorePage extends BasePage {
         return Editable.getElementBy(rewardConfigPopUpTitle,"Reward Configuration PopUp");
     }
 
-    public Clickable getRewardPointToggleButton() {
+    public Clickable getRewardPointToggleOnButton() {
         return Clickable.getElementBy(rewardPointToggleBtn, "Reward Point Toggle Button");
+    }
+
+    public Clickable getRewardPointToggleOffButton() {
+        return Clickable.getElementBy(rewardPointToggleOffBtn, "Reward Point Toggle Button");
     }
 
     public Clickable getEnterInPerCentToggleButton() {
@@ -357,6 +370,10 @@ public class MyStorePage extends BasePage {
 
     public Clickable getEarnRewardsPointsToggleButton() {
         return Clickable.getElementBy(earnRewardsToggleBtn,"Earn Rewards Toggle Button");
+    }
+
+    public Clickable getEarnRewardsPointsToggleOffButton() {
+        return Clickable.getElementBy(earnRewardsToggleOffBtn,"Earn Rewards Toggle Button");
     }
 
      public Clickable getCheckButton() {
@@ -485,6 +502,10 @@ public class MyStorePage extends BasePage {
 
     public Editable getActiveStoreLabel(){
         return Editable.getElementBy(activeStoreLabel,"Active Store Label");
+    }
+
+    public Clickable getAlertTipConfigurationMessage() {
+        return Clickable.getElementBy(alertMessage,"Alert Tool Tip");
     }
 }
 

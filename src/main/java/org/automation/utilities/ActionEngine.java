@@ -478,6 +478,11 @@ public class ActionEngine extends BaseTest {
 		js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
 	}
 
+	public static void scrollToTop() {
+		JavascriptExecutor jsExecutor = (JavascriptExecutor) getDriver();
+		jsExecutor.executeScript("window.scrollTo(0, 0);");
+	}
+
 	// Method to get list of web elements
 	public List<WebElement> getListOfWebElements(By element) {
 		return getDriver().findElements(element);
