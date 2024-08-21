@@ -539,7 +539,7 @@ public class MyStorePage extends BasePage {
         return Clickable.getElementBy(acceptZelleHeader);
     }
 
-    public Clickable getSaveZelleButton() {
+    public Clickable getZelleSaveButton() {
         return Clickable.getElementBy(saveZellePaymentSettings,"Zelle Payment method");
     }
 }

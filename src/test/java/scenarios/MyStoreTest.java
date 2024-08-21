@@ -505,7 +505,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getZelleNameField().setText("Zelle"+RandomGenerator.requiredString(6));
 
         //Step 13: Click on 'Save' Button
-        myStore.getSaveZelleButton().clickByMouse();
+        myStore.getZelleSaveButton().clickByMouse();
 
         //Step 14: Click on 'Credit Card Terminal' button
         myStore.getCreditCardTerminalButton().clickByMouse();
