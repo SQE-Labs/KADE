@@ -10,7 +10,8 @@ import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
 import org.testng.annotations.Test;
 
-public class BasicInformationTest extends BaseTest{
+public class
+BasicInformationTest extends BaseTest{
 	
 	DashBoardPage dashBoard=new DashBoardPage();
 	LoginPage login=new LoginPage();
