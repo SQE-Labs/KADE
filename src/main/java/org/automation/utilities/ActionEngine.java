@@ -493,7 +493,7 @@ public class ActionEngine extends BaseTest {
 		js.executeScript("arguments[0].click();", getDriver().findElement(element));
 	}
 
-	public void clickByMouse(By xpath){
+	public void clickByMouseActions(By xpath){
 		Actions a= new Actions(getDriver());
 		a.moveToElement(getDriver().findElement(xpath)).click().perform();
 	}

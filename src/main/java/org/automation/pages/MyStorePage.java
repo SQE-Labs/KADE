@@ -30,6 +30,7 @@ public class MyStorePage extends BasePage {
     By timeZoneOption = By.xpath("//option[text()='(GMT-05:00) Eastern Time (US & Canada)']");
     By taxRateTbx = By.xpath("//input[@name='taxRate']");
     By saveBtn = By.xpath("//button[text()='Save']");
+    By saveVenmoPaymentBtn = By.xpath("//div[@data-load='/Stores/_venmoGatewayApplication/2793'] //button[text()='Save']");
     By stripeBtn = By.cssSelector(".img-fluid.h-100");
     By connectStripePopUpTitle = By.xpath("//h5[text()='Connect to stripe']");
     By testStripeBtn = By.partialLinkText("Create a test Stripe account");
@@ -111,7 +112,9 @@ public class MyStorePage extends BasePage {
     By notActiveStoreLabel=By.xpath("//h4[@class='me-2 text-danger']");
     By activeStoreLabel=By.xpath("//h4[@class='me-2 text-success']");
     By acceptVenmoHeader =By.xpath("//form[@action='/api/Stores/SaveVenmoGatewayApplication' and @style='display: none;']");
+    By acceptZelleHeader = By.xpath("//form[@action='/api/Stores/SaveVenmoGatewayApplication']/../..  //div[@style='display: none;']");
     By deleteUserIcon=By.xpath("(//h5[text()='Users with access to this store']/../..//button)[2]");
+    By saveZellePaymentSettings = By.xpath("//form[@action='/api/Stores/SaveZelleGatewayApplication'] //button[text()='Save']");
 
     public MyStorePage() {
     }
@@ -526,6 +529,18 @@ public class MyStorePage extends BasePage {
 
     public Clickable getCheckDeleteUserButton(){
         return Clickable.getElementBy(checkDeleteUser,"Check Button");
+    }
+
+    public Clickable getVenmoSaveButton(){
+        return Clickable.getElementBy(saveVenmoPaymentBtn,"Save Venmo payment settings");
+    }
+
+    public Clickable getAcceptZelleHeader() {
+        return Clickable.getElementBy(acceptZelleHeader);
+    }
+
+    public Clickable getZelleSaveButton() {
+        return Clickable.getElementBy(saveZellePaymentSettings,"Zelle Payment method");
     }
 }
 
