@@ -469,7 +469,7 @@ public class MyStoreTest extends BaseTest {
 
         if(myStore.getAcceptVenmoHeader().getListOfWebElements().size()==1){
         //Step 4: Click on 'Accept Venmo' Toggle Button
-        myStore.getAcceptVenmoToggleButton().click();
+        myStore.getAcceptVenmoToggleButton().clickByMouse();
         }
 
         //Verifying Maximum length of 'VenmoID' field
@@ -485,11 +485,11 @@ public class MyStoreTest extends BaseTest {
         myStore.getVenmoNameField().setText(RandomGenerator.requiredString(8));
 
         //Step 8: Click on 'Save' Button
-        myStore.getSaveButton().click();
+        myStore.getVenmoSaveButton().clickByMouse();
 
-        if(myStore.getZellePhoneField().getListOfWebElements().size()==0) {
+        if(myStore.getAcceptZelleHeader().getListOfWebElements().size()==1) {
             //Step 9: Click on 'Accept Zelle" toggle button
-            myStore.getAcceptZelleToggleButton().click();
+            myStore.getAcceptZelleToggleButton().clickByMouse();
         }
 
         //Verifying maximum length of 'Zelle Phone' field
@@ -505,11 +505,10 @@ public class MyStoreTest extends BaseTest {
         myStore.getZelleNameField().setText("Zelle"+RandomGenerator.requiredString(6));
 
         //Step 13: Click on 'Save' Button
-        myStore.getSaveButton().click();
-
+        myStore.getSaveZelleButton().clickByMouse();
 
         //Step 14: Click on 'Credit Card Terminal' button
-        myStore.getCreditCardTerminalButton().click();
+        myStore.getCreditCardTerminalButton().clickByMouse();
 
         //Step 15: Click on 'Add new Terminal' button
         myStore.getAddNewTerminalButton().click();
