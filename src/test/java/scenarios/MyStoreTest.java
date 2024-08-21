@@ -329,7 +329,6 @@ public class MyStoreTest extends BaseTest {
         myStore.getSettingsSubTab().click();
 
         //Verifying Minimum, Maximum and Default values of 'Maximum Bill Amount' Field
-        String defaultBillAmount = "3000.00";
         String maximumBillAmount = "50000.00";
         String minimumBillAmount = "50.00";
         String maxBillAmount = RandomGenerator.generateRandomNumber(Float.parseFloat(minimumBillAmount),Float.parseFloat(maximumBillAmount));
@@ -372,14 +371,17 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getRewardConfigPopUpTitle().getText(), "Rewards Program Configuration");
 
         //Step 10: Click on 'Reward Point' Toggle button
-        myStore.getRewardPointToggleOnButton().click();
-
+        if(myStore.getRewardPointsField().getListOfWebElements().size()==0) {
+            myStore.getRewardPointToggleOnButton().click();
+        }
         //Verifying the Minimum and Maximum Values of 'Reward Points' Field
         Assertions.assertEquals(myStore.getRewardPointsField().getAttribute("min"), "100");
         Assertions.assertEquals(myStore.getRewardPointsField().getAttribute("max"), "99999");
 
+        String rewardPoints = RandomGenerator.requiredNumber(4);
+
         //Step 11: Enter Reward Points
-        myStore.getRewardPointsField().setText("1000");
+        myStore.getRewardPointsField().setText(rewardPoints);
 
         //Step 12: Click on 'Save Changes' Button
         myStore.getSaveChangesButton().click();
@@ -392,26 +394,16 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getRewardPointsValueField().getAttribute("max"), "9999");
 
         //Step 14: Enter Reward Point Values
-        myStore.getRewardPointsValueField().setText("1000");
+        myStore.getRewardPointsValueField().setText(rewardPoints);
 
         //Step 15: Enter Website URL
-        myStore.getWebsiteURLField().setText("www.KadePay.com");
+        myStore.getWebsiteURLField().setText("www.KadePay"+RandomGenerator.requiredString(4)+".com");
 
         //Step 16: Click on 'Earn Rewards Points' Toggle Button
         myStore.getEarnRewardsPointsToggleButton().click();
 
         //Step 17: Click on 'Save Changes' Button
         myStore.getSaveChangesButton().click();
-
-        //Reset Store settings
-        myStore.getRewardConfigureButton().clickbyJS();
-        myStore.getRewardPointsField().setText(" ");
-        myStore.getRewardPointToggleOffButton().click();
-        myStore.getSaveChangesButton().click();
-        myStore.getStoreLinksButton().click();
-        myStore.getRewardPointsValueField().setText(" ");
-        myStore.getSaveChangesButton().click();
-        myStore.scrollToTop();
     }
 
     @Test(description = "SC_05(B) Verifying the Configuration of the Store using flat value in 'tip or gratuity' field")
@@ -475,47 +467,46 @@ public class MyStoreTest extends BaseTest {
         //Step 3: Click on 'Payment-Processing' Sub-Tab
         myStore.getPaymentProcessingSubTab().click();
 
+        if(myStore.getAcceptVenmoHeader().getListOfWebElements().size()==1){
         //Step 4: Click on 'Accept Venmo' Toggle Button
         myStore.getAcceptVenmoToggleButton().click();
-
-        //Step 5: Click on 'Save' Button
-        myStore.getSaveButton().click();
+        }
 
         //Verifying Maximum length of 'VenmoID' field
         Assertions.assertEquals(myStore.getVenmoIdField().getAttribute("maxlength"), "40");
 
         //Step 6: Enter ID in 'Venmo ID" field
-        myStore.getVenmoIdField().setText("1234");
+        myStore.getVenmoIdField().setText(RandomGenerator.requiredNumber(4));
 
         //Verifying maximum length of 'Venmo Name' field
         Assertions.assertEquals(myStore.getVenmoNameField().getAttribute("maxlength"), "40");
 
         //Step 7: Enter name in 'Venmo Name' Field
-        myStore.getVenmoNameField().setText("Ven1");
+        myStore.getVenmoNameField().setText(RandomGenerator.requiredString(8));
 
         //Step 8: Click on 'Save' Button
         myStore.getSaveButton().click();
 
-        //Step 9: Click on 'Accept Zelle" toggle button
-        myStore.getAcceptZelleToggleButton().click();
-
-        //Step 10: Click on 'Save' Button
-        myStore.getSaveButton().click();
+        if(myStore.getZellePhoneField().getListOfWebElements().size()==0) {
+            //Step 9: Click on 'Accept Zelle" toggle button
+            myStore.getAcceptZelleToggleButton().click();
+        }
 
         //Verifying maximum length of 'Zelle Phone' field
         Assertions.assertEquals(myStore.getZellePhoneField().getAttribute("maxlength"), "40");
 
         //Step 11: Enter Phone Number in 'Zelle Phone' Field
-        myStore.getZellePhoneField().setText("1234567890");
+        myStore.getZellePhoneField().setText(RandomGenerator.requiredNumber(10));
 
         //Verifying maximum length of 'Zelle Name' field
         Assertions.assertEquals(myStore.getZelleNameField().getAttribute("maxlength"), "40");
 
         //Step 12: Enter Zelle Account Name
-        myStore.getZelleNameField().setText("Zel1");
+        myStore.getZelleNameField().setText("Zelle"+RandomGenerator.requiredString(6));
 
         //Step 13: Click on 'Save' Button
         myStore.getSaveButton().click();
+
 
         //Step 14: Click on 'Credit Card Terminal' button
         myStore.getCreditCardTerminalButton().click();
@@ -541,7 +532,7 @@ public class MyStoreTest extends BaseTest {
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Button
-        myStore.getConfigureButton().click();
+        myStore.getConfigureButtonForBusinessPlanStore().click();
 
         //Step 3: Click on 'Manage User' Sub Tab
         myStore.getManageUserSubTab().click();
@@ -553,7 +544,7 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getAddUserPopUpTitle().getText(), "Add User");
 
         //Step 5: Enter UserName in 'Username' field
-        myStore.getManageUserNameField().setText("Manage store user");
+        myStore.getManageUserNameField().setText("Manage store user "+RandomGenerator.requiredString(8));
 
         //Verifying the Maximum length of 'Username' field.
         Assertions.assertEquals(myStore.getManageUserNameField().getAttribute("maxlength"), "30");
@@ -572,6 +563,11 @@ public class MyStoreTest extends BaseTest {
 
         //Step 9: Click on 'Create User' Button
         myStore.getCreateUserButton().click();
+        WebdriverWaits.sleep(5000);
+
+        //Delete Created user
+        myStore.getDeleteUserButton().clickbyJS();
+        myStore.getCheckDeleteUserButton().click();
     }
 
     @Test(description = "SC_07(B) Verifying the Configuration of the store using Manage User sub tab to invite any existing user to manage store.")
@@ -583,7 +579,7 @@ public class MyStoreTest extends BaseTest {
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Button
-        myStore.getConfigureButton().click();
+        myStore.getConfigureButtonForBusinessPlanStore().click();
 
         //Step 3: Click on 'Manage User' Sub Tab
         myStore.getManageUserSubTab().click();

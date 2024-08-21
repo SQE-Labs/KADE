@@ -17,6 +17,7 @@ public class MyStorePage extends BasePage {
     By deleteStoreBtn = By.xpath("//button[text()='Delete the store']");
     By deleteStoreIcon = By.cssSelector(".fa.fa-check");
     By alertMessage = By.cssSelector("form.link-check.checked div.alert-message");
+    By configureBtnBusinessPlanStore= By.xpath("(//h6[text()='My Store edit business']/../..//a)[1]");
 
     By blankFieldWarningMsg = By.xpath("//p[@class='alert-content']");
     By storeLogo = By.xpath("//div[@class='display-none -update-div-']//a");
@@ -54,7 +55,7 @@ public class MyStorePage extends BasePage {
     By newBankAccountBtn = By.xpath("//span[text()='New Bank Account']");
     By changePayMethodBtn = By.xpath("//button[text()='change']");
     By nextBillDate = By.xpath("(//div[@class='d-flex'])[2]");
-    By configureBtnWithoutStripe = By.xpath("(//a[contains(@class,'float-end btn btn-link')][text()='Configure'])[3]");
+    By configureBtnWithoutStripe = By.xpath("(//h6[text()='My Store edit']/../..//a)[1]");
     By settingsSubTab = By.xpath("//a[text()='Settings']");
     By maxBillAmountTbx = By.xpath("//input[@name='maxBillAmountThreshold']");
     By tipGratuityToggleBtn = By.xpath("//span[@class='ms-2 custom-check-on'][text()='No']");
@@ -75,13 +76,14 @@ public class MyStorePage extends BasePage {
     By rewardPointsField = By.xpath("//input[@name='pointsForGiftcard']");
     By rewardPtsValue = By.xpath("//input[@name='ponitsValue']");
     By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
+    By checkDeleteUser = By.xpath("//button[@class='btn btn-outline-success']");
     By storeLinksBtn = By.xpath("//button[text()='Store links']");
     By websiteURLField = By.xpath("//input[@name='StoreURLTypes[0].url']");
     By earnRewardsToggleBtn = By.xpath("//label[text()=' Website']/../..//i[@class='far fa-toggle-off custom-check-off ']");
     By earnRewardsToggleOffBtn = By.xpath("//label[text()=' Website']/../..//i[@class='far fa-toggle-on custom-check-on ']");
     By enterInPercentToggleBtn = By.xpath("//label[text()=' Enter in percentage']");
     By paymentProcessingSubTab = By.xpath("//a[text()='Payment Processing']");
-    By acceptVenmoToggleBtn = By.xpath("(//span[text()='Accept Venmo'])[2]");
+    By acceptVenmoToggleBtn = By.xpath("(//span[text()='Accept Venmo'])[1]");
     By acceptZelleToggleBtn = By.xpath("//span[text()='Accept Zelle']");
     By venmoIDField = By.xpath("//label[text()='Venmo ID']/following-sibling::input");
     By venmoNameField = By.xpath("//label[text()='Venmo Name']/following-sibling::input");
@@ -108,6 +110,8 @@ public class MyStorePage extends BasePage {
     By activateButton=By.xpath("//button[text()='Activate']");
     By notActiveStoreLabel=By.xpath("//h4[@class='me-2 text-danger']");
     By activeStoreLabel=By.xpath("//h4[@class='me-2 text-success']");
+    By acceptVenmoHeader =By.xpath("//form[@action='/api/Stores/SaveVenmoGatewayApplication' and @style='display: none;']");
+    By deleteUserIcon=By.xpath("(//h5[text()='Users with access to this store']/../..//button)[2]");
 
     public MyStorePage() {
     }
@@ -408,6 +412,10 @@ public class MyStorePage extends BasePage {
         return Editable.getElementBy(venmoIDField,"Venmo ID Field");
     }
 
+    public Clickable getAcceptVenmoHeader(){
+       return Clickable.getElementBy(acceptVenmoHeader,"Accept Venmo Header");
+    }
+
     public Editable getVenmoNameField() {
         return Editable.getElementBy(venmoNameField,"Venmo Name Field");
     }
@@ -506,6 +514,18 @@ public class MyStorePage extends BasePage {
 
     public Clickable getAlertTipConfigurationMessage() {
         return Clickable.getElementBy(alertMessage,"Alert Tool Tip");
+    }
+
+    public Clickable getConfigureButtonForBusinessPlanStore() {
+        return Clickable.getElementBy(configureBtnBusinessPlanStore,"Config button of store with business plan ");
+    }
+
+    public Clickable getDeleteUserButton() {
+        return Clickable.getElementBy(deleteUserIcon,"Delete User Icon");
+    }
+
+    public Clickable getCheckDeleteUserButton(){
+        return Clickable.getElementBy(checkDeleteUser,"Check Button");
     }
 }
 
