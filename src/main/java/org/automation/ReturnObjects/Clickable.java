@@ -118,5 +118,4 @@ public class Clickable extends ActionEngine {
     public void clickByMouse(){
         clickByMouseActions(target);
     }
-
 }
