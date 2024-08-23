@@ -23,6 +23,7 @@ public class DashBoardPage extends BasePage {
 	By continueBtn=By.xpath("//button[@type='submit']");
 	By signOutBtn = By.xpath("//a[text()='Sign out']");
 
+
 	public DashBoardPage() {
 	}
 

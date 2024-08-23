@@ -16,7 +16,7 @@ import org.testng.annotations.Test;
 public class BillTest extends BaseTest {
 
     @Test(description = "BC_01 Verify that creating a bill by adding amount value only, without Selecting a Customer")
-    public void bc_01createBillWithoutSelectingCustomer() {
+    public void bc_01createBillWithoutSelectingCustomer() throws InterruptedException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
         BillPage bill = session.getBillPage();
@@ -61,7 +61,8 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getContinueWithoutButton().isDisplayed());
 
         //Click On Continue Button
-        bill.getContinueWithoutButton().click();
+        WebdriverWaits.sleep(3000);
+        bill.getContinueWithoutButton().clickByMouse();
 
         //Verify toast message
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
@@ -82,7 +83,7 @@ public class BillTest extends BaseTest {
         bill.getDeleteIcon().click();
     }
 
-    @Test(description = "BC_02 Verify that creating a bill by adding amount value only, without Selecting a Customer")
+    @Test(description = "BC_02 Verify that creating a bill by adding amount value only, with Selecting a Customer")
     public void bc_02createBillBySelectingCustomer() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
@@ -111,7 +112,8 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getConfirmButton().isEnabled());
 
         //Click Confirm
-        bill.getConfirmButton().click();
+        WebdriverWaits.sleep(3000);
+        bill.getConfirmButton().clickbyJS();
 
         //Verify Message popup and Buttons
         Assertions.assertEquals(bill.getMessagePopupHeader().getText(), "Message");
@@ -941,7 +943,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("Automation Flow 1");
+        bill.selectStore("Automation flow 2");
         bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page

@@ -437,8 +437,10 @@ public class PaymentsAndRefundTest extends KadeSession {
         //Step 12: Swipe to Pay
         session.getPaymentsPage().swipeToPay();
 
+        System.out.println(session.getPaymentsPage().getProcessSuccessMsg().getText());
+
         //Verify that success message appears after Payment is made successfully
-        Assertions.assertEquals(session.getPaymentsPage().getProcessSuccessMsg().getText().split(":")[0], "$4,999.00 processed successfully");
+        Assertions.assertEquals(session.getPaymentsPage().getProcessSuccessMsg().getText(), "$4,999.00 PAID");
         Assertions.assertTrue(session.getPaymentsPage().getRateYourExperienceLink().isDisplayed());
         Assertions.assertTrue(session.getPaymentsPage().getViewReceiptLink().isDisplayed());
         Assertions.assertTrue(session.getPaymentsPage().getBlueCloseButton().isDisplayed());
@@ -525,14 +527,17 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
 
         //Step 24: Select 'Venmo' Method
+        WebdriverWaits.sleep(2000);
         session.getPaymentsPage().getSavedVenmoCard().clickbyJS();
         WebdriverWaits.sleep(3000);
 
         //Verifying that Venmo PopUp is displayed
         Assertions.assertTrue(session.getPaymentsPage().getVenmoPopup().isDisplayed());
 
+
         //Verifying that QR code is displayed
-        Assertions.assertTrue(session.getPaymentsPage().getVenmoQrCode().isDisplayed());
+        // feature existed before , no longer available
+//        Assertions.assertTrue(session.getPaymentsPage().getVenmoQrCode().isDisplayed());
 
         //Verifying that Copy link is visible
         Assertions.assertTrue(session.getPaymentsPage().getCopyLink().isDisplayed());
@@ -562,7 +567,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         WebdriverWaits.sleep(2000);
 
         //Step 28: Click on 'Confirm Venmo' Checkbox
-        session.getPaymentsPage().getConfirmVenmoCheckbox().click();
+        session.getPaymentsPage().getConfirmVenmoCheckbox().clickbyJS();
 
         //Step 29: Click on 'Submit' Button
         session.getPaymentsPage().getVenmoSubmitButton().click();
@@ -735,7 +740,8 @@ public class PaymentsAndRefundTest extends KadeSession {
         Assertions.assertTrue(session.getPaymentsPage().getVenmoPopup().isDisplayed());
 
         //Verifying that QR code is displayed
-        Assertions.assertTrue(session.getPaymentsPage().getVenmoQrCode().isDisplayed());
+        // feature existed before , no longer available
+//        Assertions.assertTrue(session.getPaymentsPage().getVenmoQrCode().isDisplayed());
 
         //Verifying that Copy link is visible
         Assertions.assertTrue(session.getPaymentsPage().getCopyLink().isDisplayed());

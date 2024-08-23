@@ -185,7 +185,8 @@ public class BillPage extends BasePage {
     By billTimeOnPopup = By.xpath("//div[@class='fs-pn15 mb-1']");
     By taxValue = By.xpath("//input[@name='applyTax']/../span");
     By taxToggleBtnDisable = By.xpath("//input[@name='applyTax']/../i[1]");
-
+    By customName = By.xpath("//*[@id=\"_B7O\"]/span");
+    By activeBillAmmount = By.xpath("//span[@class='display-5 display-sm-2 fw-bold']");
 
     public BillPage() {
         super();
@@ -728,4 +729,14 @@ public class BillPage extends BasePage {
     public Clickable getPaymentStatusOfLatestBill() {
         return Clickable.getElementBy(billTag,"Bill Status");
     }
+
+    public Clickable getCustomName() {
+        return Clickable.getElementBy(customName,"Customer Name");
+    }
+
+
+    public Clickable getActiveBillAmmount() {
+        return Clickable.getElementBy(activeBillAmmount,"Bill Ammount");
+    }
+
 }
