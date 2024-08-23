@@ -91,7 +91,7 @@ public class PaymentsPage extends BasePage {
     By savedZellePaymentButton = By.xpath("//div//span[text()='Zelle']");
     By zellePopup = By.xpath("//h5[@class='modal-title']//span");
     By zelleCopyLink = By.xpath("//span[text()='Copy']");
-
+    By paymentType = By.xpath("//div[@class='d-flex flex-column align-items-end']//span[@class='fs-pn25']");
 
     public PaymentsPage() {
     }
@@ -387,5 +387,10 @@ public class PaymentsPage extends BasePage {
 
     public Clickable getZelleCopyLink() {
         return Clickable.getElementBy(zelleCopyLink);
+    }
+
+
+    public Clickable  getPaymentType(){
+        return  Clickable.getElementBy(paymentType, "Payment type on PaymentPage");
     }
 }

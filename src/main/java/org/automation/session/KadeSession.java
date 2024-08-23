@@ -43,5 +43,8 @@ public class KadeSession extends BaseTest {
     public NotificationsPage getNotificationPage() {
         return new NotificationsPage();
     }
+
+
+
 }
 

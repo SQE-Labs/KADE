@@ -83,7 +83,7 @@ public class BillTest extends BaseTest {
         bill.getDeleteIcon().click();
     }
 
-    @Test(description = "BC_02 Verify that creating a bill by adding amount value only, without Selecting a Customer")
+    @Test(description = "BC_02 Verify that creating a bill by adding amount value only, with Selecting a Customer")
     public void bc_02createBillBySelectingCustomer() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
