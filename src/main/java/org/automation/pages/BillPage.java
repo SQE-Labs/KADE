@@ -167,7 +167,7 @@ public class BillPage extends BasePage {
     By expPopUpBtn30Min = By.xpath("(//button[contains(@class,'fs-inherit mb-4')])[2]");
     By repeatOption = By.xpath("//input[@value='1']");
     By customerCancelOption = By.xpath("//span[text()='Customer can cancel at any time']");
-    By everyDayField = By.xpath("//div[@data-value='1']//input[@data-field='intervalCount']");
+    By everyDayField = By.xpath("//input[@class='max-5c form-control']");
     By recurringBillText = By.xpath("//a[@class='btn btn-link']");
     By billTag = By.xpath("//div[contains(@class,'col-5  text-end') ]//div[1]/span");
 

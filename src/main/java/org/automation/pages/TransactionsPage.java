@@ -14,13 +14,13 @@ public class TransactionsPage extends BasePage {
 	By storesCombobox = By.xpath("//span[@role='combobox']");
 	By continueBtn = By.xpath("//button[@type='submit']");
 	By uniqueTransactionId = By.xpath("//span[@class='badge position-relative bg-light text-dark p-1 px-2 text-truncate']");
-   public By transactionID = By.xpath("//span[@class='badge position-relative bg-light text-dark p-1 px-2 text-truncate mb-1 max-15c']");
-   public By store = By.xpath("//span[@class='fs-pn15 mb-2']");
-   public By payment = By.xpath("//div[@class='fs-pn25']");
-    public By customerName = By.xpath("//div[@class='d-flex mb-2']");
-   public By transactionAmmount = By.xpath("//div[@class='d-flex align-items-center']");
-   public By customNameONRecipt = By.xpath("//a[@class='text-truncate']");
-      By time = By.xpath("//span[@class='fs-pn25 mb-2']");
+    By transactionID = By.xpath("//span[@class='badge position-relative bg-light text-dark p-1 px-2 text-truncate mb-1 max-15c']");
+    By store = By.xpath("//span[@class='fs-pn15 mb-2']");
+    By payment = By.xpath("//div[@class='fs-pn25']");
+    By customerName = By.xpath("//div[@class='d-flex mb-2']");
+    By transactionAmmount = By.xpath("//div[@class='d-flex align-items-center']");
+    By customNameONRecipt = By.xpath("//a[@class='text-truncate']");
+	By time = By.xpath("//span[@class='fs-pn25 mb-2']");
 	public Clickable getContinueButton(){
 		return Clickable.getElementBy(continueBtn,"Continue Button");
 	}

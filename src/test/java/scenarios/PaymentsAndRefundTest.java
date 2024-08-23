@@ -536,6 +536,7 @@ public class PaymentsAndRefundTest extends KadeSession {
 
 
         //Verifying that QR code is displayed
+        // feature existed before , no longer available
 //        Assertions.assertTrue(session.getPaymentsPage().getVenmoQrCode().isDisplayed());
 
         //Verifying that Copy link is visible
@@ -739,6 +740,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         Assertions.assertTrue(session.getPaymentsPage().getVenmoPopup().isDisplayed());
 
         //Verifying that QR code is displayed
+        // feature existed before , no longer available
 //        Assertions.assertTrue(session.getPaymentsPage().getVenmoQrCode().isDisplayed());
 
         //Verifying that Copy link is visible
