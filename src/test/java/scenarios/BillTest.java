@@ -943,7 +943,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("Automation Flow 1");
+        bill.selectStore("Automation flow 2");
         bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
