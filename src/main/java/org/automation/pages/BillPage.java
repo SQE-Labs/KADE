@@ -243,7 +243,7 @@ public class BillPage extends BasePage {
     }
 
     public Clickable getUnpaidBillButton() {
-        return getElementBy(unpaidBill, "Unpaid bill Button");
+        return Clickable.getElementBy(unpaidBill, "Unpaid bill Button");
     }
 
     public Clickable getProcessPaymentButton() {
