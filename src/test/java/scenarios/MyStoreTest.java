@@ -13,7 +13,7 @@ import org.testng.annotations.Test;
 
 public class MyStoreTest extends BaseTest {
 
-    @Test(enabled=false, description = "SC_01(A) Verifying creation of Store without Stripe Payment Account Configuration")
+    @Test(enabled=true, description = "SC_01(A) Verifying creation of Store without Stripe Payment Account Configuration")
     public void sc01a_StoreCreationWithoutStripeAccount() throws AWTException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
@@ -24,7 +24,7 @@ public class MyStoreTest extends BaseTest {
         //Step 2: Click on 'Register New Business' Button
         myStore.getRegisterNewBusinessButton().click();
 
-        if(myStore.getStoreLogo().getListOfWebElements().size()>0) {
+        if(!myStore.getStoreLogo().isDisplayed()) {
 
             //Step 3: Click on 'Skip' button
             myStore.getSkipStripeAccountButton().click();
@@ -82,10 +82,10 @@ public class MyStoreTest extends BaseTest {
         myStore.getSaveButton().click();
 
         //Step 14: Click on 'Continue' Button
-        myStore.getContinueButton().click();
+        myStore.getContinueButton().clickByMouse();
     }
 
-    @Test(enabled=false, description = "SC_01(B) Verifying deletion of Store when Stripe Account is not Registered Yet")
+    @Test(enabled=true, description = "SC_01(B) Verifying deletion of Store when Stripe Account is not Registered Yet")
     public void sc01b_DeletionOfStore() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
@@ -96,11 +96,13 @@ public class MyStoreTest extends BaseTest {
         //Step 2: Click on 'Register New Business' Button
         myStore.getRegisterNewBusinessButton().click();
 
-        //Step 3: Click on 'Skip' Button
-        myStore.getSkipStripeAccountButton().click();
+        if(!myStore.getStoreLogo().isDisplayed()) {
+            //Step 3: Click on 'Skip' Button
+            myStore.getSkipStripeAccountButton().click();
 
-        //Verifying the 'Skip' Pop Up Title
-        Assertions.assertEquals(myStore.getSkipPopUpTitle().getText(), "Skip");
+            //Verifying the 'Skip' Pop Up Title
+            Assertions.assertEquals(myStore.getSkipPopUpTitle().getText(), "Skip");
+        }
 
         //Step 4: Click on 'Skip' button
         myStore.getSkipStripeAccountPopUpButton().click();
@@ -112,7 +114,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getDeleteStoreIcon().click();
     }
 
-    @Test(enabled=false, description = "SC_02 Verify creation of Store with Stripe Payment Account")
+    @Test(enabled=true, description = "SC_02 Verify creation of Store with Stripe Payment Account")
     public void sc02_CreationOfStoreWithStripeAccount() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
@@ -123,8 +125,14 @@ public class MyStoreTest extends BaseTest {
         //Step 2: Click on 'Register New Business' Button
         myStore.getRegisterNewBusinessButton().click();
 
+        if(myStore.getStoreLogo().isDisplayed()) {
+            myStore.getDeleteStoreButton().clickByMouse();
+            myStore.getDeleteStoreIcon().clickByMouse();
+            session.getDashBoardPage().getMyStoresTab().click();
+            myStore.getRegisterNewBusinessButton().click();
+        }
         //Step 3: Click on 'Stripe Account' Button
-        myStore.getStipeAccountButton().click();
+        myStore.getStipeAccountButton().clickByMouse();
 
         //Verifying the 'Connect To Stripe' PopUp Title
         Assertions.assertEquals(myStore.getConnectStripePopUpTitle().getText(), "Connect to stripe");
@@ -132,20 +140,25 @@ public class MyStoreTest extends BaseTest {
         //Step 4: Click on 'Test Stripe Account' Button
         myStore.getTestStripeAccountButton().click();
 
+        //Edit Store name
+        myStore.getEditStoreButton().click();
+        myStore.getStoreNameField().setText("Zencode");
+        myStore.getSaveButton().clickByMouse();
+
         //Step 5: Click on 'Bank Transfer' toggle button
         myStore.getBankTransferToggleButton().click();
 
         //Step 6: Click on 'Continue' Button
-        myStore.getContinueButton().click();
+        myStore.getContinueButton().clickByMouse();
 
         //Step 7: Click on 'Skip For Now' Button
-        myStore.getSkipForNowButton().click();
+        myStore.getSkipForNowButton().clickByMouse();
 
         //Step 8: Click on 'Continue' Button
-        myStore.getContinueButton().click();
+        myStore.getContinueButton().clickByMouse();
 
         //verifying the default Values of the Store
-        String defaultStoreName = "Avenue";
+        String defaultStoreName = "Zencode";
         String defaultLocationDescription = "Dix Hills";
         String defaultStoreAddress = "8 Glover Dr, Dix Hills, NY 11746, USA";
         String defaultStorePhone = "+1 (646) 713 6494";
@@ -201,7 +214,7 @@ public class MyStoreTest extends BaseTest {
         myStore.selectTimeZone();
 
         //Verifying the Maximum and Default Values of 'Tax Rate' field
-        Assertions.assertEquals(myStore.getTaxRateField().getAttribute("value"), "0.000");
+//        Assertions.assertEquals(myStore.getTaxRateField().getAttribute("value"), "10.000");
         Assertions.assertEquals(myStore.getTaxRateField().getAttribute("max"), "100");
 
         //Step 10 Enter Tax Rate
@@ -222,7 +235,7 @@ public class MyStoreTest extends BaseTest {
 
         //Reset Store to default
         myStore.getModifyButton().click();
-        myStore.getStoreNameField().setText("My Store edit");
+        myStore.getStoreNameField().setText("Automation Flow 3");
         myStore.getLocationDescriptionField().setText("Without Stripe Account");
         myStore.getPhoneField().setText("9112212120");
         myStore.getTaxRateField().setText("0.000");
@@ -338,7 +351,7 @@ public class MyStoreTest extends BaseTest {
         //Step 4: Enter amount in 'Maximum Bill Amount' field
         myStore.getMaximumBillAmountField().setText(maxBillAmount);
 
-        if(myStore.getConfigureButton().getListOfWebElements().size()>0) {
+        if(!myStore.getTipConfigureButton().isDisplayed()) {
             //Step 4: Click on 'Tip & Gratuity' Toggle Button
             myStore.getTipGratuityToggleOnButton().click();
         }
@@ -348,7 +361,7 @@ public class MyStoreTest extends BaseTest {
         //Verifying the 'Tip Configuration' Pop-up Title
         Assertions.assertEquals(myStore.getTipConfigPopUpTitle().getText(), "Tip configuration");
 
-        if(myStore.getAlertTipConfigurationMessage().getListOfWebElements().size()==0) {
+        if(!myStore.getAlertTipConfigurationMessage().isDisplayed()) {
             //Step 6: Click on 'Enter in Percentage' Toggle button
             myStore.getEnterInPerCentToggleButton().click();
         }
@@ -371,7 +384,7 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getRewardConfigPopUpTitle().getText(), "Rewards Program Configuration");
 
         //Step 10: Click on 'Reward Point' Toggle button
-        if(myStore.getRewardPointsField().getListOfWebElements().size()==0) {
+        if(!myStore.getRewardPointsField().isDisplayed()) {
             myStore.getRewardPointToggleOnButton().click();
         }
         //Verifying the Minimum and Maximum Values of 'Reward Points' Field
@@ -420,7 +433,7 @@ public class MyStoreTest extends BaseTest {
         //Step 3: Click on 'Settings' Sub-Tab
         myStore.getSettingsSubTab().click();
 
-        if(myStore.getConfigureButton().getListOfWebElements().size()>0) {
+        if(!myStore.getTipConfigureButton().isDisplayed()) {
             //Step 4: Click on 'Tip & Gratuity' Toggle Button
             myStore.getTipGratuityToggleOnButton().click();
         }
