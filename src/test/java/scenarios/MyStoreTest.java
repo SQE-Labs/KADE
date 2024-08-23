@@ -17,6 +17,11 @@ public class MyStoreTest extends BaseTest {
     public void sc01a_StoreCreationWithoutStripeAccount() throws AWTException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
+        String storeName = "My store " + RandomGenerator.requiredString(6);
+        String phoneNumber = RandomGenerator.requiredNumber(10);
+        String description = "Without Stripe Account" + RandomGenerator.requiredString(15);
+        String storeAddressName = "123";
+
         //Step 1: Click on 'My Stores' Tab
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
@@ -33,7 +38,8 @@ public class MyStoreTest extends BaseTest {
             Assertions.assertEquals(myStore.getSkipPopUpTitle().getText(), "Skip");
 
             //Step 4: Click on 'Skip' Button
-            myStore.getSkipStripeAccountPopUpButton().click();
+            WebdriverWaits.sleep(2000);
+            myStore.getSkipStripeAccountPopUpButton().clickByMouse();
         }
 
         //Step 5: Click on 'Save' Button
@@ -52,20 +58,19 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getStoreNameField().getAttribute("maxlength"), "100");
 
         //Step 7: Enter Store Name
-        myStore.getStoreNameField().setText("My Store Final");
+        myStore.getStoreNameField().setText(storeName);
 
         //Step 8: Enter Location Description
-        myStore.getLocationDescriptionField().setText("Without Stripe Account");
+        myStore.getLocationDescriptionField().setText(description);
 
         //Step 9: Select Store Address
-        String storeAddressName = "123";
         myStore.selectStoreAddress(storeAddressName);
 
         //Verifying the maximum length of 'Phone' field
         Assertions.assertEquals(myStore.getPhoneField().getAttribute("maxlength"), "22");
 
         //Step 10: Enter Phone Number
-        myStore.getPhoneField().setText("9180652348");
+        myStore.getPhoneField().setText(phoneNumber);
 
         //Step 11: Select Time Zone
         myStore.selectTimeZone();
@@ -83,6 +88,10 @@ public class MyStoreTest extends BaseTest {
 
         //Step 14: Click on 'Continue' Button
         myStore.getContinueButton().clickByMouse();
+
+        //Verify Created Store
+        Assertions.assertEquals(myStore.getAddedStoreName().getText(), storeName);
+        Assertions.assertEquals(myStore.getAddedStorePhone().getText().replaceAll("[+()\\s-]", "").substring(1,11), phoneNumber);
     }
 
     @Test(enabled=true, description = "SC_01(B) Verifying deletion of Store when Stripe Account is not Registered Yet")
@@ -102,13 +111,15 @@ public class MyStoreTest extends BaseTest {
 
             //Verifying the 'Skip' Pop Up Title
             Assertions.assertEquals(myStore.getSkipPopUpTitle().getText(), "Skip");
+
+            //Step 4: Click on 'Skip' button
+            WebdriverWaits.sleep(2000);
+            myStore.getSkipStripeAccountPopUpButton().clickByMouse();
         }
 
-        //Step 4: Click on 'Skip' button
-        myStore.getSkipStripeAccountPopUpButton().click();
 
         //Step 5: Click on 'Delete' Button
-        myStore.getDeleteStoreButton().click();
+        myStore.getDeleteStoreButton().clickByMouse();
 
         //Step 6: Click on 'Confirmation' icon
         myStore.getDeleteStoreIcon().click();
@@ -118,6 +129,8 @@ public class MyStoreTest extends BaseTest {
     public void sc02_CreationOfStoreWithStripeAccount() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
+        String storeName = "Zencode "+RandomGenerator.requiredString(6);
+        String phoneNumber = RandomGenerator.requiredNumber(10);
         //Step 1: Click on 'My Stores' Tab
         session.getDashBoardPage().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
@@ -142,7 +155,8 @@ public class MyStoreTest extends BaseTest {
 
         //Edit Store name
         myStore.getEditStoreButton().click();
-        myStore.getStoreNameField().setText("Zencode");
+        myStore.getStoreNameField().setText(storeName);
+        myStore.getPhoneField().setText(phoneNumber);
         myStore.getSaveButton().clickByMouse();
 
         //Step 5: Click on 'Bank Transfer' toggle button
@@ -158,16 +172,14 @@ public class MyStoreTest extends BaseTest {
         myStore.getContinueButton().clickByMouse();
 
         //verifying the default Values of the Store
-        String defaultStoreName = "Zencode";
         String defaultLocationDescription = "Dix Hills";
         String defaultStoreAddress = "8 Glover Dr, Dix Hills, NY 11746, USA";
-        String defaultStorePhone = "+1 (646) 713 6494";
         String defaultCurrency = "USD";
         String defaultTaxRate = "0.000%";
-        Assertions.assertEquals(myStore.getAddedStoreName().getText(), defaultStoreName);
+        Assertions.assertEquals(myStore.getAddedStoreName().getText(), storeName);
         Assertions.assertEquals(myStore.getAddedLocationDescription().getText(), defaultLocationDescription);
         Assertions.assertEquals(myStore.getAddedStoreAddress().getText(), defaultStoreAddress);
-        Assertions.assertEquals(myStore.getAddedStorePhone().getText(), defaultStorePhone);
+        Assertions.assertEquals(myStore.getAddedStorePhone().getText().replaceAll("[+()\\s-]", "").substring(1,11), phoneNumber);
         Assertions.assertEquals(myStore.getAddedCurrencyOfStore().getText(), defaultCurrency);
         Assertions.assertEquals(myStore.getAddedTaxRate().getText(), defaultTaxRate);
     }
@@ -521,7 +533,8 @@ public class MyStoreTest extends BaseTest {
         myStore.getZelleSaveButton().clickByMouse();
 
         //Step 14: Click on 'Credit Card Terminal' button
-        myStore.getCreditCardTerminalButton().clickByMouse();
+        WebdriverWaits.sleep(3000);
+        myStore.getCreditCardTerminalButton().clickbyJS();
 
         //Step 15: Click on 'Add new Terminal' button
         myStore.getAddNewTerminalButton().click();
@@ -530,7 +543,7 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getNewTerminalPopUpTitle().getText(), "New Terminal");
 
         //Step 16: Select an option
-        myStore.getCreditTerminalOption().click();
+        myStore.getCreditTerminalOption().clickbyJS();
 
         //Step 17: Click on 'Save' Button
         myStore.getSaveButton().click();

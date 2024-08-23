@@ -69,6 +69,7 @@ public class DashBoardPage extends BasePage {
 	}
 
     public Clickable getSignOutButton() {
+		WebdriverWaits.sleep(3000);
 		return Clickable.getElementBy(signOutBtn,"Sign Out Button");
     }
 }

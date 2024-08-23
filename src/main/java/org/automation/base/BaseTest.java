@@ -93,7 +93,7 @@ public class BaseTest {
 
 	@AfterMethod
 	public void tearDown(ITestResult result) throws IOException {
-		new KadeSession().getDashBoardPage().getSignOutButton().clickIfExist();
+		new KadeSession().getDashBoardPage().getSignOutButton().clickByMouse();
 		if (result.getStatus() == ITestResult.FAILURE) {
 			String screenshotPath = Screenshot.takeScreenShotAsBase64();
 			getExtentTest().addScreenCaptureFromBase64String(screenshotPath);

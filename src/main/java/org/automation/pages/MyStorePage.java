@@ -93,7 +93,7 @@ public class MyStorePage extends BasePage {
     By creditCardTerminalBtn = By.xpath("//a[text()='Credit Card Terminals']");
     By addNewTerminalBtn = By.xpath("//button[text()='Add new terminal']");
     By newTerminalPopUpTitle = By.xpath("//h5[text()='New Terminal']");
-    By creditCardTerminalOption = By.xpath("//span[text()=' Tap-To-Pay on phone']");
+    By creditCardTerminalOption = By.xpath("//label[text()='Select your terminal']/../div[1]/label/i[2]");
     By manageUserSubTab = By.xpath("//a[text()='Manage Users']");
     By addUserButton = By.xpath("//button[text()='Add User']");
     By manageUserNameField = By.xpath("//div[@class='mb-2']//div[@class='input-group']//input");
