@@ -92,24 +92,23 @@ public class BaseTest {
 	}
 
 	@AfterMethod
-	public void tearDown(ITestResult result) throws IOException {
-		new KadeSession().getDashBoardPage().getSignOutButton().clickByMouse();
+	public void tearDown(ITestResult result){
 		if (result.getStatus() == ITestResult.FAILURE) {
-			String screenshotPath = Screenshot.takeScreenShotAsBase64();
-			getExtentTest().addScreenCaptureFromBase64String(screenshotPath);
+			String screenshotPath = Screenshot.getScreenshot(getDriver(), result.getTestName());
+			getExtentTest().addScreenCaptureFromPath(screenshotPath);
 			getExtentTest().log(Status.FAIL, result.getThrowable());
 
 		} else if (result.getStatus() == ITestResult.SUCCESS) {
 //			String screenshotPath = Screenshot.getScreenshot(getDriver(), result.getName());
 //			extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath));
 		}
-		extent.flush();
+		new KadeSession().getDashBoardPage().getSignOutButton().clickIfExist();
 		closeDriver();
 	}
 
 	@AfterSuite(alwaysRun = true)
 	public void afterSuite() {
-
+		extent.flush();
 	}
 
 	/**

@@ -23,7 +23,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
 
         //Click on the bill created
-        session.getBillPage().getUnpaidBillButton().click();
+        session.getBillPage().getNotPaidBill().click();
 
         //Verify all the WebElements on Bill popup
         String expectedPopupHeader = session.getBillPage().getBillPopupHeader().getText();
@@ -89,7 +89,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().createBill(billsDetails);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
         //Open Bill Details popup
-        session.getBillPage().getUnpaidBillButton().click();
+        session.getBillPage().getNotPaidBill().click();
 
         //Verify all the WebElements on Bill popup
         String expectedPopupHeader = session.getBillPage().getBillPopupHeader().getText();
@@ -135,7 +135,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getDashBoardPage().getBillButton().click();
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
-        session.getBillPage().getUnpaidBillButton().click();
+        session.getBillPage().getNotPaidBill().click();
         session.getBillPage().getProcessPaymentButton().click();
 
         // Verify popup title and elements
@@ -171,7 +171,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
 
-        session.getBillPage().getUnpaidBillButton().click();
+        session.getBillPage().getNotPaidBill().click();
         session.getBillPage().getProcessPaymentButton().click();
 
         // Verify popup title and elements of Receive Payment popup
@@ -210,7 +210,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         //Creating Bill
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
-        session.getBillPage().getUnpaidBillButton().click();
+        session.getBillPage().getNotPaidBill().click();
 
         session.getBillPage().getProcessPaymentButton().click();
         
@@ -302,7 +302,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         //Creating Bill
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
-        session.getBillPage().getUnpaidBillButton().click();
+        session.getBillPage().getNotPaidBill().click();
         session.getBillPage().getProcessPaymentButton().click();
 
         //Update Amount
@@ -335,7 +335,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         //Creating Bill
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
-        session.getBillPage().getUnpaidBillButton().click();
+        session.getBillPage().getNotPaidBill().click();
         session.getBillPage().getProcessPaymentButton().click();
         // Process payment successfully
         session.getPaymentsPage().getOthersButton().click();
@@ -389,6 +389,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getPaymentsPage().getChangePaymentButton().click();
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
+        WebdriverWaits.sleep(2000);
         session.getPaymentsPage().getBlueCloseButton().clickbyJS();
     }
 
@@ -483,7 +484,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getPaymentsPage().getPayNowButton().click();
 
         //Step 10: Click on 'Swipe to Pay; field
-        session.getPaymentsPage().getSwipeToPayButton().click();
+        session.getPaymentsPage().getSwipeToPayButton().clickByMouse();
 
         //Step 11: Enter Amount
         session.getPaymentsPage().getMoreAmountField().setText("1000.00");
