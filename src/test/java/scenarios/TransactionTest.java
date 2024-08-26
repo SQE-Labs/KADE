@@ -35,7 +35,7 @@ public class TransactionTest extends BaseTest {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
 
         //Click on the bill created
-        session.getBillPage().getUnpaidBillButton().click();
+        session.getBillPage().getUnPaidBill().click();
 
         //Verify all the WebElements on Bill popup
         String expectedPopupHeader = session.getBillPage().getBillPopupHeader().getText();
