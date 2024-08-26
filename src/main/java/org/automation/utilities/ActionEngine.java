@@ -12,9 +12,6 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.Select;
 
-import static com.aventstack.extentreports.Status.FAIL;
-import static com.aventstack.extentreports.Status.PASS;
-
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.Toolkit;
@@ -22,6 +19,8 @@ import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
 import java.util.List;
 import java.util.stream.Collectors;
+
+import static com.aventstack.extentreports.Status.*;
 
 public class ActionEngine extends BaseTest {
 
@@ -56,9 +55,21 @@ public class ActionEngine extends BaseTest {
 			getExtentTest().log(PASS, "==> Clicked element Successfully! " + var);
 		} catch (Exception e) {
 			getExtentTest().log(FAIL, "==> Unable to click on => " + var + " due to exception " + e);
-
 		}
+	}
 
+	public static void clickByWithoutFailing(By path, String... label) {
+		String var = "";
+		try {
+			var = label.length > 0 ? label[0] : path.toString();
+			Element btn = new Element(var, path);
+			btn.click();
+			Log.info("Clicked on " + var);
+			// log success message in exgent report
+			getExtentTest().log(PASS, "==> Clicked element Successfully! " + var);
+		} catch (Exception e) {
+			getExtentTest().log(INFO, "==> Unable to click on => " + var + " due to exception " + e);
+		}
 	}
 
 	public void click(WebElement element, String... label) {
