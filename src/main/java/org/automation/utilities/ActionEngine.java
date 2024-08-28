@@ -56,8 +56,7 @@ public class ActionEngine extends BaseTest {
             getExtentTest().log(PASS, "==> Clicked element Successfully! " + var);
         } catch(ElementClickInterceptedException ex) {
             getExtentTest().log(INFO, "==> Unable to click on => " + var + " due to exception " + ex);
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             getExtentTest().log(FAIL, "==> Unable to click on => " + var + " due to exception " + e);
         }
     }
