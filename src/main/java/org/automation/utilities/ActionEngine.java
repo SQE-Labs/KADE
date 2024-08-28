@@ -509,4 +509,7 @@ public class ActionEngine extends BaseTest {
         a.moveToElement(getDriver().findElement(xpath)).click().perform();
     }
 
+    public void navigateToUrl(String url) {
+        getDriver().get(url);
+    }
 }

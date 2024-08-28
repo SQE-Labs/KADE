@@ -23,7 +23,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
 
         //Click on the bill created
-        session.getBillPage().getNotPaidBill().click();
+        session.getBillPage().getUnpaidBillWithoutDescription().click();
 
         //Verify all the WebElements on Bill popup
         String expectedPopupHeader = session.getBillPage().getBillPopupHeader().getText();
@@ -89,7 +89,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().createBill(billsDetails);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
         //Open Bill Details popup
-        session.getBillPage().getNotPaidBill().click();
+        session.getBillPage().getUnpaidBillWithoutDescription().click();
 
         //Verify all the WebElements on Bill popup
         String expectedPopupHeader = session.getBillPage().getBillPopupHeader().getText();
@@ -135,7 +135,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getDashBoardPage().getBillButton().click();
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
-        session.getBillPage().getNotPaidBill().click();
+        session.getBillPage().getUnpaidBillWithoutDescription().click();
         session.getBillPage().getProcessPaymentButton().click();
 
         // Verify popup title and elements
@@ -171,7 +171,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
 
-        session.getBillPage().getNotPaidBill().click();
+        session.getBillPage().getUnpaidBillWithoutDescription().click();
         session.getBillPage().getProcessPaymentButton().click();
 
         // Verify popup title and elements of Receive Payment popup
@@ -210,7 +210,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         //Creating Bill
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
-        session.getBillPage().getNotPaidBill().click();
+        session.getBillPage().getUnpaidBillWithoutDescription().click();
 
         session.getBillPage().getProcessPaymentButton().click();
         
@@ -302,7 +302,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         //Creating Bill
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
-        session.getBillPage().getNotPaidBill().click();
+        session.getBillPage().getUnpaidBillWithoutDescription().click();
         session.getBillPage().getProcessPaymentButton().click();
 
         //Update Amount
@@ -335,7 +335,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         //Creating Bill
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
-        session.getBillPage().getNotPaidBill().click();
+        session.getBillPage().getUnpaidBillWithoutDescription().click();
         session.getBillPage().getProcessPaymentButton().click();
         // Process payment successfully
         session.getPaymentsPage().getOthersButton().click();

@@ -1,6 +1,5 @@
 package scenarios;
 
-import lombok.Builder;
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
 import org.automation.objectBuilder.ObjectBuilder;
@@ -10,13 +9,7 @@ import org.automation.pages.DashBoardPage;
 import org.automation.pages.TransactionsPage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
-import org.automation.utilities.WebdriverWaits;
-import org.checkerframework.checker.units.qual.K;
-import org.openqa.selenium.By;
 import org.testng.annotations.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TransactionTest extends BaseTest {
 
@@ -35,7 +28,7 @@ public class TransactionTest extends BaseTest {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
 
         //Click on the bill created
-        session.getBillPage().getUnPaidBill().click();
+        session.getBillPage().getUnpaidBillWithoutDescription().click();
 
         //Verify all the WebElements on Bill popup
         String expectedPopupHeader = session.getBillPage().getBillPopupHeader().getText();
@@ -173,9 +166,6 @@ public class TransactionTest extends BaseTest {
         // check Time
         boolean checkTime = transactions.matchTimePattern(transactions.getTimeOnTransactionPage().getText());
         Assertions.assertTrue(checkTime);
-
-
-
-      }
+    }
 
     }

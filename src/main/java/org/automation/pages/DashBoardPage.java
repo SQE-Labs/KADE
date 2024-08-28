@@ -22,7 +22,7 @@ public class DashBoardPage extends BasePage {
 	By storesCombobox=By.xpath("//span[@role='combobox']");
 	By continueBtn=By.xpath("//button[@type='submit']");
 	By signOutBtn = By.xpath("//a[text()='Sign out']");
-
+	By qrCodeDashboardBtn = By.xpath("//a[text()='QR Code Dashboard']");
 
 	public DashBoardPage() {
 	}
@@ -72,6 +72,10 @@ public class DashBoardPage extends BasePage {
     public Clickable getSignOutButton() {
 		WebdriverWaits.sleep(3000);
 		return Clickable.getElementBy(signOutBtn,"Sign Out Button");
+    }
+
+    public Clickable getQrCodeDashboardButton() {
+		return Clickable.getElementBy(qrCodeDashboardBtn , "Qr code dashboard button");
     }
 }
 
