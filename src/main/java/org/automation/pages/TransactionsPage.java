@@ -9,8 +9,6 @@ public class TransactionsPage extends BasePage {
 	//Locators
 	By transactionRow = By.xpath("//div[contains(@class,'row bg-white ')]");
 	By billAmount = By.xpath("//div[@class='display-6 fw-bold pt-2']");
-	By memoMessage = By.xpath("//div[@class='mt-1 text-info']");
-	By billPaymentTime = By.xpath("(//div[@class='col-7'] //span[@class='fs-pn15'])[1]");
 	By closeTransactionPopupBtn = By.xpath("(//button[@class='btn-close'])[1]");
 	By storesCombobox = By.xpath("//span[@role='combobox']");
 	By continueBtn = By.xpath("//button[@type='submit']");
@@ -30,7 +28,6 @@ public class TransactionsPage extends BasePage {
 	By newChargeConfirm = By.xpath("//button[@name='method' and @type= 'submit']");
 	By terminalAlertMessage = By.xpath("//p[text()='Terminal charges are not accepted']");
 
-
 	public Clickable getContinueButton(){
 		return Clickable.getElementBy(continueBtn,"Continue Button");
 	}
@@ -42,6 +39,7 @@ public class TransactionsPage extends BasePage {
 	public Clickable getBillAmount() {
 		return Clickable.getElementBy(billAmount,"Bill Amount");
 	}
+
 	public Clickable getUniqueTransactionId(){
 		return Clickable.getElementBy(uniqueTransactionId,"Transaction ID");
 	}
@@ -107,40 +105,33 @@ public class TransactionsPage extends BasePage {
 		}
 		return check;
 	}
-	public Clickable getInformationMessage()
-	{
+	public Clickable getInformationMessage() {
 		return Clickable.getElementBy(informationMessage, "Information message label");
 	}
 
-	public Clickable getNewBillTab()
-	{
+	public Clickable getNewBillTab() {
 		return Clickable.getElementBy(newBillTab, "New Bill Tab");
 	}
 
-	public Clickable getNewChargeTab()
-	{
+	public Clickable getNewChargeTab() {
 		return Clickable.getElementBy(newChargeTab, "New Charge Tab");
 	}
 
 
-	public Clickable getFilterIcon()
-	{
+	public Clickable getFilterIcon() {
 		return Clickable.getElementBy(filterIcon, "Filter Icon");
 	}
 
 	// Enter Amount in New Charge Field.
-	public Editable getNewChargeAmountField()
-	{
-		return Editable.getElementBy(newChargeAmountField);
+	public Editable getNewChargeAmountField() {
+		return Editable.getElementBy(newChargeAmountField, "New  charge amount field");
 	}
 
-	public Clickable getNewChargeConfirmButton()
-		{
-		return Clickable.getElementBy(newChargeConfirm);
+	public Clickable getNewChargeConfirmButton() {
+		return Clickable.getElementBy(newChargeConfirm, "New charge config button");
 		}
 
-	public Clickable getTerminalAlertMessage()
-	{
+	public Clickable getTerminalAlertMessage() {
 		return Clickable.getElementBy(terminalAlertMessage , " Alert Message");
 	}
 

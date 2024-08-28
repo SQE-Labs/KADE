@@ -1,6 +1,5 @@
 package scenarios;
 
-import lombok.Builder;
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
 import org.automation.objectBuilder.ObjectBuilder;
