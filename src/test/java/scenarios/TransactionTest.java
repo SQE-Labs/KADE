@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 public class TransactionTest extends BaseTest {
 
     @Test(description = "trs1 Verify that list of transactions appears, on 'Transaction' page through Store Manager.")
-    public void trs1_verifyUserIsAbleToViewTransactionList(){
+    public void verifyUserIsAbleToViewTransactionList(){
         KadeSession session =  KadeSession.login(KadeUserAccount.Default);
         TransactionsPage transactions =session.getTransactionsPage();
         DashBoardPage dashBoard = session.getDashBoardPage();
@@ -104,7 +104,7 @@ public class TransactionTest extends BaseTest {
     }
 
     @Test(description = "trs1 Verify that card payment is done by the customer that's appear on Transaction List, on 'Transaction' page through Store Manager.")
-    public void trs2_cardPaymentViewOnTransactionListByCustomer() {
+    public void cardPaymentViewOnTransactionListByCustomer() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
@@ -166,12 +166,10 @@ public class TransactionTest extends BaseTest {
         // check Time
         boolean checkTime = transactions.matchTimePattern(transactions.getTimeOnTransactionPage().getText());
         Assertions.assertTrue(checkTime);
-
-
-
       }
+
     @Test(description = "TRS2 : Verify that appropriate information message appears when no transaction is available, on 'Transaction' page.")
-    public void TRS2_VerifyInfoMessageAppearsWhenNoTransactionIsAvailable() {
+    public void verifyInfoMessageAppearsWhenNoTransactionIsAvailable() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getTransactionButton().click();
         session.getTransactionsPage().selectStore("Automation Flow Business");
@@ -183,7 +181,7 @@ public class TransactionTest extends BaseTest {
          }
 
      @Test (description = "TRS3 : Verify that 'New Bill' & 'New Charge' buttons and filter icon appear, on 'Transaction' page.")
-     public void TRS3_VerifyNewBillNewChargeButtonsAndFilterOnTransactionPage() {
+     public void verifyNewBillNewChargeButtonsAndFilterOnTransactionPage() {
          KadeSession session = KadeSession.login(KadeUserAccount.Default);
          session.getDashBoardPage().getTransactionButton().click();
          TransactionsPage transactions = session.getTransactionsPage();
@@ -196,7 +194,7 @@ public class TransactionTest extends BaseTest {
     }
 
     @Test(description = "TRS4 : Verify that store manager is not able to do the new charge payment, when stripe payment is not configured.")
-    public void  NewChargePaymentWithoutStripeConfiguration ()
+    public void  newChargePaymentWithoutStripeConfiguration ()
     {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getTransactionButton().click();
