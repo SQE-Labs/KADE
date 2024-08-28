@@ -10,13 +10,7 @@ import org.automation.pages.DashBoardPage;
 import org.automation.pages.TransactionsPage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
-import org.automation.utilities.WebdriverWaits;
-import org.checkerframework.checker.units.qual.K;
-import org.openqa.selenium.By;
 import org.testng.annotations.Test;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class TransactionTest extends BaseTest {
 
@@ -35,7 +29,7 @@ public class TransactionTest extends BaseTest {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
 
         //Click on the bill created
-        session.getBillPage().getUnPaidBill().click();
+        session.getBillPage().getUnpaidBillWithoutDescription().click();
 
         //Verify all the WebElements on Bill popup
         String expectedPopupHeader = session.getBillPage().getBillPopupHeader().getText();
@@ -133,7 +127,7 @@ public class TransactionTest extends BaseTest {
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
         String expectedTotalPayment = session.getBillPage().getActiveBillAmmount().getText();
-        session.getPaymentsPage().getChangePaymentButton().clickByMouse();
+        session.getPaymentsPage().getChangePaymentButton().click();
         String expectedPaymentMethod = session.getPaymentsPage().getSavedCreditCard().getText().replaceAll("\\s.*","");
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
@@ -155,10 +149,11 @@ public class TransactionTest extends BaseTest {
         System.out.println(checkflag);
         Assertions.assertTrue(checkflag);
 
+
         // Payment Type
         Assertions.assertEquals(transactions.getPaymentTypeOnTransaction().getText(), expectedPaymentMethod);
 
-        // Payment Amount
+        // Payment Ammount
         String actualTotalPayment = transactions.getTransactionAmmount().getText();
         Assertions.assertEquals(actualTotalPayment,expectedTotalPayment);
 
@@ -220,5 +215,5 @@ public class TransactionTest extends BaseTest {
         Assertions.assertEquals(transactions.getTerminalAlertMessage().getText(),expectedInformationMessage);
     }
 
-
     }
+
