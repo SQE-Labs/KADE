@@ -43,5 +43,9 @@ public class KadeSession extends BaseTest {
     public NotificationsPage getNotificationPage() {
         return new NotificationsPage();
     }
+
+    public QrCodeDashboardPage getQRCodeDashboardPage() {
+        return new QrCodeDashboardPage();
+    }
 }
 
