@@ -14,7 +14,7 @@ import org.testng.annotations.Test;
 public class TransactionTest extends BaseTest {
 
     @Test(description = "trs1 Verify that list of transactions appears, on 'Transaction' page through Store Manager.")
-    public void trs1_verifyUserIsAbleToViewTransactionList(){
+    public void verifyUserIsAbleToViewTransactionList(){
         KadeSession session =  KadeSession.login(KadeUserAccount.Default);
         TransactionsPage transactions =session.getTransactionsPage();
         DashBoardPage dashBoard = session.getDashBoardPage();
@@ -79,7 +79,7 @@ public class TransactionTest extends BaseTest {
         session.getDashBoardPage().getTransactionButton().click();
         transactions.selectStore(bills.getStore());
 
-       // Payment Ammount
+       // Payment Amount
         String actualTotalPayment = transactions.getTransactionAmmount().getText();
         Assertions.assertEquals(actualTotalPayment,expectedTotalAmount);
 
@@ -104,7 +104,7 @@ public class TransactionTest extends BaseTest {
     }
 
     @Test(description = "trs1 Verify that card payment is done by the customer that's appear on Transaction List, on 'Transaction' page through Store Manager.")
-    public void trs2_cardPaymentViewOnTransactionListByCustomer() {
+    public void cardPaymentViewOnTransactionListByCustomer() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
@@ -166,6 +166,51 @@ public class TransactionTest extends BaseTest {
         // check Time
         boolean checkTime = transactions.matchTimePattern(transactions.getTimeOnTransactionPage().getText());
         Assertions.assertTrue(checkTime);
+      }
+
+    @Test(description = "TRS2 : Verify that appropriate information message appears when no transaction is available, on 'Transaction' page.")
+    public void verifyInfoMessageAppearsWhenNoTransactionIsAvailable() {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getDashBoardPage().getTransactionButton().click();
+        session.getTransactionsPage().selectStore("Automation Flow Business");
+        String expectedInformationMessage = "There are no payments available yet!";
+
+        // Verify the information message when no transaction is available.
+        Assertions.assertEquals(session.getTransactionsPage().getInformationMessage().getText(),
+                expectedInformationMessage);
+         }
+
+     @Test (description = "TRS3 : Verify that 'New Bill' & 'New Charge' buttons and filter icon appear, on 'Transaction' page.")
+     public void verifyNewBillNewChargeButtonsAndFilterOnTransactionPage() {
+         KadeSession session = KadeSession.login(KadeUserAccount.Default);
+         session.getDashBoardPage().getTransactionButton().click();
+         TransactionsPage transactions = session.getTransactionsPage();
+         session.getTransactionsPage().selectStore("Automation Flow 1");
+
+         // Verifying  New Bill, New Charge, Filter icon is displayed
+         Assertions.assertTrue(transactions.getNewBillTab().isDisplayed());
+         Assertions.assertTrue(transactions.getNewChargeTab().isDisplayed());
+         Assertions.assertTrue(transactions.getFilterIcon().isDisplayed());
+    }
+
+    @Test(description = "TRS4 : Verify that store manager is not able to do the new charge payment, when stripe payment is not configured.")
+    public void  newChargePaymentWithoutStripeConfiguration ()
+    {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getDashBoardPage().getTransactionButton().click();
+        TransactionsPage transactions = session.getTransactionsPage();
+        session.getTransactionsPage().selectStore("Automation Flow Business");
+
+        // Clicking on 'New Charge' Tab
+        transactions.getNewChargeTab().click();
+        transactions.getNewChargeAmountField().setText("10000");
+        transactions.getNewChargeConfirmButton().click();
+
+        // Verify Alert message is displayed
+        String expectedInformationMessage = "Terminal charges are not accepted";
+        Assertions.assertTrue(transactions.getTerminalAlertMessage().isDisplayed());
+        Assertions.assertEquals(transactions.getTerminalAlertMessage().getText(),expectedInformationMessage);
     }
 
     }
+
