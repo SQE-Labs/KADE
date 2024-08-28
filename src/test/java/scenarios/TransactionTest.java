@@ -137,7 +137,7 @@ public class TransactionTest extends BaseTest {
         String expectedPaymentMethod = session.getPaymentsPage().getSavedCreditCard().getText().replaceAll("\\s.*","");
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
-        session.getPaymentsPage().getBlueCloseButton().clickbyJS();
+        session.getPaymentsPage().getBlueCloseButton().click();
 
         // logout customer .
         session.getDashBoardPage().getSignOutButton().click();
