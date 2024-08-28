@@ -24,7 +24,6 @@ public class Clickable extends ActionEngine {
         this.label = label;
     }
 
-
     public void click() {
         performClickOperation(() -> clickBy(target, label));
     }
@@ -33,8 +32,7 @@ public class Clickable extends ActionEngine {
         performClickOperation(() -> clickElementByJS(target));
     }
 
-    //
-    // public void scrollPopupAndClick(){scrollPopupAndClick(() -> clickBy(target, label));}
+    public void scrollPopupAndClick(){scrollPopupAndClick(() -> clickBy(target, label));}
 
     public String getText() {
         WebdriverWaits.waitForElementUntilVisible(target, 5);
@@ -45,7 +43,7 @@ public class Clickable extends ActionEngine {
         if (!untillDispaeared) {
             do {
                 if (isElementPresent_custom(target, label, false)) {
-                    performClickOperation(() -> clickBy(target, label));
+                    performClickOperation(() -> clickByWithoutFailing(target, label));
                     numberOfRetry--;
                 }
             }
@@ -53,7 +51,7 @@ public class Clickable extends ActionEngine {
         } else {
             do {
                 if (isElementPresent_custom(target, label, false)) {
-                    performClickOperation(() -> clickBy(target, label));
+                    performClickOperation(() -> clickByWithoutFailing(target, label));
                 }
                 if (!isElementPresent_custom(target, label, false)) {
                     break;
@@ -68,7 +66,7 @@ public class Clickable extends ActionEngine {
         clickIfExist(false, 0);
     }
 
-    public void scrollPopupAndClickM(Runnable action){
+    public void scrollPopupAndClick(Runnable action){
         WebElement popupContainer = getDriver().findElement(By.xpath("(//div[@class='modal-content'])[1]"));
         WebElement element = getDriver().findElement(target);
         WebdriverWaits.waitForElementUntilVisible(target, 5);
@@ -116,19 +114,8 @@ public class Clickable extends ActionEngine {
     public List<WebElement> getListOfWebElements() {
         return super.getListOfWebElements(target);
     }
-    public void scrollPopupAndClick(Runnable action) {
-        WebElement popupContainer = getDriver().findElement(By.xpath("//div[@class='w-100 max-45c m-sm-2 p-2  bg-white']"));
-        WebElement element = getDriver().findElement(target);
-        WebdriverWaits.waitForElementUntilVisible(target, 5);
-        WebdriverWaits.waitForElementClickable(target, 5);
-        js.executeScript("arguments[0].scrollTop = arguments[1].offsetTop;", popupContainer, element);
-        if (element.isDisplayed() && element.isEnabled()) {
-            action.run();
-        } else {
-            js.executeScript("arguments[0].scrollTop = arguments[1].offsetTop;", popupContainer, element);
-            action.run();
-        }
-    }
-        public void scrollPopupAndClick(){ scrollPopupAndClick(() -> clickBy(target, label));}
 
+    public void clickByMouse(){
+        clickByMouseActions(target);
     }
+}

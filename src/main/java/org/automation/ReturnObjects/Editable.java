@@ -3,6 +3,9 @@ package org.automation.ReturnObjects;
 import org.automation.utilities.ActionEngine;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class Editable extends ActionEngine {
 
@@ -46,4 +49,8 @@ public class Editable extends ActionEngine {
         return new Editable(xpath, nameOfElement);
     }
 
+    // Method to get list of web elements
+    public List<WebElement> getListOfWebElements() {
+        return getDriver().findElements(target);
+    }
 }

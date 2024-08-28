@@ -65,12 +65,12 @@ public class PaymentsPage extends BasePage {
 
     // By savedCreditcard = By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]");
     By savedBankAccount = By.xpath("(//span[text()='Bank Account 6789'])[1]");
-    By SavedVenmoCard = By.xpath("//div//span[text()='Venmo']");
+    By SavedVenmoCard = By.xpath("//span[@class='text-nowrap fs-pn25' and text()='Venmo']");
     By iMadeMyPaymentButtonVenmo = By.xpath("//div/div/button[text()='I made the payment']");
     By personalMessageVenmo = By.xpath("//textarea[@placeholder='Personal message']");
     By screenshotButton = By.xpath("//button[text()='Do you have a screenshot?']");
-    By confirmVenmoCheckbox = By.xpath(" //span[@class='ms-1']");
-    By venmoSubmitButton = By.xpath(" //button[text()='Submit']");
+    By confirmVenmoCheckbox = By.xpath("//i[@class='fal fa-square custom-check-off ']");
+    By venmoSubmitButton = By.xpath("//button[text()='Submit']");
     By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
     By selectedBankDisplay = By.xpath("//div[@class='-placeholder- link-empty']");
 
@@ -79,7 +79,7 @@ public class PaymentsPage extends BasePage {
     By venmoPopup = By.xpath("(//h5[@class='modal-title'])[1]");
     By copyLink = By.xpath("//span[text()='Copy']");
     By getUploadedImage = By.xpath("//div[@class='my-2 display-none']/img");
-    By processSuccessMsg = By.xpath("//span[@class='fs-4']");
+    By processSuccessMsg = By.xpath("//div[@class='d-flex justify-content-center align-items-center fs-1 text-success py-2']");
     By rateYourExperienceLink = By.xpath("//div[@class='col-sm fs-4 pb-2']");
     By viewReceipt = By.xpath("//div[@class='mt-4']/child::div/a[1]");
     By closeBlueBtn = By.xpath("//a[text()='Close']");
@@ -91,9 +91,7 @@ public class PaymentsPage extends BasePage {
     By savedZellePaymentButton = By.xpath("//div//span[text()='Zelle']");
     By zellePopup = By.xpath("//h5[@class='modal-title']//span");
     By zelleCopyLink = By.xpath("//span[text()='Copy']");
-
-
-
+    By paymentType = By.xpath("//div[@class='d-flex flex-column align-items-end']//span[@class='fs-pn25']");
 
     public PaymentsPage() {
     }
@@ -142,8 +140,8 @@ public class PaymentsPage extends BasePage {
         return Editable.getElementBy(expirationDateTbx, "Expiration Date textbox");
     }
 
-    public Editable getCvcTextbox(){
-        return Editable.getElementBy(cvcTbx,"CVC textbox");
+    public Editable getCvcTextbox() {
+        return Editable.getElementBy(cvcTbx, "CVC textbox");
     }
 
     public void selectCountry(String country) {
@@ -186,11 +184,11 @@ public class PaymentsPage extends BasePage {
         getCvcTextbox().setText("123");
         selectCountry("Australia");
         switchToDefaultWindow();
-        getProcessPaymentButton().click();
+        clickProcessBtn();
     }
 
-    private Clickable getProcessPaymentButton() {
-        return Clickable.getElementBy(processBtn,"Process Payment Button");
+    public void enterAmount(String amount) {
+        pressKeys(receiveAmountTbx, amount);
     }
 
     public Editable getReceivingAmountTextbox() {
@@ -392,7 +390,7 @@ public class PaymentsPage extends BasePage {
     }
 
 
-
+    public Clickable  getPaymentType(){
+        return  Clickable.getElementBy(paymentType, "Payment type on PaymentPage");
+    }
 }
-
-
