@@ -1,17 +1,13 @@
 package legacy;
 
+import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import org.automation.base.BaseTest;
-import org.automation.pages.AddGiftCardPage;
-import org.automation.pages.CreateAGiftCardPopup;
-import org.automation.pages.DashBoardPage;
-import org.automation.pages.GiftCardConfigurationPopup;
-import org.automation.pages.GiftCardDashboardPage;
-import org.automation.pages.GiftCardDetailsPage;
-import org.automation.pages.LoginPage;
-import org.automation.pages.UserPage;
+import org.automation.data.KadeUserAccount;
+import org.automation.pages.*;
+import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.GiftCardsForSalePage;
 import org.automation.utilities.PropertiesUtil;
@@ -28,6 +24,16 @@ public class GiftCardDashboardTest extends BaseTest {
 	UserPage user=new UserPage();
 	GiftCardsForSalePage giftCardForSale=new GiftCardsForSalePage();
 	AddGiftCardPage addGiftCard=new AddGiftCardPage();
+
+	@Test(description = "GCC_01 Verifying configuration of Gift Card")
+	public void gcc01_StoreCreationWithoutStripeAccount()  {
+		KadeSession session = KadeSession.login(KadeUserAccount.Default);
+
+		//Step 1: Click on 'Gift Cards Dashboard' Tab
+		session.getDashBoardPage().getGiftCardsDashboardTab().click();
+		GiftCardDashboardPage giftCard = session.getGiftCardDashboardPage();
+
+	}
 	
 	@Test(enabled = true, description="Verify that Gift Cards Dashboard page opens after clicking on Gift Cards Dashboard Tab")
 	public void tc01_verifyGiftCardsDashboardPage() {

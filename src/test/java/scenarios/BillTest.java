@@ -1,3 +1,5 @@
+package scenarios;
+
 import java.awt.*;
 import java.text.NumberFormat;
 import java.text.ParseException;
@@ -66,7 +68,7 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Close popup
-        bill.getCloseLogoPopupBtn().clickIfExist();
+        bill.getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Verify not paid label for generated amount
         bill.getNotPaidBill().click();
@@ -75,7 +77,6 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.getNotPaidBill().click();
         bill.getDeleteButton().click();
         bill.getDeleteIcon().click();
     }
@@ -136,17 +137,15 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Close popup
-        bill.getCloseLogoPopupBtn().clickIfExist();
+        bill.getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Verify not paid label for generated amount
-        //bill.getNotPaidBill().click();
         bill.getNotPaidBill().click();
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.getNotPaidBill().click();
         bill.getDeleteButton().click();
         bill.getDeleteIcon().click();
     }
@@ -181,17 +180,15 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Close popup
-        bill.getCloseLogoPopupBtn().clickIfExist();
+        bill.getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Verify not paid label for generated amount
-        //bill.getNotPaidBill().click();
         bill.getNotPaidBill().click();
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.getNotPaidBill().click();
         bill.getDeleteButton().click();
         bill.getDeleteIcon().click();
     }
@@ -215,7 +212,7 @@ public class BillTest extends BaseTest {
         bill.getAmountTextbox().setText(amt);
 
         //Enable Tax toggle Button
-        bill.getEnableTaxToggleButton().clickIfExist(); 
+        bill.getEnableTaxToggleButton().clickIfExist();
 
         //Verify Total Amt after tax
         float taxValue = Float.parseFloat(bill.getTaxValue().getText().split(" ")[2].replace("%", ""));
@@ -235,9 +232,7 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Close popup
-        bill.getCloseLogoPopupBtn().clickIfExist();
-        String total = bill.convertToNumberFormat(totalAmt);
-        System.out.println(total);
+        bill.getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Verify not paid label for generated amount
         bill.getNotPaidBill().click();
@@ -246,7 +241,6 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.getNotPaidBill().click();
         bill.getDeleteButton().click();
         bill.getDeleteIcon().click();
     }
@@ -309,7 +303,6 @@ public class BillTest extends BaseTest {
         //Verify Attached File
         Assertions.assertTrue(bill.getAttachedImage().isDisplayed());
         Assertions.assertTrue(bill.getAttachedFiles().getListOfWebElements().size()  == 1);
-        bill.getCloseBillButton().click();
     }
 
     @Test(description = "BC_06 Bill Creation with already configured 'Tax' from store configuration page.")
@@ -351,20 +344,17 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Verify Created Bill
-        bill.getCloseLogoPopupBtn().clickIfExist();
+        bill.getCloseLogoPopupBtn().clickIfExist(true,2);
         bill.getNotPaidBill().click();
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         // Verify Attached File
-        bill.getNotPaidBill().click();
         Assertions.assertTrue(bill.getAttachedFile().isDisplayed());
         Assertions.assertTrue(bill.getAttachedFiles().getListOfWebElements().size()  == 1);
-        bill.getCloseBillButton().click();
 
         //Deleting Created Bill
-        bill.getNotPaidBill().click();
         bill.getDeleteButton().click();
         bill.getDeleteIcon().click();
     }
@@ -408,6 +398,7 @@ public class BillTest extends BaseTest {
 
         //Verify that optional fields are added to the bill
         bill.getMoreOptionsButton().click();
+
         String defaultPriceValue = bill.getItemPriceField1().getAttribute("value");
         Assertions.assertEquals(defaultPriceValue, "$0.00");
 
@@ -426,12 +417,12 @@ public class BillTest extends BaseTest {
 
         //Verifying that default text should be none in Description Field
         Assertions.assertEquals(bill.getDescriptionFieldDefaultText().getText(), "None");
-        bill.getDescription().clickIfExist(true,3);
+        bill.getDescription().click();
         Assertions.assertEquals(bill.getDescriptionPopUpTitle().getText(), "Description");
-        String actualMaxDescLen = bill.getDescriptionField().getAttribute("maxlength");
+        String actualMaxDescLen = bill.getItemDescriptionField1().getAttribute("maxlength");
         Assertions.assertEquals(actualMaxDescLen, "200");
         String descriptionValue = "Test Description";
-        bill.getDescriptionField().setText(descriptionValue);
+        bill.getDescriptionBox().setText(descriptionValue);
 
         //Verifying that added reference number should appear under the 'Description' field.
         bill.getDoneLink().click();
@@ -467,7 +458,7 @@ public class BillTest extends BaseTest {
         String desc3 = "Shake";
         bill.getItemDescriptionField3().setText(desc3);
         String price3 = "150.00";
-        bill.getItemDescriptionField3().setText(price3);
+        bill.getItemPriceField3().setText(price3);
         bill.getConfirmButton().click();
 
         //Verify toast message
@@ -476,16 +467,16 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Verify Created Bill
-        bill.getCloseLogoPopupBtn().clickIfExist();
+        bill.getCloseLogoPopupBtn().clickIfExist(true,2);
 
-        bill.getNotPaidBill().click();
+        //Verifying the total amount 80+120+150
+        bill.getUnPaidBill().click();
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
         Assertions.assertTrue(bill.getAddedDescription().isDisplayed());
 
         //Deleting Created Bill
-        bill.getNotPaidBill().click();
         bill.getDeleteButton().click();
         bill.getDeleteIcon().click();
     }
@@ -570,7 +561,7 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
         String toastMessage = "Bill was created successfully.Click here to open";
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
-        bill.getCloseLogoPopupBtn().clickIfExist();
+        bill.getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Verify Created Bill
         bill.getNotPaidBill().click();
@@ -601,14 +592,14 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Verify Created Bill
-        bill.getCloseLogoPopupBtn().clickIfExist();
+        bill.getCloseLogoPopupBtn().clickIfExist(true,2);
+        bill.getNotPaidBill().click();
         Assertions.assertNotEquals(bill.getUnpaidAmount().getText(), amt2);
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Delete Created Bill
-        bill.getNotPaidBill().click();
         bill.getDeleteButton().click();
         bill.getDeleteIcon().click();
     }
@@ -648,7 +639,7 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
         String toastMessage = "Bill was created successfully.Click here to open";
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
-        bill.getCloseLogoPopupBtn().clickIfExist();
+        bill.getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Verify Created Bill
         bill.getNotPaidBill().click();
@@ -666,7 +657,7 @@ public class BillTest extends BaseTest {
         //Enter amount
         String amt2 = "4,000.00";
         bill.getAmountTextbox().setText(amt2);
-        bill.getDisableTaxToggleButton().clickIfExist(); 
+        bill.getDisableTaxToggleButton().clickIfExist();
 
         //Select Suggested Customer
         bill.getCustomerButton().click();
@@ -678,7 +669,7 @@ public class BillTest extends BaseTest {
         //Verify toast message
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
-        bill.getCloseLogoPopupBtn().clickIfExist();
+        bill.getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Verify Created Bill
         Assertions.assertNotEquals(bill.getUnpaidAmount().getText(), amt2);
@@ -736,7 +727,7 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
         String toastMessage = "Bill was created successfully.Click here to open";
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
-        bill.getCloseLogoPopupBtn().clickIfExist();
+        bill.getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Verify Created Bill
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
@@ -793,14 +784,13 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Verify Created Bill
-        bill.getCloseLogoPopupBtn().clickIfExist();
+        bill.getCloseLogoPopupBtn().clickIfExist(true,2);
         bill.getNotPaidBill().click();
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.getNotPaidBill().click();
         bill.getDeleteButton().click();
         bill.getDeleteIcon().click();
     }
@@ -859,7 +849,7 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
         String toastMessage = "Bill was created successfully.Click here to open";
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
-        bill.getCloseLogoPopupBtn().clickIfExist();
+        bill.getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Verify Created Bill
         bill.getNotPaidBill().click();
@@ -869,7 +859,6 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
 
         //Deleting Created Bill
-        bill.getNotPaidBill().click();
         bill.getDeleteButton().click();
         bill.getDeleteIcon().click();
     }
@@ -922,18 +911,16 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
         String toastMessage = "Bill was created successfully.Click here to open";
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
-        bill.getCloseLogoPopupBtn().clickIfExist();
+        bill.getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Verify Created Bill
         bill.getNotPaidBill().click();
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
-        bill.getNotPaidBill().click();
         Assertions.assertEquals(bill.getRecurringBillText().getText(), "This is a recurring bill");
 
         //Deleting Created Bill
-        bill.getNotPaidBill().click();
         bill.getDeleteButton().click();
         bill.getDeleteIcon().click();
     }
@@ -1068,12 +1055,11 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Verify Created Bill
-        bill.getCloseLogoPopupBtn().clickIfExist();
-        bill.openBillByAmt("357.00");
+        bill.getCloseLogoPopupBtn().clickIfExist(true,2);
+        bill.getNotPaidBill().click();
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
-        bill.openBillByAmt("357.00");
         Assertions.assertEquals(bill.getRecurringBillText().getText(), "This is a recurring bill");
     }
 

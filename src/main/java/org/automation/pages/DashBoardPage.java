@@ -14,7 +14,7 @@ public class DashBoardPage extends BasePage {
 	public By billBtn = By.cssSelector(".sidebar-nav > li:nth-child(11)");
 	By transactionsButton=By.cssSelector(".sidebar-nav > li:nth-child(10)");
 	By myStoreBtn=By.xpath("//i[@class='align-middle me-2 fa-fw fas fa-store']");
-	By giftCardsDashboardTab=By.xpath("(//a[@class='sidebar-link'])[9]");
+	By giftCardsDashboardTab=By.xpath("//a[text()='Gift Cards Dashboard']");
 	By pageHeader=By.xpath("//h1[@class='header-title mb-0']");
 	By reportBtn=By.xpath("(//a[@class='sidebar-link'])[11]");
 	By whichStorePopup = By.xpath("//p[text()='Which store?']");
@@ -33,6 +33,10 @@ public class DashBoardPage extends BasePage {
 	public Clickable getMyStoresTab(){
 		return getElementBy(myStoreBtn);
 	}
+	public Clickable getGiftCardsDashboardTab(){
+		return Clickable.getElementBy(giftCardsDashboardTab,"Gift Card Dashboard Tab");
+	}
+
 
 	protected Clickable getBillButton2(){
 		return new Clickable(billBtn);
@@ -46,21 +50,13 @@ public class DashBoardPage extends BasePage {
 		return getText_custom(validationMessage);
 	}
 	
-	public void clickOnBill() {
-		moveToWebElement(billBtn);
-		click(billBtn);
-	}
 
-	public void clickOnMyStores() {
-		click(myStoreBtn);
-		
-	}
 
 	public void clickOnGiftCardsDashboard() {
 		WebdriverWaits.fluentWait_ElementIntactable(5, 10, giftCardsDashboardTab);
 		click(giftCardsDashboardTab);
 	}
-	
+
 	public String getPageHeader() {
 		return getText_custom(pageHeader);
 	}
