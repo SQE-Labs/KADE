@@ -93,6 +93,8 @@ public class PaymentsPage extends BasePage {
     By zelleCopyLink = By.xpath("//span[text()='Copy']");
 
 
+
+
     public PaymentsPage() {
     }
 
@@ -388,4 +390,9 @@ public class PaymentsPage extends BasePage {
     public Clickable getZelleCopyLink() {
         return Clickable.getElementBy(zelleCopyLink);
     }
+
+
+
 }
+
+

@@ -33,7 +33,8 @@ public class Clickable extends ActionEngine {
         performClickOperation(() -> clickElementByJS(target));
     }
 
-    public void scrollPopupAndClick(){scrollPopupAndClick(() -> clickBy(target, label));}
+    //
+    // public void scrollPopupAndClick(){scrollPopupAndClick(() -> clickBy(target, label));}
 
     public String getText() {
         WebdriverWaits.waitForElementUntilVisible(target, 5);
@@ -67,7 +68,7 @@ public class Clickable extends ActionEngine {
         clickIfExist(false, 0);
     }
 
-    public void scrollPopupAndClick(Runnable action){
+    public void scrollPopupAndClickM(Runnable action){
         WebElement popupContainer = getDriver().findElement(By.xpath("(//div[@class='modal-content'])[1]"));
         WebElement element = getDriver().findElement(target);
         WebdriverWaits.waitForElementUntilVisible(target, 5);
@@ -128,6 +129,6 @@ public class Clickable extends ActionEngine {
             action.run();
         }
     }
-        public void scrollPopupAndClick(){scrollPopupAndClick(() -> clickBy(target, label));}
+        public void scrollPopupAndClick(){ scrollPopupAndClick(() -> clickBy(target, label));}
 
     }
