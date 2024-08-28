@@ -104,7 +104,6 @@ public class BaseTest {
 		}
 		new KadeSession().getDashBoardPage().getSignOutButton().clickIfExist();
 		closeDriver();
-		extent.flush();
 	}
 
 	@AfterSuite(alwaysRun = true)

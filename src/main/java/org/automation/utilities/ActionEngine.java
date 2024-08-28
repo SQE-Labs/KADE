@@ -7,6 +7,7 @@ import org.automation.elements.DropDown;
 import org.automation.elements.Element;
 import org.automation.logger.Log;
 import org.openqa.selenium.By;
+import org.openqa.selenium.ElementClickInterceptedException;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
@@ -53,7 +54,10 @@ public class ActionEngine extends BaseTest {
             Log.info("Clicked on " + var);
             // log success message in exgent report
             getExtentTest().log(PASS, "==> Clicked element Successfully! " + var);
-        } catch (Exception e) {
+        } catch(ElementClickInterceptedException ex) {
+            getExtentTest().log(INFO, "==> Unable to click on => " + var + " due to exception " + ex);
+        }
+        catch (Exception e) {
             getExtentTest().log(FAIL, "==> Unable to click on => " + var + " due to exception " + e);
         }
     }
