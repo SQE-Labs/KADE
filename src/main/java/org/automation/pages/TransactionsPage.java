@@ -27,6 +27,14 @@ public class TransactionsPage extends BasePage {
 	By newChargeAmountField = By.xpath("//input[@lbl-title='Amount']");
 	By newChargeConfirm = By.xpath("//button[@name='method' and @type= 'submit']");
 	By terminalAlertMessage = By.xpath("//p[text()='Terminal charges are not accepted']");
+    // New charge credit card
+	By creditCardInfoPopup = By.xpath("//h5[text()='Credit card information']/../..//iframe");
+	By cardNumberTbx = By.id("Field-numberInput");
+	By expirationDateTbx = By.id("Field-expiryInput");
+	By cvcTbx = By.id("Field-cvcInput");
+	By countryDropDown = By.id("Field-countryInput");
+	By processBtn = By.xpath("//button[@type=\"submit\" and contains(text(),'Process')]");
+	By sendReceiptTitle = By.xpath("//h5[text()='Send the receipt']");
 
 	public Clickable getContinueButton(){
 		return Clickable.getElementBy(continueBtn,"Continue Button");
@@ -135,6 +143,47 @@ public class TransactionsPage extends BasePage {
 		return Clickable.getElementBy(terminalAlertMessage , " Alert Message");
 	}
 
+	public void switchToCreditCardPopup() {
+		switchToFrame(creditCardInfoPopup);
+	}
+	public Editable getCardNumberTextbox() {
+		return Editable.getElementBy(cardNumberTbx, "Card Number textbox");
+	}
+
+	public Editable getExpirationDateTextbox() {
+		return Editable.getElementBy(expirationDateTbx, "Expiration Date textbox");
+	}
+
+	public Editable getCvcTextbox() {
+		return Editable.getElementBy(cvcTbx, "CVC textbox");
+	}
+
+	public void selectCountry(String country) {
+		selectDropDownByVisibleText_custom(countryDropDown, country, "Country Dropdown");
+	}
+
+	public void clickProcessBtn() {
+		click(processBtn);
+	}
+
+	public void payByCreditCard() {
+		switchToCreditCardPopup();
+		getCardNumberTextbox().setText("4111111111111111");
+		getExpirationDateTextbox().setText("0830");
+		getCvcTextbox().setText("123");
+		selectCountry("Australia");
+		switchToDefaultWindow();
+		clickProcessBtn();
+	}
+
+	public Clickable getSendReceiptTitle() {
+		return Clickable.getElementBy(sendReceiptTitle);
+	}
 
 
 }
+
+
+
+
+
