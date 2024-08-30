@@ -3,6 +3,8 @@ package org.automation.session;
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
 import org.automation.pages.*;
+import org.automation.pages.popups.NewChargePopup;
+import org.automation.pages.popups.SendTheReceiptPopup;
 
 public class KadeSession extends BaseTest {
 
