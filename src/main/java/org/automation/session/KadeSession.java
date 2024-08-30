@@ -47,5 +47,14 @@ public class KadeSession extends BaseTest {
     public QrCodeDashboardPage getQRCodeDashboardPage() {
         return new QrCodeDashboardPage();
     }
+
+    public NewChargePopup getNewChargePopup() {
+        return new NewChargePopup();
+    }
+    public SendTheReceiptPopup getSendTheReceiptPopup() {
+        return new SendTheReceiptPopup();
+    }
+
+
 }
 
