@@ -228,6 +228,7 @@ public class TransactionTest extends BaseTest {
 
         // Verify the Send Receipt Popup is Displayed
         Assertions.assertTrue(transactions.getSendReceiptTitle().isDisplayed());
+
        }
 
 
