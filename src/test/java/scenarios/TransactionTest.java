@@ -204,8 +204,6 @@ public class TransactionTest extends BaseTest {
 
         // Clicking on 'New Charge' Tab
         transactions.getNewChargeTab().click();
-        transactions.getNewChargeAmountField().setText("10000");
-        transactions.getNewChargeConfirmButton().click();
         session.getNewChargePopup().getNewChargeAmountField().setText(amount);
         session.getNewChargePopup().getNewChargeConfirmButton().click();
 
