@@ -24,9 +24,7 @@ public class TransactionsPage extends BasePage {
 	By newBillTab = By.xpath("//div[@class='d-flex flex-wrap'] //button[1]");
 	By newChargeTab = By.xpath("//div[@class='d-flex flex-wrap'] //button[2]");
 	By filterIcon = By.xpath("//div[@class='d-flex flex-wrap'] //button[3]");
-	By newChargeAmountField = By.xpath("//input[@lbl-title='Amount']");
 	By terminalAlertMessage = By.xpath("//p[text()='Terminal charges are not accepted']");
-    // New charge credit card
 
 	public Clickable getContinueButton(){
 		return Clickable.getElementBy(continueBtn,"Continue Button");
