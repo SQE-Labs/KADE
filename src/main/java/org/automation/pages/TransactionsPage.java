@@ -24,8 +24,6 @@ public class TransactionsPage extends BasePage {
 	By newBillTab = By.xpath("//div[@class='d-flex flex-wrap'] //button[1]");
 	By newChargeTab = By.xpath("//div[@class='d-flex flex-wrap'] //button[2]");
 	By filterIcon = By.xpath("//div[@class='d-flex flex-wrap'] //button[3]");
-	By newChargeAmountField = By.xpath("//input[@lbl-title='Amount']");
-	By newChargeConfirm = By.xpath("//button[@name='method' and @type= 'submit']");
 	By terminalAlertMessage = By.xpath("//p[text()='Terminal charges are not accepted']");
 
 	public Clickable getContinueButton(){
@@ -117,24 +115,17 @@ public class TransactionsPage extends BasePage {
 		return Clickable.getElementBy(newChargeTab, "New Charge Tab");
 	}
 
-
 	public Clickable getFilterIcon() {
 		return Clickable.getElementBy(filterIcon, "Filter Icon");
 	}
-
-	// Enter Amount in New Charge Field.
-	public Editable getNewChargeAmountField() {
-		return Editable.getElementBy(newChargeAmountField, "New  charge amount field");
-	}
-
-	public Clickable getNewChargeConfirmButton() {
-		return Clickable.getElementBy(newChargeConfirm, "New charge config button");
-		}
 
 	public Clickable getTerminalAlertMessage() {
 		return Clickable.getElementBy(terminalAlertMessage , " Alert Message");
 	}
 
-
-
 }
+
+
+
+
+

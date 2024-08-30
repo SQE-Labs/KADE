@@ -3,6 +3,8 @@ package org.automation.session;
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
 import org.automation.pages.*;
+import org.automation.pages.popups.NewChargePopup;
+import org.automation.pages.popups.SendTheReceiptPopup;
 
 public class KadeSession extends BaseTest {
 
@@ -47,5 +49,14 @@ public class KadeSession extends BaseTest {
     public QrCodeDashboardPage getQRCodeDashboardPage() {
         return new QrCodeDashboardPage();
     }
+
+    public NewChargePopup getNewChargePopup() {
+        return new NewChargePopup();
+    }
+    public SendTheReceiptPopup getSendTheReceiptPopup() {
+        return new SendTheReceiptPopup();
+    }
+
+
 }
 

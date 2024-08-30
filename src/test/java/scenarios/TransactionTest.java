@@ -172,7 +172,7 @@ public class TransactionTest extends BaseTest {
     public void verifyInfoMessageAppearsWhenNoTransactionIsAvailable() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getTransactionButton().click();
-        session.getTransactionsPage().selectStore("Automation Flow Business");
+        session.getTransactionsPage().selectStore("Automation Transaction 2");
         String expectedInformationMessage = "There are no payments available yet!";
 
         // Verify the information message when no transaction is available.
@@ -185,7 +185,7 @@ public class TransactionTest extends BaseTest {
          KadeSession session = KadeSession.login(KadeUserAccount.Default);
          session.getDashBoardPage().getTransactionButton().click();
          TransactionsPage transactions = session.getTransactionsPage();
-         session.getTransactionsPage().selectStore("Automation Flow 1");
+         session.getTransactionsPage().selectStore("Automation Transaction 2");
 
          // Verifying  New Bill, New Charge, Filter icon is displayed
          Assertions.assertTrue(transactions.getNewBillTab().isDisplayed());
@@ -194,23 +194,49 @@ public class TransactionTest extends BaseTest {
     }
 
     @Test(description = "TRS4 : Verify that store manager is not able to do the new charge payment, when stripe payment is not configured.")
-    public void  newChargePaymentWithoutStripeConfiguration ()
-    {
+    public void  newChargePaymentWithoutStripeConfiguration () {
+        String amount = "100.00";
+
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getTransactionButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
-        session.getTransactionsPage().selectStore("Automation Flow Business");
+        session.getTransactionsPage().selectStore("Automation Transaction 2");
 
         // Clicking on 'New Charge' Tab
         transactions.getNewChargeTab().click();
-        transactions.getNewChargeAmountField().setText("10000");
-        transactions.getNewChargeConfirmButton().click();
+        session.getNewChargePopup().getNewChargeAmountField().setText(amount);
+        session.getNewChargePopup().getNewChargeConfirmButton().click();
 
         // Verify Alert message is displayed
         String expectedInformationMessage = "Terminal charges are not accepted";
         Assertions.assertTrue(transactions.getTerminalAlertMessage().isDisplayed());
         Assertions.assertEquals(transactions.getTerminalAlertMessage().getText(),expectedInformationMessage);
     }
+    @Test (description = "Verify that store manager is able to charge a customer manually, after stripe payment is configured for a store.")
+    public void chargeManuallyAfterStripeConfigured() {
+        String amount = "100.00";
+
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getDashBoardPage().getTransactionButton().click();
+        TransactionsPage transactions = session.getTransactionsPage();
+        session.getTransactionsPage().selectStore("Automation Transactions");
+
+        transactions.getNewChargeTab().click();
+
+        // Enter amount in new charge popup
+        session.getNewChargePopup().getNewChargeAmountField().setText(amount);
+        session.getNewChargePopup().getNewChargeConfirmButton().click();
+
+        // Making new charge payment manually with Credit Card
+        session.getPaymentsPage().payByCreditCard();
+
+        // Verify the Send Receipt Popup is Displayed
+        Assertions.assertTrue(session.getSendTheReceiptPopup().getSendReceiptTitle().isDisplayed());
+        Assertions.assertEquals(session.getSendTheReceiptPopup().getAmountField().getText(), "$"+amount);
+        Assertions.assertEquals(session.getSendTheReceiptPopup().getSuccessMessageField().getText(), "Processed successfully!");
+       }
+
+
 
     }
 

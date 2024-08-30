@@ -6,7 +6,7 @@
 			<package name="scenarios"></package>
 		</packages>
 	</test>
-	<listeners>
-		<listener class-name="org.automation.listeners.TestRunListener"></listener>
-	</listeners>
+<!--	<listeners>-->
+<!--		<listener class-name="org.automation.listeners.TestRunListener"></listener>-->
+<!--	</listeners>-->
 </suite>
