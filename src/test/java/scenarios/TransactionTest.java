@@ -9,6 +9,10 @@ import org.automation.pages.DashBoardPage;
 import org.automation.pages.TransactionsPage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
+import org.automation.utilities.WebdriverWaits;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 public class TransactionTest extends BaseTest {
@@ -126,7 +130,7 @@ public class TransactionTest extends BaseTest {
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
         String expectedTotalPayment = session.getBillPage().getActiveBillAmmount().getText();
-        session.getPaymentsPage().getChangePaymentButton().click();
+        session.getPaymentsPage().getChangePaymentButton().clickbyJS();
         String expectedPaymentMethod = session.getPaymentsPage().getSavedCreditCard().getText().replaceAll("\\s.*","");
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
@@ -152,7 +156,7 @@ public class TransactionTest extends BaseTest {
         // Payment Type
         Assertions.assertEquals(transactions.getPaymentTypeOnTransaction().getText(), expectedPaymentMethod);
 
-        // Payment Ammount
+        // Payment Amount
         String actualTotalPayment = transactions.getTransactionAmmount().getText();
         Assertions.assertEquals(actualTotalPayment,expectedTotalPayment);
 
@@ -212,7 +216,7 @@ public class TransactionTest extends BaseTest {
         Assertions.assertTrue(transactions.getTerminalAlertMessage().isDisplayed());
         Assertions.assertEquals(transactions.getTerminalAlertMessage().getText(),expectedInformationMessage);
     }
-    @Test (description = "Verify that store manager is able to charge a customer manually, after stripe payment is configured for a store.")
+    @Test (description = "TRS5 (a) :Verify that store manager is able to charge a customer manually, after stripe payment is configured for a store.")
     public void chargeManuallyAfterStripeConfigured() {
         String amount = "100.00";
 
@@ -236,7 +240,107 @@ public class TransactionTest extends BaseTest {
         Assertions.assertEquals(session.getSendTheReceiptPopup().getSuccessMessageField().getText(), "Processed successfully!");
        }
 
+    @Test (description = "TRS5 (b): Verify that store manager is able to charge a customer when terminal is configured for a store.")
+    public void newChargerWithTerminal() {
+        String amount = "100.00";
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getDashBoardPage().getTransactionButton().click();
+        TransactionsPage transactions = session.getTransactionsPage();
+        session.getTransactionsPage().selectStore("Automation Transaction 3");
 
+        transactions.getNewChargeTab().click();
 
+        // Enter amount in new charge popup
+        session.getNewChargePopup().getNewChargeAmountField().setText(amount);
+        session.getNewChargePopup().getNewChargeConfirmButton().click();
+
+        // Waiting for Automatic Terminal Payment
+        WebdriverWaits.waitForElementUntilVisible(session.getNewChargePopup().terminal, 10);
+        WebdriverWaits.waitForElementInVisible(session.getNewChargePopup().terminal, 5);
+
+        // Verify the Send Receipt Popup is Displayed
+        Assertions.assertTrue(session.getSendTheReceiptPopup().getSendReceiptTitle().isDisplayed());
+        Assertions.assertEquals(session.getSendTheReceiptPopup().getAmountField().getText(), "$"+amount);
+        Assertions.assertEquals(session.getSendTheReceiptPopup().getSuccessMessageField().getText(), "Processed successfully!");
     }
+    @Test (description = "TRS 5 (c): Verify that the store manager can manually do new charge payment, after cancelling the terminal automatic payment deduction process, on 'Transaction' page.")
+    public void newChargePaymentManuallyAfterCancelingTerminalAutomaticPaymentDeduction() {
+        String amount = "1000.00";
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getDashBoardPage().getTransactionButton().click();
+        TransactionsPage transactions = session.getTransactionsPage();
+        session.getTransactionsPage().selectStore("Automation Transaction 3");
+
+        transactions.getNewChargeTab().click();
+
+        // Enter amount in new charge popup
+        session.getNewChargePopup().getNewChargeAmountField().setText(amount);
+        session.getNewChargePopup().getNewChargeConfirmButton().click();
+
+        // Waiting for Automatic Terminal Payment
+        WebdriverWaits.waitForElementUntilVisible(session.getNewChargePopup().terminal, 10);
+
+        // Canceling automatic terminal payment
+        session.getNewChargePopup().getTerminalCancelButton().click();
+
+        // Paying through credit card after canceling terminal payment
+        session.getNewChargePopup().getManualChargeTab().click();
+        session.getPaymentsPage().payByCreditCard();
+
+        // Verify the Send Receipt Popup is Displayed
+        Assertions.assertTrue(session.getSendTheReceiptPopup().getSendReceiptTitle().isDisplayed());
+        Assertions.assertEquals(session.getSendTheReceiptPopup().getAmountField().getText(), "$"+amount);
+        Assertions.assertEquals(session.getSendTheReceiptPopup().getSuccessMessageField().getText(), "Processed successfully!");
+           }
+
+        @Test (description = "TRS7 (a): Verify that store manager is able to refund full transaction on 'Transaction details' popup of 'Transaction' page.")
+        public void verifyRefundFullTransactionOnTransactionPage(){
+            KadeSession session = KadeSession.login(KadeUserAccount.Default);
+            session.getDashBoardPage().getBillButton().click();
+            TransactionsPage transactions = session.getTransactionsPage();
+            String amt = "4999.00";
+
+            String customerEmail = "yonro@yopmail.com";
+            BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetailsForTransactionCheck().setAmount(amt).setCustomerEmail(customerEmail);
+
+            //Creating Bill
+            session.getBillPage().createBill(bills);
+            session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 3);
+
+            //Logout as Store manager
+            session.getDashBoardPage().getSignOutButton().click();
+
+            //Login as Customer
+            session.getLoginPage().performSignIn(customerEmail, "Test@123");
+            session.getNotificationPage().getNotificationIcon().click();
+            session.getNotificationPage().getFirstNotification().click();
+            session.getPaymentsPage().getPayNowButton().click();
+            session.getPaymentsPage().getChangePaymentButton().clickbyJS();
+            session.getPaymentsPage().getSavedCreditCard().click();
+            session.getPaymentsPage().swipeToPay();
+            session.getPaymentsPage().getBlueCloseButton().clickByMouse();
+
+            // logout customer .
+            session.getDashBoardPage().getSignOutButton().click();
+
+            // login as store manager
+            session.getLoginPage().performSignIn("6465551114","Test@123");
+
+
+            // go to transaction Page .
+            session.getDashBoardPage().getTransactionButton().click();
+            session.getTransactionsPage().selectStore("Automation Transaction 3");
+            TransactionsPage transaction = session.getTransactionsPage();
+            transaction.getCurrentPaidBill().click();
+            transaction.getRefundButton().click();
+            WebdriverWaits.sleep(2000);
+            transaction.getRefundReferenceNo().setText("1111");
+            transaction.getRefundReason().setText("Refund Checking");
+            transaction.getFullRefundButton().click();
+        }
+    }
+
+
+
+
 

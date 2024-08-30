@@ -54,6 +54,7 @@ public class KadeSession extends BaseTest {
         return new NewChargePopup();
     }
     public SendTheReceiptPopup getSendTheReceiptPopup() {
+
         return new SendTheReceiptPopup();
     }
 
