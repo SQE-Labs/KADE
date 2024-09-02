@@ -77,7 +77,6 @@ public class TransactionTest extends BaseTest {
 
         //Close Receive Payment popup
         session.getPaymentsPage().getCloseReceivedPopupButton().click();
-        ;
         session.getDashBoardPage().getTransactionButton().click();
         transactions.selectStore(bills.getStore());
 
@@ -339,7 +338,7 @@ public class TransactionTest extends BaseTest {
         transaction.getRefundReferenceNo().setText("1111");
         transaction.getRefundReason().setText("Refund Checking");
         transaction.getFullRefundButton().click();
-        Assertions.assertEquals(transaction.getRefundAmountOnReceipt().getText(),"$"+amt);
+        Assertions.assertEquals(transaction.getRefundAmountOnReceipt().getText(), "$" + amt);
         Assertions.assertTrue(transaction.getRefundLabel().isDisplayed());
         Assertions.assertTrue(transaction.getVerifyButton().isDisplayed());
 
