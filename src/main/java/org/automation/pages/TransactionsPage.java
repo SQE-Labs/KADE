@@ -25,6 +25,16 @@ public class TransactionsPage extends BasePage {
 	By newChargeTab = By.xpath("//div[@class='d-flex flex-wrap'] //button[2]");
 	By filterIcon = By.xpath("//div[@class='d-flex flex-wrap'] //button[3]");
 	By terminalAlertMessage = By.xpath("//p[text()='Terminal charges are not accepted']");
+	By currentPaidBill = By.xpath("//div[contains(@class,'row bg-white ')][1]");
+	By refundButton = By.cssSelector("[title='Refund']");
+	By refundRefenceNo = By.cssSelector("[name='refNo']");
+	By refundReason = By.cssSelector("[name='reason']");
+	By processFullRefund  = By.cssSelector("[name='refundAll']");
+	By refundAmountOnReceipt = By.cssSelector("[class=\"d-flex align-items-end\"]");
+	By refundLabel= By.xpath("//h4[text()='** Refund **']");
+	By verifyButton = By.cssSelector(".fal.fa-thumbs-up.me-2");
+
+
 
 	public Clickable getContinueButton(){
 		return Clickable.getElementBy(continueBtn,"Continue Button");
@@ -71,6 +81,7 @@ public class TransactionsPage extends BasePage {
 	public void clickStoresDropdown() {
 		click(storesCombobox);
 	}
+
 
 	public void selectStore(String store) {
 		clickStoresDropdown();
@@ -122,6 +133,33 @@ public class TransactionsPage extends BasePage {
 	public Clickable getTerminalAlertMessage() {
 		return Clickable.getElementBy(terminalAlertMessage , " Alert Message");
 	}
+	public Clickable getCurrentPaidBill() {
+		return Clickable.getElementBy(currentPaidBill , " CurrentPaidBill");
+	}
+	public Clickable getRefundButton() {
+		return Clickable.getElementBy(refundButton, "Refund Button");
+	}
+	public Editable getRefundReferenceNo() {
+		return Editable.getElementBy(refundRefenceNo, "Refund Reference No Field");
+	}
+
+	public Editable getRefundReason() {
+		return Editable.getElementBy(refundReason, "Refund Reason Field");
+	}
+	public Clickable getFullRefundButton() {
+		return Clickable.getElementBy(processFullRefund, "Process Full Refund");
+	}
+	public Clickable getRefundAmountOnReceipt() {
+		return Clickable.getElementBy(refundAmountOnReceipt, "Refund Amount On Receipt");
+	}
+	public Clickable getRefundLabel() {
+		return Clickable.getElementBy(refundLabel, "Refund Label");
+	}
+	public Clickable getVerifyButton() {
+		return Clickable.getElementBy(verifyButton, "Verify Button");
+	}
+
+
 
 }
 

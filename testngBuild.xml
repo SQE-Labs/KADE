@@ -4,7 +4,7 @@
     <test thread-count="1" parallel="classes" name="Test">
         <classes>
             <class name="scenarios.LoginTest"/>
-            <class name="legacy.CreateAccountTest"/>
+            <class name="scenarios.MyStoreTest.CreateAccountTest"/>
         </classes>
     </test> <!-- Test -->
 </suite> <!-- Suite -->

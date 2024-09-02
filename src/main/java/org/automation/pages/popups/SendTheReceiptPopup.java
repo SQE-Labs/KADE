@@ -1,6 +1,7 @@
 package org.automation.pages.popups;
 
 import org.automation.ReturnObjects.Clickable;
+import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 
 public class SendTheReceiptPopup {
@@ -9,7 +10,9 @@ public class SendTheReceiptPopup {
     By amountField = By.cssSelector("h3.text-success.display-3.my-4");
     By successMessage = By.cssSelector("div.text-center > p");
 
+
     public Clickable getSendReceiptTitle() {
+
         return Clickable.getElementBy(sendReceiptTitle);
     }
 
