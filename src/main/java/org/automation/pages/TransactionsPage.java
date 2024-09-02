@@ -30,6 +30,10 @@ public class TransactionsPage extends BasePage {
 	By refundRefenceNo = By.cssSelector("[name='refNo']");
 	By refundReason = By.cssSelector("[name='reason']");
 	By processFullRefund  = By.cssSelector("[name='refundAll']");
+	By refundAmountOnReceipt = By.cssSelector("[class=\"d-flex align-items-end\"]");
+	By refundLabel= By.xpath("//h4[text()='** Refund **']");
+	By verifyButton = By.cssSelector(".fal.fa-thumbs-up.me-2");
+
 
 
 	public Clickable getContinueButton(){
@@ -78,6 +82,7 @@ public class TransactionsPage extends BasePage {
 		click(storesCombobox);
 	}
 
+
 	public void selectStore(String store) {
 		clickStoresDropdown();
 		click(By.xpath("//li[contains(text(),'" + store + "')]"));
@@ -114,11 +119,11 @@ public class TransactionsPage extends BasePage {
 	}
 
 	public Clickable getNewBillTab() {
-				return Clickable.getElementBy(newBillTab, "New Bill Tab");
+		return Clickable.getElementBy(newBillTab, "New Bill Tab");
 	}
 
 	public Clickable getNewChargeTab() {
-				return Clickable.getElementBy(newChargeTab, "New Charge Tab");
+		return Clickable.getElementBy(newChargeTab, "New Charge Tab");
 	}
 
 	public Clickable getFilterIcon() {
@@ -144,6 +149,16 @@ public class TransactionsPage extends BasePage {
 	public Clickable getFullRefundButton() {
 		return Clickable.getElementBy(processFullRefund, "Process Full Refund");
 	}
+	public Clickable getRefundAmountOnReceipt() {
+		return Clickable.getElementBy(refundAmountOnReceipt, "Refund Amount On Receipt");
+	}
+	public Clickable getRefundLabel() {
+		return Clickable.getElementBy(refundLabel, "Refund Label");
+	}
+	public Clickable getVerifyButton() {
+		return Clickable.getElementBy(verifyButton, "Verify Button");
+	}
+
 
 
 }

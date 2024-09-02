@@ -53,9 +53,12 @@ public class KadeSession extends BaseTest {
     public NewChargePopup getNewChargePopup() {
         return new NewChargePopup();
     }
-    public SendTheReceiptPopup getSendTheReceiptPopup() {
 
-        return new SendTheReceiptPopup();
+    public SendTheReceiptPopup getSendTheReceiptPopup() {
+        return new SendTheReceiptPopup(); }
+
+    public CreateNewAccountPage getCreateAccountPage(){
+        return  new CreateNewAccountPage();
     }
 
 

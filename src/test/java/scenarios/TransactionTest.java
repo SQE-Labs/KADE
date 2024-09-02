@@ -298,7 +298,7 @@ public class TransactionTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
-        String amt = "4999.00";
+        String amt = "4,999.00";
 
         String customerEmail = "yonro@yopmail.com";
         BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetailsForTransactionCheck().setAmount(amt).setCustomerEmail(customerEmail);
@@ -333,11 +333,17 @@ public class TransactionTest extends BaseTest {
         session.getTransactionsPage().selectStore("Automation Transaction 3");
         TransactionsPage transaction = session.getTransactionsPage();
         transaction.getCurrentPaidBill().click();
+        Assertions.assertTrue(transaction.getRefundButton().isDisplayed());
         transaction.getRefundButton().click();
         WebdriverWaits.sleep(2000);
         transaction.getRefundReferenceNo().setText("1111");
         transaction.getRefundReason().setText("Refund Checking");
         transaction.getFullRefundButton().click();
+        Assertions.assertEquals(transaction.getRefundAmountOnReceipt().getText(),"$"+amt);
+        Assertions.assertTrue(transaction.getRefundLabel().isDisplayed());
+        Assertions.assertTrue(transaction.getVerifyButton().isDisplayed());
+
+
     }
 }
 
