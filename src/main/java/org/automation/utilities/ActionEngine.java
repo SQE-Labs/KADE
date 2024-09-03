@@ -511,6 +511,10 @@ public class ActionEngine extends BaseTest {
         Actions a = new Actions(getDriver());
         a.moveToElement(getDriver().findElement(xpath)).click().perform();
     }
+    //Get Css value
+    public String getCssValue(By element, String attribute) {
+        return getDriver().findElement(element).getCssValue(attribute);
+    }
 
     public void navigateToUrl(String url) {
         getDriver().get(url);

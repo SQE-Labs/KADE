@@ -342,7 +342,6 @@ public class TransactionTest extends BaseTest {
         Assertions.assertTrue(transaction.getRefundLabel().isDisplayed());
         Assertions.assertTrue(transaction.getVerifyButton().isDisplayed());
 
-
     }
 }
 
