@@ -3,6 +3,7 @@ import org.automation.ReturnObjects.Clickable;
 import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
+import org.checkerframework.checker.units.qual.C;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -24,6 +25,26 @@ public class CreateNewAccountPage extends BasePage {
     By existingPhoneValidation = By.xpath("//p[text()='This phone number is already registered.']");
     By existingEmailValidation = By.xpath("//p[text()='This email is already registered.']");
     By crossIcon = By.cssSelector(".btn-close");
+    By verifyAccountTitle = By.xpath("//h1[text()='Verify your account']");
+    By securityCodeLabel = By.xpath("//label[text()='Security Code']");
+    By securityCodeField = By.cssSelector("[name=\"otp\"]");
+    By continueButton = By.xpath("//button[text()='Continue']");
+    By setYourPasswordTitle = By.xpath("//h1[text()='Set your password']");
+    By submitButton = By.xpath("//button[text()='Submit']");
+    By passwordField = By.cssSelector("[name='password']");
+    By confirmPasswordField = By.cssSelector("[name='confirmPassword']");
+    By showPassowrd = By.cssSelector("[class='ms-2 text-start']");
+    By successMessage = By.xpath("//p[@class='text-success fs-3']/.");
+    // Business Account locators
+    By phoneFieldLabel = By.xpath("//div[@class='mb-3 -row- pt-3']/label[1]");
+    By useEmailLink = By.xpath("//button[text()='Use email']");
+    By mobilePhoneField = By.cssSelector("[name='phone']");
+    By emailBusinessField = By.cssSelector("[name='email']");
+    By fullname= By.cssSelector("[name='name']");
+    By startOverLink = By.xpath("//button[text()='Start Over']");
+    By resendCode = By.xpath("//button[text()='Resend the code']");
+    By ContinueButtonBusiness = By.xpath("//div[@class='text-center mt-3']/button");
+
 
 
     // Methods
@@ -71,14 +92,75 @@ public class CreateNewAccountPage extends BasePage {
         return Clickable.getElementBy(personalAccountButton,"Personal Account Button");
             }
     public Clickable getExistingPhoneValidationMessage(){
-         return Clickable.getElementBy(existingPhoneValidation);
+         return Clickable.getElementBy(existingPhoneValidation, " Phone Validation");
     }
     public Clickable getExistingEmailValidation(){
-        return Clickable.getElementBy(existingEmailValidation);
+        return Clickable.getElementBy(existingEmailValidation, "Email Validation");
     }
     public Clickable getCrossICon(){
-        return Clickable.getElementBy(crossIcon);
+         return Clickable.getElementBy(crossIcon,"Cross icon");
     }
+    public Clickable getVerifyAccountTitle(){
+        return Clickable.getElementBy(verifyAccountTitle, " Verify Account Title");
+    }
+    public Clickable getSecurityCodeLabel(){
+        return Clickable.getElementBy(securityCodeLabel,"Security Code label");
+    }
+    public Editable getSecurityCodeField(){
+         return Editable.getElementBy(securityCodeField, "Security code field");
+    }
+    public Clickable getContinueButton(){
+        return Clickable.getElementBy(continueButton, "Continue Button");
+    }
+    public Clickable getSetPasswordTitle() {
+        return Clickable.getElementBy(setYourPasswordTitle,"set your password");
+    }
+    public Clickable getSubmitButton() {
+        return Clickable.getElementBy(submitButton,"Submit Button");
+    }
+    public Editable getPasswordField(){
+        return Editable.getElementBy(passwordField, "Password Field");
+    }
+    public Editable getConfirmPasswordField(){
+        return Editable.getElementBy(confirmPasswordField, "Confirm Password Field");
+    }
+    public Clickable getShowPasswordLink(){
+        return Clickable.getElementBy(showPassowrd,"Show Password link");
+    }
+    public Clickable getSuccessMessage(){
+        return Clickable.getElementBy(successMessage,"Success Message");
+    }
+    // Business Account methods
+
+    public Clickable getMobilePhoneFieldLabel() {
+        return Clickable.getElementBy(phoneFieldLabel, "MobilePhone Number field");
+    }
+    public Clickable getUseEmailLink() {
+        return Clickable.getElementBy(useEmailLink, "Use Email Link");
+    }
+    public Clickable getBusinessAccountCheckbox() {
+        return Clickable.getElementBy(useEmailLink, "Use Email Link");
+    }
+    public Editable getMobilePhoneField() {
+        return Editable.getElementBy(mobilePhoneField, "MobilePhoneField");
+    }
+    public Editable getEmailBusinessAccountField(){
+        return Editable.getElementBy(emailBusinessField, "Email Business Account Field");
+    }
+    public Editable getFullName(){
+        return Editable.getElementBy(fullname, "Full Name");
+    }
+    public Clickable getStartOverLink(){
+        return Clickable.getElementBy(startOverLink,"Start Over Link");
+    }
+    public Clickable getResendCode(){
+        return Clickable.getElementBy(resendCode,"Resend Code Link");
+    }
+    public Clickable getContinueButtonOfBusinessAccount(){
+        return Clickable.getElementBy(ContinueButtonBusiness,"Resend Code Link");
+    }
+
+
 
 
 
