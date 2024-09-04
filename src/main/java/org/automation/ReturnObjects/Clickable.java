@@ -43,7 +43,7 @@ public class Clickable extends ActionEngine {
         if (!untillDispaeared) {
             do {
                 if (isElementPresent_custom(target, label, false)) {
-                    performClickOperation(() -> clickBy(target, label));
+                    performClickOperation(() -> clickByWithoutFailing(target, label));
                     numberOfRetry--;
                 }
             }
@@ -51,7 +51,7 @@ public class Clickable extends ActionEngine {
         } else {
             do {
                 if (isElementPresent_custom(target, label, false)) {
-                    performClickOperation(() -> clickBy(target, label));
+                    performClickOperation(() -> clickByWithoutFailing(target, label));
                 }
                 if (!isElementPresent_custom(target, label, false)) {
                     break;
@@ -118,5 +118,4 @@ public class Clickable extends ActionEngine {
     public void clickByMouse(){
         clickByMouseActions(target);
     }
-
 }

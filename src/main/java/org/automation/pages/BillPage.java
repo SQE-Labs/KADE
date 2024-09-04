@@ -40,7 +40,6 @@ public class BillPage extends BasePage {
     By previousMonthArrow = By.xpath("//th[@class='prev available']");
     By toMonth = By.xpath("(//th[@class='month'])[2]");
     By nextMonthArrow = By.xpath("//th[@class='next available']");
-    By unpaidBill = By.xpath("//div[contains(@class,'row bg-white ')]");
     By refNo = By.xpath("//tr[@class='none-workingEffect']/td[2]/p[1]");
     By toastCloseBtn = By.xpath("//button[@class='toast-close-button']");
     public By toastMessage = By.xpath("//div[@class='toast-message']");
@@ -140,7 +139,7 @@ public class BillPage extends BasePage {
     By memoBtn = By.xpath("(//div[@class='text-nowrap d-flex align-items-center w-100'])[4]");
     By memoField = By.xpath("(//textarea[@lbl-title='Memo'])[2]");
     By doneBtn = By.xpath("(//button[text()='Done'])[5]");
-    By doneBtn2 = By.xpath("(//button[@class='btn btn-link w-100 my-3'])[3]");
+    By doneBtn2 = By.xpath("//h5[text()='Repeat']/../..//button[text()='Done']");
     By memoFieldText = By.xpath("(//div[@class='d-none empty-d-block fst-italic w-100'])[4]");
     By memoFieldMessage = By.xpath("//div[@class='text-muted fs-pn15 pt-3']");
     By memoPopUpTitle = By.xpath("//h5[text()='Memo']");
@@ -240,10 +239,6 @@ public class BillPage extends BasePage {
 
     public Clickable getNotPaidBill() {
         return Clickable.getElementBy(notPaidBill, "Not Paid Bill");
-    }
-
-    public Clickable getUnpaidBillButton() {
-        return Clickable.getElementBy(unpaidBill, "Unpaid bill Button");
     }
 
     public Clickable getProcessPaymentButton() {
@@ -446,10 +441,6 @@ public class BillPage extends BasePage {
 
     public Clickable getCloseBillButton() {
         return Clickable.getElementBy(closeBillBtn, "Close Bill Button");
-    }
-
-    public Clickable getUnpaidBill() {
-        return Clickable.getElementBy(unpaidBill, "Unpaid Bill");
     }
 
     public Clickable getDeleteButton() {
