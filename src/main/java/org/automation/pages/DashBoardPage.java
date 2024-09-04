@@ -17,26 +17,22 @@ public class DashBoardPage extends BasePage {
 	By giftCardsDashboardTab=By.xpath("//a[text()='Gift Cards Dashboard']");
 	By pageHeader=By.xpath("//h1[@class='header-title mb-0']");
 	By reportBtn=By.xpath("(//a[@class='sidebar-link'])[11]");
-	By whichStorePopup = By.xpath("//p[text()='Which store?']");
-	By newBusinessCard = By.xpath("div.overflow-hidden.border.border-info");
-	By storesCombobox=By.xpath("//span[@role='combobox']");
-	By continueBtn=By.xpath("//button[@type='submit']");
 	By signOutBtn = By.xpath("//a[text()='Sign out']");
-
+	By qrCodeDashboardBtn = By.xpath("//a[text()='QR Code Dashboard']");
 
 	public DashBoardPage() {
 	}
 
 	public Clickable getBillButton(){
-		return getElementBy(billBtn);
+		return  Clickable.getElementBy(billBtn, "Bill Button");
 	}
 	public Clickable getMyStoresTab(){
 		return getElementBy(myStoreBtn);
 	}
+
 	public Clickable getGiftCardsDashboardTab(){
 		return Clickable.getElementBy(giftCardsDashboardTab,"Gift Card Dashboard Tab");
 	}
-
 
 	protected Clickable getBillButton2(){
 		return new Clickable(billBtn);
@@ -49,8 +45,6 @@ public class DashBoardPage extends BasePage {
 	public String getValidationMessage() {
 		return getText_custom(validationMessage);
 	}
-	
-
 
 	public void clickOnGiftCardsDashboard() {
 		WebdriverWaits.fluentWait_ElementIntactable(5, 10, giftCardsDashboardTab);
@@ -72,6 +66,10 @@ public class DashBoardPage extends BasePage {
     public Clickable getSignOutButton() {
 		WebdriverWaits.sleep(3000);
 		return Clickable.getElementBy(signOutBtn,"Sign Out Button");
+    }
+
+    public Clickable getQrCodeDashboardButton() {
+		return Clickable.getElementBy(qrCodeDashboardBtn , "Qr code dashboard button");
     }
 }
 

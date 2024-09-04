@@ -1,5 +1,6 @@
 package org.automation.pages;
 import org.automation.ReturnObjects.Clickable;
+import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
@@ -8,8 +9,6 @@ public class TransactionsPage extends BasePage {
 	//Locators
 	By transactionRow = By.xpath("//div[contains(@class,'row bg-white ')]");
 	By billAmount = By.xpath("//div[@class='display-6 fw-bold pt-2']");
-	By memoMessage = By.xpath("//div[@class='mt-1 text-info']");
-	By billPaymentTime = By.xpath("(//div[@class='col-7'] //span[@class='fs-pn15'])[1]");
 	By closeTransactionPopupBtn = By.xpath("(//button[@class='btn-close'])[1]");
 	By storesCombobox = By.xpath("//span[@role='combobox']");
 	By continueBtn = By.xpath("//button[@type='submit']");
@@ -21,6 +20,22 @@ public class TransactionsPage extends BasePage {
     By transactionAmmount = By.xpath("//div[@class='d-flex align-items-center']");
     By customNameONRecipt = By.xpath("//a[@class='text-truncate']");
 	By time = By.xpath("//span[@class='fs-pn25 mb-2']");
+	By informationMessage= By.xpath("//p[text()='There are no payments available yet!']");
+	By newBillTab = By.xpath("//div[@class='d-flex flex-wrap'] //button[1]");
+	By newChargeTab = By.xpath("//div[@class='d-flex flex-wrap'] //button[2]");
+	By filterIcon = By.xpath("//div[@class='d-flex flex-wrap'] //button[3]");
+	By terminalAlertMessage = By.xpath("//p[text()='Terminal charges are not accepted']");
+	By currentPaidBill = By.xpath("//div[contains(@class,'row bg-white ')][1]");
+	By refundButton = By.cssSelector("[title='Refund']");
+	By refundRefenceNo = By.cssSelector("[name='refNo']");
+	By refundReason = By.cssSelector("[name='reason']");
+	By processFullRefund  = By.cssSelector("[name='refundAll']");
+	By refundAmountOnReceipt = By.cssSelector("[class=\"d-flex align-items-end\"]");
+	By refundLabel= By.xpath("//h4[text()='** Refund **']");
+	By verifyButton = By.cssSelector(".fal.fa-thumbs-up.me-2");
+
+
+
 	public Clickable getContinueButton(){
 		return Clickable.getElementBy(continueBtn,"Continue Button");
 	}
@@ -32,39 +47,41 @@ public class TransactionsPage extends BasePage {
 	public Clickable getBillAmount() {
 		return Clickable.getElementBy(billAmount,"Bill Amount");
 	}
+
 	public Clickable getUniqueTransactionId(){
 		return Clickable.getElementBy(uniqueTransactionId,"Transaction ID");
 	}
 
 	public Clickable getCloseTransactionPopupButton(){
-		return Clickable.getElementBy(closeTransactionPopupBtn,"Close button for transaction popup");
+		return Clickable.getElementBy(closeTransactionPopupBtn,"Close button");
 	}
 	public Clickable getTransactionID(){
-		return  Clickable.getElementBy(transactionID, "transaction ID on transactionPage");
+		return  Clickable.getElementBy(transactionID, "transaction ID");
 	}
 
 	public Clickable getTransactionAmmount(){
-		return  Clickable.getElementBy(transactionAmmount, "transaction Ammount on transactionPage");
+		return  Clickable.getElementBy(transactionAmmount, "transaction Amount");
 	}
 
 	public Clickable getPaymentTypeOnTransaction(){
-		return  Clickable.getElementBy(payment, "Payment Type on transactionPage");
+		return  Clickable.getElementBy(payment, "Payment Type");
 	}
 
 	public Clickable getStore(){
-		return  Clickable.getElementBy(store, "Store Type on transactionPage");
+		return  Clickable.getElementBy(store, "Store Type");
 	}
 
 	public Clickable getCustomeName(){
-		return  Clickable.getElementBy(customNameONRecipt, "Customer Name on Receiept ");
+		return  Clickable.getElementBy(customNameONRecipt, "Customer Name");
 	}
 
 	public Clickable getCustomerNameOnTransactionPage(){
-		return  Clickable.getElementBy(customerName, "Customer Name on Receiept ");
+		return  Clickable.getElementBy(customerName, "Customer Name");
 	}
 	public void clickStoresDropdown() {
 		click(storesCombobox);
 	}
+
 
 	public void selectStore(String store) {
 		clickStoresDropdown();
@@ -73,7 +90,7 @@ public class TransactionsPage extends BasePage {
 	}
 
 	public Clickable getTimeOnTransactionPage(){
-		return  Clickable.getElementBy(time, "transaction time on Transaction Page. ");
+		return  Clickable.getElementBy(time, "transaction time ");
 	}
 
 	public boolean matchPattern(String transID){
@@ -97,5 +114,56 @@ public class TransactionsPage extends BasePage {
 		}
 		return check;
 	}
+	public Clickable getInformationMessage() {
+		return Clickable.getElementBy(informationMessage, "Information message label");
+	}
+
+	public Clickable getNewBillTab() {
+		return Clickable.getElementBy(newBillTab, "New Bill Tab");
+	}
+
+	public Clickable getNewChargeTab() {
+		return Clickable.getElementBy(newChargeTab, "New Charge Tab");
+	}
+
+	public Clickable getFilterIcon() {
+		return Clickable.getElementBy(filterIcon, "Filter Icon");
+	}
+
+	public Clickable getTerminalAlertMessage() {
+		return Clickable.getElementBy(terminalAlertMessage , " Alert Message");
+	}
+	public Clickable getCurrentPaidBill() {
+		return Clickable.getElementBy(currentPaidBill , " CurrentPaidBill");
+	}
+	public Clickable getRefundButton() {
+		return Clickable.getElementBy(refundButton, "Refund Button");
+	}
+	public Editable getRefundReferenceNo() {
+		return Editable.getElementBy(refundRefenceNo, "Refund Reference No Field");
+	}
+
+	public Editable getRefundReason() {
+		return Editable.getElementBy(refundReason, "Refund Reason Field");
+	}
+	public Clickable getFullRefundButton() {
+		return Clickable.getElementBy(processFullRefund, "Process Full Refund");
+	}
+	public Clickable getRefundAmountOnReceipt() {
+		return Clickable.getElementBy(refundAmountOnReceipt, "Refund Amount On Receipt");
+	}
+	public Clickable getRefundLabel() {
+		return Clickable.getElementBy(refundLabel, "Refund Label");
+	}
+	public Clickable getVerifyButton() {
+		return Clickable.getElementBy(verifyButton, "Verify Button");
+	}
+
+
 
 }
+
+
+
+
+

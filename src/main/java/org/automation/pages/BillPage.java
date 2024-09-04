@@ -3,7 +3,6 @@ package org.automation.pages;
 import java.awt.*;
 import java.nio.file.Paths;
 import java.text.NumberFormat;
-import java.text.ParseException;
 import java.util.Locale;
 
 import org.automation.ReturnObjects.Clickable;
@@ -233,11 +232,11 @@ public class BillPage extends BasePage {
         return Clickable.getElementBy(attachedImage,"Attached Image");
     }
 
-    public  Clickable getUnPaidBill(){
+    public  Clickable getUnPaidBillWithDescription(){
         return Clickable.getElementBy(unPaidBill,"Unpaid Bill");
     }
 
-    public Clickable getNotPaidBill() {
+    public Clickable getUnpaidBillWithoutDescription() {
         return Clickable.getElementBy(notPaidBill, "Not Paid Bill");
     }
 
