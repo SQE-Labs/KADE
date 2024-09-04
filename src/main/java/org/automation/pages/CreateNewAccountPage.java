@@ -26,7 +26,6 @@ public class CreateNewAccountPage extends BasePage {
     By crossIcon = By.cssSelector(".btn-close");
 
 
-
     // Methods
      public Clickable getKadelogo() {
          return Clickable.getElementBy(appLogo, "App Logo");
@@ -80,9 +79,6 @@ public class CreateNewAccountPage extends BasePage {
     public Clickable getCrossICon(){
         return Clickable.getElementBy(crossIcon);
     }
-
-
-
 
 
 

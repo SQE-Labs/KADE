@@ -56,20 +56,24 @@ public class CreateAccountTest extends BaseTest {
 
         // Verify the Please review the highlighted field validation message and This field is required Tooltip
         Assertions.assertTrue(session.getLoginPage().getValidationMessage().isDisplayed());
-        session.getCreateAccountPage().getEmailOrPhoneField().getToolTipMessage();
+        String actualMessage = session.getCreateAccountPage().getEmailOrPhoneField().getToolTipMessage();
+        Assertions.assertEquals(actualMessage,"This field is required.");
 
-        // Enter invalid email address
+        // Enter invalid data in 'Email or Phone' field
         session.getCreateAccountPage().getEmailOrPhoneField().setText("invalid123");
         session.getCreateAccountPage().getReceiveTextEmailNotificationCheckBox().click();
         session.getCreateAccountPage().getSignUpButton().click();
 
         // tooltip message
-        session.getCreateAccountPage().getEmailOrPhoneField().getToolTipMessage();
+        String actualToolTip = session.getCreateAccountPage().getEmailOrPhoneField().getToolTipMessage();
+        Assertions.assertEquals(actualToolTip,"Invalid phone or email. Phone numbers must start with country code starting with +");
 
         // Enter invalid email
         session.getCreateAccountPage().getEmailOrPhoneField().setText("test@123");
-        session.getCreateAccountPage().getEmailOrPhoneField().getToolTipMessage();
-        session.getCreateAccountPage().getCrossICon().click();
+        session.getCreateAccountPage().getSignUpButton().click();
+        String invalidEmailTooltip= session.getCreateAccountPage().getEmailOrPhoneField().getToolTipMessage();
+        Assertions.assertEquals(invalidEmailTooltip,"Please enter a valid email address.");
+        //session.getCreateAccountPage().getCrossICon().click();
 
          // Entering existing phone number and verify the validation message
         session.getCreateAccountPage().getEmailOrPhoneField().setText("6465551114");

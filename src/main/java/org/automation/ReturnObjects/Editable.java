@@ -54,7 +54,7 @@ public class Editable extends ActionEngine {
         return getDriver().findElements(target);
     }
 
-    public String getToolTipMessage(){
-        return getToolTipMessage(target);
+    public String getToolTipMessage(){   return getToolTipMessage(target);
     }
+
 }
