@@ -132,7 +132,7 @@ public class BillTest extends BaseTest {
         //Select Customer
         bill.getCustomerPhoneNoField().setText("918877070727");
         bill.getGoPhoneNumberButton().click();
-        bill.getDoneBttn().clickIfExist();
+        bill.getDoneLinkOnBillPage().clickIfExist();
 
         //Click Confirm
         bill.getDisableTaxToggleButton().clickIfExist();

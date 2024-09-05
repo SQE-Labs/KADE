@@ -731,7 +731,7 @@ public class BillPage extends BasePage {
         return Clickable.getElementBy(activeBillAmmount,"Bill Ammount");
     }
 
-    public Clickable getDoneBttn() {
+    public Clickable getDoneLinkOnBillPage() {
         return Clickable.getElementBy(doneButton, "Done Link");
     }
 
