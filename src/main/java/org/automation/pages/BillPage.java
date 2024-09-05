@@ -185,6 +185,8 @@ public class BillPage extends BasePage {
     By taxToggleBtnDisable = By.xpath("//input[@name='applyTax']/../i[1]");
     By customName = By.xpath("//*[@id=\"_B7O\"]/span");
     By activeBillAmmount = By.xpath("//span[@class='display-5 display-sm-2 fw-bold']");
+    By doneButton = By.xpath(" //div[@id='_3FH']/button[@type='button'][normalize-space()='Done']");
+
 
     public BillPage() {
         super();
@@ -727,6 +729,10 @@ public class BillPage extends BasePage {
 
     public Clickable getActiveBillAmmount() {
         return Clickable.getElementBy(activeBillAmmount,"Bill Ammount");
+    }
+
+    public Clickable getDoneBttn() {
+        return Clickable.getElementBy(doneButton, "Done Link");
     }
 
 }

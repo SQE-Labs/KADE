@@ -38,7 +38,8 @@ public class Assertions extends BaseTest {
 
     public static void assertTrue(boolean value) {
         try {
-            Assert.assertTrue(value);
+            Assert.
+                    assertTrue(value);
             getExtentTest().log(PASS, "Assertion passed  : " + value);
 
         } catch (Exception e) {

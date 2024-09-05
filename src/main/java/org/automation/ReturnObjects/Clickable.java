@@ -118,4 +118,12 @@ public class Clickable extends ActionEngine {
     public void clickByMouse(){
         clickByMouseActions(target);
     }
+
+    public String getToolTipMessage(){
+        return getToolTipMessage(target);
+    }
+    public String getCssValue(String attribute){
+        return getCssValue(target,attribute);
+    }
+
 }

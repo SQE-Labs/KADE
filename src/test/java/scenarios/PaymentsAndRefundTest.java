@@ -1,6 +1,7 @@
 package scenarios;
 
 import org.automation.data.KadeUserAccount;
+import org.automation.data.StoreAccount;
 import org.automation.objectBuilder.ObjectBuilder;
 import org.automation.objectBuilder.pages.BillsPage;
 import org.automation.utilities.Assertions;
@@ -210,6 +211,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         //Creating Bill
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
+        WebdriverWaits.sleep(3000);
         session.getBillPage().getUnpaidBillWithoutDescription().click();
 
         session.getBillPage().getProcessPaymentButton().click();
@@ -284,7 +286,7 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         // Open Transaction
         session.getDashBoardPage().getTransactionButton().click();
-        session.getTransactionsPage().selectStore("Automation Flow 1");
+        session.getTransactionsPage().selectStore(StoreAccount.AutomationBillTest);
         session.getTransactionsPage().getLastTransactionRow().click();
         Assertions.assertEquals(session.getTransactionsPage().getBillAmount().getText(),"$"+bills.getAmount());
         Assertions.assertTrue(session.getTransactionsPage().getUniqueTransactionId().isDisplayed());

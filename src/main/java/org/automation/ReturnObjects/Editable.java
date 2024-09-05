@@ -53,4 +53,8 @@ public class Editable extends ActionEngine {
     public List<WebElement> getListOfWebElements() {
         return getDriver().findElements(target);
     }
+
+    public String getToolTipMessage(){   return getToolTipMessage(target);
+    }
+
 }

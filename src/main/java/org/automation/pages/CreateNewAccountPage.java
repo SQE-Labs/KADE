@@ -4,6 +4,7 @@ import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import javax.swing.event.CaretListener;
 
@@ -20,6 +21,10 @@ public class CreateNewAccountPage extends BasePage {
     By checkBox=By.xpath("//i[@class='fal fa-square custom-check-off ']");
     By businessAccountButton = By.xpath("//a[text()='Business Account']");
     By personalAccountButton = By.xpath("//a[text()='Personal Account']");
+    By existingPhoneValidation = By.xpath("//p[text()='This phone number is already registered.']");
+    By existingEmailValidation = By.xpath("//p[text()='This email is already registered.']");
+    By crossIcon = By.cssSelector(".btn-close");
+
 
     // Methods
      public Clickable getKadelogo() {
@@ -44,12 +49,7 @@ public class CreateNewAccountPage extends BasePage {
        return Editable.getElementBy(emailOrPhoneField,"Email or Phone field");
     }
 
-     //Enter email or phone in 'Email or Phone' field
-    public Editable enterEmailOrPhone(){
-        return Editable.getElementBy(emailOrPhoneField,"Email and Phone Fields");
-    }
-
-     // Verify the 'Sign-in' link label
+         // Verify the 'Sign-in' link label
     public Clickable getSignInLink(){
         return Clickable.getElementBy(signInLink,"Sign-in");
     }
@@ -70,6 +70,16 @@ public class CreateNewAccountPage extends BasePage {
     public Clickable getPersonalAccountButton() {
         return Clickable.getElementBy(personalAccountButton,"Personal Account Button");
             }
+    public Clickable getExistingPhoneValidationMessage(){
+         return Clickable.getElementBy(existingPhoneValidation);
+    }
+    public Clickable getExistingEmailValidation(){
+        return Clickable.getElementBy(existingEmailValidation);
+    }
+    public Clickable getCrossICon(){
+        return Clickable.getElementBy(crossIcon);
+    }
+
 
 
 }
