@@ -286,7 +286,7 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         // Open Transaction
         session.getDashBoardPage().getTransactionButton().click();
-        session.getTransactionsPage().selectStore(StoreAccount.AutomationBillTest);
+        session.getTransactionsPage().selectStore(StoreAccount.AutomationBillFlow);
         session.getTransactionsPage().getLastTransactionRow().click();
         Assertions.assertEquals(session.getTransactionsPage().getBillAmount().getText(),"$"+bills.getAmount());
         Assertions.assertTrue(session.getTransactionsPage().getUniqueTransactionId().isDisplayed());
