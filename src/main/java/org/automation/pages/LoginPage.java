@@ -16,6 +16,7 @@ public class LoginPage extends BasePage {
     By signUpLink = By.linkText("Sign up");
     By validation = By.xpath("//p[@class='alert-content']");
     By termsOfUse = By.linkText("Terms Of Use");
+    By popupTitle = By.xpath("//h5[normalize-space()='New Account']");
     // Methods
     public Editable getUserNameTextbox(){
         return Editable.getElementBy(userNameField,"User Name Textbox");
@@ -50,5 +51,9 @@ public class LoginPage extends BasePage {
 
     public Clickable getTermOfUseButton(){
         return Clickable.getElementBy(termsOfUse,"Term of Use Button");
+    }
+
+    public Clickable getNewAccountPopupTitle(){
+        return Clickable.getElementBy(popupTitle, " New Account Popup title");
     }
 }

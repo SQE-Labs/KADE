@@ -7,6 +7,7 @@ import java.util.Locale;
 
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
+import org.automation.data.StoreAccount;
 import org.automation.pages.BillPage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
@@ -23,7 +24,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("Automation Flow 1");
+        bill.selectStore(StoreAccount.AutomationBillFlow);
         bill.getContinueButton().click();
 
         // Click on New Bill Button
@@ -64,7 +65,8 @@ public class BillTest extends BaseTest {
         WebdriverWaits.sleep(3000);
         bill.getContinueWithoutButton().clickByMouse();
 
-        //Verify toast message
+        //Verify toast message : Success message Popup.
+        WebdriverWaits.sleep(3000);
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
         String toastMessage = "Bill was created successfully.Click here to open";
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
@@ -91,7 +93,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("Automation Flow 1");
+        bill.selectStore(StoreAccount.AutomationBillFlow);
         bill.getContinueButton().click();
 
         // Click on New Bill Button
@@ -130,12 +132,14 @@ public class BillTest extends BaseTest {
         //Select Customer
         bill.getCustomerPhoneNoField().setText("918877070727");
         bill.getGoPhoneNumberButton().click();
+        bill.getDoneLinkOnBillPage().clickIfExist();
 
         //Click Confirm
         bill.getDisableTaxToggleButton().clickIfExist();
         bill.getConfirmButton().click();
 
         //Verify toast message
+        WebdriverWaits.sleep(4000);
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
         String toastMessage = "Bill was created successfully.Click here to open";
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
@@ -162,7 +166,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("Automation Flow 1");
+        bill.selectStore(StoreAccount.AutomationBillFlow);
         bill.getContinueButton().click();
 
         //Click on New Bill Button
@@ -197,6 +201,8 @@ public class BillTest extends BaseTest {
         bill.getDeleteIcon().click();
     }
 
+
+    // When we try to run on new store we have to configure tax under more section .
     @Test(description = "BC_04 Bill Creation with already configured 'Tax' from store configuration page.")
     public void bc_04createBillForConfiguredTax() throws ParseException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
@@ -205,7 +211,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("Automation Flow 1");
+        bill.selectStore(StoreAccount.AutomationBillFlow);
         bill.getContinueButton().click();
 
         // Click on New Bill Button
@@ -257,7 +263,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("Automation Flow 1");
+        bill.selectStore(StoreAccount.AutomationBillFlow);
         bill.getContinueButton().click();
 
         //Click on New Bill Button
@@ -317,7 +323,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("Automation Flow 1");
+        bill.selectStore(StoreAccount.AutomationBillFlow);
         bill.getContinueButton().click();
 
         //Click on New Bill Button
@@ -371,7 +377,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("Automation Flow 1");
+        bill.selectStore(StoreAccount.AutomationBillFlow);
         bill.getContinueButton().click();
 
         //Delete the 1st unpaid bill
@@ -388,7 +394,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("Automation Flow 1");
+        bill.selectStore(StoreAccount.AutomationBillFlow);
         bill.getContinueButton().click();
 
         //Click on New Bill Button
@@ -493,7 +499,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("Automation Flow 1");
+        bill.selectStore(StoreAccount.AutomationBillFlow);
         bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
@@ -537,7 +543,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("Automation Flow 1");
+        bill.selectStore(StoreAccount.AutomationBillFlow);
         bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
@@ -610,6 +616,7 @@ public class BillTest extends BaseTest {
         bill.getDeleteIcon().click();
     }
 
+// first time no suggested customer appears . we need to handle this test scenrios also.
     @Test(description = "BC_11 Verify that creating a bill with default configured bill amount, on 'Bill' popup")
     public void bc_11verifyingBillCreationWithOutConfiguredBillAmount() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
@@ -618,7 +625,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("New Business");
+        bill.selectStore(StoreAccount.AutomationBillTest);
         bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
@@ -697,7 +704,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("Automation Flow 1");
+        bill.selectStore(StoreAccount.AutomationBillFlow);
         bill.getContinueButton().click();
 
         // Click on New Bill Button
@@ -754,7 +761,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("New Business 2");
+        bill.selectStore(StoreAccount.AutomationBillTest);
         bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
@@ -814,7 +821,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("New Business 2");
+        bill.selectStore(StoreAccount.AutomationBillTest);
         bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
@@ -884,7 +891,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore("New Business");
+        bill.selectStore(StoreAccount.AutomationBillTest);
         bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
