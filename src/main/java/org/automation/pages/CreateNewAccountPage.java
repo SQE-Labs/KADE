@@ -43,7 +43,7 @@ public class CreateNewAccountPage extends BasePage {
     By fullname= By.cssSelector("[name='name']");
     By startOverLink = By.xpath("//button[text()='Start Over']");
     By resendCode = By.xpath("//button[text()='Resend the code']");
-    By ContinueButtonBusiness = By.xpath("//div[@class='text-center mt-3']/button");
+    By ContinueButtonBusiness = By.xpath("(//button[@type='submit'][text()='Continue'])[2]");
 
 
 

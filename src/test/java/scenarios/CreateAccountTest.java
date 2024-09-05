@@ -132,10 +132,6 @@ public class CreateAccountTest extends BaseTest  {
         String ActualTooltip= session.getCreateAccountPage().getPasswordField().getToolTipMessage();
         Assertions.assertEquals(ActualTooltip,"Invalid password, a password must contain at least one upper case letter, one lower case letter and one number.");
 
-        // Verify tooltip message for Confirm password field
-        //String ConfirmPasswordTooltip = session.getCreateAccountPage().getConfirmPasswordField().getToolTipMessage();
-        //Assertions.assertEquals(ConfirmPasswordTooltip,"Please enter the same value again.");
-
         // Enter Password and Confirm Password
         session.getCreateAccountPage().getPasswordField().setText("Text@123");
         session.getCreateAccountPage().getConfirmPasswordField().setText("Text@123");
@@ -180,12 +176,6 @@ public class CreateAccountTest extends BaseTest  {
         session.getCreateAccountPage().getReceiveTextEmailNotificationCheckBox().click();
         session.getCreateAccountPage().getContinueButton().click();
 
-        // Enter data in security code field
-        session.getCreateAccountPage().getSecurityCodeField().setText("123456");
-
-        //Entering name in the Full name field
-        session.getCreateAccountPage().getFullName().setText("New User "+  st);
-
         // Verify the start Over Link
         Assertions.assertTrue(session.getCreateAccountPage().getStartOverLink().isDisplayed());
 
@@ -194,10 +184,16 @@ public class CreateAccountTest extends BaseTest  {
 
         // Click on start over link
         session.getCreateAccountPage().getStartOverLink().click();
-
         // Click on Continue button
         session.getCreateAccountPage().getContinueButton().click();
+        WebdriverWaits.sleep(5000);
 
+        // Enter data in security code field
+        session.getCreateAccountPage().getSecurityCodeField().setText("123456");
+
+        //Entering name in the Full name field
+        session.getCreateAccountPage().getFullName().setText("New User "+  st);
+        session.getCreateAccountPage().getContinueButtonOfBusinessAccount().click();
     }
 
 
