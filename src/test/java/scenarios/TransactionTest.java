@@ -344,6 +344,8 @@ public class TransactionTest extends BaseTest {
         Assertions.assertTrue(transaction.getVerifyButton().isDisplayed());
 
     }
+
+
 }
 
 
