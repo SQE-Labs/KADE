@@ -16,26 +16,29 @@ public class KadeSession extends BaseTest {
         return new KadeSession();
     }
 
-    public DashBoardPage getDashBoardPage(){
+    public DashBoardPage getDashBoardPage() {
         return new DashBoardPage();
     }
 
-    public BillPage getBillPage(){
+    public BillPage getBillPage() {
         return new BillPage();
     }
-    public GiftCardDashboardPage getGiftCardDashboardPage(){
+
+    public GiftCardDashboardPage getGiftCardDashboardPage() {
         return new GiftCardDashboardPage();
     }
 
-    public PaymentsPage getPaymentsPage(){
+    public PaymentsPage getPaymentsPage() {
         return new PaymentsPage();
     }
 
-    public MyStorePage getMyStorePage(){
+    public MyStorePage getMyStorePage() {
         return new MyStorePage();
     }
 
-    public TransactionsPage getTransactionsPage(){return  new TransactionsPage();}
+    public TransactionsPage getTransactionsPage() {
+        return new TransactionsPage();
+    }
 
 
     public LoginPage getLoginPage() {
@@ -55,12 +58,23 @@ public class KadeSession extends BaseTest {
     }
 
     public SendTheReceiptPopup getSendTheReceiptPopup() {
-        return new SendTheReceiptPopup(); }
-
-    public CreateNewAccountPage getCreateAccountPage(){
-        return  new CreateNewAccountPage();
+        return new SendTheReceiptPopup();
     }
 
+    public CreateNewAccountPage getCreateAccountPage() {
+        return new CreateNewAccountPage();
+    }
 
+    public BasicInformationPage getBasicInformationPage() {
+        return new BasicInformationPage();
+    }
+
+    public SecurityAndPasswordPage getSecurityAndPasswordPage() {
+        return new SecurityAndPasswordPage();
+    }
 }
+
+
+
+
 

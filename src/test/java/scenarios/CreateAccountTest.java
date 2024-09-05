@@ -141,34 +141,41 @@ public class CreateAccountTest extends BaseTest  {
         Assertions.assertTrue(session.getCreateAccountPage().getSuccessMessage().isDisplayed());
     }
 
-    @Test(description = "CA_TC 2: Verify that creating new account with Business Account option with email address")
-        public void verifyCreatingNewAccountWithBusinessAccount(){
-            session.getLoginPage().getSignUpLink().click();
+    @Test(description = "CA_TC 2(a): Verify that creating a new account by email address with  Business Account option.")
+        public void verifyCreatingNewAccountByEmailWithBusinessAccount(){
+        session.getLoginPage().getSignUpLink().click();
 
-            //Clicking on Business Account Option
+          //Clicking on Business Account Option
         session.getCreateAccountPage().getBusinessAccountButton().click();
+
+        // Verify Mobile field label
         Assertions.assertTrue(session.getCreateAccountPage().getMobilePhoneFieldLabel().isDisplayed());
-        Assertions.assertTrue(session.getCreateAccountPage().getUseEmailLink().isDisplayed());
+
+        // Verify the  Use Email Link
+         Assertions.assertTrue(session.getCreateAccountPage().getUseEmailLink().isDisplayed());
+         // Verify the Receive Text Email Notification CheckBox
         Assertions.assertTrue(session.getCreateAccountPage().getReceiveTextEmailNotificationCheckBox().isDisplayed());
+        // Verify the Continue Button
         Assertions.assertTrue(session.getCreateAccountPage().getContinueButton().isDisplayed());
 
-        //Clicking on Continue' button
+        //Clicking on Continue button
         session.getCreateAccountPage().getContinueButton().click();
 
         // Verify the Tooltip
         session.getCreateAccountPage().getMobilePhoneField().getToolTipMessage();
 
-        // session.getCreateAccountPage().getReceiveTextEmailNotificationCheckBox().getToolTipMessage();
-
+        // Click on Use Email Link
         session.getCreateAccountPage().getUseEmailLink().click();
+
         // Enter invalid email
         session.getCreateAccountPage().getEmailBusinessAccountField().setText("123456@");
         session.getCreateAccountPage().getContinueButton().click();
+
         // Verify the email tooltip
         String Actual= session.getCreateAccountPage().getEmailBusinessAccountField().getToolTipMessage();
         Assertions.assertEquals(Actual,"Please enter a valid email address.");
 
-        // Enter randon valid email in the Email field
+        // Entering valid email in the Email field
          String st = randomGenerator.requiredString(3);
         session.getCreateAccountPage().getEmailBusinessAccountField().setText(st+"@yopmail.com");
 
@@ -184,6 +191,7 @@ public class CreateAccountTest extends BaseTest  {
 
         // Click on start over link
         session.getCreateAccountPage().getStartOverLink().click();
+
         // Click on Continue button
         session.getCreateAccountPage().getContinueButton().click();
         WebdriverWaits.sleep(5000);
@@ -193,7 +201,90 @@ public class CreateAccountTest extends BaseTest  {
 
         //Entering name in the Full name field
         session.getCreateAccountPage().getFullName().setText("New User "+  st);
+
+        // Clicking on 'Continue' button
         session.getCreateAccountPage().getContinueButtonOfBusinessAccount().click();
+    }
+
+    @Test(description = "CA_TC 2(b) : Verify that creating new account by phone number with Business Account option.")
+    public void verifyCreateNewAccountByPhoneNumberWithBusinessAccount(){
+        String Phone = "6465551119";
+        session.getLoginPage().getSignUpLink().click();
+
+        //Clicking on Business Account Option
+        session.getCreateAccountPage().getBusinessAccountButton().click();
+
+        // Verify Mobile field label
+        Assertions.assertTrue(session.getCreateAccountPage().getMobilePhoneFieldLabel().isDisplayed());
+
+        // Enter Phone Number in Phone field
+        session.getCreateAccountPage().getMobilePhoneField().setText(Phone);
+
+        // Checking the checkbox
+        session.getCreateAccountPage().getReceiveTextEmailNotificationCheckBox().click();
+
+        // Clicking on Continue Button
+        session.getCreateAccountPage().getContinueButton().click();
+
+        // Verify the start Over Link
+        Assertions.assertTrue(session.getCreateAccountPage().getStartOverLink().isDisplayed());
+
+        // Verify the Resend Code Link
+        Assertions.assertTrue(session.getCreateAccountPage().getResendCode().isDisplayed());
+
+        // Click on start over link
+        session.getCreateAccountPage().getStartOverLink().click();
+
+        // Click on Continue button
+        session.getCreateAccountPage().getContinueButton().click();
+
+        // Enter less than 6 digit in security field
+        session.getCreateAccountPage().getSecurityCodeField().setText("12345");
+
+        //Verify the security code sent to Information message
+        Assertions.assertTrue(session.getCreateAccountPage().getCodeSendToInformationMessage().isDisplayed());
+
+        // Clicking on Continue Button
+        session.getCreateAccountPage().getContinueButtonOfBusinessAccount().click();
+
+        // Verify the Tooltip message for security field
+        String TooltipForLessDigit= session.getCreateAccountPage().getSecurityCodeField().getToolTipMessage();
+        Assertions.assertEquals(TooltipForLessDigit,"Please enter at least 6 characters.");
+
+        // Entering Invalid security Code
+        session.getCreateAccountPage().getSecurityCodeField().setText("123458");
+        session.getCreateAccountPage().getFullName().setText("New User");
+        session.getCreateAccountPage().getContinueButtonOfBusinessAccount().click();
+
+        // Verify the Validation message for Incorrect Security Code
+        Assertions.assertEquals(session.getCreateAccountPage().getSecurityCodeAlertMessage().getText(),"Invalid security code");
+
+        // Entering Valid security Code
+        session.getCreateAccountPage().getSecurityCodeField().setText("777777");
+
+        // Clicking Continue Button
+        session.getCreateAccountPage().getContinueButtonOfBusinessAccount().click();
+
+        // Verify the page title
+        Assertions.assertTrue(session.getCreateAccountPage().getStripePageTitle().isDisplayed());
+
+        // Clicking on Profile Link
+        session.getDashBoardPage().clickProfile();
+
+        // Click on Security and Password Tab
+        session.getBasicInformationPage().clickOnSecurityAndPassword();
+
+        // Click on Close and Delete Account button
+        session.getSecurityAndPasswordPage().getDeleteAccountButton().click();
+        session.getSecurityAndPasswordPage().getTickIcon().click();
+
+
+
+
+
+
+
+
     }
 
 
