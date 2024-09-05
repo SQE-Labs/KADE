@@ -3,16 +3,19 @@ package scenarios;
 import org.automation.base.BaseTest;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
+import org.automation.utilities.RandomGenerator;
+import org.automation.utilities.WebdriverWaits;
 import org.testng.annotations.Test;
 
-public class CreateAccountTest extends BaseTest {
+public class CreateAccountTest extends BaseTest  {
 
     KadeSession session = new KadeSession();
+    RandomGenerator randomGenerator = new RandomGenerator();
     //VerifyYourAccountPage = new VerifyYourAccountPage();
     //SetYourPasswordPage setYourPasswordPage = new SetYourPasswordPage();
 
 
-    @Test(description = "CA_TC 1: Verify that user get directed to 'Create New Account' page, after clicking on 'Sign up' link, on 'Login' page.")
+    @Test(description = "CA_TC 1: Verify the elements of 'Create New Account' page after selecting  'Personal Account' option, on 'Login' page..")
     public void VerifyTheSignUpPage() {
         session.getLoginPage().getSignUpLink().click();
 
@@ -20,7 +23,7 @@ public class CreateAccountTest extends BaseTest {
         Assertions.assertTrue(session.getCreateAccountPage().getBusinessAccountButton().isDisplayed());
         Assertions.assertTrue(session.getCreateAccountPage().getPersonalAccountButton().isDisplayed());
 
-        // Clicking on 'Sign Up Link
+        // Clicking on Personal Account Option
         session.getCreateAccountPage().getPersonalAccountButton().click();
 
         // Verify app Logo  - 'Kade'
@@ -41,186 +44,170 @@ public class CreateAccountTest extends BaseTest {
         // Verify 'Sign up' button
         Assertions.assertTrue(session.getCreateAccountPage().getSignUpButton().isDisplayed());
 
+        // Clicking on Sign in link
+        session.getCreateAccountPage().getSignInLink().click();
+
     }
+    @Test (description = "CA_TC 1(b): Verify the validation messages while creating new account with 'Personal Account' option on 'Login' page.")
+    public void verifyValidationMessagesWithPersonalAccountOption(){
+        session.getLoginPage().getSignUpLink().click();
+
+        // Clicking on Personal Account Option
+        session.getCreateAccountPage().getPersonalAccountButton().click();
+        session.getCreateAccountPage().getSignUpButton().click();
+
+        // Verify the Please review the highlighted field validation message and This field is required Tooltip
+        Assertions.assertTrue(session.getLoginPage().getValidationMessage().isDisplayed());
+        String actualMessage = session.getCreateAccountPage().getEmailOrPhoneField().getToolTipMessage();
+        Assertions.assertEquals(actualMessage,"This field is required.");
+
+        // Enter invalid data in 'Email or Phone' field
+        session.getCreateAccountPage().getEmailOrPhoneField().setText("invalid123");
+        session.getCreateAccountPage().getReceiveTextEmailNotificationCheckBox().click();
+        session.getCreateAccountPage().getSignUpButton().click();
+
+        // tooltip message
+        String actualToolTip = session.getCreateAccountPage().getEmailOrPhoneField().getToolTipMessage();
+        Assertions.assertEquals(actualToolTip,"Invalid phone or email. Phone numbers must start with country code starting with +");
+
+        // Enter invalid email
+        session.getCreateAccountPage().getEmailOrPhoneField().setText("test@123");
+        session.getCreateAccountPage().getSignUpButton().click();
+        String invalidEmailTooltip= session.getCreateAccountPage().getEmailOrPhoneField().getToolTipMessage();
+        Assertions.assertEquals(invalidEmailTooltip,"Please enter a valid email address.");
+        //session.getCreateAccountPage().getCrossICon().click();
+
+         // Entering existing phone number and verify the validation message
+        session.getCreateAccountPage().getEmailOrPhoneField().setText("6465551114");
+        session.getCreateAccountPage().getSignUpButton().click();
+
+        //Verify the validation message for Phone Number
+        String ExpectedMessage = "This phone number is already registered.";
+        Assertions.assertEquals(session.getCreateAccountPage().getExistingPhoneValidationMessage().getText(),
+                ExpectedMessage);
+        session.getCreateAccountPage().getCrossICon().click();
+
+        // Verify the Validation for Existing Email
+        session.getCreateAccountPage().getEmailOrPhoneField().setText("test@yopmail.com");
+        session.getCreateAccountPage().getSignUpButton().click();
+        String ExpectedEmailMessage = "This email is already registered.";
+        Assertions.assertEquals(session.getCreateAccountPage().getExistingEmailValidation().getText(),
+                ExpectedEmailMessage);
+    }
+
+    @Test (description = "CA_TC 1(c): Verify that creating new account with 'Personal Account' option.")
+    public void verifyCreatingAccountWithPersonalAccountOption() {
+        session.getLoginPage().getSignUpLink().click();
+
+        // Clicking on Personal Account Option
+        session.getCreateAccountPage().getPersonalAccountButton().click();
+        String st = randomGenerator.requiredString(6);
+        session.getCreateAccountPage().getEmailOrPhoneField().setText(st+"@yopmail.com");
+        session.getCreateAccountPage().getReceiveTextEmailNotificationCheckBox().click();
+        session.getCreateAccountPage().getSignUpButton().click();
+
+        // Verify the Verify Account Title
+        Assertions.assertTrue(session.getCreateAccountPage().getVerifyAccountTitle().isDisplayed());
+
+        // Verify the Security field is displayed
+        Assertions.assertTrue(session.getCreateAccountPage().getSecurityCodeLabel().isDisplayed());
+        session.getCreateAccountPage().getSecurityCodeField().setText("123456");
+        session.getCreateAccountPage().getContinueButton().click();
+
+        // Verify the Set your password Title
+        Assertions.assertTrue(session.getCreateAccountPage().getSetPasswordTitle().isDisplayed());
+
+        // clicking on 'Submit' button
+        session.getCreateAccountPage().getSubmitButton().click();
+
+        // Verify the tooltip message
+       String tooltipMessage= (session.getCreateAccountPage().getPasswordField().getToolTipMessage());
+       Assertions.assertEquals(tooltipMessage,"This field is required.");
+
+       // Enter invalid data in Password Field
+        session.getCreateAccountPage().getPasswordField().setText("abcdefgh");
+        session.getCreateAccountPage().getSubmitButton().click();
+
+        // Verify tooltip message in password field
+        String ActualTooltip= session.getCreateAccountPage().getPasswordField().getToolTipMessage();
+        Assertions.assertEquals(ActualTooltip,"Invalid password, a password must contain at least one upper case letter, one lower case letter and one number.");
+
+        // Enter Password and Confirm Password
+        session.getCreateAccountPage().getPasswordField().setText("Text@123");
+        session.getCreateAccountPage().getConfirmPasswordField().setText("Text@123");
+        session.getCreateAccountPage().getSubmitButton().click();
+
+        // Verify the success message
+        Assertions.assertTrue(session.getCreateAccountPage().getSuccessMessage().isDisplayed());
+    }
+
+    @Test(description = "CA_TC 2: Verify that creating new account with Business Account option with email address")
+        public void verifyCreatingNewAccountWithBusinessAccount(){
+            session.getLoginPage().getSignUpLink().click();
+
+            //Clicking on Business Account Option
+        session.getCreateAccountPage().getBusinessAccountButton().click();
+        Assertions.assertTrue(session.getCreateAccountPage().getMobilePhoneFieldLabel().isDisplayed());
+        Assertions.assertTrue(session.getCreateAccountPage().getUseEmailLink().isDisplayed());
+        Assertions.assertTrue(session.getCreateAccountPage().getReceiveTextEmailNotificationCheckBox().isDisplayed());
+        Assertions.assertTrue(session.getCreateAccountPage().getContinueButton().isDisplayed());
+
+        //Clicking on Continue' button
+        session.getCreateAccountPage().getContinueButton().click();
+
+        // Verify the Tooltip
+        session.getCreateAccountPage().getMobilePhoneField().getToolTipMessage();
+
+        // session.getCreateAccountPage().getReceiveTextEmailNotificationCheckBox().getToolTipMessage();
+
+        session.getCreateAccountPage().getUseEmailLink().click();
+        // Enter invalid email
+        session.getCreateAccountPage().getEmailBusinessAccountField().setText("123456@");
+        session.getCreateAccountPage().getContinueButton().click();
+        // Verify the email tooltip
+        String Actual= session.getCreateAccountPage().getEmailBusinessAccountField().getToolTipMessage();
+        Assertions.assertEquals(Actual,"Please enter a valid email address.");
+
+        // Enter randon valid email in the Email field
+         String st = randomGenerator.requiredString(3);
+        session.getCreateAccountPage().getEmailBusinessAccountField().setText(st+"@yopmail.com");
+
+        // Checking the By providing my information, I consent to receive text/email notifications. checkbox
+        session.getCreateAccountPage().getReceiveTextEmailNotificationCheckBox().click();
+        session.getCreateAccountPage().getContinueButton().click();
+
+        // Verify the start Over Link
+        Assertions.assertTrue(session.getCreateAccountPage().getStartOverLink().isDisplayed());
+
+        // Verify the Resend Code Link
+        Assertions.assertTrue(session.getCreateAccountPage().getResendCode().isDisplayed());
+
+        // Click on start over link
+        session.getCreateAccountPage().getStartOverLink().click();
+        // Click on Continue button
+        session.getCreateAccountPage().getContinueButton().click();
+        WebdriverWaits.sleep(5000);
+
+        // Enter data in security code field
+        session.getCreateAccountPage().getSecurityCodeField().setText("123456");
+
+        //Entering name in the Full name field
+        session.getCreateAccountPage().getFullName().setText("New User "+  st);
+        session.getCreateAccountPage().getContinueButtonOfBusinessAccount().click();
+    }
+
+
 }
 
-        /*@Test( enabled = true, description = "2. Verify that 'Email or Phone' field appears highlighted, when user clicks on 'Sign Up' button, after leaving  'Email or Phone' field blank, on 'Create New Account' page.")
-        public void tc02_validateEmailOrPhoneFieldGetHighlighted() {
-
-            // Verify 'Email or Phone' label
-            Assertions.assertTrue(createNewAccountPage.checkPresenceOfEmailOrPhoneLabel());
-
-            // Verify 'Email or Phone' field
-            Assertions.assertTrue(createNewAccountPage.checkPresenceOfEmailOrPhoneField());
-
-            // Click 'Sign up' button
-            createNewAccountPage.clickSignUpButton();
-
-        }
-
-        @Test(enabled = true, description = "3. Verify that appropriate validation message appears on entering invalid Email or Phone in 'Email or Phone' field, on 'Create New Account' page.")
-        public void tc03_validateValidationMessageOnEnteringInvalidEmailOrPhone() {
-
-            // Enter invalid Email or Phone
-            createNewAccountPage.enterEmailOrPhone("User22");
-
-            // Click 'Sign up' button
-            createNewAccountPage.clickSignUpButton();
-
-    }
-
-        @Test(enabled = true, description = "5. Verify that 'Security Code' field appears after entering valid email  in 'Email or Phone' field, on 'Verify your account' page.")
-        public void tc04_validateSecurityCodeFieldOnEnteringValidEmail() {
-
-            // Enter valid email in 'Email or Phone' field
-            createNewAccountPage.enterEmailOrPhone("user" + new RandomGenerator().requiredString(6) + "@yopmail.com");
-
-            // Click 'Sign up' button
-            createNewAccountPage.clickSignUpButton();
-        }
-
-        @Test(enabled = true, description = "6. Verify that 'Security Code' field appears after entering valid phone number in 'Email or Phone' field, on 'Verify your account' page.")
-        public void tc05_validateSecurityCodeFieldOnEnteringValidPhone() {
-
-            // Enter valid phone in 'Email or Phone' field
-            createNewAccountPage.enterEmailOrPhone("919158501408");
-
-            // Click 'Sign up' button
-            createNewAccountPage.clickSignUpButton();
-
-        }
-
-        @Test(enabled = true, description = "7. Verify that Security Code is resent after clicking on the 'Resend security code' link, on 'Verify your account' page.")
-        public void tc06_validateSecurityCodeIsResent (){
-
-            // Enter valid email in 'Email or Phone' field
-            createNewAccountPage.enterEmailOrPhone("user" + new RandomGenerator().requiredString(6) + "@yopmail.com");
-            createNewAccountPage.checkRecieveTextEmailNotificationCheckBox();
-
-            // Click 'Sign up' button
-            createNewAccountPage.clickSignUpButton();
-
-            // Verify 'Email or Phone' field on 'Verify your account' page
-            Assertions.assertTrue(verifyYourAccountPage.checkPresenceOfEmailOrPhoneFieldOnVerifyAccountPage());
-
-            // Verify 'Verify your account' page title - 'Verify Account'
-            String actualVerifyYourAccountPageTitle = verifyYourAccountPage.getPageTitle();
-            Assertions.assertEquals(actualVerifyYourAccountPageTitle,"Verify Account");
-
-            // Verify 'Security Code' field
-            Assertions.assertTrue(verifyYourAccountPage.checkPresenceOfSecurityCodeField());
-
-            // Verify 'Continue' button
-            Assertions.assertTrue(verifyYourAccountPage.checkPresenceOfContinueButton());
-
-            // Click 'Resend security code' link
-            verifyYourAccountPage.clickResendSecurityCode();
-
-        }
-
-        @Test(enabled = true, description = "8. Verify that 'Set your Password' page opens up after entering valid Security Code in 'Security Code' field on 'Verify your account' page.")
-        public void tc07_validateSetYourPasswordPageOpensUpAfterEnteringSecurityCode(){
-
-            // Enter valid email in 'Email or Phone' field
-            createNewAccountPage.enterEmailOrPhone( "user" + new RandomGenerator().requiredString(6) + "@yopmail.com");
-            createNewAccountPage.checkRecieveTextEmailNotificationCheckBox();
-            // Click 'Sign up' button
-            createNewAccountPage.clickSignUpButton();
-
-            // Verify 'Security Code' field
-            Assertions.assertTrue(verifyYourAccountPage.checkPresenceOfSecurityCodeField());
-
-            // Enter valid security code in 'Security Code' field
-           verifyYourAccountPage.EnterSecurityCode("123456");
-
-            //  Click on 'Continue' button
-            verifyYourAccountPage.clickContinueButton();
-
-            // Verify 'Password' field on Set your password page
-            Assertions.assertTrue(setYourPasswordPage.checkPresenceOfPasswordField());
-
-            // Verify 'Set Your Password' page title - 'Configure Password'
-            String actualSetYourPasswordPageTitle = setYourPasswordPage.getPageTitle();
-            Assertions.assertEquals(actualSetYourPasswordPageTitle,"Configure Password");
-
-            // Verify 'Confirm Password' on Set your password page
-            Assertions.assertTrue(setYourPasswordPage.checkPresenceOfConfirmPasswordField());
-
-            // Verify 'Submit' button on set your password page
-           Assertions.assertTrue(setYourPasswordPage.checkPresenceSubmitButton());
-
-        }
-
-        @Test(enabled = true, description = "9. Verify that 'Password' field appears highlighted, when user clicks on 'Submit' button, after entering less than 8 characters in  'Password and Confirm Password' field, on 'Set your password' page.")
-        public void tc08_validatePasswordFieldGetHighlightedOnEnteringLessThanEightCharacters() {
-
-            // Enter valid email in 'Email or Phone' field
-            createNewAccountPage.enterEmailOrPhone( "user"+ new RandomGenerator().requiredString(5)+"@yopmail.com");
-            createNewAccountPage.checkRecieveTextEmailNotificationCheckBox();
-            // Click 'Sign up' button
-            createNewAccountPage.clickSignUpButton();
-
-            // Enter valid security code in 'Security Code' field
-            verifyYourAccountPage.EnterSecurityCode("123456");
-
-            //  Click on 'Continue' button
-            verifyYourAccountPage.clickContinueButton();
-
-            // Set password in 'Password' field on set your password page
-            setYourPasswordPage.setPasswordField("Hello12");
-
-            // Enter same password in 'Confirm Password' field
-            setYourPasswordPage.setConfirmPasswordField("Hello12");
-
-            // Click on 'Submit' button on verify your account page
-            setYourPasswordPage.clickSubmitButton();
 
 
-        }
-
-        @Test(enabled = true, description = "10. Verify that 'Password' field appears highlighted, when user clicks on 'Submit' button, after leaving  'Password and Confirm Password' field blank, on 'Set your password' page.")
-        public void tc09_validatePasswordFieldGetHighlightedOnLeavingPasswordAndConfirmPasswordFieldBlank() {
-
-            // Enter valid email in 'Email or Phone' field
-            createNewAccountPage.enterEmailOrPhone( "user"+new RandomGenerator().requiredString(4)+"@yopmail.com");
-            createNewAccountPage.checkRecieveTextEmailNotificationCheckBox();
-            // Click 'Sign up' button
-            createNewAccountPage.clickSignUpButton();
-
-            // Enter valid security code in 'Security Code' field
-            verifyYourAccountPage.EnterSecurityCode("123456");
-
-            //  Click on 'Continue' button
-            verifyYourAccountPage.clickContinueButton();
-
-            // Click on 'Submit' button on verify your account page
-            setYourPasswordPage.clickSubmitButton();
-
-        }
-
-        @Test(enabled = true, description = "11. Verify that appropriate validation message appears on entering invalid Password 'Password  or Confirm Password' field, on 'Set your password' page.")
-        public void tc10_VerifyValidationMessageOnEnteringInvalidPassword() {
-
-            // Enter valid email in 'Email or Phone' field
-            createNewAccountPage.enterEmailOrPhone( "user"+new RandomGenerator().requiredString(7)+"@yopmail.com");
-            createNewAccountPage.checkRecieveTextEmailNotificationCheckBox();
-            // Click 'Sign up' button
-            createNewAccountPage.clickSignUpButton();
-
-            // Enter valid security code in 'Security Code' field
-            verifyYourAccountPage.EnterSecurityCode("123456");
-
-            //  Click on 'Continue' button
-            verifyYourAccountPage.clickContinueButton();
-
-            // Set password in 'Password' field on set your password page
-            setYourPasswordPage.setPasswordField("hello123");
-
-            // Enter same password in 'Confirm Password' field
-            setYourPasswordPage.setConfirmPasswordField("hello123");
 
 
-            // Click on 'Submit' button on verify your account page
-            setYourPasswordPage.clickSubmitButton();
 
-        } */
+
+
+
+
+
+
+

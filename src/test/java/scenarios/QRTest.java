@@ -2,6 +2,7 @@ package scenarios;
 
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
+import org.automation.data.StoreAccount;
 import org.automation.pages.PaymentsPage;
 import org.automation.pages.QrCodeDashboardPage;
 import org.automation.session.KadeSession;
@@ -20,7 +21,7 @@ public class QRTest extends BaseTest {
         PaymentsPage payment = session.getPaymentsPage();
 
         qr.getStoresDropdown().click();
-        qr.selectStore("Automation Flow 1");
+        qr.selectStore(StoreAccount.AutomationQRCode);
         qr.getContinueButton().click();
         qr.getDirectPayQR().clickByMouse();
         WebdriverWaits.sleep(5000);
