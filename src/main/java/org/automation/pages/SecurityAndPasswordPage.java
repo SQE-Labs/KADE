@@ -1,5 +1,6 @@
 package org.automation.pages;
 
+import org.automation.ReturnObjects.Clickable;
 import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
@@ -21,7 +22,8 @@ public class SecurityAndPasswordPage extends BasePage {
 	By differentPhoneLink=By.xpath("(//button[@class='btn btn-link'])[2]");
 	By closeValidationIcon=By.xpath("(//button[@class='btn-close'])[2]");
 	By resetYourPasswordBtn=By.xpath("//div[@class='col-sm-10']/a");
-
+	By deleteAccountButton = By.xpath("//button[text()='Close and delete my account']");
+	By tickIcon = By.cssSelector("[class='btn btn-outline-success']");
 	public void clickOnEditEmailIcon() {
 		click(editEmailIcon);
 	}
@@ -124,5 +126,13 @@ public class SecurityAndPasswordPage extends BasePage {
 		WebdriverWaits.waitForPageTitle(string, 5);
 		return getPageTitle();
 	}
+	public Clickable getDeleteAccountButton(){
+		return Clickable.getElementBy(deleteAccountButton,"Close and Delete account Button");
+	}
+	public Clickable getTickIcon(){
+		return Clickable.getElementBy(tickIcon,"Tick Icon");
+	}
+
+
 
 }

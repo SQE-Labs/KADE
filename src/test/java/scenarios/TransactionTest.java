@@ -265,7 +265,7 @@ public class TransactionTest extends BaseTest {
 
     @Test(description = "TRS 5 (c): Verify that the store manager can manually do new charge payment, after cancelling the terminal automatic payment deduction process, on 'Transaction' page.")
     public void newChargePaymentManuallyAfterCancelingTerminalAutomaticPaymentDeduction() {
-        String amount = "1000.00";
+        String amount = "1,000.00";
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getTransactionButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
