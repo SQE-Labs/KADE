@@ -1,5 +1,6 @@
 package org.automation.session;
 
+import org.automation.ReturnObjects.Clickable;
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
 import org.automation.pages.*;

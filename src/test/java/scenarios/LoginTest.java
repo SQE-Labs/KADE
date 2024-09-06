@@ -13,8 +13,8 @@ public class LoginTest extends BaseTest{
 	@Test(description = "Log04 : Verify that user get directed to 'Create New Account' page")
     public void tc04_validateSignUpLink() {
         session.getLoginPage().getSignUpLink().click(); 
-        String actualTitle=session.getLoginPage().getPageTitle();
-        String expectedTitle="Sign Up";
+        String actualTitle=session.getLoginPage().getNewAccountPopupTitle().getText();
+        String expectedTitle="New Account";
         Assertions.assertEquals(actualTitle, expectedTitle);
     }
 	

@@ -2,6 +2,7 @@ package scenarios;
 
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
+import org.automation.data.StoreAccount;
 import org.automation.objectBuilder.ObjectBuilder;
 import org.automation.objectBuilder.pages.BillsPage;
 import org.automation.pages.BillPage;
@@ -131,7 +132,7 @@ public class TransactionTest extends BaseTest {
         String expectedPaymentMethod = session.getPaymentsPage().getSavedCreditCard().getText().replaceAll("\\s.*", "");
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
-        session.getPaymentsPage().getBlueCloseButton().clickbyJS();
+        session.getPaymentsPage().getBlueCloseButton().click();
 
         // logout customer .
         session.getDashBoardPage().getSignOutButton().click();
@@ -173,7 +174,7 @@ public class TransactionTest extends BaseTest {
     public void verifyInfoMessageAppearsWhenNoTransactionIsAvailable() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getTransactionButton().click();
-        session.getTransactionsPage().selectStore("Automation Transaction 2");
+        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransaction2);
         String expectedInformationMessage = "There are no payments available yet!";
 
         // Verify the information message when no transaction is available.
@@ -186,7 +187,7 @@ public class TransactionTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getTransactionButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
-        session.getTransactionsPage().selectStore("Automation Transaction 2");
+        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransaction2);
 
         // Verifying  New Bill, New Charge, Filter icon is displayed
         Assertions.assertTrue(transactions.getNewBillTab().isDisplayed());
@@ -201,7 +202,7 @@ public class TransactionTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getTransactionButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
-        session.getTransactionsPage().selectStore("Automation Transaction 2");
+        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransaction2);
 
         // Clicking on 'New Charge' Tab
         transactions.getNewChargeTab().click();
@@ -221,7 +222,7 @@ public class TransactionTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getTransactionButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
-        session.getTransactionsPage().selectStore("Automation Transactions");
+        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions);
 
         transactions.getNewChargeTab().click();
 
@@ -329,7 +330,7 @@ public class TransactionTest extends BaseTest {
 
         // go to transaction Page .
         session.getDashBoardPage().getTransactionButton().click();
-        session.getTransactionsPage().selectStore("Automation Transaction 3");
+        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
         TransactionsPage transaction = session.getTransactionsPage();
         transaction.getCurrentPaidBill().click();
         Assertions.assertTrue(transaction.getRefundButton().isDisplayed());
