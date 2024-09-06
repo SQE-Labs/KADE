@@ -277,8 +277,10 @@ public class BillTest extends BaseTest {
         bill.getEnableTaxToggleButton().clickIfExist();
 
         //Add Attachment(Image)
+        WebdriverWaits.sleep(3000);
         bill.getTapToAddFilesIcon().click();
         bill.getCameraIcon().click();
+        WebdriverWaits.sleep(3000);
         bill.uploadImageInStoreLogo();
         bill.getCheckButton().click();
 
@@ -316,7 +318,7 @@ public class BillTest extends BaseTest {
     }
 
     @Test(description = "BC_06 Bill Creation with already configured 'Tax' from store configuration page.")
-    public void bc_06createBillByAttachingPdf() throws AWTException {
+    public void zbc_06createBillByAttachingPdf() throws AWTException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
         BillPage bill = session.getBillPage();
@@ -382,7 +384,7 @@ public class BillTest extends BaseTest {
 
         //Delete the 1st unpaid bill
         bill.getUnpaidBillWithoutDescription().click();
-        bill.getDeleteButton().click();
+        bill.getDeleteButton().clickbyJS();
         bill.getDeleteIcon().click();
     }
 
