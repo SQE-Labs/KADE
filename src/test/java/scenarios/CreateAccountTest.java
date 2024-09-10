@@ -292,52 +292,53 @@ public class CreateAccountTest extends BaseTest {
         session.getCreateAccountPage().getSignInButton().click();
 
         // Verify the elements on 'Sign In' page
-        Assertions.assertTrue(session.getCreateAccountPage().getSignInPopupTitle().isDisplayed());
-        Assertions.assertTrue(session.getCreateAccountPage().getSignInContinue().isDisplayed());
-        Assertions.assertTrue(session.getCreateAccountPage().getSwitchToEmailLink().isDisplayed());
-        Assertions.assertTrue(session.getCreateAccountPage().getPhoneFieldOfSignIn().isDisplayed());
-        Assertions.assertTrue(session.getCreateAccountPage().getPhoneLabelofSignIn().isDisplayed());
-        Assertions.assertTrue(session.getCreateAccountPage().getSignInWithGoogleImage().isDisplayed());
-        Assertions.assertTrue(session.getCreateAccountPage().getSignInWithAppleImage().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getSignInPopupTitle().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getSignInContinue().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getSwitchToEmailLink().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getPhoneFieldOfSignIn().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getPhoneLabelofSignIn().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getSignInWithGoogleImage().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getSignInWithAppleImage().isDisplayed());
 
         // Validation for Phone Field
-        session.getCreateAccountPage().getSignInContinue().click();
-        String Actual = session.getCreateAccountPage().getPhoneFieldOfSignIn().getToolTipMessage();
+        session.getSignInPopup().getSignInContinue().click();
+        String Actual = session.getSignInPopup().getPhoneFieldOfSignIn().getToolTipMessage();
         Assertions.assertEquals(Actual, "This field is required.");
-        session.getCreateAccountPage().getSignInContinue().click();
-        session.getCreateAccountPage().getPhoneFieldOfSignIn().setText("12345");
-        session.getCreateAccountPage().getSignInContinue().clickByMouse();
-        Assertions.assertTrue(session.getCreateAccountPage().getPleaseReviewValidation().isDisplayed());
-        String ActualTooltip = session.getCreateAccountPage().getPhoneFieldOfSignIn().getToolTipMessage();
+        session.getSignInPopup().getSignInContinue().click();
+        session.getSignInPopup().getPhoneFieldOfSignIn().setText("12345");
+        session.getSignInPopup().getSignInContinue().clickByMouse();
+        Assertions.assertTrue(session.getSignInPopup().getPleaseReviewValidation().isDisplayed());
+        String ActualTooltip = session.getSignInPopup().getPhoneFieldOfSignIn().getToolTipMessage();
         Assertions.assertEquals(ActualTooltip, "Invalid phone number");
 
         // Clearing Phone Field
-        session.getCreateAccountPage().getPhoneFieldOfSignIn().clearMaskedInputField(By.xpath("//input[@name='userName' and @data-f-type='phone']"));
-        session.getCreateAccountPage().getPhoneField().click();
+        session.getSignInPopup().getPhoneFieldOfSignIn().clearMaskedInputField(By.xpath("//input[@name='userName' and @data-f-type='phone']"));
+        session.getSignInPopup().getPhoneField().click();
 
         // Entering valid phone number
-        session.getCreateAccountPage().getPhoneFieldOfSignIn().setText("6465551114");
-        session.getCreateAccountPage().getSignInContinue().click();
+        session.getSignInPopup().getPhoneFieldOfSignIn().setText("6465551114");
+        session.getSignInPopup().getSignInContinue().click();
 
         // Verify the link is displayed
-        Assertions.assertTrue(session.getCreateAccountPage().getChangeLink().isDisplayed());
-        Assertions.assertTrue(session.getCreateAccountPage().getIdontKnowPasswordLink().isDisplayed());
-        Assertions.assertTrue(session.getCreateAccountPage().getFinalSignInButton().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getChangeLink().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getIdontKnowPasswordLink().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getSignInButton().isDisplayed());
 
         // Validation for Password field
-        session.getCreateAccountPage().getFinalSignInButton().click();
-        session.getCreateAccountPage().getSignInPasswordField().getToolTipMessage();
-        session.getCreateAccountPage().getSignInPasswordField().setText("33432533");
-        session.getCreateAccountPage().getFinalSignInButton().click();
+        session.getSignInPopup().getSignInButton().click();
+        session.getSignInPopup().getSignInPasswordField().getToolTipMessage();
+        session.getSignInPopup().getSignInPasswordField().setText("33432533");
+        session.getSignInPopup().getSignInButton().click();
         WebdriverWaits.sleep(2000);
-        String ActualAlertMessage = session.getCreateAccountPage().getSignInPasswordField().getToolTipMessage();
+
+        String ActualAlertMessage = session.getSignInPopup().getSignInPasswordField().getToolTipMessage();
         Assertions.assertEquals(ActualAlertMessage,
                 "Invalid password, a password must contain at least one upper case letter, one lower case letter and one special character or a number.");
 
-        // Entering valid password and signning in to the app.
-        session.getCreateAccountPage().getFinalShowPassword().click();
-        session.getCreateAccountPage().getSignInPasswordField().setText("Test@123");
-        session.getCreateAccountPage().getFinalSignInButton().click();
+        // Entering valid password and signing in to the app.
+        session.getSignInPopup().getShowPassword().click();
+        session.getSignInPopup().getSignInPasswordField().setText("Test@123");
+        session.getSignInPopup().getSignInButton().click();
     }
 
 }
