@@ -305,14 +305,14 @@ public class CreateAccountTest extends BaseTest {
         String Actual = session.getCreateAccountPage().getPhoneFieldOfSignIn().getToolTipMessage();
         Assertions.assertEquals(Actual, "This field is required.");
         session.getCreateAccountPage().getSignInContinue().click();
-        session.getCreateAccountPage().getPhoneFieldOfSignIn().setText("12345");
+        session.getCreateAccountPage().getPhoneFieldOfSignIn().setText("123456");
         session.getCreateAccountPage().getSignInContinue().clickByMouse();
         Assertions.assertTrue(session.getCreateAccountPage().getPleaseReviewValidation().isDisplayed());
         String ActualTooltip = session.getCreateAccountPage().getPhoneFieldOfSignIn().getToolTipMessage();
         Assertions.assertEquals(ActualTooltip, "Invalid phone number");
 
         // Clearing Phone Field
-        session.getCreateAccountPage().getPhoneFieldOfSignIn().clearMaskedInputField(By.xpath("//input[@name='userName' and @data-f-type='phone']"));
+        session.getCreateAccountPage().getPhoneFieldOfSignIn().cleanByJS();
         session.getCreateAccountPage().getPhoneField().click();
 
         // Entering valid phone number
