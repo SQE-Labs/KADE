@@ -304,6 +304,7 @@ public class CreateAccountTest extends BaseTest {
         session.getSignInPopup().getSignInContinue().click();
         String Actual = session.getSignInPopup().getPhoneFieldOfSignIn().getToolTipMessage();
         Assertions.assertEquals(Actual, "This field is required.");
+<<<<<<< HEAD
         session.getSignInPopup().getSignInContinue().click();
         session.getSignInPopup().getPhoneFieldOfSignIn().setText("12345");
         session.getSignInPopup().getSignInContinue().clickByMouse();
@@ -314,6 +315,18 @@ public class CreateAccountTest extends BaseTest {
         // Clearing Phone Field
         session.getSignInPopup().getPhoneFieldOfSignIn().clearMaskedInputField(By.xpath("//input[@name='userName' and @data-f-type='phone']"));
         session.getSignInPopup().getPhoneField().click();
+=======
+        session.getCreateAccountPage().getSignInContinue().click();
+        session.getCreateAccountPage().getPhoneFieldOfSignIn().setText("123456");
+        session.getCreateAccountPage().getSignInContinue().clickByMouse();
+        Assertions.assertTrue(session.getCreateAccountPage().getPleaseReviewValidation().isDisplayed());
+        String ActualTooltip = session.getCreateAccountPage().getPhoneFieldOfSignIn().getToolTipMessage();
+        Assertions.assertEquals(ActualTooltip, "Invalid phone number");
+
+        // Clearing Phone Field
+        session.getCreateAccountPage().getPhoneFieldOfSignIn().cleanByJS();
+        session.getCreateAccountPage().getPhoneField().click();
+>>>>>>> bfa4e5991bacd3baa6567e2b308a8b7fcbb9c754
 
         // Entering valid phone number
         session.getSignInPopup().getPhoneFieldOfSignIn().setText("6465551114");

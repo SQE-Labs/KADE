@@ -64,8 +64,8 @@ public class Editable extends ActionEngine {
     }
 
 
-    public void clearMaskedInputField(By locator) {
-        WebElement element = getDriver().findElement(locator);
+    public void cleanByJS() {
+        WebElement element = getDriver().findElement(target);
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("arguments[0].value = '';", element);
     }
