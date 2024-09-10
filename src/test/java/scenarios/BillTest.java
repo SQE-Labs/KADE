@@ -968,10 +968,11 @@ public class BillTest extends BaseTest {
         bill.getEnableTaxToggleButton().clickIfExist();
 
         //Add Attachment(Image)
+        WebdriverWaits.sleep(3000);
         bill.getTapToAddFilesIcon().click();
         bill.getCameraIcon().click();
         bill.uploadImageInStoreLogo();
-        bill.getCheckButton().click();
+        bill.getCheckButton().clickbyJS();
 
         //Verify Added Image
         Assertions.assertTrue(bill.getAttachedImage().isDisplayed());
