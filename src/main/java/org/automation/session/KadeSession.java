@@ -4,8 +4,10 @@ import org.automation.ReturnObjects.Clickable;
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
 import org.automation.pages.*;
+import org.automation.pages.popups.NewAccountPopup;
 import org.automation.pages.popups.NewChargePopup;
 import org.automation.pages.popups.SendTheReceiptPopup;
+import org.automation.pages.popups.SignInPopup;
 
 public class KadeSession extends BaseTest {
 
@@ -72,6 +74,14 @@ public class KadeSession extends BaseTest {
 
     public SecurityAndPasswordPage getSecurityAndPasswordPage() {
         return new SecurityAndPasswordPage();
+    }
+
+    public SignInPopup getSignInPopup(){
+        return  new SignInPopup();
+    }
+
+    public NewAccountPopup getNewAccountPopup(){
+        return  new NewAccountPopup();
     }
 }
 

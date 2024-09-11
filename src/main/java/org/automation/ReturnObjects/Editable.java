@@ -2,8 +2,7 @@ package org.automation.ReturnObjects;
 
 import org.automation.utilities.ActionEngine;
 import org.automation.utilities.WebdriverWaits;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 
 import java.util.List;
 
@@ -17,11 +16,17 @@ public class Editable extends ActionEngine {
         this.label = label;
     }
 
-    public void setText(String text) {
+    public void setText(String text, Boolean cleanText) {
+        if (cleanText) {
+            clear_custom(target);
+        }
         WebdriverWaits.waitForElementUntilVisible(target, 5);
-        clear_custom(target);
         pressKeys(target, text);
         click(target);
+    }
+
+    public void setText(String text) {
+        setText(text, true);
     }
 
     public String getText() {
@@ -29,11 +34,11 @@ public class Editable extends ActionEngine {
         return getElementText(target);
     }
 
-    public Boolean isDisplayed(){
+    public Boolean isDisplayed() {
         return isElementPresent(target, "");
     }
 
-    public String getAttribute(String nameOfAttribute){
+    public String getAttribute(String nameOfAttribute) {
         return getAttribute(target, nameOfAttribute);
     }
 
@@ -54,7 +59,19 @@ public class Editable extends ActionEngine {
         return getDriver().findElements(target);
     }
 
-    public String getToolTipMessage(){
+    public String getToolTipMessage() {
         return getToolTipMessage(target);
     }
-}
+
+
+    public void cleanByJS() {
+        WebElement element = getDriver().findElement(target);
+        JavascriptExecutor js = (JavascriptExecutor) getDriver();
+        js.executeScript("arguments[0].value = '';", element);
+    }
+
+    }
+
+
+
+
