@@ -75,9 +75,14 @@ public class KadeSession extends BaseTest {
     public SecurityAndPasswordPage getSecurityAndPasswordPage() {
         return new SecurityAndPasswordPage();
     }
-    public SignInPopup getSignInPopup() { return  new SignInPopup();}
 
-    public NewAccountPopup getNewAccountPopup() { return  new NewAccountPopup(); }
+    public SignInPopup getSignInPopup(){
+        return  new SignInPopup();
+    }
+
+    public NewAccountPopup getNewAccountPopup(){
+        return  new NewAccountPopup();
+    }
 }
 
 
