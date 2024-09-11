@@ -11,6 +11,7 @@ import org.automation.session.KadeSession;
 
 import java.awt.*;
 
+
 public class PaymentsAndRefundTest extends KadeSession {
 
     @Test(description = "PYMT1 Bill Creation and Successful Bill Payment by Cash through Store Manager.")
@@ -836,3 +837,4 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getPaymentsPage().getCloseButton().clickbyJS();
     }
 }
+

@@ -50,6 +50,7 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getBlankFieldWarningMsg().getText(), blankFieldWarningMessage);
 
         //Step 6: Upload Image for Store Logo
+        WebdriverWaits.sleep(3000);
         myStore.getStoreLogo().click();
         myStore.uploadImageInStoreLogo();
         myStore.getCheckButton().click();
