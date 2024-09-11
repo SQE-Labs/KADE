@@ -25,7 +25,7 @@ public class SignInPopup extends BasePage {
         return Clickable.getElementBy(signInTitle, "Sign In Button");
     }
 
-    public Clickable getPhoneLabelofSignIn() {
+    public Clickable getPhoneLabel() {
         return Clickable.getElementBy(phoneNumberfieldLabel, "Field Label");
     }
     public Editable getPhoneFieldOfSignIn() {

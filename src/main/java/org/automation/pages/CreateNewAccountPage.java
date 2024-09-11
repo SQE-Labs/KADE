@@ -11,7 +11,7 @@ import javax.swing.event.CaretListener;
 
 public class CreateNewAccountPage extends BasePage {
 
-    // Locators
+    // Locators for Personal Account
     By appLogo = By.xpath("//span[@class='app-name-logo']");
     By createNewAccountTitle = By.xpath("//div[@class='card-header text-center']");
     By emailOrPhoneLabel = By.xpath("//input[@name='phone_email']");
@@ -35,20 +35,8 @@ public class CreateNewAccountPage extends BasePage {
     By confirmPasswordField = By.cssSelector("[name='confirmPassword']");
     By showPassword = By.cssSelector("[class='ms-2 text-start']");
     By successMessage = By.xpath("//p[@class='text-success fs-3']/.");
-    // Business Account locators
-    By phoneFieldLabel = By.xpath("//div[@class='mb-3 -row- pt-3']/label[1]");
-    By useEmailLink = By.xpath("//button[text()='Use email']");
-    By mobilePhoneField = By.cssSelector("[name='phone']");
-    By emailBusinessField = By.cssSelector("[name='email']");
-    By fullname= By.cssSelector("[name='name']");
-    By startOverLink = By.xpath("//button[text()='Start Over']");
-    By resendCode = By.xpath("//button[text()='Resend the code']");
-    By ContinueButtonBusiness = By.xpath("(//button[@type='submit'][text()='Continue'])[2]");
-    By securityCodeSendInfoMsg = By.cssSelector(".p-2.mb-2.fs-pn15");
-    By securityCodeAlertMessage = By.xpath("//p[text()='Invalid security code']");
-    By stripePageTitle = By.cssSelector(".header-title.mb-0");
     By signInButton = By.xpath("//button[text()='Sign in']");
-    // Sign In Popup Locators
+
 
 
 
@@ -135,49 +123,9 @@ public class CreateNewAccountPage extends BasePage {
     public Clickable getSuccessMessage(){
         return Clickable.getElementBy(successMessage,"Success Message");
     }
-    // Business Account methods
-
-    public Clickable getMobilePhoneFieldLabel() {
-        return Clickable.getElementBy(phoneFieldLabel, "MobilePhone Number field");
-    }
-    public Clickable getUseEmailLink() {
-        return Clickable.getElementBy(useEmailLink, "Use Email Link");
-    }
-    public Clickable getBusinessAccountCheckbox() {
-        return Clickable.getElementBy(useEmailLink, "Use Email Link");
-    }
-    public Editable getMobilePhoneField() {
-        return Editable.getElementBy(mobilePhoneField, "MobilePhoneField");
-    }
-    public Editable getEmailBusinessAccountField(){
-        return Editable.getElementBy(emailBusinessField, "Email Business Account Field");
-    }
-    public Editable getFullName(){
-        return Editable.getElementBy(fullname, "Full Name");
-    }
-    public Clickable getStartOverLink(){
-        return Clickable.getElementBy(startOverLink,"Start Over Link");
-    }
-    public Clickable getResendCode(){
-        return Clickable.getElementBy(resendCode,"Resend Code Link");
-    }
-    public Clickable getContinueButtonOfBusinessAccount(){
-        return Clickable.getElementBy(ContinueButtonBusiness,"Resend Code Link");
-    }
-    public Clickable getCodeSendToInformationMessage(){
-        return Clickable.getElementBy(securityCodeSendInfoMsg,"security code send to information message");
-    }
-    public Clickable getSecurityCodeAlertMessage(){
-        return Clickable.getElementBy(securityCodeAlertMessage,"security code send to Alert Message");
-    }
-
-    public Clickable getStripePageTitle(){
-        return Clickable.getElementBy(stripePageTitle,"New Business Page Title");
-    }
     public Clickable getSignInButton() {
-         return Clickable.getElementBy(signInButton, "Sign In Button");
+        return Clickable.getElementBy(signInButton, "Sign In Button");
     }
-
 
 }
 

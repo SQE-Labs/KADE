@@ -152,10 +152,10 @@ public class CreateAccountTest extends BaseTest {
         session.getCreateAccountPage().getBusinessAccountButton().click();
 
         // Verify Mobile field label
-        Assertions.assertTrue(session.getCreateAccountPage().getMobilePhoneFieldLabel().isDisplayed());
+        Assertions.assertTrue(session.getNewAccountPopup().getMobilePhoneFieldLabel().isDisplayed());
 
         // Verify the  Use Email Link
-        Assertions.assertTrue(session.getCreateAccountPage().getUseEmailLink().isDisplayed());
+        Assertions.assertTrue(session.getNewAccountPopup().getUseEmailLink().isDisplayed());
         // Verify the Receive Text Email Notification CheckBox
         Assertions.assertTrue(session.getCreateAccountPage().getReceiveTextEmailNotificationCheckBox().isDisplayed());
         // Verify the Continue Button
@@ -165,35 +165,35 @@ public class CreateAccountTest extends BaseTest {
         session.getCreateAccountPage().getContinueButton().click();
 
         // Verify the Tooltip
-        session.getCreateAccountPage().getMobilePhoneField().getToolTipMessage();
+        session.getNewAccountPopup().getMobilePhoneField().getToolTipMessage();
 
         // Click on Use Email Link
-        session.getCreateAccountPage().getUseEmailLink().click();
+        session.getNewAccountPopup().getUseEmailLink().click();
 
         // Enter invalid email
-        session.getCreateAccountPage().getEmailBusinessAccountField().setText("123456@");
+        session.getNewAccountPopup().getEmailBusinessAccountField().setText("123456@");
         session.getCreateAccountPage().getContinueButton().click();
 
         // Verify the email tooltip
-        String Actual = session.getCreateAccountPage().getEmailBusinessAccountField().getToolTipMessage();
+        String Actual = session.getNewAccountPopup().getEmailBusinessAccountField().getToolTipMessage();
         Assertions.assertEquals(Actual, "Please enter a valid email address.");
 
         // Entering valid email in the Email field
         String st = randomGenerator.requiredString(3);
-        session.getCreateAccountPage().getEmailBusinessAccountField().setText(st + "@yopmail.com");
+        session.getNewAccountPopup().getEmailBusinessAccountField().setText(st + "@yopmail.com");
 
         // Checking the By providing my information, I consent to receive text/email notifications. checkbox
         session.getCreateAccountPage().getReceiveTextEmailNotificationCheckBox().click();
         session.getCreateAccountPage().getContinueButton().click();
 
         // Verify the start Over Link
-        Assertions.assertTrue(session.getCreateAccountPage().getStartOverLink().isDisplayed());
+        Assertions.assertTrue(session.getNewAccountPopup().getStartOverLink().isDisplayed());
 
         // Verify the Resend Code Link
-        Assertions.assertTrue(session.getCreateAccountPage().getResendCode().isDisplayed());
+        Assertions.assertTrue(session.getNewAccountPopup().getResendCode().isDisplayed());
 
         // Click on start over link
-        session.getCreateAccountPage().getStartOverLink().click();
+        session.getNewAccountPopup().getStartOverLink().click();
 
         // Click on Continue button
         session.getCreateAccountPage().getContinueButton().click();
@@ -203,10 +203,10 @@ public class CreateAccountTest extends BaseTest {
         session.getCreateAccountPage().getSecurityCodeField().setText("123456");
 
         //Entering name in the Full name field
-        session.getCreateAccountPage().getFullName().setText("New User " + st);
+        session.getNewAccountPopup().getFullName().setText("New User " + st);
 
         // Clicking on 'Continue' button
-        session.getCreateAccountPage().getContinueButtonOfBusinessAccount().click();
+        session.getNewAccountPopup().getContinueButtonOfBusinessAccount().click();
     }
 
     @Test(description = "CA_TC 2(b) : Verify that creating new account by phone number with Business Account option.")
@@ -218,10 +218,10 @@ public class CreateAccountTest extends BaseTest {
         session.getCreateAccountPage().getBusinessAccountButton().click();
 
         // Verify Mobile field label
-        Assertions.assertTrue(session.getCreateAccountPage().getMobilePhoneFieldLabel().isDisplayed());
+        Assertions.assertTrue(session.getNewAccountPopup().getMobilePhoneFieldLabel().isDisplayed());
 
         // Enter Phone Number in Phone field
-        session.getCreateAccountPage().getMobilePhoneField().setText(Phone);
+        session.getNewAccountPopup().getMobilePhoneField().setText(Phone);
 
         // Checking the checkbox
         session.getCreateAccountPage().getReceiveTextEmailNotificationCheckBox().click();
@@ -230,13 +230,13 @@ public class CreateAccountTest extends BaseTest {
         session.getCreateAccountPage().getContinueButton().click();
 
         // Verify the start Over Link
-        Assertions.assertTrue(session.getCreateAccountPage().getStartOverLink().isDisplayed());
+        Assertions.assertTrue(session.getNewAccountPopup().getStartOverLink().isDisplayed());
 
         // Verify the Resend Code Link
-        Assertions.assertTrue(session.getCreateAccountPage().getResendCode().isDisplayed());
+        Assertions.assertTrue(session.getNewAccountPopup().getResendCode().isDisplayed());
 
         // Click on start over link
-        session.getCreateAccountPage().getStartOverLink().click();
+        session.getNewAccountPopup().getStartOverLink().click();
 
         // Click on Continue button
         session.getCreateAccountPage().getContinueButton().click();
@@ -245,10 +245,10 @@ public class CreateAccountTest extends BaseTest {
         session.getCreateAccountPage().getSecurityCodeField().setText("12345");
 
         //Verify the security code sent to Information message
-        Assertions.assertTrue(session.getCreateAccountPage().getCodeSendToInformationMessage().isDisplayed());
+        Assertions.assertTrue(session.getNewAccountPopup().getCodeSendToInformationMessage().isDisplayed());
 
         // Clicking on Continue Button
-        session.getCreateAccountPage().getContinueButtonOfBusinessAccount().click();
+        session.getNewAccountPopup().getContinueButtonOfBusinessAccount().click();
 
         // Verify the Tooltip message for security field
         String TooltipForLessDigit = session.getCreateAccountPage().getSecurityCodeField().getToolTipMessage();
@@ -256,20 +256,20 @@ public class CreateAccountTest extends BaseTest {
 
         // Entering Invalid security Code
         session.getCreateAccountPage().getSecurityCodeField().setText("123458");
-        session.getCreateAccountPage().getFullName().setText("New User");
-        session.getCreateAccountPage().getContinueButtonOfBusinessAccount().click();
+        session.getNewAccountPopup().getFullName().setText("New User");
+        session.getNewAccountPopup().getContinueButtonOfBusinessAccount().click();
 
         // Verify the Validation message for Incorrect Security Code
-        Assertions.assertEquals(session.getCreateAccountPage().getSecurityCodeAlertMessage().getText(), "Invalid security code");
+        Assertions.assertEquals(session.getNewAccountPopup().getSecurityCodeAlertMessage().getText(), "Invalid security code");
 
         // Entering Valid security Code
         session.getCreateAccountPage().getSecurityCodeField().setText("777777");
 
         // Clicking Continue Button
-        session.getCreateAccountPage().getContinueButtonOfBusinessAccount().click();
+        session.getNewAccountPopup().getContinueButtonOfBusinessAccount().click();
 
         // Verify the page title
-        Assertions.assertTrue(session.getCreateAccountPage().getStripePageTitle().isDisplayed());
+        Assertions.assertTrue(session.getNewAccountPopup().getStripePageTitle().isDisplayed());
 
         // Clicking on Profile Link
         session.getDashBoardPage().clickProfile();
@@ -295,8 +295,8 @@ public class CreateAccountTest extends BaseTest {
         Assertions.assertTrue(session.getSignInPopup().getSignInPopupTitle().isDisplayed());
         Assertions.assertTrue(session.getSignInPopup().getSignInContinue().isDisplayed());
         Assertions.assertTrue(session.getSignInPopup().getSwitchToEmailLink().isDisplayed());
-        Assertions.assertTrue(session.getSignInPopup().getPhoneFieldOfSignIn().isDisplayed());
-        Assertions.assertTrue(session.getSignInPopup().getPhoneLabelofSignIn().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getPhoneField().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getPhoneLabel().isDisplayed());
         Assertions.assertTrue(session.getSignInPopup().getSignInWithGoogleImage().isDisplayed());
         Assertions.assertTrue(session.getSignInPopup().getSignInWithAppleImage().isDisplayed());
 
@@ -304,7 +304,7 @@ public class CreateAccountTest extends BaseTest {
         session.getSignInPopup().getSignInContinue().click();
         String Actual = session.getSignInPopup().getPhoneFieldOfSignIn().getToolTipMessage();
         Assertions.assertEquals(Actual, "This field is required.");
-<<<<<<< HEAD
+
         session.getSignInPopup().getSignInContinue().click();
         session.getSignInPopup().getPhoneFieldOfSignIn().setText("12345");
         session.getSignInPopup().getSignInContinue().clickByMouse();
@@ -313,20 +313,20 @@ public class CreateAccountTest extends BaseTest {
         Assertions.assertEquals(ActualTooltip, "Invalid phone number");
 
         // Clearing Phone Field
-        session.getSignInPopup().getPhoneFieldOfSignIn().clearMaskedInputField(By.xpath("//input[@name='userName' and @data-f-type='phone']"));
+        session.getSignInPopup().getPhoneFieldOfSignIn().cleanByJS();
         session.getSignInPopup().getPhoneField().click();
-=======
-        session.getCreateAccountPage().getSignInContinue().click();
-        session.getCreateAccountPage().getPhoneFieldOfSignIn().setText("123456");
-        session.getCreateAccountPage().getSignInContinue().clickByMouse();
-        Assertions.assertTrue(session.getCreateAccountPage().getPleaseReviewValidation().isDisplayed());
-        String ActualTooltip = session.getCreateAccountPage().getPhoneFieldOfSignIn().getToolTipMessage();
-        Assertions.assertEquals(ActualTooltip, "Invalid phone number");
+
+        session.getSignInPopup().getSignInContinue().click();
+        session.getSignInPopup().getPhoneFieldOfSignIn().setText("123456");
+        session.getSignInPopup().getSignInContinue().clickByMouse();
+        Assertions.assertTrue(session.getSignInPopup().getPleaseReviewValidation().isDisplayed());
+        String actualTooltip = session.getSignInPopup().getPhoneFieldOfSignIn().getToolTipMessage();
+        Assertions.assertEquals(actualTooltip, "Invalid phone number");
 
         // Clearing Phone Field
-        session.getCreateAccountPage().getPhoneFieldOfSignIn().cleanByJS();
-        session.getCreateAccountPage().getPhoneField().click();
->>>>>>> bfa4e5991bacd3baa6567e2b308a8b7fcbb9c754
+        session.getSignInPopup().getPhoneFieldOfSignIn().cleanByJS();
+        session.getSignInPopup().getPhoneField().click();
+
 
         // Entering valid phone number
         session.getSignInPopup().getPhoneFieldOfSignIn().setText("6465551114");
