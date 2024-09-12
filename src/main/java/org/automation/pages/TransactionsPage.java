@@ -33,6 +33,14 @@ public class TransactionsPage extends BasePage {
 	By refundAmountOnReceipt = By.cssSelector("[class=\"d-flex align-items-end\"]");
 	By refundLabel= By.xpath("//h4[text()='** Refund **']");
 	By verifyButton = By.cssSelector(".fal.fa-thumbs-up.me-2");
+	By partialRefundLink = By.xpath("//button[text()='Partial refund']");
+	By selectPaymentInfo = By.cssSelector("div[id='_B1Q'] p");
+	By paymentCheckBox = By.xpath(" //label[@class='custom-checkbox']");
+	By validationMessage = By.xpath("//p[text()='Select at least one payment to refund']");
+	By processRefundButton = By.xpath("//button[text()='Process Refund']");
+	By refundAmountField = By.cssSelector("[name='refunds[0].amount']");
+
+
 
 
 
@@ -158,6 +166,28 @@ public class TransactionsPage extends BasePage {
 	public Clickable getVerifyButton() {
 		return Clickable.getElementBy(verifyButton, "Verify Button");
 	}
+	public Clickable getPartialRefundLink() {
+		return Clickable.getElementBy(partialRefundLink, "Partial Refund Link");
+	}
+	public Clickable getSelectPaymentInformationMessage() {
+		return Clickable.getElementBy(selectPaymentInfo, "Select payments which are refunded from the list below");
+	}
+	public Clickable getVisaPaymentCheckbox() {
+		return Clickable.getElementBy(paymentCheckBox, "Payment Checkbox");
+	}
+	public Clickable getRefundValidationMessage() {
+		return Clickable.getElementBy(validationMessage, "Select atleast one payment method");
+	}
+	public Clickable getProcessRefundButton() {
+		return Clickable.getElementBy(processRefundButton, "Process Refund Button");
+	}
+	public Editable getRefundAmountField(){
+		return Editable.getElementBy(refundAmountField,"Refund Amount");
+	}
+
+
+
+
 
 
 

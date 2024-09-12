@@ -345,7 +345,81 @@ public class TransactionTest extends BaseTest {
         Assertions.assertTrue(transaction.getVerifyButton().isDisplayed());
 
     }
+    @Test(description = "TRS7 (b): Verify that store manager is able to refund partial transaction on 'Transaction details' popup of 'Transaction' page.")
+    public void verifyThatStoreMangerIsAbleToRefundPartialPayment(){
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getDashBoardPage().getBillButton().click();
+        TransactionsPage transactions = session.getTransactionsPage();
+        String amt = "4,999.00";
 
+        String customerEmail = "yonro@yopmail.com";
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetailsForTransactionCheck().setAmount(amt).setCustomerEmail(customerEmail);
+
+        //Creating Bill
+        session.getBillPage().createBill(bills);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 3);
+
+        //Logout as Store manager
+        session.getDashBoardPage().getSignOutButton().click();
+
+        //Login as Customer
+        session.getLoginPage().performSignIn(KadeUserAccount.Customer.getUserName(),
+                KadeUserAccount.Customer.getPassword());
+        session.getNotificationPage().getNotificationIcon().click();
+        session.getNotificationPage().getFirstNotification().click();
+        session.getPaymentsPage().getPayNowButton().click();
+        session.getPaymentsPage().getChangePaymentButton().clickbyJS();
+        session.getPaymentsPage().getSavedCreditCard().click();
+        session.getPaymentsPage().swipeToPay();
+        session.getPaymentsPage().getBlueCloseButton().clickByMouse();
+
+        // logout customer .
+        session.getDashBoardPage().getSignOutButton().click();
+
+        // login as store manager
+        session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(),
+                KadeUserAccount.Default.getPassword());
+
+        // go to transaction Page .
+        session.getDashBoardPage().getTransactionButton().click();
+        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+        TransactionsPage transaction = session.getTransactionsPage();
+        transaction.getCurrentPaidBill().click();
+
+        // Verify Refund Button
+        Assertions.assertTrue(transaction.getRefundButton().isDisplayed());
+
+        transaction.getRefundButton().click();
+        WebdriverWaits.sleep(2000);
+        transaction.getRefundReferenceNo().setText("1111");
+        transaction.getRefundReason().setText("Refund Checking");
+
+        // Clicking on partial refund link.
+        transaction.getPartialRefundLink().click();
+        WebdriverWaits.sleep(2000);
+
+        // Verify the validation message when no payment checkbox is selected.
+        transaction.getProcessRefundButton().click();
+        String actual = transaction.getRefundValidationMessage().getText();
+        Assertions.assertEquals(actual,"Select at least one payment to refund");
+
+        transaction.getVisaPaymentCheckbox().click();
+
+        // Verify that Refund Amount field is displayed after selecting the checkbox
+        Assertions.assertTrue(transaction.getRefundAmountField().isDisplayed());
+        transaction.getProcessRefundButton().click();
+        String tooltip =transaction.getRefundAmountField().getToolTipMessage();
+        Assertions.assertEquals(tooltip,"This field is required.");
+
+        transaction.getRefundAmountField().setText("50.00");
+        transaction.getProcessRefundButton().click();
+
+
+
+
+
+
+    }
 
 }
 
