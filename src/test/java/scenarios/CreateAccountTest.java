@@ -293,7 +293,7 @@ public class CreateAccountTest extends BaseTest {
 
         // Verify the elements on 'Sign In' page
         Assertions.assertTrue(session.getSignInPopup().getSignInPopupTitle().isDisplayed());
-        Assertions.assertTrue(session.getSignInPopup().getSignInContinue().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getContinueButton().isDisplayed());
         Assertions.assertTrue(session.getSignInPopup().getSwitchToEmailLink().isDisplayed());
         Assertions.assertTrue(session.getSignInPopup().getPhoneField().isDisplayed());
         Assertions.assertTrue(session.getSignInPopup().getPhoneLabel().isDisplayed());
@@ -301,36 +301,25 @@ public class CreateAccountTest extends BaseTest {
         Assertions.assertTrue(session.getSignInPopup().getSignInWithAppleImage().isDisplayed());
 
         // Validation for Phone Field
-        session.getSignInPopup().getSignInContinue().click();
-        String Actual = session.getSignInPopup().getPhoneFieldOfSignIn().getToolTipMessage();
+        session.getSignInPopup().getContinueButton().click();
+        String Actual = session.getSignInPopup().getPhoneNumberField().getToolTipMessage();
         Assertions.assertEquals(Actual, "This field is required.");
 
-        session.getSignInPopup().getSignInContinue().click();
-        session.getSignInPopup().getPhoneFieldOfSignIn().setText("12345");
-        session.getSignInPopup().getSignInContinue().clickByMouse();
+        session.getSignInPopup().getContinueButton().click();
+        session.getSignInPopup().getPhoneNumberField().setText("123456");
+        session.getSignInPopup().getContinueButton().clickByMouse();
         Assertions.assertTrue(session.getSignInPopup().getPleaseReviewValidation().isDisplayed());
-        String ActualTooltip = session.getSignInPopup().getPhoneFieldOfSignIn().getToolTipMessage();
-        Assertions.assertEquals(ActualTooltip, "Invalid phone number");
-
-        // Clearing Phone Field
-        session.getSignInPopup().getPhoneFieldOfSignIn().cleanByJS();
-        session.getSignInPopup().getPhoneField().click();
-
-        session.getSignInPopup().getSignInContinue().click();
-        session.getSignInPopup().getPhoneFieldOfSignIn().setText("123456");
-        session.getSignInPopup().getSignInContinue().clickByMouse();
-        Assertions.assertTrue(session.getSignInPopup().getPleaseReviewValidation().isDisplayed());
-        String actualTooltip = session.getSignInPopup().getPhoneFieldOfSignIn().getToolTipMessage();
+        String actualTooltip = session.getSignInPopup().getPhoneNumberField().getToolTipMessage();
         Assertions.assertEquals(actualTooltip, "Invalid phone number");
 
         // Clearing Phone Field
-        session.getSignInPopup().getPhoneFieldOfSignIn().cleanByJS();
-        session.getSignInPopup().getPhoneField().click();
+        session.getSignInPopup().getPhoneNumberField().cleanByJS();
+        //session.getSignInPopup().getPhoneField().click();
 
 
         // Entering valid phone number
-        session.getSignInPopup().getPhoneFieldOfSignIn().setText("6465551114");
-        session.getSignInPopup().getSignInContinue().click();
+        session.getSignInPopup().getPhoneNumberField().setText("6465551114");
+        session.getSignInPopup().getContinueButton().click();
 
         // Verify the link is displayed
         Assertions.assertTrue(session.getSignInPopup().getChangeLink().isDisplayed());
@@ -339,20 +328,137 @@ public class CreateAccountTest extends BaseTest {
 
         // Validation for Password field
         session.getSignInPopup().getSignInButton().click();
-        session.getSignInPopup().getSignInPasswordField().getToolTipMessage();
-        session.getSignInPopup().getSignInPasswordField().setText("33432533");
+        session.getSignInPopup().getPasswordField().getToolTipMessage();
+        session.getSignInPopup().getPasswordField().setText("33432533");
         session.getSignInPopup().getSignInButton().click();
         WebdriverWaits.sleep(2000);
 
-        String ActualAlertMessage = session.getSignInPopup().getSignInPasswordField().getToolTipMessage();
+        String ActualAlertMessage = session.getSignInPopup().getPasswordField().getToolTipMessage();
         Assertions.assertEquals(ActualAlertMessage,
                 "Invalid password, a password must contain at least one upper case letter, one lower case letter and one special character or a number.");
 
         // Entering valid password and signing in to the app.
         session.getSignInPopup().getShowPassword().click();
-        session.getSignInPopup().getSignInPasswordField().setText("Test@123");
+        session.getSignInPopup().getPasswordField().setText("Test@123");
         session.getSignInPopup().getSignInButton().click();
     }
+        @Test(description = "CA_TC 3 (b): Verify that signing in to the application by phone number using Business Account option, with forget password option.")
+        public void verifyThatSigningInToApplicationByPhoneUsingNewPassword(){
+            session.getLoginPage().getSignUpLink().click();
+            session.getCreateAccountPage().getBusinessAccountButton().click();
+            session.getCreateAccountPage().getCrossICon().click();
+
+            // Clicking on 'Sign In Button
+            session.getCreateAccountPage().getSignInButton().click();
+
+            // Entering Phone Numnber
+            session.getSignInPopup().getPhoneNumberField().setText("6465551114");
+            session.getSignInPopup().getContinueButton().click();
+
+            // clicking on I don't know my password link.
+            session.getSignInPopup().getIdontKnowPasswordLink().click();
+
+            // Verify the elements
+            Assertions.assertTrue(session.getSignInPopup().getSecurityCodeLabel().isDisplayed());
+            Assertions.assertTrue(session.getSignInPopup().getInformationMessage().isDisplayed());
+            Assertions.assertTrue(session.getSignInPopup().getNewPasswordLabel().isDisplayed());
+            Assertions.assertTrue(session.getSignInPopup().getShowPassword().isDisplayed());
+            Assertions.assertTrue(session.getSignInPopup().getSignInButton().isDisplayed());
+
+            // Checking validations
+
+            session.getSignInPopup().getSignInButton().click();
+            session.getSignInPopup().getSecurityCodeField().setText("777777");
+            session.getSignInPopup().getSignInButton().click();
+            WebdriverWaits.sleep(2000);
+            String actual= session.getSignInPopup().getNewPasswordField().getToolTipMessage();
+            Assertions.assertEquals(actual,"This field is required.");
+            WebdriverWaits.sleep(2000);
+            session.getSignInPopup().getNewPasswordField().setText("435345643");
+            session.getSignInPopup().getSignInButton().click();
+
+            String ActualAlertMessage = session.getSignInPopup().getNewPasswordField().getToolTipMessage();
+            Assertions.assertEquals(ActualAlertMessage,
+                    "Invalid password, a password must contain at least one upper case letter, one lower case letter and one special character or a number.");
+
+            // Entering valid password and signing in to the app.
+            session.getSignInPopup().getShowPassword().click();
+            session.getSignInPopup().getNewPasswordField().setText("Test@123");
+            session.getSignInPopup().getSignInButton().click();
+
+    }
+    @Test(description = " CA_TC 4(a): Verify that signing in to the application by email address using Business Account option.")
+    public void verifyThatSigningInByEmailUsingBusinessAccountOption(){
+        session.getLoginPage().getSignUpLink().click();
+        session.getCreateAccountPage().getBusinessAccountButton().click();
+        session.getCreateAccountPage().getCrossICon().click();
+
+        // Clicking on 'Sign In Button
+        session.getCreateAccountPage().getSignInButton().click();
+
+        // Clicking on Switch to Email Link
+        session.getSignInPopup().getSwitchToEmailLink().click();
+        session.getSignInPopup().getContinueButton().click();
+        String actual= session.getSignInPopup().getEmailField().getToolTipMessage();
+        Assertions.assertEquals(actual,"This field is required.");
+        session.getSignInPopup().getEmailField().setText("325325325");
+        session.getSignInPopup().getContinueButton().click();
+        String tooltip= session.getSignInPopup().getEmailField().getToolTipMessage();
+        Assertions.assertEquals(tooltip,"Please enter a valid email address.");
+
+        // Entering valid email address
+        session.getSignInPopup().getEmailField().setText("test1114@yopmail.com");
+        session.getSignInPopup().getContinueButton().click();
+        WebdriverWaits.sleep(2000);
+
+        // Validation for Password field
+        session.getSignInPopup().getSignInButton().click();
+        session.getSignInPopup().getPasswordField().getToolTipMessage();
+        session.getSignInPopup().getPasswordField().setText("33432533");
+        session.getSignInPopup().getSignInButton().click();
+        WebdriverWaits.sleep(2000);
+
+        String ActualAlertMessage = session.getSignInPopup().getPasswordField().getToolTipMessage();
+        Assertions.assertEquals(ActualAlertMessage,
+                "Invalid password, a password must contain at least one upper case letter, one lower case letter and one special character or a number.");
+
+        // Entering valid password and signing in to the app.
+        session.getSignInPopup().getShowPassword().click();
+        session.getSignInPopup().getPasswordField().setText("Test@123");
+        session.getSignInPopup().getSignInButton().click();
+    }
+    @Test(description = " CA_TC 4(b): Verify that signing in to the application by email address using Business Account option, with forget password option.")
+    public void verifyThatSigningInByEmailUsingBusinessAccountOptionWithForgetPasswordoption(){
+        session.getLoginPage().getSignUpLink().click();
+        session.getCreateAccountPage().getBusinessAccountButton().click();
+        session.getCreateAccountPage().getCrossICon().click();
+
+        // Clicking on 'Sign In Button
+        session.getCreateAccountPage().getSignInButton().click();
+
+        // Clicking on Switch to Email Link
+        session.getSignInPopup().getSwitchToEmailLink().click();
+        session.getSignInPopup().getEmailField().setText("test1114@yopmail.com");
+        session.getSignInPopup().getContinueButton().click();
+
+        // Clicking on I don't know password link
+        session.getSignInPopup().getIdontKnowPasswordLink().click();
+
+        // Verify the elements
+        Assertions.assertTrue(session.getSignInPopup().getSecurityCodeLabel().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getInformationMessage().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getNewPasswordLabel().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getShowPassword().isDisplayed());
+        Assertions.assertTrue(session.getSignInPopup().getSignInButton().isDisplayed());
+
+
+        session.getSignInPopup().getSecurityCodeField().setText("123456");
+        session.getSignInPopup().getNewPasswordField().setText("Test@123");
+        session.getSignInPopup().getShowPassword().click();
+        session.getSignInPopup().getSignInButton().click();
+}
+
+
 
 }
 

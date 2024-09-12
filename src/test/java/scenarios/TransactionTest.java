@@ -135,6 +135,7 @@ public class TransactionTest extends BaseTest {
         session.getPaymentsPage().getBlueCloseButton().click();
 
         // logout customer .
+
         session.getDashBoardPage().getSignOutButton().click();
 
         // login as store manager
