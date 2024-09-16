@@ -4,6 +4,9 @@ import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+
+import java.util.List;
 
 public class TransactionsPage extends BasePage {
 	//Locators
@@ -32,8 +35,16 @@ public class TransactionsPage extends BasePage {
 	By processFullRefund  = By.cssSelector("[name='refundAll']");
 	By refundAmountOnReceipt = By.cssSelector("[class=\"d-flex align-items-end\"]");
 	By refundLabel= By.xpath("//h4[text()='** Refund **']");
-	By verifyButton = By.cssSelector(".fal.fa-thumbs-up.me-2");
-
+	By verifyButton = By.cssSelector("button.btn.btn-outline-success");
+	By partialRefundLink = By.xpath("//button[text()='Partial refund']");
+	By selectPaymentInfo = By.cssSelector("div[id='_B1Q'] p");
+	By paymentCheckBox = By.xpath(" //label[@class='custom-checkbox']");
+	By validationMessage = By.xpath("//p[text()='Select at least one payment to refund']");
+	By processRefundButton = By.xpath("//button[text()='Process Refund']");
+	By refundAmountField = By.cssSelector("[name='refunds[0].amount']");
+    By verifyButtonOnPopup = By.xpath("//button[@class='btn btn-success']");
+    By informationMessageOnVerifyPopup = By.xpath("//div[@class='alert-message']");
+    By verifyByStoreMssg = By.xpath("//span[@class='badge rounded-pill bg-info px-2']");
 
 
 	public Clickable getContinueButton(){
@@ -158,6 +169,40 @@ public class TransactionsPage extends BasePage {
 	public Clickable getVerifyButton() {
 		return Clickable.getElementBy(verifyButton, "Verify Button");
 	}
+	public Clickable getPartialRefundLink() {
+		return Clickable.getElementBy(partialRefundLink, "Partial Refund Link");
+	}
+	public Clickable getSelectPaymentInformationMessage() {
+		return Clickable.getElementBy(selectPaymentInfo, "Select payments which are refunded from the list below");
+	}
+	public Clickable getVisaPaymentCheckbox() {
+		return Clickable.getElementBy(paymentCheckBox, "Payment Checkbox");
+	}
+	public Clickable getRefundValidationMessage() {
+		return Clickable.getElementBy(validationMessage, "Select atleast one payment method");
+	}
+	public Clickable getProcessRefundButton() {
+		return Clickable.getElementBy(processRefundButton, "Process Refund Button");
+	}
+	public Editable getRefundAmountField(){
+		return Editable.getElementBy(refundAmountField,"Refund Amount");
+	}
+
+	public Clickable getVerifyButtonOnPopup(){
+		return Clickable.getElementBy(verifyButtonOnPopup,"Verify Button on Popup");
+	}
+
+	public Clickable getInformationMessageOnVerifyPopup(){
+		return Clickable.getElementBy(informationMessageOnVerifyPopup,"Verify information message on Popup");
+	}
+
+
+	public Clickable getVerifiedByStoreMssg(){
+		return Clickable.getElementBy(verifyByStoreMssg,"Verify store message on Transaction Receipt");
+	}
+
+
+
 
 
 

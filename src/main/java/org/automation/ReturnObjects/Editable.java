@@ -70,6 +70,8 @@ public class Editable extends ActionEngine {
         js.executeScript("arguments[0].value = '';", element);
     }
 
+
+
     }
 
 
