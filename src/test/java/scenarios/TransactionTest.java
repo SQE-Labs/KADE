@@ -9,6 +9,7 @@ import org.automation.pages.BillPage;
 import org.automation.pages.DashBoardPage;
 import org.automation.pages.TransactionsPage;
 import org.automation.session.KadeSession;
+import org.automation.utilities.ActionEngine;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.RandomGenerator;
 import org.automation.utilities.WebdriverWaits;
@@ -16,8 +17,7 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
-import java.util.LinkedList;
-import java.util.List;
+import java.util.*;
 
 public class TransactionTest extends BaseTest {
 
@@ -351,8 +351,9 @@ public class TransactionTest extends BaseTest {
         Assertions.assertTrue(transaction.getVerifyButton().isDisplayed());
 
     }
+
     @Test(description = "TRS7 (b): Verify that store manager is able to refund partial transaction on 'Transaction details' popup of 'Transaction' page.")
-    public void verifyThatStoreMangerIsAbleToRefundPartialPayment(){
+    public void verifyThatStoreMangerIsAbleToRefundPartialPayment() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
@@ -412,15 +413,15 @@ public class TransactionTest extends BaseTest {
         // Verify the validation message when no payment checkbox is selected.
         transaction.getProcessRefundButton().click();
         String actual = transaction.getRefundValidationMessage().getText();
-        Assertions.assertEquals(actual,"Select at least one payment to refund");
+        Assertions.assertEquals(actual, "Select at least one payment to refund");
 
         transaction.getVisaPaymentCheckbox().click();
 
         // Verify that Refund Amount field is displayed after selecting the checkbox
         Assertions.assertTrue(transaction.getRefundAmountField().isDisplayed());
         transaction.getProcessRefundButton().click();
-        String tooltip =transaction.getRefundAmountField().getToolTipMessage();
-        Assertions.assertEquals(tooltip,"This field is required.");
+        String tooltip = transaction.getRefundAmountField().getToolTipMessage();
+        Assertions.assertEquals(tooltip, "This field is required.");
 
         transaction.getRefundAmountField().setText(refundAmmount);
         transaction.getProcessRefundButton().click();
@@ -429,7 +430,7 @@ public class TransactionTest extends BaseTest {
 
 
     @Test(description = "TRS8 Verify that store manager is able to verify the transactions on 'Transaction details' popup of 'Transaction' page.")
-    public void verifyThatStoreMangerIsAbleToVerifyTransaction(){
+    public void verifyThatStoreMangerIsAbleToVerifyTransaction() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
@@ -489,28 +490,28 @@ public class TransactionTest extends BaseTest {
         // Verify the validation message when no payment checkbox is selected.
         transaction.getProcessRefundButton().click();
         String actual = transaction.getRefundValidationMessage().getText();
-        Assertions.assertEquals(actual,"Select at least one payment to refund");
+        Assertions.assertEquals(actual, "Select at least one payment to refund");
 
         transaction.getVisaPaymentCheckbox().click();
 
         // Verify that Refund Amount field is displayed after selecting the checkbox
         Assertions.assertTrue(transaction.getRefundAmountField().isDisplayed());
         transaction.getProcessRefundButton().click();
-        String tooltip =transaction.getRefundAmountField().getToolTipMessage();
-        Assertions.assertEquals(tooltip,"This field is required.");
+        String tooltip = transaction.getRefundAmountField().getToolTipMessage();
+        Assertions.assertEquals(tooltip, "This field is required.");
 
         transaction.getRefundAmountField().setText(refundAmmount);
         transaction.getProcessRefundButton().click();
 
         // verify transactions
-         transaction.getVerifyButton().click();
-         // Assertions on Verify Assertion Popup .
-         transaction.getVerifyButtonOnPopup().isDisplayed();
-         Assertions.assertEquals(transaction.getInformationMessageOnVerifyPopup().getText(),"Each transaction can be verified only once.");
+        transaction.getVerifyButton().click();
+        // Assertions on Verify Assertion Popup .
+        transaction.getVerifyButtonOnPopup().isDisplayed();
+        Assertions.assertEquals(transaction.getInformationMessageOnVerifyPopup().getText(), "Each transaction can be verified only once.");
 
-         transaction.getVerifyButtonOnPopup().click();
+        transaction.getVerifyButtonOnPopup().click();
 
-         Assertions.assertEquals(transaction.getVerifiedByStoreMssg().getText() ,"Verified by the store");
+        Assertions.assertEquals(transaction.getVerifiedByStoreMssg().getText(), "Verified by the store");
 
     }
 
@@ -524,9 +525,174 @@ public class TransactionTest extends BaseTest {
         session.getDashBoardPage().getTransactionButton().click();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
 
+        List<WebElement> eleOfAllTrans = session.getTransactionsPage().getTransactionID().getListOfWebElements();
+        System.out.println("size of ids" + eleOfAllTrans.size());
+        List<String> listOfAllTransactionID = new ArrayList<>();
+        for (int i = 0; i < eleOfAllTrans.size(); i++) {
+            listOfAllTransactionID.add(eleOfAllTrans.get(i).getText());
+        }
+        System.out.println(listOfAllTransactionID);
+
+        List<WebElement> ele1 = session.getTransactionsPage().getTransactionID().getListOfWebElements();
+        List<String> transactionIDBeforeFilterApply = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            transactionIDBeforeFilterApply.add(ele1.get(i).getText());
+        }
+
+        session.getTransactionsPage().getFilterIcon().click();
+        WebdriverWaits.sleep(3000);
+        session.getTransactionsPage().getApplyButtonOnPopup().click();
+
+        // Filter tile is appear
+        Assertions.assertTrue(transactions.getFilterTitle().isDisplayed());
+
+        List<WebElement> ele2 = session.getTransactionsPage().getTransactionID().getListOfWebElements();
+        List<String> transactionIDAfterFilterApply = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            transactionIDAfterFilterApply.add(ele2.get(i).getText());
+        }
+        // Convert lists to sets for comparison
+        Set<String> setBeforeFilter = new HashSet<>(transactionIDBeforeFilterApply);
+        System.out.println(setBeforeFilter);
+        Set<String> setAfterFilter = new HashSet<>(transactionIDAfterFilterApply);
+        System.out.println(setAfterFilter);
+        // Check  setAfterFilter contains all elements from setBeforeFilter
+        Assertions.assertTrue(setAfterFilter.containsAll(setBeforeFilter));
+
+        session.getTransactionsPage().getFilterIcon().click();
+        // Click on Download button
+
+        WebdriverWaits.sleep(3000);
+        String fileStatus = ActionEngine.isFileDownloaded("Transactions.xlsx");
+        System.out.println("fileStatus :" + fileStatus);
+
+        if (fileStatus.equalsIgnoreCase("File Present")) {
+            String deletStatus = ActionEngine.deleteFile("Transactions.xlsx");
+            System.out.println("deleteStatus :" + deletStatus);
+        }
+        transactions.getDownloadButton().click();
+        WebdriverWaits.sleep(3000);
+        String fileDownloadStatus = ActionEngine.isFileDownloaded("Transactions.xlsx");
+        System.out.println("fileDownloadStatus: " + fileDownloadStatus);
+        Assertions.assertEquals(ActionEngine.isFileDownloaded("Transactions.xlsx"), "File Present");
+
+        session.getTransactionsPage().getFilterIcon().click();
+        WebdriverWaits.sleep(3000);
+        transactions.getDateRangeField().click();
+
+        List<WebElement> dateList2 = transactions.getListCallenderTime().getListOfWebElements();
+        List<String> dateList = new ArrayList<>();
+        for (WebElement element : dateList2) {
+            String text = element.getText().trim();
+            dateList.add(text);
+        }
+
+        List<String> expectedList = Arrays.asList(
+                "Empty",
+                "Last 30 Days",
+                "This Month",
+                "Custom Range",
+                "Yesterday",
+                "Last Month",
+                "Last 7 Days"
+        );
+
+        for (String expectedItem : expectedList) {
+            Assertions.assertTrue(dateList.contains(expectedItem));
+        }
+
+        //Asertions for Calender
+        Assertions.assertTrue(transactions.getCalender1().isDisplayed());
+        Assertions.assertTrue(transactions.getCalender2().isDisplayed());
+
+
+     /*
+        // Due to defect this functionality is not in working condition.
+        transactions.getYesterDayDate().click();
+        transactions.getApplyButtonOnPopup().click();
+        WebdriverWaits.sleep(4000);
+
+        // Due to defect this functionality is not in working condition.
+        // verify all yesterday records is display .
+        // change for automate range .
+
+        // in this line we fetch the yesterday  data count
+        List<WebElement> yesterDayTransactionList = session.getTransactionsPage().getYesterDayListOnTransactionPage().getListOfWebElements();
+        System.out.println(yesterDayTransactionList.size());
+
+        // Fetch the WebElements of transaction IDs from yesterday
+
+        // Due to defect this functionality is not in working condition.
+
+        List<WebElement> yesterDayTransactionListEle = session.getTransactionsPage().getTransactionID().getListOfWebElements();
+        List<String> yesterDayTransactionList1 = new ArrayList<>();
+//
+//        // Traverse the list of yesterday's data and add the transaction IDs to the list
+//
+        for (int i = 0; i < yesterDayTransactionList.size(); i++) {
+            yesterDayTransactionList1.add(yesterDayTransactionListEle.get(i).getText());
+        }
+        System.out.println(yesterDayTransactionList1);
+
+        // Compare the transaction IDs from yesterday with the list of all transaction IDs
+        for (String expectedId : yesterDayTransactionList1) {
+            Assertions.assertTrue(listOfAllTransactionID.contains(expectedId));
+        }
+
+          transactions.getFilterIcon().click();
+        transactions.getDateRangeField().click();
+        transactions.getListCallenderTime().click();
+
+        */
+
+
+        transactions.getPaymentStatusDropdown().click();
+        transactions.getPendingPayments().click();
+        transactions.getApplyButtonOnPopup().click();
+        WebdriverWaits.sleep(3000);
+
+        Assertions.assertTrue(transactions.getPendingPaymentIcon().isDisplayed());
+
+        transactions.getFilterIcon().click();
+        transactions.getPaymentStatusDropdown().click();
+        transactions.getFailedPayments().click();
+        transactions.getApplyButtonOnPopup().click();
+        WebdriverWaits.sleep(3000);
+
+        Assertions.assertTrue(transactions.getExcalamatrySign().isDisplayed());
+
+        transactions.getFilterIcon().click();
+        transactions.getPaymentStatusDropdown().click();
+        WebdriverWaits.sleep(2000);
+        transactions.getUnverifiedPayments().click();
+        transactions.getApplyButtonOnPopup().click();
+        WebdriverWaits.sleep(2000);
+
+
+        Assertions.assertTrue(transactions.getQuotionmarkSign().isDisplayed());
+
+        transactions.getFilterIcon().click();
+        transactions.getPaymentStatusDropdown().click();
+        transactions.getClearPaymentField().click();
+        WebdriverWaits.sleep(2000);
+        transactions.getPaymentLinkField().click();
+        transactions.getQrCodeSeletct().click();
+        transactions.getApplyButtonOnPopup().click();
+
+        WebdriverWaits.sleep(2000);
+
+        Assertions.assertTrue(transactions.getQrCodeSign().isDisplayed());
+
+
+
 
     }
+
+
 }
+
+
+
 
 
 
