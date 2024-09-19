@@ -276,32 +276,44 @@ public class TransactionsPage extends BasePage {
     public Clickable getPaymentStatusDropdown() {
         return Clickable.getElementBy(paaymentStatusDropdown, " paaymentStatusDropdown is displayed");
     }
+
     public Clickable getClearPaymentField() {
         return Clickable.getElementBy(clearPaymentField, "clearPaymentField is displayed");
     }
+
     public Clickable getPendingPayments() {
         return Clickable.getElementBy(pendingPayments, "pendingPayments is displayed");
     }
+
     public Clickable getFailedPayments() {
         return Clickable.getElementBy(failedPayments, "failedPayments is displayed");
     }
+
     public Clickable getUnverifiedPayments() {
         return Clickable.getElementBy(unverifiedPayments, "unverifiedPayments is displayed");
     }
+
     public Clickable getPendingPaymentIcon() {
         return Clickable.getElementBy(pendingPaymentIcon, "pendingPaymentIcon is displayed");
     }
+
     public Clickable getExcalamatrySign() {
         return Clickable.getElementBy(excalamatrySign, "excalamatrySign is displayed");
     }
+
     public Clickable getQuotionmarkSign() {
         return Clickable.getElementBy(quotionmarkSign, "quotionmarkSign is displayed");
     }
+
     public Clickable getQrCodeSign() {
         return Clickable.getElementBy(qrCodeSign, "qrCodeSign is displayed");
-    }public Clickable getPaymentLinkField() {
+    }
+
+    public Clickable getPaymentLinkField() {
         return Clickable.getElementBy(paymentLinkField, "quotionmarkSign is displayed");
-    }public Clickable getQrCodeSeletct() {
+    }
+
+    public Clickable getQrCodeSeletct() {
         return Clickable.getElementBy(qrCodeSeletct, "quotionmarkSign is displayed");
     }
 

@@ -185,8 +185,7 @@ public class TransactionTest extends BaseTest {
         String expectedInformationMessage = "There are no payments available yet!";
 
         // Verify the information message when no transaction is available.
-        Assertions.assertEquals(session.getTransactionsPage().getInformationMessage().getText(),
-                expectedInformationMessage);
+        Assertions.assertEquals(session.getTransactionsPage().getInformationMessage().getText(), expectedInformationMessage);
     }
 
     @Test(description = "TRS3 : Verify that 'New Bill' & 'New Charge' buttons and filter icon appear, on 'Transaction' page.")
@@ -318,8 +317,7 @@ public class TransactionTest extends BaseTest {
         session.getDashBoardPage().getSignOutButton().click();
 
         //Login as Customer
-        session.getLoginPage().performSignIn(KadeUserAccount.Customer.getUserName(),
-                KadeUserAccount.Customer.getPassword());
+        session.getLoginPage().performSignIn(KadeUserAccount.Customer.getUserName(), KadeUserAccount.Customer.getPassword());
         session.getNotificationPage().getNotificationIcon().click();
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
@@ -332,8 +330,7 @@ public class TransactionTest extends BaseTest {
         session.getDashBoardPage().getSignOutButton().click();
 
         // login as store manager
-        session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(),
-                KadeUserAccount.Default.getPassword());
+        session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
 
         // go to transaction Page .
         session.getDashBoardPage().getTransactionButton().click();
@@ -375,8 +372,7 @@ public class TransactionTest extends BaseTest {
         session.getDashBoardPage().getSignOutButton().click();
 
         //Login as Customer
-        session.getLoginPage().performSignIn(KadeUserAccount.Customer.getUserName(),
-                KadeUserAccount.Customer.getPassword());
+        session.getLoginPage().performSignIn(KadeUserAccount.Customer.getUserName(), KadeUserAccount.Customer.getPassword());
         session.getNotificationPage().getNotificationIcon().click();
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
@@ -389,8 +385,7 @@ public class TransactionTest extends BaseTest {
         session.getDashBoardPage().getSignOutButton().click();
 
         // login as store manager
-        session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(),
-                KadeUserAccount.Default.getPassword());
+        session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
 
         // go to transaction Page .
         session.getDashBoardPage().getTransactionButton().click();
@@ -452,8 +447,7 @@ public class TransactionTest extends BaseTest {
         session.getDashBoardPage().getSignOutButton().click();
 
         //Login as Customer
-        session.getLoginPage().performSignIn(KadeUserAccount.Customer.getUserName(),
-                KadeUserAccount.Customer.getPassword());
+        session.getLoginPage().performSignIn(KadeUserAccount.Customer.getUserName(), KadeUserAccount.Customer.getPassword());
         session.getNotificationPage().getNotificationIcon().click();
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
@@ -466,8 +460,7 @@ public class TransactionTest extends BaseTest {
         session.getDashBoardPage().getSignOutButton().click();
 
         // login as store manager
-        session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(),
-                KadeUserAccount.Default.getPassword());
+        session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
 
         // go to transaction Page .
         session.getDashBoardPage().getTransactionButton().click();
@@ -587,15 +580,7 @@ public class TransactionTest extends BaseTest {
             dateList.add(text);
         }
 
-        List<String> expectedList = Arrays.asList(
-                "Empty",
-                "Last 30 Days",
-                "This Month",
-                "Custom Range",
-                "Yesterday",
-                "Last Month",
-                "Last 7 Days"
-        );
+        List<String> expectedList = Arrays.asList("Empty", "Last 30 Days", "This Month", "Custom Range", "Yesterday", "Last Month", "Last 7 Days");
 
         for (String expectedItem : expectedList) {
             Assertions.assertTrue(dateList.contains(expectedItem));
@@ -682,8 +667,6 @@ public class TransactionTest extends BaseTest {
         WebdriverWaits.sleep(2000);
 
         Assertions.assertTrue(transactions.getQrCodeSign().isDisplayed());
-
-
 
 
     }
