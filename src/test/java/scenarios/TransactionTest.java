@@ -106,7 +106,7 @@ public class TransactionTest extends BaseTest {
     }
 
     @Test(description = "trs1 Verify that card payment is done by the customer that's appear on Transaction List, on 'Transaction' page through Store Manager.")
-    public void cardPaymentViewOnTransactionListByCustomer() {
+    public void verifyCardPaymentViewOnTransactionListByCustomer() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
@@ -132,7 +132,7 @@ public class TransactionTest extends BaseTest {
         String expectedPaymentMethod = session.getPaymentsPage().getSavedCreditCard().getText().replaceAll("\\s.*", "");
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
-        session.getPaymentsPage().getBlueCloseButton().click();
+        session.getPaymentsPage().getBlueCloseButton().clickbyJS();
 
         // logout customer .
 
@@ -183,7 +183,8 @@ public class TransactionTest extends BaseTest {
                 expectedInformationMessage);
     }
 
-    @Test(description = "TRS3 : Verify that 'New Bill' & 'New Charge' buttons and filter icon appear, on 'Transaction' page.")
+    @Test(description = "TRS3 : Verify that 'New Bill' & '" +
+            "' buttons and filter icon appear, on 'Transaction' page.")
     public void verifyNewBillNewChargeButtonsAndFilterOnTransactionPage() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getTransactionButton().click();
@@ -413,14 +414,7 @@ public class TransactionTest extends BaseTest {
 
         transaction.getRefundAmountField().setText("50.00");
         transaction.getProcessRefundButton().click();
-
-
-
-
-
-
     }
-
 }
 
 

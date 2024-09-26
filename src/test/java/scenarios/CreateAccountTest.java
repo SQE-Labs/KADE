@@ -5,7 +5,6 @@ import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.RandomGenerator;
 import org.automation.utilities.WebdriverWaits;
-import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 public class CreateAccountTest extends BaseTest {
