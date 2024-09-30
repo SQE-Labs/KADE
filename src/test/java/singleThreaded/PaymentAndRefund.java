@@ -272,8 +272,7 @@ public class PaymentAndRefund extends BasePage {
         session.getPaymentsPage().getVenmoSubmitButton().click();
 
         //Step 30: Click on 'Close' Icon
-        session.getPaymentsPage().getCloseButton().
-                clickbyJS();
+        session.getPaymentsPage().getCloseButton().clickbyJS();
     }
 
 

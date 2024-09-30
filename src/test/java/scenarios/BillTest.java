@@ -437,7 +437,7 @@ public class BillTest extends BaseTest {
     }
 
     @Test(description = "BC_12 Verify that creating a bill with configured bill amount, on 'Bill' popup")
-    public void verifyingBillCreationWithConfiguredBillAmount() {
+    public void qverifyingBillCreationWithConfiguredBillAmount() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
         BillPage bill = session.getBillPage();
@@ -486,9 +486,11 @@ public class BillTest extends BaseTest {
 
         // Click on New Bill Button
         bill.getNewBillButton().click();
+        WebdriverWaits.sleep(3000);
 
         //Enter amount
         String amt2 = "60,000.00";
+        WebdriverWaits.sleep(2000);
         bill.getAmountTextbox().setText(amt2);
         bill.getDisableTaxToggleButton().clickIfExist();
 
@@ -520,7 +522,8 @@ public class BillTest extends BaseTest {
 // first time no suggested customer appears . we need to handle this test scenrios also.
 
     @Test(description = "BC_11 Verify that creating a bill with default configured bill amount, on 'Bill' popup")
-    public void verifyingBillCreationWithOutConfiguredBillAmount() {
+    public void
+    verifyingBillCreationWithOutConfiguredBillAmount() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
         BillPage bill = session.getBillPage();
@@ -568,12 +571,19 @@ public class BillTest extends BaseTest {
 
         // Click on New Bill Button
         bill.getNewBillButton().click();
+        WebdriverWaits.sleep(3000);
 
         //Enter amount
-        String amt2 = "4,000.00";
-        WebdriverWaits.sleep(3000);
-        bill.getAmountTextbox().setText(amt2);
+        String amount = "5,000.00";
+        WebdriverWaits.sleep(2000);
+        bill.getAmountTextbox().setText(amount);
         bill.getDisableTaxToggleButton().clickIfExist();
+        bill.getNewBillButton().click();
+        WebdriverWaits.sleep(3000);
+
+        //Enter amount
+
+
 
         //Select Suggested Customer
         bill.getCustomerButton().click();
@@ -588,7 +598,7 @@ public class BillTest extends BaseTest {
         bill.getCloseLogoPopupBtn().clickIfExist(true,4);
 
         //Verify Created Bill
-        Assertions.assertNotEquals(bill.getUnpaidAmount().getText(), amt2);
+        Assertions.assertNotEquals(bill.getUnpaidAmount().getText(),amount);
         bill.getUnpaidBillWithoutDescription().click();
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());

@@ -87,10 +87,11 @@ public class MyStoreTest extends BasePage {
         myStore.getSaveButton().click();
 
         //Step 14: Click on 'Continue' Button
-        myStore.getContinueButton().clickByMouse();
+        myStore.getContinueButton().click();
 
         //Verify Created Store
-        Assertions.assertEquals(myStore.getAddedStoreName().getText(), storeName);
+        Assertions.assertEquals(myStore.getAddedStoreName().
+                getText(), storeName);
         Assertions.assertEquals(myStore.getAddedStorePhone().getText().replaceAll("[+()\\s-]", "").substring(1,11), phoneNumber);
     }
 
@@ -111,6 +112,7 @@ public class MyStoreTest extends BasePage {
         //Step 4: Upload Image for Store Logo
         myStore.getStoreLogo().clickByMouse();
         myStore.uploadImageInStoreLogo();
+        WebdriverWaits.sleep(2000);
         myStore.getCheckButton().click();
 
         //Verifying the Maximum length of 'Store Name' field
