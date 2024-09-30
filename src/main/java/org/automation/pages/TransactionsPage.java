@@ -66,6 +66,10 @@ public class TransactionsPage extends BasePage {
     By qrCodeSign = By.xpath("//i[contains(@class,'fa fa-qrcode me-2')]");
     By paymentLinkField = By.xpath("//select[@name='billTemplate']");
     By qrCodeSeletct = By.xpath("(//select[@name='billTemplate']/option)[2]");
+    By amountRangeFrom = By.xpath("//input[@placeholder='From']");
+    By amountRangeTo = By.xpath("//input[@placeholder='To']");
+    By clearQrPayment = By.xpath("(//select[@name='billTemplate']/option)[1]");
+    By ammountList = By.xpath("(//div[contains(@class,'d-flex align-items-center')])");
 
     public Clickable getContinueButton() {
         return Clickable.getElementBy(continueBtn, "Continue Button");
@@ -317,10 +321,19 @@ public class TransactionsPage extends BasePage {
         return Clickable.getElementBy(qrCodeSeletct, "quotionmarkSign is displayed");
     }
 
+    public Clickable getQrClearField() {
+        return Clickable.getElementBy(clearQrPayment, "quotionmarkSign is displayed");
+    }
+
+
+    public Editable getAmmountFieldFrom() {
+        return Editable.getElementBy(amountRangeFrom, "amountRangeFrom");
+    }
+    public Editable getAmmountFieldTo() {
+        return Editable.getElementBy(amountRangeTo, "amountRangeTo");
+    }
+    public Clickable getAmmountList() {
+        return Clickable.getElementBy(ammountList, "ammountList");
+    }
 
 }
-
-
-
-
-

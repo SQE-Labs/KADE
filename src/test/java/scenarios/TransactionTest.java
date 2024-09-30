@@ -15,6 +15,7 @@ import org.automation.utilities.RandomGenerator;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
 
 import java.util.*;
@@ -515,6 +516,62 @@ public class TransactionTest extends BaseTest {
         TransactionsPage transactions = session.getTransactionsPage();
         RandomGenerator randomGenerator = new RandomGenerator();
 
+        //Step 1: Click on 'Bill' sub-Tab
+        session.getDashBoardPage().getBillButton().click();
+
+        //Step 2: Enter Amount
+        String amt = "4999.00";
+        String ammountFrom = "10.00";
+        String ammountTo = "100.00";
+        //Step 3: Enter Customer Email
+        String customerEmail = "yonro@yopmail.com";
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetailsForTransactionCheck().setAmount(amt).setCustomerEmail(customerEmail);
+
+        //Step 4: Create Bill
+        session.getBillPage().createBill(bills);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
+
+        //Step 5: Logout as Store manager
+        session.getDashBoardPage().getSignOutButton().click(); // Signing out
+
+        //Step 6: Login as Customer
+        session.getLoginPage().performSignIn(customerEmail, "Test@123");
+
+        //Step 7: Click on Notification Icon
+        session.getNotificationPage().getNotificationIcon().click();
+
+        //Step 8: Click on First Notification
+        session.getNotificationPage().getFirstNotification().click();
+
+        //Step 9: Click on 'Pay Now' Button
+        session.getPaymentsPage().getPayNowButton().click();
+
+        //Step 10: Click on 'Change Payment Method' Button
+        session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
+
+        //Step 11: Select 'Bank Account' Method
+        session.getPaymentsPage().getSavedBankAccount().click();
+
+        //Verify that Selected Bank Method is Displayed
+        Assertions.assertTrue(session.getPaymentsPage().getSelectedBankDisplay().isDisplayed());
+
+        //Step 12: Swipe to Pay
+        session.getPaymentsPage().swipeToPay();
+
+        System.out.println(session.getPaymentsPage().getProcessSuccessMsg().getText());
+
+        //Verify that success message appears after Payment is made successfully
+        Assertions.assertEquals(session.getPaymentsPage().getProcessSuccessMsg().getText(), "$4,999.00 PAID");
+        Assertions.assertTrue(session.getPaymentsPage().getRateYourExperienceLink().isDisplayed());
+        Assertions.assertTrue(session.getPaymentsPage().getViewReceiptLink().isDisplayed());
+        Assertions.assertTrue(session.getPaymentsPage().getBlueCloseButton().isDisplayed());
+
+        //Step 13: Close the Pop-up
+        session.getPaymentsPage().getBlueCloseButton().clickbyJS();
+        session.getDashBoardPage().getSignOutButton().click();
+
+
+        KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getTransactionButton().click();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
 
@@ -590,47 +647,6 @@ public class TransactionTest extends BaseTest {
         Assertions.assertTrue(transactions.getCalender1().isDisplayed());
         Assertions.assertTrue(transactions.getCalender2().isDisplayed());
 
-
-     /*
-        // Due to defect this functionality is not in working condition.
-        transactions.getYesterDayDate().click();
-        transactions.getApplyButtonOnPopup().click();
-        WebdriverWaits.sleep(4000);
-
-        // Due to defect this functionality is not in working condition.
-        // verify all yesterday records is display .
-        // change for automate range .
-
-        // in this line we fetch the yesterday  data count
-        List<WebElement> yesterDayTransactionList = session.getTransactionsPage().getYesterDayListOnTransactionPage().getListOfWebElements();
-        System.out.println(yesterDayTransactionList.size());
-
-        // Fetch the WebElements of transaction IDs from yesterday
-
-        // Due to defect this functionality is not in working condition.
-
-        List<WebElement> yesterDayTransactionListEle = session.getTransactionsPage().getTransactionID().getListOfWebElements();
-        List<String> yesterDayTransactionList1 = new ArrayList<>();
-//
-//        // Traverse the list of yesterday's data and add the transaction IDs to the list
-//
-        for (int i = 0; i < yesterDayTransactionList.size(); i++) {
-            yesterDayTransactionList1.add(yesterDayTransactionListEle.get(i).getText());
-        }
-        System.out.println(yesterDayTransactionList1);
-
-        // Compare the transaction IDs from yesterday with the list of all transaction IDs
-        for (String expectedId : yesterDayTransactionList1) {
-            Assertions.assertTrue(listOfAllTransactionID.contains(expectedId));
-        }
-
-          transactions.getFilterIcon().click();
-        transactions.getDateRangeField().click();
-        transactions.getListCallenderTime().click();
-
-        */
-
-
         transactions.getPaymentStatusDropdown().click();
         transactions.getPendingPayments().click();
         transactions.getApplyButtonOnPopup().click();
@@ -653,7 +669,6 @@ public class TransactionTest extends BaseTest {
         transactions.getApplyButtonOnPopup().click();
         WebdriverWaits.sleep(2000);
 
-
         Assertions.assertTrue(transactions.getQuotionmarkSign().isDisplayed());
 
         transactions.getFilterIcon().click();
@@ -667,6 +682,34 @@ public class TransactionTest extends BaseTest {
         WebdriverWaits.sleep(2000);
 
         Assertions.assertTrue(transactions.getQrCodeSign().isDisplayed());
+
+        transactions.getFilterIcon().click();
+        transactions.getPaymentLinkField().click();
+        transactions.getQrClearField().click();
+
+        transactions.getAmmountFieldFrom().setText(ammountFrom);
+        transactions.getAmmountFieldTo().setText(ammountTo);
+
+        transactions.getApplyButtonOnPopup().click();
+        WebdriverWaits.sleep(5000);
+
+        List<WebElement> ammountList = transactions.getAmmountList().getListOfWebElements();
+        List<Double> ammountList1 = new ArrayList<>();
+        for (WebElement element : ammountList) {
+            String text = element.getText().trim();
+            ammountList1.add(Double.parseDouble(text.substring(1)));
+        }
+        System.out.println(ammountList1);
+        boolean flag = false;
+        System.out.println(Integer.parseInt(ammountFrom.split("\\.")[0]));
+
+        for (int i = 0; i < ammountList1.size(); i++) {
+            double temp = ammountList1.get(i);
+            if(temp>=Integer.parseInt(ammountFrom.split("\\.")[0]) && temp<=Integer.parseInt(ammountTo.split("\\.")[0])){
+                flag =true;
+            }
+        }
+        Assert.assertTrue(flag, "The amount does not lie between the applied filter");
 
 
     }
