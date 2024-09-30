@@ -9,9 +9,16 @@ import org.automation.pages.BillPage;
 import org.automation.pages.DashBoardPage;
 import org.automation.pages.TransactionsPage;
 import org.automation.session.KadeSession;
+import org.automation.utilities.ActionEngine;
 import org.automation.utilities.Assertions;
+import org.automation.utilities.RandomGenerator;
 import org.automation.utilities.WebdriverWaits;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.testng.Assert;
 import org.testng.annotations.Test;
+
+import java.util.*;
 
 public class TransactionTest extends BaseTest {
 
@@ -179,8 +186,7 @@ public class TransactionTest extends BaseTest {
         String expectedInformationMessage = "There are no payments available yet!";
 
         // Verify the information message when no transaction is available.
-        Assertions.assertEquals(session.getTransactionsPage().getInformationMessage().getText(),
-                expectedInformationMessage);
+        Assertions.assertEquals(session.getTransactionsPage().getInformationMessage().getText(), expectedInformationMessage);
     }
 
     @Test(description = "TRS3 : Verify that 'New Bill' & 'New Charge' buttons and filter icon appear, on 'Transaction' page.")
@@ -312,8 +318,7 @@ public class TransactionTest extends BaseTest {
         session.getDashBoardPage().getSignOutButton().click();
 
         //Login as Customer
-        session.getLoginPage().performSignIn(KadeUserAccount.Customer.getUserName(),
-                KadeUserAccount.Customer.getPassword());
+        session.getLoginPage().performSignIn(KadeUserAccount.Customer.getUserName(), KadeUserAccount.Customer.getPassword());
         session.getNotificationPage().getNotificationIcon().click();
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
@@ -326,8 +331,7 @@ public class TransactionTest extends BaseTest {
         session.getDashBoardPage().getSignOutButton().click();
 
         // login as store manager
-        session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(),
-                KadeUserAccount.Default.getPassword());
+        session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
 
         // go to transaction Page .
         session.getDashBoardPage().getTransactionButton().click();
@@ -346,8 +350,375 @@ public class TransactionTest extends BaseTest {
 
     }
 
+    @Test(description = "TRS7 (b): Verify that store manager is able to refund partial transaction on 'Transaction details' popup of 'Transaction' page.")
+    public void verifyThatStoreMangerIsAbleToRefundPartialPayment() {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getDashBoardPage().getBillButton().click();
+        TransactionsPage transactions = session.getTransactionsPage();
+        RandomGenerator randomGenerator = new RandomGenerator();
+
+        String amt = "4,999.00";
+        String refundReason = "Extra fair testing";
+        String refundAmmount = "50.00";
+        String refundReferenceNo = randomGenerator.requiredDigits(4);
+
+        String customerEmail = "yonro@yopmail.com";
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetailsForTransactionCheck().setAmount(amt).setCustomerEmail(customerEmail);
+
+        //Creating Bill
+        session.getBillPage().createBill(bills);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 3);
+
+        //Logout as Store manager
+        session.getDashBoardPage().getSignOutButton().click();
+
+        //Login as Customer
+        session.getLoginPage().performSignIn(KadeUserAccount.Customer.getUserName(), KadeUserAccount.Customer.getPassword());
+        session.getNotificationPage().getNotificationIcon().click();
+        session.getNotificationPage().getFirstNotification().click();
+        session.getPaymentsPage().getPayNowButton().click();
+        session.getPaymentsPage().getChangePaymentButton().clickbyJS();
+        session.getPaymentsPage().getSavedCreditCard().click();
+        session.getPaymentsPage().swipeToPay();
+        session.getPaymentsPage().getBlueCloseButton().clickByMouse();
+
+        // logout customer .
+        session.getDashBoardPage().getSignOutButton().click();
+
+        // login as store manager
+        session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
+
+        // go to transaction Page .
+        session.getDashBoardPage().getTransactionButton().click();
+        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+        TransactionsPage transaction = session.getTransactionsPage();
+        transaction.getCurrentPaidBill().click();
+
+        // Verify Refund Button
+        Assertions.assertTrue(transaction.getRefundButton().isDisplayed());
+
+        transaction.getRefundButton().click();
+        WebdriverWaits.sleep(2000);
+        transaction.getRefundReferenceNo().setText(refundReferenceNo);
+        transaction.getRefundReason().setText(refundReason);
+
+        // Clicking on partial refund link.
+        transaction.getPartialRefundLink().click();
+        WebdriverWaits.sleep(2000);
+
+        // Verify the validation message when no payment checkbox is selected.
+        transaction.getProcessRefundButton().click();
+        String actual = transaction.getRefundValidationMessage().getText();
+        Assertions.assertEquals(actual, "Select at least one payment to refund");
+
+        transaction.getVisaPaymentCheckbox().click();
+
+        // Verify that Refund Amount field is displayed after selecting the checkbox
+        Assertions.assertTrue(transaction.getRefundAmountField().isDisplayed());
+        transaction.getProcessRefundButton().click();
+        String tooltip = transaction.getRefundAmountField().getToolTipMessage();
+        Assertions.assertEquals(tooltip, "This field is required.");
+
+        transaction.getRefundAmountField().setText(refundAmmount);
+        transaction.getProcessRefundButton().click();
+
+    }
+
+
+    @Test(description = "TRS8 Verify that store manager is able to verify the transactions on 'Transaction details' popup of 'Transaction' page.")
+    public void verifyThatStoreMangerIsAbleToVerifyTransaction() {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getDashBoardPage().getBillButton().click();
+        TransactionsPage transactions = session.getTransactionsPage();
+        RandomGenerator randomGenerator = new RandomGenerator();
+
+        String amt = "4,999.00";
+        String refundReason = "Extra fair testing";
+        String refundAmmount = "50.00";
+        String refundReferenceNo = randomGenerator.requiredDigits(4);
+
+        String customerEmail = "yonro@yopmail.com";
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetailsForTransactionCheck().setAmount(amt).setCustomerEmail(customerEmail);
+
+        //Creating Bill
+        session.getBillPage().createBill(bills);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 3);
+
+        //Logout as Store manager
+        session.getDashBoardPage().getSignOutButton().click();
+
+        //Login as Customer
+        session.getLoginPage().performSignIn(KadeUserAccount.Customer.getUserName(), KadeUserAccount.Customer.getPassword());
+        session.getNotificationPage().getNotificationIcon().click();
+        session.getNotificationPage().getFirstNotification().click();
+        session.getPaymentsPage().getPayNowButton().click();
+        session.getPaymentsPage().getChangePaymentButton().clickbyJS();
+        session.getPaymentsPage().getSavedCreditCard().click();
+        session.getPaymentsPage().swipeToPay();
+        session.getPaymentsPage().getBlueCloseButton().clickByMouse();
+
+        // logout customer .
+        session.getDashBoardPage().getSignOutButton().click();
+
+        // login as store manager
+        session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
+
+        // go to transaction Page .
+        session.getDashBoardPage().getTransactionButton().click();
+        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+        TransactionsPage transaction = session.getTransactionsPage();
+        transaction.getCurrentPaidBill().click();
+
+        // Verify Refund Button
+        Assertions.assertTrue(transaction.getRefundButton().isDisplayed());
+
+        transaction.getRefundButton().click();
+        WebdriverWaits.sleep(2000);
+        transaction.getRefundReferenceNo().setText(refundReferenceNo);
+        transaction.getRefundReason().setText(refundReason);
+
+        // Clicking on partial refund link.
+        transaction.getPartialRefundLink().click();
+        WebdriverWaits.sleep(2000);
+
+        // Verify the validation message when no payment checkbox is selected.
+        transaction.getProcessRefundButton().click();
+        String actual = transaction.getRefundValidationMessage().getText();
+        Assertions.assertEquals(actual, "Select at least one payment to refund");
+
+        transaction.getVisaPaymentCheckbox().click();
+
+        // Verify that Refund Amount field is displayed after selecting the checkbox
+        Assertions.assertTrue(transaction.getRefundAmountField().isDisplayed());
+        transaction.getProcessRefundButton().click();
+        String tooltip = transaction.getRefundAmountField().getToolTipMessage();
+        Assertions.assertEquals(tooltip, "This field is required.");
+
+        transaction.getRefundAmountField().setText(refundAmmount);
+        transaction.getProcessRefundButton().click();
+
+        // verify transactions
+        transaction.getVerifyButton().click();
+        // Assertions on Verify Assertion Popup .
+        transaction.getVerifyButtonOnPopup().isDisplayed();
+        Assertions.assertEquals(transaction.getInformationMessageOnVerifyPopup().getText(), "Each transaction can be verified only once.");
+
+        transaction.getVerifyButtonOnPopup().click();
+
+        Assertions.assertEquals(transaction.getVerifiedByStoreMssg().getText(), "Verified by the store");
+
+    }
+
+    @Test(description = "Verify that store manager is able to filter the transaction on 'Transactions' page.")
+    public void verifyThatTransactionListAppears() {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getDashBoardPage().getBillButton().click();
+        TransactionsPage transactions = session.getTransactionsPage();
+        RandomGenerator randomGenerator = new RandomGenerator();
+
+        //Step 1: Click on 'Bill' sub-Tab
+        session.getDashBoardPage().getBillButton().click();
+
+        //Step 2: Enter Amount
+        String amt = "4999.00";
+        String ammountFrom = "10.00";
+        String ammountTo = "100.00";
+        //Step 3: Enter Customer Email
+        String customerEmail = "yonro@yopmail.com";
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetailsForTransactionCheck().setAmount(amt).setCustomerEmail(customerEmail);
+
+        //Step 4: Create Bill
+        session.getBillPage().createBill(bills);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
+
+        //Step 5: Logout as Store manager
+        session.getDashBoardPage().getSignOutButton().click(); // Signing out
+
+        //Step 6: Login as Customer
+        session.getLoginPage().performSignIn(customerEmail, "Test@123");
+
+        //Step 7: Click on Notification Icon
+        session.getNotificationPage().getNotificationIcon().click();
+
+        //Step 8: Click on First Notification
+        session.getNotificationPage().getFirstNotification().click();
+
+        //Step 9: Click on 'Pay Now' Button
+        session.getPaymentsPage().getPayNowButton().click();
+
+        //Step 10: Click on 'Change Payment Method' Button
+        session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
+
+        //Step 11: Select 'Bank Account' Method
+        session.getPaymentsPage().getSavedBankAccount().click();
+
+        //Verify that Selected Bank Method is Displayed
+        Assertions.assertTrue(session.getPaymentsPage().getSelectedBankDisplay().isDisplayed());
+
+        //Step 12: Swipe to Pay
+        session.getPaymentsPage().swipeToPay();
+
+        System.out.println(session.getPaymentsPage().getProcessSuccessMsg().getText());
+
+        //Verify that success message appears after Payment is made successfully
+        Assertions.assertEquals(session.getPaymentsPage().getProcessSuccessMsg().getText(), "$4,999.00 PAID");
+        Assertions.assertTrue(session.getPaymentsPage().getRateYourExperienceLink().isDisplayed());
+        Assertions.assertTrue(session.getPaymentsPage().getViewReceiptLink().isDisplayed());
+        Assertions.assertTrue(session.getPaymentsPage().getBlueCloseButton().isDisplayed());
+
+        //Step 13: Close the Pop-up
+        session.getPaymentsPage().getBlueCloseButton().clickbyJS();
+        session.getDashBoardPage().getSignOutButton().click();
+
+
+        KadeSession.login(KadeUserAccount.Default);
+        session.getDashBoardPage().getTransactionButton().click();
+        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+
+        List<WebElement> eleOfAllTrans = session.getTransactionsPage().getTransactionID().getListOfWebElements();
+        System.out.println("size of ids" + eleOfAllTrans.size());
+        List<String> listOfAllTransactionID = new ArrayList<>();
+        for (int i = 0; i < eleOfAllTrans.size(); i++) {
+            listOfAllTransactionID.add(eleOfAllTrans.get(i).getText());
+        }
+        System.out.println(listOfAllTransactionID);
+
+        List<WebElement> ele1 = session.getTransactionsPage().getTransactionID().getListOfWebElements();
+        List<String> transactionIDBeforeFilterApply = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            transactionIDBeforeFilterApply.add(ele1.get(i).getText());
+        }
+
+        session.getTransactionsPage().getFilterIcon().click();
+        WebdriverWaits.sleep(3000);
+        session.getTransactionsPage().getApplyButtonOnPopup().click();
+
+        // Filter tile is appear
+        Assertions.assertTrue(transactions.getFilterTitle().isDisplayed());
+
+        List<WebElement> ele2 = session.getTransactionsPage().getTransactionID().getListOfWebElements();
+        List<String> transactionIDAfterFilterApply = new ArrayList<>();
+        for (int i = 0; i < 5; i++) {
+            transactionIDAfterFilterApply.add(ele2.get(i).getText());
+        }
+        // Convert lists to sets for comparison
+        Set<String> setBeforeFilter = new HashSet<>(transactionIDBeforeFilterApply);
+        System.out.println(setBeforeFilter);
+        Set<String> setAfterFilter = new HashSet<>(transactionIDAfterFilterApply);
+        System.out.println(setAfterFilter);
+        // Check  setAfterFilter contains all elements from setBeforeFilter
+        Assertions.assertTrue(setAfterFilter.containsAll(setBeforeFilter));
+
+        session.getTransactionsPage().getFilterIcon().click();
+        // Click on Download button
+
+        WebdriverWaits.sleep(3000);
+        String fileStatus = ActionEngine.isFileDownloaded("Transactions.xlsx");
+        System.out.println("fileStatus :" + fileStatus);
+
+        if (fileStatus.equalsIgnoreCase("File Present")) {
+            String deletStatus = ActionEngine.deleteFile("Transactions.xlsx");
+            System.out.println("deleteStatus :" + deletStatus);
+        }
+        transactions.getDownloadButton().click();
+        WebdriverWaits.sleep(3000);
+        String fileDownloadStatus = ActionEngine.isFileDownloaded("Transactions.xlsx");
+        System.out.println("fileDownloadStatus: " + fileDownloadStatus);
+        Assertions.assertEquals(ActionEngine.isFileDownloaded("Transactions.xlsx"), "File Present");
+
+        session.getTransactionsPage().getFilterIcon().click();
+        WebdriverWaits.sleep(3000);
+        transactions.getDateRangeField().click();
+
+        List<WebElement> dateList2 = transactions.getListCallenderTime().getListOfWebElements();
+        List<String> dateList = new ArrayList<>();
+        for (WebElement element : dateList2) {
+            String text = element.getText().trim();
+            dateList.add(text);
+        }
+
+        List<String> expectedList = Arrays.asList("Empty", "Last 30 Days", "This Month", "Custom Range", "Yesterday", "Last Month", "Last 7 Days");
+
+        for (String expectedItem : expectedList) {
+            Assertions.assertTrue(dateList.contains(expectedItem));
+        }
+
+        //Asertions for Calender
+        Assertions.assertTrue(transactions.getCalender1().isDisplayed());
+        Assertions.assertTrue(transactions.getCalender2().isDisplayed());
+
+        transactions.getPaymentStatusDropdown().click();
+        transactions.getPendingPayments().click();
+        transactions.getApplyButtonOnPopup().click();
+        WebdriverWaits.sleep(3000);
+
+        Assertions.assertTrue(transactions.getPendingPaymentIcon().isDisplayed());
+
+        transactions.getFilterIcon().click();
+        transactions.getPaymentStatusDropdown().click();
+        transactions.getFailedPayments().click();
+        transactions.getApplyButtonOnPopup().click();
+        WebdriverWaits.sleep(3000);
+
+        Assertions.assertTrue(transactions.getExcalamatrySign().isDisplayed());
+
+        transactions.getFilterIcon().click();
+        transactions.getPaymentStatusDropdown().click();
+        WebdriverWaits.sleep(2000);
+        transactions.getUnverifiedPayments().click();
+        transactions.getApplyButtonOnPopup().click();
+        WebdriverWaits.sleep(2000);
+
+        Assertions.assertTrue(transactions.getQuotionmarkSign().isDisplayed());
+
+        transactions.getFilterIcon().click();
+        transactions.getPaymentStatusDropdown().click();
+        transactions.getClearPaymentField().click();
+        WebdriverWaits.sleep(2000);
+        transactions.getPaymentLinkField().click();
+        transactions.getQrCodeSeletct().click();
+        transactions.getApplyButtonOnPopup().click();
+
+        WebdriverWaits.sleep(2000);
+
+        Assertions.assertTrue(transactions.getQrCodeSign().isDisplayed());
+
+        transactions.getFilterIcon().click();
+        transactions.getPaymentLinkField().click();
+        transactions.getQrClearField().click();
+
+        transactions.getAmmountFieldFrom().setText(ammountFrom);
+        transactions.getAmmountFieldTo().setText(ammountTo);
+
+        transactions.getApplyButtonOnPopup().click();
+        WebdriverWaits.sleep(5000);
+
+        List<WebElement> ammountList = transactions.getAmmountList().getListOfWebElements();
+        List<Double> ammountList1 = new ArrayList<>();
+        for (WebElement element : ammountList) {
+            String text = element.getText().trim();
+            ammountList1.add(Double.parseDouble(text.substring(1)));
+        }
+        System.out.println(ammountList1);
+        boolean flag = false;
+        System.out.println(Integer.parseInt(ammountFrom.split("\\.")[0]));
+
+        for (int i = 0; i < ammountList1.size(); i++) {
+            double temp = ammountList1.get(i);
+            if(temp>=Integer.parseInt(ammountFrom.split("\\.")[0]) && temp<=Integer.parseInt(ammountTo.split("\\.")[0])){
+                flag =true;
+            }
+        }
+        Assert.assertTrue(flag, "The amount does not lie between the applied filter");
+
+
+    }
+
 
 }
+
+
+
 
 
 

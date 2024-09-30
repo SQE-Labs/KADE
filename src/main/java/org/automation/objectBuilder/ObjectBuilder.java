@@ -14,6 +14,7 @@ public class ObjectBuilder{
             return bill;
         }
 
+
         public static BillsPage getDefaultBillDetailsForTransactionCheck() {
             BillsPage bill = new BillsPage();
             bill.setAmount("1,000");
