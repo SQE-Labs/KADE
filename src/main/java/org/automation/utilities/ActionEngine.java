@@ -18,6 +18,7 @@ import java.awt.Robot;
 import java.awt.Toolkit;
 import java.awt.datatransfer.StringSelection;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -518,5 +519,49 @@ public class ActionEngine extends BaseTest {
 
     public void navigateToUrl(String url) {
         getDriver().get(url);
+    }
+
+    public static String isFileDownloaded(String fileName) {
+        String home = System.getProperty("user.home");
+        String file_with_location;
+
+        // Determine the Downloads folder based on OS
+        if (System.getProperty("os.name").contains("Windows")) {
+            file_with_location = home + "\\Downloads\\" + fileName;
+        } else {
+            file_with_location = home + "/Downloads/" + fileName;
+        }
+
+        // Check if the file exists
+        File file = new File(file_with_location);
+        if (file.exists()) {
+            return "File Present";
+        } else {
+            return "File not Present";
+        }
+    }
+
+    public static String deleteFile(String fileName) {
+        String home = System.getProperty("user.home");
+        String file_with_location;
+
+        if (System.getProperty("os.name").contains("Windows")) {
+            file_with_location = home + "\\Downloads\\" + fileName;
+        } else {
+            file_with_location = home + "/Downloads/" + fileName;
+        }
+
+        File file = new File(file_with_location);
+
+        if (file.exists()) {
+            boolean deleted = file.delete();
+            if (deleted) {
+                return "File deleted successfully";
+            } else {
+                return "Failed to delete file";
+            }
+        } else {
+            return "File not found";
+        }
     }
 }
