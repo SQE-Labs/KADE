@@ -34,6 +34,7 @@ public class BaseTest {
 	ExtentSparkReporter extentSparkReporter;
 	private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 	private static ThreadLocal<ExtentTest> extentTest = new ThreadLocal<>();
+
 	public static WebDriver getDriver() {
 		return driver.get();
 	}
@@ -68,7 +69,7 @@ public class BaseTest {
 			chromeOptions.addArguments("--remote-allow-origins=*");
 			chromeOptions.addArguments("--window-size=1920,1080");
 			if (Boolean.parseBoolean(headlessParameter)) {
-				chromeOptions.addArguments("--headless");
+				chromeOptions.addArguments("--headless=old");
 			}
 			driver.set(new ChromeDriver(chromeOptions));
 			break;

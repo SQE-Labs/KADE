@@ -11,7 +11,7 @@ import org.testng.annotations.Test;
 
 import java.awt.*;
 
-public class PaymentAndRefund extends BasePage {
+public class PaymentAndRefundTest extends BasePage {
     @Test(description = "PYMT13 : Create Bill for a customer and pay using Venmo.")
     public void pyCreateBillForCustomerPayUsingVenmo () throws AWTException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);

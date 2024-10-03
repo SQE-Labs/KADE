@@ -70,11 +70,18 @@ public class TransactionsPage extends BasePage {
     By amountRangeTo = By.xpath("//input[@placeholder='To']");
     By clearQrPayment = By.xpath("(//select[@name='billTemplate']/option)[1]");
     By ammountList = By.xpath("(//div[contains(@class,'d-flex align-items-center')])");
+    By paidLabelOnPopup = By.cssSelector("span.bg-success");
+    By returnSymbol = By.xpath("//div[span[text()='Refunded']]/following::div[3]/i");
 
+    public Clickable getPaidLabelOnPopup() {
+        return Clickable.getElementBy(paidLabelOnPopup, "Paid Label");
+    }
     public Clickable getContinueButton() {
         return Clickable.getElementBy(continueBtn, "Continue Button");
     }
-
+    public Clickable getReturnSymbol() {
+        return Clickable.getElementBy(returnSymbol, "Refund Symbol");
+    }
     public Clickable getLastTransactionRow() {
         return Clickable.getElementBy(transactionRow, "Last Transaction");
     }

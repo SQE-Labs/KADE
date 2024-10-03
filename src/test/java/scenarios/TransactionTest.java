@@ -349,6 +349,11 @@ public class TransactionTest extends BaseTest {
         Assertions.assertTrue(transaction.getRefundLabel().isDisplayed());
         Assertions.assertTrue(transaction.getVerifyButton().isDisplayed());
 
+        // Clicking on transaction tab to verify the refunded transaction
+        session.getDashBoardPage().getTransactionButton().click();
+        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+        Assertions.assertTrue(session.getTransactionsPage().getReturnSymbol().isDisplayed());
+
     }
 
     @Test(description = "TRS7 (b): Verify that store manager is able to refund partial transaction on 'Transaction details' popup of 'Transaction' page.")
@@ -713,9 +718,27 @@ public class TransactionTest extends BaseTest {
 
 
     }
+    @Test(description = "TRS6 Verify that 'Transaction details' popup opens up after clicking on any transaction of 'Transaction' page.")
+    public void verifyThatElementsOfTransactionDetailsPopup() {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
+        // go to transaction Page .
+        session.getDashBoardPage().getTransactionButton().click();
+        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+        TransactionsPage transaction = session.getTransactionsPage();
+        transaction.getCurrentPaidBill().click();
 
-
+        // Verifying the elements on Transaction Popup
+        Assertions.assertTrue(transaction.getTransactionID().isDisplayed());
+        Assertions.assertTrue(transaction.getVerifyButton().isDisplayed());
+        Assertions.assertTrue(transaction.getRefundButton().isDisplayed());
+        Assertions.assertTrue(transaction.getPaymentTypeOnTransaction().isDisplayed());
+        Assertions.assertTrue(transaction.getTimeOnTransactionPage().isDisplayed());
+        Assertions.assertTrue(transaction.getUniqueTransactionId().isDisplayed());
+        Assertions.assertTrue(transaction.getPaidLabelOnPopup().isDisplayed());
+        Assertions.assertTrue(transaction.getTimeOnTransactionPage().isDisplayed());
+        Assertions.assertTrue(transaction.getCustomerNameOnTransactionPage().isDisplayed());
+    }
 
 }
 

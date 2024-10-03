@@ -489,9 +489,9 @@ public class BillTest extends BaseTest {
         WebdriverWaits.sleep(3000);
 
         //Enter amount
-        String amt2 = "60,000.00";
+        String amount = "60,000.00";
         WebdriverWaits.sleep(2000);
-        bill.getAmountTextbox().setText(amt2);
+        bill.getAmountTextbox().setText(amount);
         bill.getDisableTaxToggleButton().clickIfExist();
 
         //Select Suggested Customer
@@ -509,7 +509,7 @@ public class BillTest extends BaseTest {
         WebdriverWaits.sleep(2000);
         bill.getCloseLogoPopupBtn().clickIfExist(true,3);
         bill.getUnpaidBillWithoutDescription().clickByMouse();
-        Assertions.assertNotEquals(bill.getUnpaidAmount().getText(), amt2);
+        Assertions.assertNotEquals(bill.getUnpaidAmount().getText(), amount);
         Assertions.assertTrue(bill.getNotPaidLabel().isDisplayed());
         Assertions.assertTrue(bill.getUniqueReferenceNumber().isDisplayed());
         Assertions.assertTrue(bill.getBillTime().isDisplayed());
