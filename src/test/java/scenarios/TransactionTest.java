@@ -113,7 +113,7 @@ public class TransactionTest extends BaseTest {
     }
 
     @Test(description = "trs1 Verify that card payment is done by the customer that's appear on Transaction List, on 'Transaction' page through Store Manager.")
-    public void cardPaymentViewOnTransactionListByCustomer() {
+    public void verifyCardPaymentViewOnTransactionListByCustomer() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getBillButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
@@ -139,7 +139,7 @@ public class TransactionTest extends BaseTest {
         String expectedPaymentMethod = session.getPaymentsPage().getSavedCreditCard().getText().replaceAll("\\s.*", "");
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
-        session.getPaymentsPage().getBlueCloseButton().click();
+        session.getPaymentsPage().getBlueCloseButton().clickbyJS();
 
         // logout customer .
 
@@ -189,7 +189,8 @@ public class TransactionTest extends BaseTest {
         Assertions.assertEquals(session.getTransactionsPage().getInformationMessage().getText(), expectedInformationMessage);
     }
 
-    @Test(description = "TRS3 : Verify that 'New Bill' & 'New Charge' buttons and filter icon appear, on 'Transaction' page.")
+    @Test(description = "TRS3 : Verify that 'New Bill' & '" +
+            "' buttons and filter icon appear, on 'Transaction' page.")
     public void verifyNewBillNewChargeButtonsAndFilterOnTransactionPage() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getDashBoardPage().getTransactionButton().click();
@@ -347,6 +348,11 @@ public class TransactionTest extends BaseTest {
         Assertions.assertEquals(transaction.getRefundAmountOnReceipt().getText(), "$" + amt);
         Assertions.assertTrue(transaction.getRefundLabel().isDisplayed());
         Assertions.assertTrue(transaction.getVerifyButton().isDisplayed());
+
+        // Clicking on transaction tab to verify the refunded transaction
+        session.getDashBoardPage().getTransactionButton().click();
+        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+        Assertions.assertTrue(session.getTransactionsPage().getReturnSymbol().isDisplayed());
 
     }
 
@@ -590,12 +596,11 @@ public class TransactionTest extends BaseTest {
         }
 
         session.getTransactionsPage().getFilterIcon().click();
+        Assertions.assertTrue(transactions.getFilterTitle().isDisplayed());
         WebdriverWaits.sleep(3000);
         session.getTransactionsPage().getApplyButtonOnPopup().click();
 
-        // Filter tile is appear
-        Assertions.assertTrue(transactions.getFilterTitle().isDisplayed());
-
+        // transactionids
         List<WebElement> ele2 = session.getTransactionsPage().getTransactionID().getListOfWebElements();
         List<String> transactionIDAfterFilterApply = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -713,11 +718,29 @@ public class TransactionTest extends BaseTest {
 
 
     }
+    @Test(description = "TRS6 Verify that 'Transaction details' popup opens up after clicking on any transaction of 'Transaction' page.")
+    public void verifyThatElementsOfTransactionDetailsPopup() {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
+        // go to transaction Page .
+        session.getDashBoardPage().getTransactionButton().click();
+        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+        TransactionsPage transaction = session.getTransactionsPage();
+        transaction.getCurrentPaidBill().click();
+
+        // Verifying the elements on Transaction Popup
+        Assertions.assertTrue(transaction.getTransactionID().isDisplayed());
+        Assertions.assertTrue(transaction.getVerifyButton().isDisplayed());
+        Assertions.assertTrue(transaction.getRefundButton().isDisplayed());
+        Assertions.assertTrue(transaction.getPaymentTypeOnTransaction().isDisplayed());
+        Assertions.assertTrue(transaction.getTimeOnTransactionPage().isDisplayed());
+        Assertions.assertTrue(transaction.getUniqueTransactionId().isDisplayed());
+        Assertions.assertTrue(transaction.getPaidLabelOnPopup().isDisplayed());
+        Assertions.assertTrue(transaction.getTimeOnTransactionPage().isDisplayed());
+        Assertions.assertTrue(transaction.getCustomerNameOnTransactionPage().isDisplayed());
+    }
 
 }
-
-
 
 
 

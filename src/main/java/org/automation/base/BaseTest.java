@@ -13,6 +13,8 @@ import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.testng.ITestResult;
 import org.testng.annotations.*;
+import org.testng.annotations.Optional;
+
 import java.io.IOException;
 import java.lang.reflect.Method;
 import java.net.MalformedURLException;
@@ -32,6 +34,7 @@ public class BaseTest {
 	ExtentSparkReporter extentSparkReporter;
 	private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
 	private static ThreadLocal<ExtentTest> extentTest = new ThreadLocal<>();
+
 	public static WebDriver getDriver() {
 		return driver.get();
 	}
@@ -54,8 +57,9 @@ public class BaseTest {
 		extent.setSystemInfo("Environment", "QA");
 	}
 
+    @Parameters({"headless"})
 	@BeforeMethod(alwaysRun = true)
-	public void beforeMethod() throws MalformedURLException {
+	public void beforeMethod(@Optional("false") String headlessParameter) throws MalformedURLException {
 		String browser = PropertiesUtil.getPropertyValue("browser");
 		String url = PropertiesUtil.getPropertyValue("url");
 
@@ -64,7 +68,9 @@ public class BaseTest {
 			ChromeOptions chromeOptions = new ChromeOptions();
 			chromeOptions.addArguments("--remote-allow-origins=*");
 			chromeOptions.addArguments("--window-size=1920,1080");
-//			chromeOptions.addArguments("--headless");
+			if (Boolean.parseBoolean(headlessParameter)) {
+				chromeOptions.addArguments("--headless=old");
+			}
 			driver.set(new ChromeDriver(chromeOptions));
 			break;
 

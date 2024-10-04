@@ -76,7 +76,7 @@ public class MyStorePage extends BasePage {
     By rewardPointToggleOffBtn = By.xpath("//span[@class='ms-2 fs-6 custom-check-on']");
     By rewardPointsField = By.xpath("//input[@name='pointsForGiftcard']");
     By rewardPtsValue = By.xpath("//input[@name='ponitsValue']");
-    By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
+    By checkBtn = By.cssSelector(".btn.btn-dark.-crop-");
     By checkDeleteUser = By.xpath("//button[@class='btn btn-outline-success']");
     By storeLinksBtn = By.xpath("//button[text()='Store links']");
     By websiteURLField = By.xpath("//input[@name='StoreURLTypes[0].url']");

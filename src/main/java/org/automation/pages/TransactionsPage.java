@@ -47,7 +47,7 @@ public class TransactionsPage extends BasePage {
     By informationMessageOnVerifyPopup = By.xpath("//div[@class='alert-message']");
     By verifyByStoreMssg = By.xpath("//span[@class='badge rounded-pill bg-info px-2']");
     By applyButton = By.xpath("//button[@type='submit']");
-    By filterTiltle = By.cssSelector(".offcanvas-title");
+    By filterTiltle = By.xpath("(//h5[@class='offcanvas-title'])[1]");
     By downloadButton = By.xpath("//button[normalize-space()='Download']");
     By listCallender = By.xpath("//ul[@class='float-none w-100']/li");
     By dateRangeField = By.xpath("//input[@name='dateRange']");
@@ -70,11 +70,18 @@ public class TransactionsPage extends BasePage {
     By amountRangeTo = By.xpath("//input[@placeholder='To']");
     By clearQrPayment = By.xpath("(//select[@name='billTemplate']/option)[1]");
     By ammountList = By.xpath("(//div[contains(@class,'d-flex align-items-center')])");
+    By paidLabelOnPopup = By.cssSelector("span.bg-success");
+    By returnSymbol = By.xpath("//div[span[text()='Refunded']]/following::div[3]/i");
 
+    public Clickable getPaidLabelOnPopup() {
+        return Clickable.getElementBy(paidLabelOnPopup, "Paid Label");
+    }
     public Clickable getContinueButton() {
         return Clickable.getElementBy(continueBtn, "Continue Button");
     }
-
+    public Clickable getReturnSymbol() {
+        return Clickable.getElementBy(returnSymbol, "Refund Symbol");
+    }
     public Clickable getLastTransactionRow() {
         return Clickable.getElementBy(transactionRow, "Last Transaction");
     }
