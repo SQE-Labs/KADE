@@ -72,7 +72,19 @@ public class TransactionsPage extends BasePage {
     By ammountList = By.xpath("(//div[contains(@class,'d-flex align-items-center')])");
     By paidLabelOnPopup = By.cssSelector("span.bg-success");
     By returnSymbol = By.xpath("//div[span[text()='Refunded']]/following::div[3]/i");
+    By questionMarkIcon = By.cssSelector(".align-items-end>i");
+    By capturedButton = By.cssSelector("[value='captured']");
+    By failedButton = By.cssSelector(".mx-3");
 
+    public Clickable getFailedButton() {
+        return Clickable.getElementBy(failedButton, "failed Button ");
+    }
+    public Clickable getCapturedButton() {
+        return Clickable.getElementBy(capturedButton, "Captured Button");
+    }
+    public Clickable getQuestionMarkIcon() {
+        return Clickable.getElementBy(questionMarkIcon, "Question Mark Icon");
+    }
     public Clickable getPaidLabelOnPopup() {
         return Clickable.getElementBy(paidLabelOnPopup, "Paid Label");
     }
