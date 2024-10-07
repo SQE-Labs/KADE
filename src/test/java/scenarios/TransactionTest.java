@@ -459,6 +459,7 @@ public class TransactionTest extends BaseTest {
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
         session.getPaymentsPage().getChangePaymentButton().clickbyJS();
+        WebdriverWaits.sleep(3000);
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
         session.getPaymentsPage().getBlueCloseButton().clickByMouse();
@@ -554,6 +555,7 @@ public class TransactionTest extends BaseTest {
 
         //Step 10: Click on 'Change Payment Method' Button
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
+        WebdriverWaits.sleep(3000);
 
         //Step 11: Select 'Bank Account' Method
         session.getPaymentsPage().getSavedBankAccount().click();
@@ -611,6 +613,7 @@ public class TransactionTest extends BaseTest {
         System.out.println(setBeforeFilter);
         Set<String> setAfterFilter = new HashSet<>(transactionIDAfterFilterApply);
         System.out.println(setAfterFilter);
+
         // Check  setAfterFilter contains all elements from setBeforeFilter
         Assertions.assertTrue(setAfterFilter.containsAll(setBeforeFilter));
 
@@ -730,8 +733,8 @@ public class TransactionTest extends BaseTest {
 
         // Verifying the elements on Transaction Popup
         Assertions.assertTrue(transaction.getTransactionID().isDisplayed());
-        Assertions.assertTrue(transaction.getVerifyButton().isDisplayed());
         Assertions.assertTrue(transaction.getRefundButton().isDisplayed());
+        Assertions.assertTrue(transaction.getVerifyButton().isDisplayed());
         Assertions.assertTrue(transaction.getPaymentTypeOnTransaction().isDisplayed());
         Assertions.assertTrue(transaction.getTimeOnTransactionPage().isDisplayed());
         Assertions.assertTrue(transaction.getUniqueTransactionId().isDisplayed());
@@ -739,7 +742,67 @@ public class TransactionTest extends BaseTest {
         Assertions.assertTrue(transaction.getTimeOnTransactionPage().isDisplayed());
         Assertions.assertTrue(transaction.getCustomerNameOnTransactionPage().isDisplayed());
     }
+    @Test(description = "Verify that Question mark icon gets removed, when store manager manually marked the payment as 'Captured'.")
+    public void verifyQuestionmarkIconRemovedWhenStoreManagerManuallyMarkedPaymentAsCaptured(){
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        // Click on 'Bill' sub-Tab
+        session.getDashBoardPage().getBillButton().click();
 
+        // Creating Bill
+        String amt = "4999.00";
+        String customerEmail = "yonro@yopmail.com";
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetailsForTransactionCheck().setAmount(amt).setCustomerEmail(customerEmail);
+        session.getBillPage().createBill(bills);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
+
+        //Logout as Store manager
+        session.getDashBoardPage().getSignOutButton().click(); // Signing out
+
+        //Login as Customer
+        session.getLoginPage().performSignIn(customerEmail, "Test@123");
+
+        // Paying Bill Through Venmo
+        session.getNotificationPage().getNotificationIcon().click();
+        session.getNotificationPage().getFirstNotification().click();
+        session.getPaymentsPage().getPayNowButton().click();
+        session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
+        WebdriverWaits.sleep(3000);
+        session.getPaymentsPage().getSavedVenmoCard().clickByMouse();
+        WebdriverWaits.sleep(3000);
+        session.getPaymentsPage().getIMadeMyPaymentButton().click();
+        session.getPaymentsPage().getConfirmVenmoCheckbox().click();
+        session.getPaymentsPage().getVenmoSubmitButton().click();
+        session.getPaymentsPage().getCloseButton().clickbyJS();
+
+        // logout customer .
+        session.getDashBoardPage().getSignOutButton().click();
+
+        // login as store manager
+     session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
+
+        // go to transaction Page .
+        session.getDashBoardPage().getTransactionButton().click();
+        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+        TransactionsPage transaction = session.getTransactionsPage();
+        transaction.getCurrentPaidBill().click();
+
+        // Clicking on the paid amount and verify the question mark icon is displayed
+        Assertions.assertTrue(transaction.getQuestionMarkIcon().isDisplayed());
+        WebdriverWaits.sleep(3000);
+
+        transaction.getQuestionMarkIcon().clickByMouse();
+
+        WebdriverWaits.sleep(2000);
+        // Verify Capture and Failed Button is visible
+        Assertions.assertTrue(transaction.getCapturedButton().isDisplayed());
+        Assertions.assertTrue(transaction.getFailedButton().isDisplayed());
+
+        transaction.getCapturedButton().click();
+        WebdriverWaits.sleep(2000);
+
+        //verify that question mark icon gets removed after clicking on captured button
+        Assertions.assertFalse(transaction.getQuestionMarkIcon().isDisplayed());
+    }
 }
 
 

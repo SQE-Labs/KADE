@@ -235,6 +235,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getPaymentsPage().getCashButton().click();
 
         //Verify Paid Amount
+
         float amount = Float.parseFloat(amt.replace(",", ""));
         float updateAmount1 = Float.parseFloat(updatedAmt1.replace(",", ""));
         float expBalanceDue1= amount - updateAmount1;
@@ -308,6 +309,7 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         //Update Amount
         session.getPaymentsPage().getAmountTextbox().setText(payAmt);
+        WebdriverWaits.sleep(3000);
         session.getPaymentsPage().getCreditCardButton().click();
         WebdriverWaits.sleep(5000);
         session.getPaymentsPage().payByCreditCard();
