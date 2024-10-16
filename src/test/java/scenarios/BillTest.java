@@ -18,7 +18,7 @@ public class BillTest extends BaseTest {
     @Test(description = "BC_01 Verify that creating a bill by adding amount value only, without Selecting a Customer")
     public void verifyCreateBillWithoutSelectingCustomer() throws InterruptedException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
 
         //Select Store
@@ -87,7 +87,7 @@ public class BillTest extends BaseTest {
     @Test(description = "BC_02 Verify that creating a bill by adding amount value only, with Selecting a Customer")
     public void verifyCreateBillBySelectingCustomer() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
 
         //Select Store
@@ -160,7 +160,7 @@ public class BillTest extends BaseTest {
     @Test(description = "BC_03 Bill creation by selecting customers from the suggestion list")
     public void verifyCreateBillForSuggestedCustomer() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
 
         //Select Store
@@ -205,7 +205,7 @@ public class BillTest extends BaseTest {
     @Test(description = "BC_04 Bill Creation with already configured 'Tax' from store configuration page.")
     public void verifyCreateBillForConfiguredTax() throws ParseException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
 
         //Select Store
@@ -258,7 +258,7 @@ public class BillTest extends BaseTest {
     @Test(description = "BC_07 Verify that unpaid bill gets deleted")
     public void verifyBillDeletion() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
 
         //Select Store
@@ -290,7 +290,7 @@ public class BillTest extends BaseTest {
     @Test(description = "BC_08 Verify that creating a bill by adding 'Ref No.', 'Description' and 'Items' fields")
     public void verifyBillCreationUsingOptionalFields() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
 
         //Select Store
@@ -395,7 +395,7 @@ public class BillTest extends BaseTest {
     @Test(description = "BC_09 Verify that creating a bill, when user has  Essential (Free) plan for his store")
     public void verifyingBillCreationWithEssentialFreePlan() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
 
         //Select Store
@@ -439,7 +439,7 @@ public class BillTest extends BaseTest {
     @Test(description = "BC_12 Verify that creating a bill with configured bill amount, on 'Bill' popup")
     public void qverifyingBillCreationWithConfiguredBillAmount() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
 
         //Select Store
@@ -525,7 +525,7 @@ public class BillTest extends BaseTest {
     public void
     verifyingBillCreationWithOutConfiguredBillAmount() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
 
         //Select Store
@@ -612,7 +612,7 @@ public class BillTest extends BaseTest {
     @Test(description = "BC_13 Verify that creating a bill with adding Memo field, on 'Bill' popup.")
     public void verifyingBillCreationWithAddingMemoField() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
 
         //Select Store
@@ -669,7 +669,7 @@ public class BillTest extends BaseTest {
     @Test(description = "BC_10 Verify that creating a bill after purchasing the 'Business' plan from the 'Store Configuration' page.")
     public void verifyingBillCreationAfterPurchasingBusinessPlan() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
 
         //Select Store
@@ -729,7 +729,7 @@ public class BillTest extends BaseTest {
     @Test(description = "BC_15 Verify that creating a bill by adding the custom expiration date' on 'Bills' page..")
     public void verifyingBillCreationByAddingExpirationDate() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
 
         //Select Store
@@ -799,7 +799,7 @@ public class BillTest extends BaseTest {
     @Test(description = "BC_16 Verify that creating a store by adding recurring transactions, on Bills page")
     public void verifyingBillCreationByAddingRecurringTransactions() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
 
         //Select Store

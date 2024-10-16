@@ -11,27 +11,27 @@ import org.testng.annotations.Test;
 
 import java.awt.*;
 
-public class PaymentAndRefundTest extends BasePage {
+public class PaymentsAndRefundTest extends BasePage {
     @Test(description = "PYMT13 : Create Bill for a customer and pay using Venmo.")
     public void pyCreateBillForCustomerPayUsingVenmo () throws AWTException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'Bill' sub-Tab
-        session.getDashBoardPage().getBillButton().click();
+      session.getSidePannel().getBillButton().click();
 
         //Step 2: Enter Amount
-        String amt = "4999.00";
+      String amt = "4999.00";
 
         //Step 3: Enter Customer Email
         String customerEmail = "yonro@yopmail.com";
-        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
+       BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
 
         //Step 4: Create Bill
-        session.getBillPage().createBill(bills);
+       session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Step 5: Logout as Store manager
-        session.getDashBoardPage().getSignOutButton().click();
+        session.getSidePannel().getSignOutButton().click();
 
         //Step 6: Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -47,17 +47,11 @@ public class PaymentAndRefundTest extends BasePage {
 
         //Step 10: Click on 'Change Payment' Button
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-
+        WebdriverWaits.sleep(2000);
         //Step 11:  Selecting Venmo Card
-        session.getPaymentsPage().getSavedVenmoCard().clickbyJS();
-        WebdriverWaits.sleep(3000);
-
+        session.getPaymentsPage().getSavedVenmoCard().clickByMouse();
         //Verifying that Venmo PopUp is displayed
         Assertions.assertTrue(session.getPaymentsPage().getVenmoPopup().isDisplayed());
-
-        //Verifying that QR code is displayed
-        // feature existed before , no longer available
-//        Assertions.assertTrue(session.getPaymentsPage().getVenmoQrCode().isDisplayed());
 
         //Verifying that Copy link is visible
         Assertions.assertTrue(session.getPaymentsPage().getCopyLink().isDisplayed());
@@ -99,7 +93,8 @@ public class PaymentAndRefundTest extends BasePage {
     @Test(description = "PYMT15 : Create Bill for a customer and pay using Zelle.")
     public void CreateBillForCustomerAndPayUsingZelle() throws AWTException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
+
         String amt = "4,999.00";
         String customerEmail = "yonro@yopmail.com";
         BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
@@ -109,7 +104,7 @@ public class PaymentAndRefundTest extends BasePage {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 2);
 
         //Logout as Store manager
-        session.getDashBoardPage().getSignOutButton().click(); // Signing out
+        session.getSidePannel().getSignOutButton().click(); // Signing out
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -153,7 +148,7 @@ public class PaymentAndRefundTest extends BasePage {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'Bill' sub-Tab
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
 
         //Step 2: Enter Amount
         String amt = "3000.00";
@@ -167,7 +162,7 @@ public class PaymentAndRefundTest extends BasePage {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Step 5: Logout as Store manager
-        session.getDashBoardPage().getSignOutButton().click();
+        session.getSidePannel().getSignOutButton().click();
 
         //Step 6: Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -182,7 +177,7 @@ public class PaymentAndRefundTest extends BasePage {
         session.getPaymentsPage().getPayNowButton().click();
 
         //Step 10: Click on 'Swipe to Pay; field
-        session.getPaymentsPage().getSwipeToPayButton().clickByMouse();
+        session.getPaymentsPage().getSwipeToPayButton().click();
 
         //Step 11: Enter Amount
         session.getPaymentsPage().getMoreAmountField().setText("1000.00");
@@ -196,35 +191,39 @@ public class PaymentAndRefundTest extends BasePage {
 
         //Step 14: Click on 'Swipe to Pay' field
         session.getPaymentsPage().getSwipeToPayButton().clickbyJS();
+        WebdriverWaits.sleep(2000);
 
         //Step 15: Enter Amount
         session.getPaymentsPage().getMoreAmountField().setText("1000.00");
 
         //Step 16: Click on 'Update' Button
-        session.getPaymentsPage().getAmountUpdateButton().click();
+        session.getPaymentsPage().getAmountUpdateButton().clickByMouse();
+        WebdriverWaits.sleep(2000);
 
         //Step 17: Click on 'Change' Button
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
+      //  WebdriverWaits.sleep(2000);
 
         //Step 18: Select the 'Bank Account' Method
-        session.getPaymentsPage().getSavedBankAccount().click();
+        session.getPaymentsPage().getSavedBankAccount().clickbyJS();
 
         //Step 19: Swipe to Pay the Partial amount
         session.getPaymentsPage().swipeToPay();
-        WebdriverWaits.sleep(5000);
+        WebdriverWaits.sleep(3000);
 
         //Step 20: Click on 'Swipe to pay' field
         session.getPaymentsPage().getSwipeToPayButton().clickbyJS();
+        WebdriverWaits.sleep(2000);
 
-        //Step 21: Enter Amount
+      /*  //Step 21: Enter Amount
         session.getPaymentsPage().getMoreAmountField().setText("1000.00");
 
         //Step 22: Click on 'Update' Button
         session.getPaymentsPage().getAmountUpdateButton().click();
+        WebdriverWaits.sleep(2000); */
 
         //Step 23: Click on 'Change' Button
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-
         //Step 24: Select 'Venmo' Method
         WebdriverWaits.sleep(2000);
         session.getPaymentsPage().getSavedVenmoCard().clickbyJS();
@@ -233,10 +232,6 @@ public class PaymentAndRefundTest extends BasePage {
         //Verifying that Venmo PopUp is displayed
         Assertions.assertTrue(session.getPaymentsPage().getVenmoPopup().isDisplayed());
 
-
-        //Verifying that QR code is displayed
-        // feature existed before , no longer available
-//        Assertions.assertTrue(session.getPaymentsPage().getVenmoQrCode().isDisplayed());
 
         //Verifying that Copy link is visible
         Assertions.assertTrue(session.getPaymentsPage().getCopyLink().isDisplayed());

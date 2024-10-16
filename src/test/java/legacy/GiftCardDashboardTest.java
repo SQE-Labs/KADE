@@ -1,6 +1,5 @@
 package legacy;
 
-import java.awt.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,7 +15,7 @@ import org.testng.annotations.Test;
 
 public class GiftCardDashboardTest extends BaseTest {
 	LoginPage login=new LoginPage();
-	DashBoardPage dashboard=new DashBoardPage();
+	SidePannel dashboard=new SidePannel();
 	GiftCardDashboardPage giftCardDashboard=new GiftCardDashboardPage();
 	GiftCardConfigurationPopup giftCardConfiguration = new GiftCardConfigurationPopup();
 	CreateAGiftCardPopup createGiftCard=new CreateAGiftCardPopup();	
@@ -30,7 +29,7 @@ public class GiftCardDashboardTest extends BaseTest {
 		KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
 		//Step 1: Click on 'Gift Cards Dashboard' Tab
-		session.getDashBoardPage().getGiftCardsDashboardTab().click();
+		session.getSidePannel().getGiftCardsDashboardTab().click();
 		GiftCardDashboardPage giftCard = session.getGiftCardDashboardPage();
 
 	}

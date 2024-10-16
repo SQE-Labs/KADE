@@ -69,7 +69,8 @@ public class BaseTest {
 			chromeOptions.addArguments("--remote-allow-origins=*");
 			chromeOptions.addArguments("--window-size=1920,1080");
 			if (Boolean.parseBoolean(headlessParameter)) {
-				chromeOptions.addArguments("--headless=old");
+				//chromeOptions.addArguments("--headless=old");
+
 			}
 			driver.set(new ChromeDriver(chromeOptions));
 			break;
@@ -108,7 +109,7 @@ public class BaseTest {
 //			String screenshotPath = Screenshot.getScreenshot(getDriver(), result.getName());
 //			extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath));
 		}
-		new KadeSession().getDashBoardPage().getSignOutButton().clickIfExist();
+		new KadeSession().getSidePannel().getSignOutButton().clickIfExist();
 		closeDriver();
 	}
 

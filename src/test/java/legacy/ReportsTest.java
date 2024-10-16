@@ -1,7 +1,7 @@
 package legacy;
 
 import org.automation.base.BaseTest;
-import org.automation.pages.DashBoardPage;
+import org.automation.pages.SidePannel;
 import org.automation.pages.LoginPage;
 import org.automation.pages.ReportsPage;
 import org.automation.utilities.Assertions;
@@ -10,7 +10,7 @@ import org.testng.annotations.Test;
 
 public class ReportsTest extends BaseTest {
 	LoginPage login=new LoginPage();
-	DashBoardPage dashboard=new DashBoardPage();
+	SidePannel dashboard=new SidePannel();
 	ReportsPage reports =new ReportsPage();
 	
 	@Test(enabled = true, description="verifyReportButton")

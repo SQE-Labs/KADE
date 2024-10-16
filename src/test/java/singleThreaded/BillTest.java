@@ -18,7 +18,7 @@ public class BillTest extends BaseTest {
     @Test(description = "BC_05 Bill creation along with image attachement ")
     public void za_verifyCreateBillByAttachingImage() throws ParseException, AWTException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
 
         //Select Store
@@ -81,7 +81,7 @@ public class BillTest extends BaseTest {
     @Test(description = "BC_06 Bill creation along with pdf attachment .")
     public void zb_verifyCreateBillByAttachingPdf() throws AWTException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
 
         //Select Store
@@ -134,7 +134,7 @@ public class BillTest extends BaseTest {
     @Test(description = "BC_17 Verifying bill creation using all Features, on Bills page")
     public void zcverifyingBillCreationByAddingAllFeatures() throws AWTException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
 
         //Select Store

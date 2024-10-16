@@ -6,14 +6,13 @@ import org.automation.data.StoreAccount;
 import org.automation.objectBuilder.ObjectBuilder;
 import org.automation.objectBuilder.pages.BillsPage;
 import org.automation.pages.BillPage;
-import org.automation.pages.DashBoardPage;
+import org.automation.pages.SidePannel;
 import org.automation.pages.TransactionsPage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.ActionEngine;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.RandomGenerator;
 import org.automation.utilities.WebdriverWaits;
-import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
@@ -26,13 +25,13 @@ public class TransactionTest extends BaseTest {
     public void verifyUserIsAbleToViewTransactionList() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         TransactionsPage transactions = session.getTransactionsPage();
-        DashBoardPage dashBoard = session.getDashBoardPage();
+        SidePannel dashBoard = session.getSidePannel();
         BillPage bill = session.getBillPage();
 
         String amt = "2,111.00";
         String customerEmail = "yonro@yopmail.com";
         BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 3);
 
@@ -85,7 +84,7 @@ public class TransactionTest extends BaseTest {
 
         //Close Receive Payment popup
         session.getPaymentsPage().getCloseReceivedPopupButton().click();
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getSidePannel().getTransactionButton().click();
         transactions.selectStore(bills.getStore());
 
         // Payment Amount
@@ -115,7 +114,7 @@ public class TransactionTest extends BaseTest {
     @Test(description = "trs1 Verify that card payment is done by the customer that's appear on Transaction List, on 'Transaction' page through Store Manager.")
     public void verifyCardPaymentViewOnTransactionListByCustomer() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
         String amt = "4999.00";
 
@@ -127,7 +126,7 @@ public class TransactionTest extends BaseTest {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 3);
 
         //Logout as Store manager
-        session.getDashBoardPage().getSignOutButton().click();
+        session.getSidePannel().getSignOutButton().click();
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -143,14 +142,14 @@ public class TransactionTest extends BaseTest {
 
         // logout customer .
 
-        session.getDashBoardPage().getSignOutButton().click();
+        session.getSidePannel().getSignOutButton().click();
 
         // login as store manager
         session.getLoginPage().performSignIn("6465551114", "Test@123");
 
 
         // got to transaction Page .
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getSidePannel().getTransactionButton().click();
         transactions.selectStore(bills.getStore());
 
         // Transaction ID
@@ -181,7 +180,7 @@ public class TransactionTest extends BaseTest {
     @Test(description = "TRS2 : Verify that appropriate information message appears when no transaction is available, on 'Transaction' page.")
     public void verifyInfoMessageAppearsWhenNoTransactionIsAvailable() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getSidePannel().getTransactionButton().click();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransaction2);
         String expectedInformationMessage = "There are no payments available yet!";
 
@@ -193,7 +192,7 @@ public class TransactionTest extends BaseTest {
             "' buttons and filter icon appear, on 'Transaction' page.")
     public void verifyNewBillNewChargeButtonsAndFilterOnTransactionPage() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getSidePannel().getTransactionButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransaction2);
 
@@ -208,7 +207,7 @@ public class TransactionTest extends BaseTest {
         String amount = "100.00";
 
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getSidePannel().getTransactionButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransaction2);
 
@@ -228,7 +227,7 @@ public class TransactionTest extends BaseTest {
         String amount = "100.00";
 
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getSidePannel().getTransactionButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions);
 
@@ -240,6 +239,7 @@ public class TransactionTest extends BaseTest {
 
         // Making new charge payment manually with Credit Card
         session.getPaymentsPage().payByCreditCard();
+        WebdriverWaits.sleep(2000);
 
         // Verify the Send Receipt Popup is Displayed
         Assertions.assertTrue(session.getSendTheReceiptPopup().getSendReceiptTitle().isDisplayed());
@@ -251,7 +251,7 @@ public class TransactionTest extends BaseTest {
     public void newChargerWithTerminal() {
         String amount = "100.00";
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getSidePannel().getTransactionButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
         session.getTransactionsPage().selectStore("Automation Transaction 3");
 
@@ -275,7 +275,7 @@ public class TransactionTest extends BaseTest {
     public void newChargePaymentManuallyAfterCancelingTerminalAutomaticPaymentDeduction() {
         String amount = "1,000.00";
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getSidePannel().getTransactionButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
         session.getTransactionsPage().selectStore("Automation Transaction 3");
 
@@ -294,6 +294,7 @@ public class TransactionTest extends BaseTest {
         // Paying through credit card after canceling terminal payment
         session.getNewChargePopup().getManualChargeTab().click();
         session.getPaymentsPage().payByCreditCard();
+        WebdriverWaits.sleep(2000);
 
         // Verify the Send Receipt Popup is Displayed
         Assertions.assertTrue(session.getSendTheReceiptPopup().getSendReceiptTitle().isDisplayed());
@@ -304,7 +305,7 @@ public class TransactionTest extends BaseTest {
     @Test(description = "TRS7 (a): Verify that store manager is able to refund full transaction on 'Transaction details' popup of 'Transaction' page.")
     public void verifyRefundFullTransactionOnTransactionPage() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
         String amt = "4,999.00";
 
@@ -316,7 +317,7 @@ public class TransactionTest extends BaseTest {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 3);
 
         //Logout as Store manager
-        session.getDashBoardPage().getSignOutButton().click();
+        session.getSidePannel().getSignOutButton().click();
 
         //Login as Customer
         session.getLoginPage().performSignIn(KadeUserAccount.Customer.getUserName(), KadeUserAccount.Customer.getPassword());
@@ -329,13 +330,13 @@ public class TransactionTest extends BaseTest {
         session.getPaymentsPage().getBlueCloseButton().clickByMouse();
 
         // logout customer .
-        session.getDashBoardPage().getSignOutButton().click();
+        session.getSidePannel().getSignOutButton().click();
 
         // login as store manager
         session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
 
         // go to transaction Page .
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getSidePannel().getTransactionButton().click();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
         TransactionsPage transaction = session.getTransactionsPage();
         transaction.getCurrentPaidBill().click();
@@ -350,7 +351,7 @@ public class TransactionTest extends BaseTest {
         Assertions.assertTrue(transaction.getVerifyButton().isDisplayed());
 
         // Clicking on transaction tab to verify the refunded transaction
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getSidePannel().getTransactionButton().click();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
         Assertions.assertTrue(session.getTransactionsPage().getReturnSymbol().isDisplayed());
 
@@ -359,7 +360,7 @@ public class TransactionTest extends BaseTest {
     @Test(description = "TRS7 (b): Verify that store manager is able to refund partial transaction on 'Transaction details' popup of 'Transaction' page.")
     public void verifyThatStoreMangerIsAbleToRefundPartialPayment() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
         RandomGenerator randomGenerator = new RandomGenerator();
 
@@ -376,7 +377,7 @@ public class TransactionTest extends BaseTest {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 3);
 
         //Logout as Store manager
-        session.getDashBoardPage().getSignOutButton().click();
+        session.getSidePannel().getSignOutButton().click();
 
         //Login as Customer
         session.getLoginPage().performSignIn(KadeUserAccount.Customer.getUserName(), KadeUserAccount.Customer.getPassword());
@@ -389,13 +390,13 @@ public class TransactionTest extends BaseTest {
         session.getPaymentsPage().getBlueCloseButton().clickByMouse();
 
         // logout customer .
-        session.getDashBoardPage().getSignOutButton().click();
+        session.getSidePannel().getSignOutButton().click();
 
         // login as store manager
         session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
 
         // go to transaction Page .
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getSidePannel().getTransactionButton().click();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
         TransactionsPage transaction = session.getTransactionsPage();
         transaction.getCurrentPaidBill().click();
@@ -434,7 +435,7 @@ public class TransactionTest extends BaseTest {
     @Test(description = "TRS8 Verify that store manager is able to verify the transactions on 'Transaction details' popup of 'Transaction' page.")
     public void verifyThatStoreMangerIsAbleToVerifyTransaction() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
         RandomGenerator randomGenerator = new RandomGenerator();
 
@@ -451,7 +452,7 @@ public class TransactionTest extends BaseTest {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 3);
 
         //Logout as Store manager
-        session.getDashBoardPage().getSignOutButton().click();
+        session.getSidePannel().getSignOutButton().click();
 
         //Login as Customer
         session.getLoginPage().performSignIn(KadeUserAccount.Customer.getUserName(), KadeUserAccount.Customer.getPassword());
@@ -465,13 +466,13 @@ public class TransactionTest extends BaseTest {
         session.getPaymentsPage().getBlueCloseButton().clickByMouse();
 
         // logout customer .
-        session.getDashBoardPage().getSignOutButton().click();
+        session.getSidePannel().getSignOutButton().click();
 
         // login as store manager
         session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
 
         // go to transaction Page .
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getSidePannel().getTransactionButton().click();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
         TransactionsPage transaction = session.getTransactionsPage();
         transaction.getCurrentPaidBill().click();
@@ -519,12 +520,12 @@ public class TransactionTest extends BaseTest {
     @Test(description = "Verify that store manager is able to filter the transaction on 'Transactions' page.")
     public void verifyThatTransactionListAppears() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
         RandomGenerator randomGenerator = new RandomGenerator();
 
         //Step 1: Click on 'Bill' sub-Tab
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
 
         //Step 2: Enter Amount
         String amt = "4999.00";
@@ -539,7 +540,7 @@ public class TransactionTest extends BaseTest {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Step 5: Logout as Store manager
-        session.getDashBoardPage().getSignOutButton().click(); // Signing out
+        session.getSidePannel().getSignOutButton().click(); // Signing out
 
         //Step 6: Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -555,10 +556,10 @@ public class TransactionTest extends BaseTest {
 
         //Step 10: Click on 'Change Payment Method' Button
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.sleep(5000);
 
         //Step 11: Select 'Bank Account' Method
-        session.getPaymentsPage().getSavedBankAccount().click();
+        session.getPaymentsPage().getSavedBankAccount().clickbyJS();
 
         //Verify that Selected Bank Method is Displayed
         Assertions.assertTrue(session.getPaymentsPage().getSelectedBankDisplay().isDisplayed());
@@ -576,11 +577,11 @@ public class TransactionTest extends BaseTest {
 
         //Step 13: Close the Pop-up
         session.getPaymentsPage().getBlueCloseButton().clickbyJS();
-        session.getDashBoardPage().getSignOutButton().click();
+        session.getSidePannel().getSignOutButton().click();
 
 
         KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getSidePannel().getTransactionButton().click();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
 
         List<WebElement> eleOfAllTrans = session.getTransactionsPage().getTransactionID().getListOfWebElements();
@@ -726,7 +727,7 @@ public class TransactionTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         // go to transaction Page .
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getSidePannel().getTransactionButton().click();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
         TransactionsPage transaction = session.getTransactionsPage();
         transaction.getCurrentPaidBill().click();
@@ -746,7 +747,7 @@ public class TransactionTest extends BaseTest {
     public void verifyQuestionmarkIconRemovedWhenStoreManagerManuallyMarkedPaymentAsCaptured(){
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         // Click on 'Bill' sub-Tab
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
 
         // Creating Bill
         String amt = "4999.00";
@@ -756,7 +757,7 @@ public class TransactionTest extends BaseTest {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Logout as Store manager
-        session.getDashBoardPage().getSignOutButton().click(); // Signing out
+        session.getSidePannel().getSignOutButton().click(); // Signing out
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -767,7 +768,7 @@ public class TransactionTest extends BaseTest {
         session.getPaymentsPage().getPayNowButton().click();
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
         WebdriverWaits.sleep(3000);
-        session.getPaymentsPage().getSavedVenmoCard().clickByMouse();
+        session.getPaymentsPage().getSavedVenmoCard().click();
         WebdriverWaits.sleep(3000);
         session.getPaymentsPage().getIMadeMyPaymentButton().click();
         session.getPaymentsPage().getConfirmVenmoCheckbox().click();
@@ -775,13 +776,13 @@ public class TransactionTest extends BaseTest {
         session.getPaymentsPage().getCloseButton().clickbyJS();
 
         // logout customer .
-        session.getDashBoardPage().getSignOutButton().click();
+        session.getSidePannel().getSignOutButton().click();
 
         // login as store manager
      session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
 
         // go to transaction Page .
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getSidePannel().getTransactionButton().click();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
         TransactionsPage transaction = session.getTransactionsPage();
         transaction.getCurrentPaidBill().click();

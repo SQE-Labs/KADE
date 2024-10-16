@@ -18,7 +18,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         String amt = "1,999.00";
         String customerEmail= "yonro@yopmail.com";
         BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
 
@@ -69,8 +69,8 @@ public class PaymentsAndRefundTest extends KadeSession {
         Assertions.assertTrue(session.getPaymentsPage().getPaymentLogo().isDisplayed());
 
         //Close Receive Payment popup
-        session.getPaymentsPage().getCloseReceivedPopupButton().click();;
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getPaymentsPage().getCloseReceivedPopupButton().click();
+        session.getSidePannel().getTransactionButton().click();
         session.getTransactionsPage().selectStore(bills.getStore());
         session.getTransactionsPage().getLastTransactionRow().click();
         Assertions.assertEquals(session.getTransactionsPage().getBillAmount().getText(),"$"+bills.getAmount());
@@ -85,7 +85,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         String amt = "2,499.00";
         String customerEmail = "yonro@yopmail.com";
         BillsPage billsDetails= ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         session.getBillPage().createBill(billsDetails);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
         //Open Bill Details popup
@@ -132,7 +132,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         String amt = "1,199.00";
         String customerEmail= "yonro@yopmail.com";
         BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
         session.getBillPage().getUnpaidBillWithoutDescription().click();
@@ -163,7 +163,7 @@ public class PaymentsAndRefundTest extends KadeSession {
     @Test(description = "PYMT4 : Bill Creation and Successful Bill Payment by Zelle through Store manager.")
     public void payByZelleThroughStoreManager(){
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         //Create Bill
         String amt = "900.00";
         String customerEmail= "yonro@yopmail.com";
@@ -199,7 +199,7 @@ public class PaymentsAndRefundTest extends KadeSession {
     @Test(description = "PYMT6 : Bill Creation and pay the bill by multiple payment mode through Store manager.")
     public void verifyPaymentByMultipleModeThroughStoreManager(){
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
 
         String amt = "2,999.00";
         String updatedAmt1 = "500.00";
@@ -285,17 +285,18 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getPaymentsPage().getCloseReceivedPopupButton().click();
 
         // Open Transaction
-        session.getDashBoardPage().getTransactionButton().click();
+        session.getSidePannel().getTransactionButton().click();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationBillFlow);
         session.getTransactionsPage().getLastTransactionRow().click();
         Assertions.assertEquals(session.getTransactionsPage().getBillAmount().getText(),"$"+bills.getAmount());
         Assertions.assertTrue(session.getTransactionsPage().getUniqueTransactionId().isDisplayed());
+
         session.getTransactionsPage().getCloseTransactionPopupButton().click();
     }
     @Test(description = "PYMT5 : Bill Creation and partial payment of the bill through Store manager.")
     public void partialPaymentThroughStoreManager(){
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         String amt = "1,499.00";
         String payAmt = "1,185.25";
         String customerEmail= "yonro@yopmail.com";
@@ -333,7 +334,7 @@ public class PaymentsAndRefundTest extends KadeSession {
     @Test(description = "PYMT7 : Bill Creation and mark payment as Void by Store manager.")
     public void markSuccessfulPaymentAsVoid() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         String amt = "2,251.75";
         String customerEmail="yonro@yopmail.com";
         BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
@@ -374,7 +375,7 @@ public class PaymentsAndRefundTest extends KadeSession {
     @Test(description = "PYMT8 : Bill Creation and Successful Bill Payment through Credit Card by Customer.")
     public void BillPaymentByCreditCardThroughCustomer() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
         String amt = "4999.00";
 
         String customerEmail ="yonro@yopmail.com" ;
@@ -385,7 +386,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
 
         //Logout as Store manager
-        session.getDashBoardPage().getSignOutButton().click();
+        session.getSidePannel().getSignOutButton().click();
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -404,7 +405,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'Bill' sub-Tab
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
 
         //Step 2: Enter Amount
         String amt = "4999.00";
@@ -418,7 +419,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Step 5: Logout as Store manager
-        session.getDashBoardPage().getSignOutButton().click(); // Signing out
+        session.getSidePannel().getSignOutButton().click(); // Signing out
 
         //Step 6: Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -434,13 +435,13 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         //Step 10: Click on 'Change Payment Method' Button
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-
+        WebdriverWaits.sleep(3000);
         //Step 11: Select 'Bank Account' Method
         session.getPaymentsPage().getSavedBankAccount().click();
 
         //Verify that Selected Bank Method is Displayed
         Assertions.assertTrue(session.getPaymentsPage().getSelectedBankDisplay().isDisplayed());
-
+        WebdriverWaits.sleep(2000);
         //Step 12: Swipe to Pay
         session.getPaymentsPage().swipeToPay();
 
@@ -462,7 +463,7 @@ public class PaymentsAndRefundTest extends KadeSession {
     public void RejectingABillByCustomer() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         //Step 1: Click on 'Bill' sub-Tab
-        session.getDashBoardPage().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
 
         //Step 2: Enter Amount
         String amt = "4999.00";
@@ -476,7 +477,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Step 5: Logout as Store manager
-        session.getDashBoardPage().getSignOutButton().click();
+        session.getSidePannel().getSignOutButton().click();
 
         //Step 6: Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");

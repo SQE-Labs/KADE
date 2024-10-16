@@ -1,7 +1,5 @@
 package scenarios;
 
-import java.awt.*;
-
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
 import org.automation.pages.MyStorePage;
@@ -18,9 +16,12 @@ public class MyStoreTest extends BaseTest {
     @Test(enabled=true, description = "SC_01(B) Verifying deletion of Store when Stripe Account is not Registered Yet")
     public void sc01b_DeletionOfStore() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-
         //Step 1: Click on 'My Stores' Tab
-        session.getDashBoardPage().getMyStoresTab().click();
+
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+      //  session.getSidePannel().expandManageBusinessAccordion();
+
+        session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Register New Business' Button
@@ -53,7 +54,8 @@ public class MyStoreTest extends BaseTest {
         String storeName = "Zencode "+RandomGenerator.requiredString(6);
         String phoneNumber = RandomGenerator.requiredNumber(10);
         //Step 1: Click on 'My Stores' Tab
-        session.getDashBoardPage().getMyStoresTab().click();
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Register New Business' Button
@@ -62,7 +64,7 @@ public class MyStoreTest extends BaseTest {
         if(myStore.getStoreLogo().isDisplayed()) {
             myStore.getDeleteStoreButton().clickByMouse();
             myStore.getDeleteStoreIcon().clickByMouse();
-            session.getDashBoardPage().getMyStoresTab().click();
+            session.getSidePannel().getMyStoresTab().click();
             myStore.getRegisterNewBusinessButton().click();
         }
         //Step 3: Click on 'Stripe Account' Button
@@ -112,7 +114,8 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Stores' Tab
-        session.getDashBoardPage().getMyStoresTab().click();
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Link
@@ -152,7 +155,8 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Stores' Tab
-        session.getDashBoardPage().getMyStoresTab().click();
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Link
@@ -196,7 +200,8 @@ public class MyStoreTest extends BaseTest {
         String tipAmountPercent3 = RandomGenerator.requiredNumber(2);
 
         //Step 1: Click on 'My Stores' Tab
-        session.getDashBoardPage().getMyStoresTab().click();
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Button
@@ -288,7 +293,8 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Store' Tab
-        session.getDashBoardPage().getMyStoresTab().click();
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Button
@@ -335,7 +341,8 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Store' Tab
-        session.getDashBoardPage().getMyStoresTab().click();
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Button
@@ -405,7 +412,8 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Store' Tab
-        session.getDashBoardPage().getMyStoresTab().click();
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Button
@@ -452,7 +460,8 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Store' Tab
-        session.getDashBoardPage().getMyStoresTab().click();
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Button
@@ -485,7 +494,8 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1:Click on 'My Store' Tab
-        session.getDashBoardPage().getMyStoresTab().click();
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Button

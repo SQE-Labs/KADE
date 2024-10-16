@@ -56,9 +56,9 @@ public class LoginTest extends BaseTest{
 	@Test(description = "Log06 : Successful Login" ,groups="Regression")
 	public void tc06_successfulLogin(){
 		KadeSession session=KadeSession.login(KadeUserAccount.Default);
-		String actualTitle = session.getDashBoardPage().getPageHeader();
-		String expectedTitle = "Dashboard";
+		String actualTitle = session.getSidePannel().getPageHeader();
+		String expectedTitle = "Transactions";
 		Assertions.assertEquals(actualTitle, expectedTitle);
-		session.getDashBoardPage().getSignOutButton().click();
+		session.getSidePannel().getSignOutButton().click();
 	}
 }
