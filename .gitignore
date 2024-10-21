@@ -9,5 +9,5 @@ extent-reports
 test-report
 test-report/
 /.metadata/
-.DS_Store
+/.DS_Store
 allure-results/
