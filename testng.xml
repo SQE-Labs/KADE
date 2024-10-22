@@ -16,9 +16,6 @@
 		<packages>
 			<package name="singleThreaded"></package>
 		</packages>
-
-
-
 	</test>
 
 <!--	<listeners>-->
