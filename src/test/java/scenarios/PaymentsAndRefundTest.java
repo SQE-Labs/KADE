@@ -153,6 +153,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getPaymentsPage().getOthersButton().click();
         //Pay by Venmo
         session.getPaymentsPage().getVenmoButton().click();
+        WebdriverWaits.sleep(2000);
         //Verify Payment done
         Assertions.assertTrue(session.getPaymentsPage().getPaidLabel().isDisplayed());
         Assertions.assertTrue(session.getPaymentsPage().getVoidButton().isDisplayed());
@@ -241,6 +242,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         float expBalanceDue1= amount - updateAmount1;
         String expectedBalanceDue1 = session.getBillPage().convertToNumberFormat(expBalanceDue1);
         WebdriverWaits.waitForElementInVisible(session.getPaymentsPage().paymentTypeHeader,5);
+        WebdriverWaits.sleep(2000);
         Assertions.assertEquals(session.getPaymentsPage().getTotalPaidAmount().getText().split(":")[1],"$"+updatedAmt1);
         Assertions.assertEquals(session.getPaymentsPage().getBalanceDue().getText(),"$"+expectedBalanceDue1);
 

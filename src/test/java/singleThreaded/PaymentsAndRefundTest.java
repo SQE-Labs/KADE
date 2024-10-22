@@ -112,6 +112,7 @@ public class PaymentsAndRefundTest extends BasePage {
         session.getNotificationPage().getFirstNotification().click(); // click on first bill notification
         session.getPaymentsPage().getPayNowButton().click(); // click paynow button
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
+        WebdriverWaits.sleep(3000);
         session.getPaymentsPage().getSavedZelleCard().clickbyJS();
         WebdriverWaits.sleep(3000);
         Assertions.assertTrue(session.getPaymentsPage().getZellePopup().isDisplayed());
