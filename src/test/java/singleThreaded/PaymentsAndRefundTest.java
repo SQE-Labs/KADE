@@ -203,7 +203,6 @@ public class PaymentsAndRefundTest extends BasePage {
 
         //Step 17: Click on 'Change' Button
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-      //  WebdriverWaits.sleep(2000);
 
         //Step 18: Select the 'Bank Account' Method
         session.getPaymentsPage().getSavedBankAccount().clickbyJS();
@@ -216,12 +215,12 @@ public class PaymentsAndRefundTest extends BasePage {
         session.getPaymentsPage().getSwipeToPayButton().clickbyJS();
         WebdriverWaits.sleep(2000);
 
-      /*  //Step 21: Enter Amount
+        //Step 21: Enter Amount
         session.getPaymentsPage().getMoreAmountField().setText("1000.00");
 
         //Step 22: Click on 'Update' Button
         session.getPaymentsPage().getAmountUpdateButton().click();
-        WebdriverWaits.sleep(2000); */
+        WebdriverWaits.sleep(2000);
 
         //Step 23: Click on 'Change' Button
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
@@ -232,7 +231,6 @@ public class PaymentsAndRefundTest extends BasePage {
 
         //Verifying that Venmo PopUp is displayed
         Assertions.assertTrue(session.getPaymentsPage().getVenmoPopup().isDisplayed());
-
 
         //Verifying that Copy link is visible
         Assertions.assertTrue(session.getPaymentsPage().getCopyLink().isDisplayed());
@@ -270,6 +268,5 @@ public class PaymentsAndRefundTest extends BasePage {
         //Step 30: Click on 'Close' Icon
         session.getPaymentsPage().getCloseButton().clickbyJS();
     }
-
 
 }

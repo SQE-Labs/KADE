@@ -22,7 +22,6 @@ public class MyStoreTest extends BasePage {
         String storeAddressName = "123";
 
         //Step 1: Click on 'My Stores' Tab
-        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
@@ -99,7 +98,6 @@ public class MyStoreTest extends BasePage {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Stores' Tab
-        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 

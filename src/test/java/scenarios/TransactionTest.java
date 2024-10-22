@@ -619,7 +619,7 @@ public class TransactionTest extends BaseTest {
         System.out.println(setAfterFilter);
 
         // Check  setAfterFilter contains all elements from setBeforeFilter
-      //  Assertions.assertTrue(setAfterFilter.containsAll(setBeforeFilter));
+        Assertions.assertTrue(setAfterFilter.containsAll(setBeforeFilter));
 
         session.getTransactionsPage().getFilterIcon().click();
         // Click on Download button

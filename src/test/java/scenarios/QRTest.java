@@ -16,7 +16,6 @@ public class QRTest extends BaseTest {
     public void directPayByQr(){
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         WebdriverWaits.sleep(5000);
-        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getQrCodeDashboardButton().click();
         QrCodeDashboardPage qr = session.getQRCodeDashboardPage();
         PaymentsPage payment = session.getPaymentsPage();
