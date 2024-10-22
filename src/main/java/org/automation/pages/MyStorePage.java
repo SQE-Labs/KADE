@@ -45,7 +45,7 @@ public class MyStorePage extends BasePage {
     By yearlyBtn = By.xpath("//label[text()='Yearly']");
     By termsCbx = By.xpath("//span[text()='     I agree to the']");
     By changePlanBtn = By.xpath("//button[text()='Change plan']");
-    By addedStoreName = By.cssSelector("div[class='form-group mb-3'] h4");
+    By addedStoreName = By.cssSelector(".form-group.mb-3>h4");
     By addedLocationDescription = By.cssSelector("div[class='display-none -readonly-div-'] span");
     By addedStoreAddress = By.xpath("//label[text()='Store Address']/following-sibling::p");
     By addedStorePhone = By.xpath("//label[text()='Store Phone']/following-sibling::p");

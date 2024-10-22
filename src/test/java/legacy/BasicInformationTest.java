@@ -4,7 +4,7 @@ import java.awt.AWTException;
 
 import org.automation.base.BaseTest;
 import org.automation.pages.BasicInformationPage;
-import org.automation.pages.DashBoardPage;
+import org.automation.pages.SidePannel;
 import org.automation.pages.LoginPage;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.PropertiesUtil;
@@ -12,7 +12,7 @@ import org.testng.annotations.Test;
 
 public class BasicInformationTest extends BaseTest{
 	
-	DashBoardPage dashBoard=new DashBoardPage();
+	SidePannel dashBoard=new SidePannel();
 	LoginPage login=new LoginPage();
 	BasicInformationPage infoPage=new BasicInformationPage();
 	

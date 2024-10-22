@@ -16,7 +16,7 @@ public class QRTest extends BaseTest {
     public void directPayByQr(){
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         WebdriverWaits.sleep(5000);
-        session.getDashBoardPage().getQrCodeDashboardButton().click();
+        session.getSidePannel().getQrCodeDashboardButton().click();
         QrCodeDashboardPage qr = session.getQRCodeDashboardPage();
         PaymentsPage payment = session.getPaymentsPage();
 
@@ -35,10 +35,11 @@ public class QRTest extends BaseTest {
         payment.getPayNowButton().click();
         payment.getAmountTextbox().setText("1000");
         payment.getUpdateAmountToPayButton().click();
-        payment.getChangePaymentMethodButton().click();
+        payment.getChangePaymentMethodButton().clickbyJS();
+        WebdriverWaits.sleep(2000);
         payment.getSavedCreditCard().click();
         payment.swipeToPay();
-        payment.getBlueCloseButton().clickByMouse();
+        payment.getBlueCloseButton().clickbyJS();
     }
 
 }

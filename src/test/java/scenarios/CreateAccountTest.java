@@ -210,7 +210,7 @@ public class CreateAccountTest extends BaseTest {
 
     @Test(description = "CA_TC 2(b) : Verify that creating new account by phone number with Business Account option.")
     public void verifyCreateNewAccountByPhoneNumberWithBusinessAccount() {
-        String Phone = "6465551119";
+        String Phone = "6465551107";
         session.getLoginPage().getSignUpLink().click();
 
         //Clicking on Business Account Option
@@ -262,7 +262,7 @@ public class CreateAccountTest extends BaseTest {
         Assertions.assertEquals(session.getNewAccountPopup().getSecurityCodeAlertMessage().getText(), "Invalid security code");
 
         // Entering Valid security Code
-        session.getCreateAccountPage().getSecurityCodeField().setText("777777");
+        session.getCreateAccountPage().getSecurityCodeField().setText("343434");
 
         // Clicking Continue Button
         session.getNewAccountPopup().getContinueButtonOfBusinessAccount().click();
@@ -271,13 +271,13 @@ public class CreateAccountTest extends BaseTest {
         Assertions.assertTrue(session.getNewAccountPopup().getStripePageTitle().isDisplayed());
 
         // Clicking on Profile Link
-        session.getDashBoardPage().clickProfile();
+        session.getSidePannel().clickProfile();
 
         // Click on Security and Password Tab
         session.getBasicInformationPage().clickOnSecurityAndPassword();
 
         // Click on Close and Delete Account button
-        session.getSecurityAndPasswordPage().getDeleteAccountButton().click();
+        session.getSecurityAndPasswordPage().getDeleteAccountButton().clickByMouse();
         session.getSecurityAndPasswordPage().getTickIcon().click();
     }
 

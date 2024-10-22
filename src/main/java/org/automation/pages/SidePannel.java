@@ -7,20 +7,34 @@ import org.openqa.selenium.By;
 
 import static org.automation.ReturnObjects.Clickable.getElementBy;
 
-public class DashBoardPage extends BasePage {
+public class SidePannel extends BasePage {
 
 	By profileLink = By.xpath("//a[@class='btn btn-link p-0 fs-pn15 ']");
 	By validationMessage=By.xpath("//p[@class='alert-content']");
-	public By billBtn = By.cssSelector(".sidebar-nav > li:nth-child(11)");
-	By transactionsButton=By.cssSelector(".sidebar-nav > li:nth-child(10)");
+	public By billBtn = By.cssSelector(".sidebar-nav > li:nth-child(3)");
+	By transactionsButton=By.cssSelector(".sidebar-nav > li:nth-child(2)");
 	By myStoreBtn=By.xpath("//i[@class='align-middle me-2 fa-fw fas fa-store']");
 	By giftCardsDashboardTab=By.xpath("//a[text()='Gift Cards Dashboard']");
 	By pageHeader=By.xpath("//h1[@class='header-title mb-0']");
 	By reportBtn=By.xpath("(//a[@class='sidebar-link'])[11]");
 	By signOutBtn = By.xpath("//a[text()='Sign out']");
 	By qrCodeDashboardBtn = By.xpath("//a[text()='QR Code Dashboard']");
+	By manageBusinessAcc = By.xpath("//a[@class='sidebar-link collapsed' and text()='Manage Business']");
 
-	public DashBoardPage() {
+	public SidePannel() {
+	}
+
+	public void expandManageBusinessAccordion() {
+	try{
+		expandManageBusinessAccordionBttn().clickIfExist(true, 0);
+		Thread.sleep(2000);
+		}  catch (InterruptedException ex) {
+            throw new RuntimeException(ex);
+        }
+	}
+
+	public Clickable expandManageBusinessAccordionBttn(){
+		return  Clickable.getElementBy(manageBusinessAcc, "Expand Manage Business Accordion");
 	}
 
 	public Clickable getBillButton(){

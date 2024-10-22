@@ -179,7 +179,7 @@ public class BillPage extends BasePage {
     By deleteBillBtn = By.xpath("//button[text()='Delete']");
     By editBillBtn = By.xpath("//i[@class='far fa-edit']");
     By uniqueRefNo = By.xpath("//div[@class='modal-content']//i[@class='fad fa-hashtag me-2']/..");
-    By notPaidLabel = By.xpath("//span[@class='badge bg-danger fs-6']");
+    By notPaidLabel = By.cssSelector(".badge.bg-danger");
     By billTimeOnPopup = By.xpath("//div[@class='fs-pn15 mb-1']");
     By taxValue = By.xpath("//input[@name='applyTax']/../span");
     By taxToggleBtnDisable = By.xpath("//input[@name='applyTax']/../i[1]");

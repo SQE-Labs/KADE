@@ -22,7 +22,7 @@ public class MyStoreTest extends BasePage {
         String storeAddressName = "123";
 
         //Step 1: Click on 'My Stores' Tab
-        session.getDashBoardPage().getMyStoresTab().click();
+        session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Register New Business' Button
@@ -32,7 +32,7 @@ public class MyStoreTest extends BasePage {
 
             //Step 3: Click on 'Skip' button
             myStore.getSkipStripeAccountButton().click();
-
+            WebdriverWaits.sleep(2000);
             //Verifying the 'Skip' PopUp Title
             Assertions.assertEquals(myStore.getSkipPopUpTitle().getText(), "Skip");
 
@@ -41,8 +41,7 @@ public class MyStoreTest extends BasePage {
             myStore.getSkipStripeAccountPopUpButton().clickByMouse();
         }
 
-        //Step 5: Click on 'Save' Button
-        myStore.getSaveButton().clickByMouse();
+        myStore.getSaveButton().clickbyJS();
 
         //Verify the validation message
         String blankFieldWarningMessage = "Please review the highlighted field(s)";
@@ -85,13 +84,12 @@ public class MyStoreTest extends BasePage {
 
         //Step 13: Click on 'Save' Button
         myStore.getSaveButton().click();
-
+        WebdriverWaits.sleep(2000);
         //Step 14: Click on 'Continue' Button
-        myStore.getContinueButton().click();
+        myStore.getContinueButton().clickbyJS();
 
         //Verify Created Store
-        Assertions.assertEquals(myStore.getAddedStoreName().
-                getText(), storeName);
+        Assertions.assertEquals(myStore.getAddedStoreName().getText(), storeName);
         Assertions.assertEquals(myStore.getAddedStorePhone().getText().replaceAll("[+()\\s-]", "").substring(1,11), phoneNumber);
     }
 
@@ -100,7 +98,7 @@ public class MyStoreTest extends BasePage {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Stores' Tab
-        session.getDashBoardPage().getMyStoresTab().click();
+        session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Link
