@@ -607,6 +607,7 @@ public class TransactionTest extends BaseTest {
         session.getTransactionsPage().getApplyButtonOnPopup().click();
 
         // transactionids
+        WebdriverWaits.sleep(3000);
         List<WebElement> ele2 = session.getTransactionsPage().getTransactionID().getListOfWebElements();
         List<String> transactionIDAfterFilterApply = new ArrayList<>();
         for (int i = 0; i < 5; i++) {

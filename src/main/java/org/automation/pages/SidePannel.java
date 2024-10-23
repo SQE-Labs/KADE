@@ -13,7 +13,7 @@ public class SidePannel extends BasePage {
 	By validationMessage=By.xpath("//p[@class='alert-content']");
 	public By billBtn = By.cssSelector(".sidebar-nav > li:nth-child(3)");
 	By transactionsButton=By.cssSelector(".sidebar-nav > li:nth-child(2)");
-	By myStoreBtn=By.xpath("//i[@class='align-middle me-2 fa-fw fas fa-store']");
+	By myStoreBtn=By.cssSelector(".fa-fw.fas.fa-store");
 	By giftCardsDashboardTab=By.xpath("//a[text()='Gift Cards Dashboard']");
 	By pageHeader=By.xpath("//h1[@class='header-title mb-0']");
 	By reportBtn=By.xpath("(//a[@class='sidebar-link'])[11]");
@@ -22,6 +22,7 @@ public class SidePannel extends BasePage {
 	By manageBusinessAcc = By.xpath("//a[@class='sidebar-link collapsed' and text()='Manage Business']");
 
 	public SidePannel() {
+
 	}
 
 	public void expandManageBusinessAccordion() {

@@ -17,8 +17,9 @@ public class MyStoreTest extends BaseTest {
     public void sc01b_DeletionOfStore() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         //Step 1: Click on 'My Stores' Tab
-
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
+
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Register New Business' Button
@@ -36,7 +37,6 @@ public class MyStoreTest extends BaseTest {
             myStore.getSkipStripeAccountPopUpButton().clickByMouse();
         }
 
-
         //Step 5: Click on 'Delete' Button
         myStore.getDeleteStoreButton().clickByMouse();
 
@@ -51,6 +51,7 @@ public class MyStoreTest extends BaseTest {
         String storeName = "Zencode "+RandomGenerator.requiredString(6);
         String phoneNumber = RandomGenerator.requiredNumber(10);
         //Step 1: Click on 'My Stores' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
@@ -110,6 +111,7 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Stores' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
@@ -150,6 +152,7 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Stores' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
@@ -194,6 +197,7 @@ public class MyStoreTest extends BaseTest {
         String tipAmountPercent3 = RandomGenerator.requiredNumber(2);
 
         //Step 1: Click on 'My Stores' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
@@ -286,6 +290,7 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Store' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
@@ -333,6 +338,7 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Store' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
@@ -403,6 +409,7 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Store' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
@@ -450,6 +457,7 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Store' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
@@ -483,6 +491,7 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1:Click on 'My Store' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
