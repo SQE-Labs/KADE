@@ -15,7 +15,7 @@ import static org.automation.ReturnObjects.Clickable.getElementBy;
 
 public class BillPage extends BasePage {
 
-    public By newBillBtn = By.xpath("//button[@class='btn btn-outline-dark']");
+    public By newBillBtn = By.cssSelector(".fs-p15>i+div");
     public By recurringBtn = By.xpath("//div[text()='Recurring']");
     public By alertMessage = By.xpath("//div[@class='alert-message']");
     public By transactionsLink = By.xpath("//div[text()='Transactions']");
@@ -102,7 +102,7 @@ public class BillPage extends BasePage {
     By documentIcon = By.xpath("(//button[contains(@onclick,'pdf')])[2]");
     By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
     By attachedImage = By.xpath("//img[@class='img-thumbnail  bg-black']");
-    By notPaidBill = By.xpath("(//div[contains(@class,'row bg-white ')])[1]");
+    By notPaidBill = By.xpath("//div[contains(@class, 'row bg-white')][1]");
     By unPaidBill=By.xpath("(//div[contains(@class,'row bg-white ')])[1]/div[2]");
     By deleteButton = By.cssSelector(".btn-outline-danger");
     By deleteIcon = By.cssSelector(".fa.fa-check");
@@ -178,7 +178,7 @@ public class BillPage extends BasePage {
     By processPaymentBtn = By.xpath("//button[text()='Process Payment']");
     By deleteBillBtn = By.xpath("//button[text()='Delete']");
     By editBillBtn = By.xpath("//i[@class='far fa-edit']");
-    By uniqueRefNo = By.xpath("//div[@class='modal-content']//i[@class='fad fa-hashtag me-2']/..");
+    By uniqueRefNo = By.cssSelector(".badge.position-relative:first-child");
     By notPaidLabel = By.cssSelector(".badge.bg-danger");
     By billTimeOnPopup = By.xpath("//div[@class='fs-pn15 mb-1']");
     By taxValue = By.xpath("//input[@name='applyTax']/../span");

@@ -11,8 +11,8 @@ public class SidePannel extends BasePage {
 
 	By profileLink = By.xpath("//a[@class='btn btn-link p-0 fs-pn15 ']");
 	By validationMessage=By.xpath("//p[@class='alert-content']");
-	public By billBtn = By.cssSelector(".sidebar-nav > li:nth-child(3)");
-	By transactionsButton=By.cssSelector(".sidebar-nav > li:nth-child(2)");
+	public By billBtn = By.cssSelector(".sidebar-nav > li:nth-child(5)");
+	By transactionsButton=By.cssSelector(".sidebar-nav > li:nth-child(4)");
 	By myStoreBtn=By.cssSelector(".fa-fw.fas.fa-store");
 	By giftCardsDashboardTab=By.xpath("//a[text()='Gift Cards Dashboard']");
 	By pageHeader=By.xpath("//h1[@class='header-title mb-0']");
