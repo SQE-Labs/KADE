@@ -104,10 +104,8 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getAddedTaxRate().getText(), defaultTaxRate);
     }
 
-
-
     @Test(enabled = false, description = "SC_04(A) Verifying buying Monthly Business Plan for already created Store")
-    public void sc04a_VerifyingBuyingMonthlyBusinessPlanForAlreadyCreatedStore() {
+    public void a_VerifyingBuyingMonthlyBusinessPlanForAlreadyCreatedStore() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Stores' Tab
@@ -205,7 +203,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getConfigureButton().click();
 
         //Step 3: Click on 'Settings' Sub-Tab
-        myStore.getSettingsSubTab().click();
+        myStore.getSettingsSubTab().clickByMouse();
 
         //Verifying Minimum, Maximum and Default values of 'Maximum Bill Amount' Field
         String maximumBillAmount = "50000.00";
@@ -306,7 +304,7 @@ public class MyStoreTest extends BaseTest {
         }
 
         //Step 5: Click on 'Configure' button
-        myStore.getTipConfigureButton().click();
+        myStore.getTipConfigureButton().clickByMouse();
 
         //Verifying the 'Tip Configuration' Pop-up Title
         Assertions.assertEquals(myStore.getTipConfigPopUpTitle().getText(), "Tip configuration");
@@ -417,7 +415,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getConfigureButtonForBusinessPlanStore().click();
 
         //Step 3: Click on 'Manage User' Sub Tab
-        myStore.getManageUserSubTab().click();
+        myStore.getManageUserSubTab().clickByMouse();
 
         //Step 4: Click on 'Add User' Button
         myStore.getAddUserButton().click();

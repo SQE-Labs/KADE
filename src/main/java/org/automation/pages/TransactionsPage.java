@@ -17,7 +17,7 @@ public class TransactionsPage extends BasePage {
     By storesCombobox = By.xpath("//span[@role='combobox']");
     By continueBtn = By.xpath("//button[@type='submit']");
     By uniqueTransactionId = By.xpath("//span[@class='badge position-relative bg-light text-dark p-1 px-2 text-truncate']");
-    By transactionID = By.xpath("//span[@class='badge position-relative bg-light text-dark p-1 px-2 text-truncate mb-1 max-15c']");
+    By transactionID = By.cssSelector(".badge.position-relative.bg-light.text-dark.p-1");
     By store = By.xpath("//span[@class='fs-pn15 mb-2']");
     By payment = By.xpath("//div[@class='fs-pn25']");
     By customerName = By.xpath("//div[@class='d-flex mb-2']");
@@ -150,8 +150,8 @@ public class TransactionsPage extends BasePage {
     }
 
     public boolean matchPattern(String transID) {
-        if (transID.startsWith("T-")) {
-            transID = transID.substring(2);
+        if (transID.startsWith("TR-")) {
+            transID = transID.substring(3);
         }
         boolean checkflag = true;
         // Check if the transaction ID contains only digits on Transaction Page

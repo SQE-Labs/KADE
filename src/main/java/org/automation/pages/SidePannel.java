@@ -22,7 +22,6 @@ public class SidePannel extends BasePage {
 	By manageBusinessAcc = By.xpath("//a[@class='sidebar-link collapsed' and text()='Manage Business']");
 
 	public SidePannel() {
-
 	}
 
 	public void expandManageBusinessAccordion() {
@@ -79,7 +78,7 @@ public class SidePannel extends BasePage {
 	}
 
     public Clickable getSignOutButton() {
-		WebdriverWaits.sleep(3000);
+	WebdriverWaits.sleep(3000);
 		return Clickable.getElementBy(signOutBtn,"Sign Out Button");
     }
 

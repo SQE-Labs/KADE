@@ -9,6 +9,7 @@ import org.automation.ReturnObjects.Clickable;
 import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
 import org.automation.objectBuilder.pages.BillsPage;
+import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.*;
 
 import static org.automation.ReturnObjects.Clickable.getElementBy;
@@ -180,7 +181,7 @@ public class BillPage extends BasePage {
     By editBillBtn = By.xpath("//i[@class='far fa-edit']");
     By uniqueRefNo = By.cssSelector(".badge.position-relative:first-child");
     By notPaidLabel = By.cssSelector(".badge.bg-danger");
-    By billTimeOnPopup = By.xpath("//div[@class='fs-pn15 mb-1']");
+    By billTimeOnPopup = By.cssSelector("div[role='document'] div.d-flex.justify-content-between div+div>div");
     By taxValue = By.xpath("//input[@name='applyTax']/../span");
     By taxToggleBtnDisable = By.xpath("//input[@name='applyTax']/../i[1]");
     By customName = By.xpath("//*[@id=\"_B7O\"]/span");
@@ -343,14 +344,15 @@ public class BillPage extends BasePage {
             getCustomerButton().click();
             getCustomerPhoneNoField().setText(billObj.getCustomerPhnNo());
             getGoPhoneNumberButton().click();
-            getConfirmButton().click();
+            getConfirmButton().clickByMouse();
         }
         if(billObj.getCustomerEmail() != null){
             getCustomerButton().click();
             getUserEmailField().setText(billObj.getCustomerEmail());
             getEmailGoButton().click();
         }
-        getConfirmButton().click();
+        getConfirmButton().clickbyJS();
+        WebdriverWaits.sleep(2000);
         getContinueWithoutButton().clickIfExist();
     }
 

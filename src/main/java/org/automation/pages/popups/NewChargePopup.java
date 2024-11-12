@@ -12,6 +12,7 @@ public class NewChargePopup extends BasePage {
     By terminal = By.xpath("//h4[text()='Initializing the terminal...']");
     By terminalCancelButton = By.xpath("//div[@class='text-center']/button[text()='Cancel']");
     By manualChargeTab = By.xpath("//div[text()='Manual']");
+    By descriptionField = By.cssSelector("[name=\"memo\"]");
 
     public Editable getNewChargeAmountField() {
         return Editable.getElementBy(newChargeAmountField, "New  charge amount field");
@@ -31,6 +32,7 @@ public class NewChargePopup extends BasePage {
     public Clickable getTerminalPopup() {
         return Clickable.getElementBy(terminal, "Terminal Popup");
     }
+    public Editable getDescriptionfield() { return Editable.getElementBy(descriptionField, "Description field");}
 }
 
 
