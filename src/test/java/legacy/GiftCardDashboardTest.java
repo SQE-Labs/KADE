@@ -3,6 +3,8 @@ package legacy;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Objects;
+
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
 import org.automation.pages.*;
@@ -10,85 +12,100 @@ import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.GiftCardsForSalePage;
 import org.automation.utilities.PropertiesUtil;
+import org.automation.utilities.WebdriverWaits;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
+import org.openqa.selenium.JavascriptExecutor;
+import org.openqa.selenium.WebDriver;
+import static org.automation.data.KadeUserAccount.Customer;
+import static org.automation.data.KadeUserAccount.Default;
 
 public class GiftCardDashboardTest extends BaseTest {
 	LoginPage login=new LoginPage();
 	SidePannel dashboard=new SidePannel();
 	GiftCardDashboardPage giftCardDashboard=new GiftCardDashboardPage();
 	GiftCardConfigurationPopup giftCardConfiguration = new GiftCardConfigurationPopup();
-	CreateAGiftCardPopup createGiftCard=new CreateAGiftCardPopup();	
+	CreateAGiftCardPopup createGiftCard=new CreateAGiftCardPopup();
 	GiftCardDetailsPage giftCardDetails=new GiftCardDetailsPage();
 	UserPage user=new UserPage();
 	GiftCardsForSalePage giftCardForSale=new GiftCardsForSalePage();
 	AddGiftCardPage addGiftCard=new AddGiftCardPage();
+	KadeSession session = new KadeSession();
 
-	@Test(description = "GCC_01 Verifying configuration of Gift Card")
-	public void gcc01_StoreCreationWithoutStripeAccount()  {
-		KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
-		//Step 1: Click on 'Gift Cards Dashboard' Tab
+	@Test(description = "TC_01 Verify that user gets directed to 'Gift Cards Dashboard' page, after clicking on 'Gift Cards' tab on Left Panel.")
+	public void TC_01_verifyGiftCardDashboard()  {
+		KadeSession.login(Default);
+		session.getSidePannel().expandManageBusinessAccordionBttn().click();
 		session.getSidePannel().getGiftCardsDashboardTab().click();
-		GiftCardDashboardPage giftCard = session.getGiftCardDashboardPage();
+		Assertions.assertEquals(session.getGiftCardDashboardPage().getGiftCardText().getText(),"Gift Cards Dashboard");
 
 	}
+
 	
-	@Test(enabled = true, description="Verify that Gift Cards Dashboard page opens after clicking on Gift Cards Dashboard Tab")
-	public void tc01_verifyGiftCardsDashboardPage() {
-		login.performSignIn(PropertiesUtil.getPropertyValue("userName"), PropertiesUtil.getPropertyValue("password"));
-		dashboard.clickOnGiftCardsDashboard();
-		Assertions.assertEquals(dashboard.getPageTitle(), "Gift Cards Dashboard");
-	}
-	
-	@Test(enabled = true, description="Verify Info message when Issue Gift Card Toggle is disabled")
-	public void tc02_verifyConfiguration() {
-		dashboard.clickOnGiftCardsDashboard();
-		giftCardDashboard.clickOnConfigurationLink();
-		Assertions.assertEquals(giftCardConfiguration.getPopupTitle(), "Gift Cards Configuration");
-		giftCardConfiguration.switchOffIssueGiftCardToggle();
-		giftCardConfiguration.clickOnSaveConfigurationBtn();
-		Assertions.assertEquals(giftCardDashboard.getInfoMessage(), "Gift cards is currently disabled.Configuration");
+	@Test(enabled = true, description="TC_02_01 Verify that 'Gift Cards Configuration' pop up opens after clicking on 'Configuration' link on the 'Gift Cards Dashboard' Page")
+	public void TC_02_01_verifyGiftCardConfigurationPopup() {
+		KadeSession.login(Customer);
+		session.getSidePannel().expandManageBusinessAccordionBttn().click();
+		session.getSidePannel().getGiftCardsDashboardTab().click();
+		session.getGiftCardConfigurationPopup().clickConfigurationBtn().click();
+		Assertions.assertEquals(session.getGiftCardConfigurationPopup().getPopupTitle().getText(), "Gift Cards Configuration");
 		
 	}
 	
-	@Test(enabled = true, description="Verfy all the element appear after enabling Issue Gift Card Toggle")	
-	public void tc03_verifyIssuingGiftCardsToggle() {
-		dashboard.clickOnGiftCardsDashboard();
-		giftCardDashboard.clickOnConfigurationLink();
-		giftCardConfiguration.switchOnIssueGiftCardToggle();
-		giftCardConfiguration.isAllElementPresent();
-		giftCardConfiguration.clickOnClose();
+	@Test(enabled = true, description="TC_02_02 Verify that information message appear on 'Gift Cards Dashboard' page, when 'Accepting and issuing Gift Cards' toggle is disabled on 'Gift Cards Configuration' popup.")
+	public void TC_02_02_verifyDisabledInfoMsg() {
+		KadeSession.login(Customer);
+		session.getSidePannel().expandManageBusinessAccordionBttn().click();
+		session.getSidePannel().getGiftCardsDashboardTab().click();
+		session.getGiftCardConfigurationPopup().clickConfigurationBtn().click();
+		session.getGiftCardConfigurationPopup().clickOnSaveConfigurationBtn().click();
+		Assertions.assertEquals(session.getGiftCardDashboardPage().getInfoMessage().getText(),"Gift cards is currently disabled.Configuration");
+	}
+
+
+
+	@Test(enabled = true, description="TC_03 Verify that 'Reference No.' and 'funding source' toggle button, and 'Maximum gift card amount allowed' textbox field appear, after 'Accepting and issuing Gift Cards' toggle button is enabled, on 'Gift Cards Configuration' popup.")
+	public void TC_03_verifyRefNoToggleLabel() {
+		KadeSession.login(Customer);
+		session.getSidePannel().expandManageBusinessAccordionBttn().click();
+		session.getSidePannel().getGiftCardsDashboardTab().click();
+		session.getGiftCardConfigurationPopup().clickConfigurationBtn().click();
+		session.getGiftCardConfigurationPopup().switchOnIssueGiftCardToggle().click();
+		Assertions.assertEquals(session.getGiftCardConfigurationPopup().getEnabledText().getText(),"Enabled");
+		Assertions.assertEquals(session.getGiftCardConfigurationPopup().getReferenceNoText().getText(),"Reference No. is optional");
+		Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceText().getText(),"Funding source is optional");
+		Assertions.assertEquals(session.getGiftCardConfigurationPopup().getAmtText().getText(),"Maximum allowed gift card amount:");
+
+
+
 	}
 	
-	@Test(enabled = true, description="Verify Reference No toggle label changes after swiching on/off toggle button")
-	public void tc04_verifyRefNoToggleLabel() {
-		dashboard.clickOnGiftCardsDashboard();
-		giftCardDashboard.clickOnConfigurationLink();
-		giftCardConfiguration.switchOnIssueGiftCardToggle();
-		giftCardConfiguration.switchOnRefNoToggle();
-		Assertions.assertEquals(giftCardConfiguration.getRefNoLabel(), "Mandatory Reference No.");
-		giftCardConfiguration.switchOffRefNoToggle();
-		Assertions.assertEquals(giftCardConfiguration.getRefNoLabel(), "Optional Reference No.");
-		giftCardConfiguration.clickOnClose();
-	}
-	
-	@Test(enabled = true, description="Verify funding source toggle button behavior")
-	public void tc05_verifyFundingSourceToggleLabel() {
-		dashboard.clickOnGiftCardsDashboard();
-		giftCardDashboard.clickOnConfigurationLink();
-		giftCardConfiguration.switchOnIssueGiftCardToggle();
-		giftCardConfiguration.switchOnFundingSourceToggle();
-		Assertions.assertEquals(giftCardConfiguration.getFundingSourceLabel(), "Restricted funding source");
-		Assertions.assertTrue(giftCardConfiguration.isFundingSourcePresent());
-		giftCardConfiguration.switchOffFundingSourceToggle();
-		Assertions.assertEquals(giftCardConfiguration.getFundingSourceLabel(), "Optional funding source");
-		giftCardConfiguration.clickOnClose();
+	@Test(enabled = true, description="TC_05 Verify that label of 'Optional Reference No.' toggle button changes to 'Mandatory Reference No.' , when 'Optional Reference No.' toggle button is switched on, on 'Gift Cards Configuration' popup.")
+	public void TC_04_verifyOptionalRefNoToggleLabel() throws InterruptedException {
+		KadeSession.login(Customer);
+		session.getSidePannel().expandManageBusinessAccordionBttn().click();
+		session.getSidePannel().getGiftCardsDashboardTab().click();
+		session.getGiftCardConfigurationPopup().clickConfigurationBtn().click();
+			 if(session.getGiftCardConfigurationPopup().getReferenceEnabledElement().isDisplayed()) {
+				 session.getGiftCardConfigurationPopup().switchOnRefeNoToggele().click();
+				 session.getGiftCardConfigurationPopup().switchOffRefeNoToggle().click();
+				 Assertions.assertEquals(session.getGiftCardConfigurationPopup().getEnabledReferenceNotext().getText(), "Reference No. is mandatory");
+			 }
+		else{
+
+			session.getGiftCardConfigurationPopup().switchOffRefeNoToggle().click();
+			Assertions.assertEquals( session.getGiftCardConfigurationPopup().getEnabledReferenceNotext().getText(),"Reference No. is mandatory");
+		}
+
+
+
 	}
 	
 	@Test(enabled = true, description="Verify validation message of Max Gift Card Ammount")
-	public void tc06_validationMaxGiftCardAmount() {
-		dashboard.clickOnGiftCardsDashboard();
+	public void TC_06_validationMaxGiftCardAmount() {
+
 		giftCardDashboard.clickOnConfigurationLink();
 		giftCardConfiguration.switchOnIssueGiftCardToggle();
 		giftCardConfiguration.clearMaxGiftCardTbx();

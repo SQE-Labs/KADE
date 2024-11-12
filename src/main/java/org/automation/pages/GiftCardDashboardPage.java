@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.automation.ReturnObjects.Clickable;
+import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
@@ -12,9 +14,11 @@ import org.openqa.selenium.WebElement;
 
 
 public class GiftCardDashboardPage extends BasePage {
-
-	By configurationLink = By.xpath("//button[text()='Configuration']");
-	By infoMessage = By.xpath(" //div[@class='card-header pb-0']");
+	// Locators for gift cardDashboard Page
+	By giftCardText = By.cssSelector("h1.header-title.mb-0");
+    By giftCrdBtnLink = By.cssSelector("a[href='/Giftcards/StoreDashboard']");
+	By configurationLink = By.cssSelector("button[data-action='/Giftcards/_configurationGC/3334']");
+	By infoMessage = By.cssSelector("div.card-header.pb-0");
 	By issueGiftCardBtn=By.xpath("(//button[@class='btn btn-link'])[2]"); 
 	By giftCardForSaleLink = By.xpath("//a[@class='btn btn-link']");
 	By giftCardNo=By.xpath("//a[@class='btn btn-link btn btn-link']");
@@ -38,18 +42,26 @@ public class GiftCardDashboardPage extends BasePage {
 	By totalCountAndAmt=By.xpath("//h6/span");
 	By GiftCardGrid=By.xpath("//a[@class='d-flex align-items-center']");
 	By row=By.xpath("//p[text()='Card No.']");
-	
-	public void clickOnConfigurationLink() {
-		click(configurationLink);
+	By saveBtn= By.cssSelector("button#_5G1");
+
+
+ public Clickable clickOnGiftCardBtn(){
+	 return Clickable.getElementBy(giftCrdBtnLink);
+ }
+ public Clickable getGiftCardText(){
+	 return Clickable.getElementBy(giftCardText);
+ }
+	public Clickable clickOnConfigurationLink() {
+		return Clickable.getElementBy(configurationLink);
 	}
 	
-	public String getInfoMessage() {
-		return getText_custom(infoMessage);
+	public Clickable getInfoMessage() {
+	     WebdriverWaits.waitForElementUntilVisible(infoMessage,100);
+		return Clickable.getElementBy(infoMessage);
 	}
 	
-	public void clickOnIssueAGiftCard() {
-		WebdriverWaits.fluentWait_ElementIntactable(10, 100, issueGiftCardBtn);
-		click(issueGiftCardBtn);
+	public Clickable clickOnIssueAGiftCard() {
+	return Clickable.getElementBy(saveBtn);
 	}
 
 	public boolean isIssueAGiftCardLinkPresent() {
