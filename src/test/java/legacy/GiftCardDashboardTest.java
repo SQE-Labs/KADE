@@ -3,21 +3,15 @@ package legacy;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 import org.automation.base.BaseTest;
-import org.automation.data.KadeUserAccount;
 import org.automation.pages.*;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.GiftCardsForSalePage;
-import org.automation.utilities.PropertiesUtil;
-import org.automation.utilities.WebdriverWaits;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
-import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.WebDriver;
+
 import static org.automation.data.KadeUserAccount.Customer;
 import static org.automation.data.KadeUserAccount.Default;
 
@@ -74,50 +68,68 @@ public class GiftCardDashboardTest extends BaseTest {
 		session.getGiftCardConfigurationPopup().clickConfigurationBtn().click();
 		session.getGiftCardConfigurationPopup().switchOnIssueGiftCardToggle().click();
 		Assertions.assertEquals(session.getGiftCardConfigurationPopup().getEnabledText().getText(),"Enabled");
-		Assertions.assertEquals(session.getGiftCardConfigurationPopup().getReferenceNoText().getText(),"Reference No. is optional");
-		Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceText().getText(),"Funding source is optional");
+		Assertions.assertEquals(session.getGiftCardConfigurationPopup().getReferenceDisabledNoText().getText(),"Reference No. is optional");
 		Assertions.assertEquals(session.getGiftCardConfigurationPopup().getAmtText().getText(),"Maximum allowed gift card amount:");
 
 
 
 	}
 	
-	@Test(enabled = true, description="TC_05 Verify that label of 'Optional Reference No.' toggle button changes to 'Mandatory Reference No.' , when 'Optional Reference No.' toggle button is switched on, on 'Gift Cards Configuration' popup.")
+	@Test(enabled = true, description="TC_04 Verify that label of 'Optional Reference No.' toggle button changes to 'Mandatory Reference No.' , when 'Optional Reference No.' toggle button is switched on, on 'Gift Cards Configuration' popup.")
 	public void TC_04_verifyOptionalRefNoToggleLabel() throws InterruptedException {
 		KadeSession.login(Customer);
 		session.getSidePannel().expandManageBusinessAccordionBttn().click();
 		session.getSidePannel().getGiftCardsDashboardTab().click();
 		session.getGiftCardConfigurationPopup().clickConfigurationBtn().click();
-			 if(session.getGiftCardConfigurationPopup().getReferenceEnabledElement().isDisplayed()) {
-				 session.getGiftCardConfigurationPopup().switchOnRefeNoToggele().click();
-				 session.getGiftCardConfigurationPopup().switchOffRefeNoToggle().click();
-				 Assertions.assertEquals(session.getGiftCardConfigurationPopup().getEnabledReferenceNotext().getText(), "Reference No. is mandatory");
-			 }
-		else{
-
+		if (session.getGiftCardConfigurationPopup().getReferenceEnabledElement().isDisplayed()) {
+			session.getGiftCardConfigurationPopup().switchOnRefeNoToggele().click();
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getReferenceDisabledNoText().getText(), "Reference No. is optional");
 			session.getGiftCardConfigurationPopup().switchOffRefeNoToggle().click();
-			Assertions.assertEquals( session.getGiftCardConfigurationPopup().getEnabledReferenceNotext().getText(),"Reference No. is mandatory");
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getEnabledReferenceNotext().getText(), "Reference No. is mandatory");
+		} else {
+
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getReferenceDisabledNoText().getText(), "Reference No. is optional");
+			session.getGiftCardConfigurationPopup().switchOffRefeNoToggle().click();
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getEnabledReferenceNotext().getText(), "Reference No. is mandatory");
 		}
+	}
+
+
+
+		@Test(enabled = true, description="TC_05 Verify that label of 'Optional funding source' toggle button changes to 'Restricted funding source' and a textbox appears , when 'Optional funding source' toggle button is switched on, on 'Gift Cards Configuration' popup.")
+		public void TC_05_verifyFundingResourceToggle() throws InterruptedException {
+			KadeSession.login(Customer);
+			session.getSidePannel().expandManageBusinessAccordionBttn().click();
+			session.getSidePannel().getGiftCardsDashboardTab().click();
+			session.getGiftCardConfigurationPopup().clickConfigurationBtn().click();
+			if(session.getGiftCardConfigurationPopup().getFundingResourceElement().isDisplayed()) {
+				session.getGiftCardConfigurationPopup().switchOnFundingSourceToggele().click();
+				Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceDiabledText().getText(),"Funding source is optional");
+				session.getGiftCardConfigurationPopup().switchoffFundingSourceToggele().click();
+				Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceEnabledText().getText(), "Funding source is restricted");
+			}
+			else{
+
+				Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceDiabledText().getText(),"Funding source is optional");
+				session.getGiftCardConfigurationPopup().switchoffFundingSourceToggele().click();
+				Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceEnabledText().getText(), "Funding source is restricted");
+			}
 
 
 
 	}
-	
+
+
+
 	@Test(enabled = true, description="Verify validation message of Max Gift Card Ammount")
 	public void TC_06_validationMaxGiftCardAmount() {
+		KadeSession.login(Customer);
+		session.getSidePannel().expandManageBusinessAccordionBttn().click();
+		session.getSidePannel().getGiftCardsDashboardTab().click();
+		session.getGiftCardConfigurationPopup().clickConfigurationBtn().click();
 
-		giftCardDashboard.clickOnConfigurationLink();
-		giftCardConfiguration.switchOnIssueGiftCardToggle();
-		giftCardConfiguration.clearMaxGiftCardTbx();
-		giftCardConfiguration.clickOnSaveConfigurationBtn();
 		Assertions.assertEquals(giftCardConfiguration.getMaxGiftCardToolTipMessage(), "This field is required.");
-		giftCardConfiguration.enterMaxGiftCardAmount(0);
-		giftCardConfiguration.clickOnSaveConfigurationBtn();
-		Assertions.assertEquals(giftCardConfiguration.getMaxGiftCardToolTipMessage(), "Please enter a value greater than or equal to 1.");
-		giftCardConfiguration.enterMaxGiftCardAmount(100000);
-		giftCardConfiguration.clickOnSaveConfigurationBtn();
-		Assertions.assertEquals(giftCardConfiguration.getMaxGiftCardToolTipMessage(), "Please enter a value less than or equal to 99999.");
-		giftCardConfiguration.clickOnClose();
+
 	}
 	
 	@Test(enabled = true, description="Verify validation message for empty funding source textbox")

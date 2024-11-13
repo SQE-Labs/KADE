@@ -5,7 +5,6 @@ import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.automation.ReturnObjects.Clickable;
-import org.automation.ReturnObjects.Editable;
 import org.openqa.selenium.WebElement;
 
 public class GiftCardConfigurationPopup extends BasePage {
@@ -13,9 +12,12 @@ public class GiftCardConfigurationPopup extends BasePage {
 By issueGiftCardToggle=By.cssSelector("i.far.fa-toggle-on.fa-rotate-180.custom-check-off");
 By disabledText= By.cssSelector("span.custom-check-off");
 By enabledText = By.cssSelector("span.fs-6.custom-check-on");
-By ReferenceNoDisabledText= By.xpath("//span[text()='Reference No. is optional']");
-By ReferenceNoEnabledText= By.xpath("//span[text()='Reference No. is mandatory']");
-By fundingSourceText= By.xpath("//span[text()='Funding source is optional']");
+By referenceNoDisabledText= By.xpath("//span[text()='Reference No. is optional']");
+By referenceNoEnabledText= By.xpath("//span[text()='Reference No. is mandatory']");
+By fundingSourceDisabledText= By.xpath("//span[text()='Funding source is optional']");
+By fundingSourceEnabledText = By.xpath("//span[text()='Funding source is restricted']");
+By fundingSourceOnToggle = By.xpath("(//i[contains(@class, 'far') and contains(@class, 'fa-toggle-on') and contains(@class, 'custom-check-on')])[3]");
+By fundingSourceOffToggle = By.xpath("(//i[contains(@class, 'far') and contains(@class, 'fa-toggle-on') and contains(@class, 'fa-rotate-180') and contains(@class, 'custom-check-off')])[3]");
 By amtText= By.xpath("//label[text()='Maximum allowed gift card amount:']");
 By referenceNoToggle=By.cssSelector("input[name=\"ReferenceNo\"] ~ i:nth-child(2)");
 By referenceToggleOff = By.xpath("(//i[contains(@class, 'far') and contains(@class, 'fa-toggle-on') and contains(@class, 'fa-rotate-180') and contains(@class, 'custom-check-off')])[2]");
@@ -29,7 +31,10 @@ By fundingSourceTbx=By.xpath("//textarea[@name='fundSourceList']");
 	By saveBtn= By.cssSelector("button.btn.btn-outline-primary.ms-auto.mt-3");
 
 	public WebElement getReferenceEnabledElement(){
-		 return getElement(ReferenceNoEnabledText);
+		 return getElement(referenceNoEnabledText);
+	 }
+	 public WebElement getFundingResourceElement(){
+		 return getElement(referenceNoEnabledText);
 	 }
 
 	public Clickable clickConfigurationBtn(){
@@ -41,11 +46,15 @@ By fundingSourceTbx=By.xpath("//textarea[@name='fundSourceList']");
 	public Clickable getPopupTitle() {return Clickable.getElementBy(popupTitle);}
 	public Clickable switchOffRefeNoToggle() {WebdriverWaits.waitForElementUntilVisible(referenceToggleOff,1000);return  Clickable.getElementBy(referenceToggleOff);}
 	public Clickable getEnabledText() {WebdriverWaits.waitForElementUntilVisible(enabledText,100);return  Clickable.getElementBy(enabledText);}
-	public Clickable getFundingSourceText() {WebdriverWaits.waitForElementUntilVisible(fundingSourceText,100);return  Clickable.getElementBy(fundingSourceText);}
-	public Clickable getReferenceNoText() {WebdriverWaits.waitForElementUntilVisible(ReferenceNoDisabledText,100);return  Clickable.getElementBy(ReferenceNoDisabledText);}
-	public Clickable getEnabledReferenceNotext(){WebdriverWaits.waitForElementUntilVisible(ReferenceNoEnabledText,100);return  Clickable.getElementBy(ReferenceNoEnabledText);}
+	public Clickable getFundingSourceEnabledText() {WebdriverWaits.waitForElementUntilVisible(fundingSourceEnabledText,100);return  Clickable.getElementBy(fundingSourceEnabledText);}
+	public Clickable getFundingSourceDiabledText(){WebdriverWaits.waitForElementUntilVisible(fundingSourceDisabledText,100);return  Clickable.getElementBy(fundingSourceDisabledText);}
+	public Clickable getReferenceDisabledNoText() {WebdriverWaits.waitForElementUntilVisible(referenceNoDisabledText,100);return  Clickable.getElementBy(referenceNoDisabledText);}
+	public Clickable getEnabledReferenceNotext(){WebdriverWaits.waitForElementUntilVisible(referenceNoEnabledText,100);return  Clickable.getElementBy(referenceNoEnabledText);}
 	public Clickable getAmtText() {WebdriverWaits.waitForElementUntilVisible(amtText,100);return  Clickable.getElementBy(amtText);}
 	public Clickable switchOnRefeNoToggele(){WebdriverWaits.waitForElementUntilVisible(referenceToggeleOn,100);return  Clickable.getElementBy(referenceToggeleOn);}
+	public Clickable switchOnFundingSourceToggele(){WebdriverWaits.waitForElementUntilVisible(fundingSourceOnToggle,100);return  Clickable.getElementBy(fundingSourceOnToggle);}
+	public Clickable switchoffFundingSourceToggele(){WebdriverWaits.waitForElementUntilVisible(fundingSourceOffToggle,100);return  Clickable.getElementBy(fundingSourceOffToggle);}
+
 
 
 
