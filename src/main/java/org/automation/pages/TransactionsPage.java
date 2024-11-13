@@ -75,10 +75,12 @@ public class TransactionsPage extends BasePage {
     By questionMarkIcon = By.cssSelector(".align-items-end>i");
     By capturedButton = By.cssSelector("[value='captured']");
     By failedButton = By.cssSelector(".mx-3");
+    By recurringIcon = By.cssSelector(".fa.fa-repeat.me-1");
 
     public Clickable getFailedButton() {
         return Clickable.getElementBy(failedButton, "failed Button ");
     }
+    public Clickable getRecurringIcon() {return Clickable.getElementBy(recurringIcon, "Recurring Icon");}
     public Clickable getCapturedButton() {
         return Clickable.getElementBy(capturedButton, "Captured Button");
     }

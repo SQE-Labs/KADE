@@ -355,6 +355,42 @@ public class BillPage extends BasePage {
         WebdriverWaits.sleep(2000);
         getContinueWithoutButton().clickIfExist();
     }
+    public void createBillForRT(BillsPage billObj, boolean navigateToBillSection) {
+        if (navigateToBillSection) {
+            getStoresDropdown().click();
+            selectStore(billObj.getStore());
+            getContinueButton().click();
+        }
+
+        getNewBillButton().click();
+        if (billObj.getAmount() != null) {
+            getAmountField().setText(billObj.getAmount());
+        }
+        getDisableTaxToggleButton().clickIfExist();
+        getDescriptionTextbox().click();
+        if (billObj.getCustomerPhnNo() != null) {
+            getCustomerButton().click();
+            getCustomerPhoneNoField().setText(billObj.getCustomerPhnNo());
+            getGoPhoneNumberButton().click();
+            getConfirmButton().clickByMouse();
+        }
+        if(billObj.getCustomerEmail() != null) {
+            getCustomerButton().click();
+            getUserEmailField().setText(billObj.getCustomerEmail());
+            getEmailGoButton().click();
+            WebdriverWaits.sleep(2000);
+            getMoreOption().click();
+            WebdriverWaits.sleep(3000);
+            getRepeatField().click();
+            getRepeatOption().click();
+            getCustomerCancelOption().click();
+            getDoneBtn().click();
+        }
+        getConfirmButton().clickbyJS();
+        WebdriverWaits.sleep(2000);
+        getContinueWithoutButton().clickIfExist();
+    }
+
 
     public Clickable getEmailGoButton(){
         return Clickable.getElementBy(goBtnEmail,"Email go button");

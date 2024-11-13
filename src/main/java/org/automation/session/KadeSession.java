@@ -3,10 +3,7 @@ package org.automation.session;
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
 import org.automation.pages.*;
-import org.automation.pages.popups.NewAccountPopup;
-import org.automation.pages.popups.NewChargePopup;
-import org.automation.pages.popups.SendTheReceiptPopup;
-import org.automation.pages.popups.SignInPopup;
+import org.automation.pages.popups.*;
 
 public class KadeSession extends BaseTest {
 
@@ -83,6 +80,7 @@ public class KadeSession extends BaseTest {
     public NewAccountPopup getNewAccountPopup(){
         return  new NewAccountPopup();
     }
+    public AttentionRTPopup getAttentionRTpopup(){ return new AttentionRTPopup();}
 }
 
 
