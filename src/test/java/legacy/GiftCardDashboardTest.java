@@ -96,7 +96,9 @@ public class GiftCardDashboardTest extends BaseTest {
 
 
 
-		@Test(enabled = true, description="TC_05 Verify that label of 'Optional funding source' toggle button changes to 'Restricted funding source' and a textbox appears , when 'Optional funding source' toggle button is switched on, on 'Gift Cards Configuration' popup.")
+
+
+		@Test(enabled = true, description="TC_05,06 Verify that label of 'Optional funding source' toggle button changes to 'Restricted funding source' and a textbox appears , when 'Optional funding source' toggle button is switched on, on 'Gift Cards Configuration' popup.")
 		public void TC_05_verifyFundingResourceToggle() throws InterruptedException {
 			KadeSession.login(Customer);
 			session.getSidePannel().expandManageBusinessAccordionBttn().click();
@@ -107,15 +109,78 @@ public class GiftCardDashboardTest extends BaseTest {
 				Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceDiabledText().getText(),"Funding source is optional");
 				session.getGiftCardConfigurationPopup().switchoffFundingSourceToggele().click();
 				Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceEnabledText().getText(), "Funding source is restricted");
+				Assertions.assertEquals(String.valueOf(session.getGiftCardConfigurationPopup().getTextareaElement().isDisplayed()),"true");
 			}
 			else{
 
 				Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceDiabledText().getText(),"Funding source is optional");
 				session.getGiftCardConfigurationPopup().switchoffFundingSourceToggele().click();
 				Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceEnabledText().getText(), "Funding source is restricted");
+				Assertions.assertEquals(String.valueOf(session.getGiftCardConfigurationPopup().getTextareaElement().isDisplayed()),"true");
 			}
 
+	}
+	@Test(enabled = true, description="TC_07 Verify that Alert message appears after clicking on 'Save configuration' button, when 'Funding source is restricted' textbox left blank, on Gift Cards Configuration' popup")
+	public void TC_07_verifyFundingResourceToggleTextBox() throws InterruptedException {
+		KadeSession.login(Customer);
+		session.getSidePannel().expandManageBusinessAccordionBttn().click();
+		session.getSidePannel().getGiftCardsDashboardTab().click();
+		session.getGiftCardConfigurationPopup().clickConfigurationBtn().click();
+		if(session.getGiftCardConfigurationPopup().getFundingResourceElement().isDisplayed()) {
+			session.getGiftCardConfigurationPopup().switchOnFundingSourceToggele().click();
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceDiabledText().getText(),"Funding source is optional");
+			session.getGiftCardConfigurationPopup().switchoffFundingSourceToggele().click();
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceEnabledText().getText(), "Funding source is restricted");
+			Assertions.assertEquals(String.valueOf(session.getGiftCardConfigurationPopup().getTextareaElement().isDisplayed()),"true");
+			session.getGiftCardConfigurationPopup().clickSaveConfigurationBtn().click();
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getTextAreaToolTip().getToolTipMessage(),"This field is required.");
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getAlertMessageText().getText(),"Please review the highlighted field(s)");
 
+		}
+		else{
+
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceDiabledText().getText(),"Funding source is optional");
+			session.getGiftCardConfigurationPopup().switchoffFundingSourceToggele().click();
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceEnabledText().getText(), "Funding source is restricted");
+			Assertions.assertEquals(String.valueOf(session.getGiftCardConfigurationPopup().getTextareaElement().isDisplayed()),"true");
+			session.getGiftCardConfigurationPopup().clickSaveConfigurationBtn().click();
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getTextAreaToolTip().getToolTipMessage(),"This field is required.");
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getAlertMessageText().getText(),"Please review the highlighted field(s)");
+
+
+
+		}
+
+	}
+	@Test(enabled = true, description="TC_08 Verify that tooltip should appear after entering 50 characters in 'Funding source is restricted' textbox, on 'Gift Cards Configuration' popup.")
+	public void TC_08_verifyFundingResourceToggleTextBoxText() throws InterruptedException {
+		KadeSession.login(Customer);
+		session.getSidePannel().expandManageBusinessAccordionBttn().click();
+		session.getSidePannel().getGiftCardsDashboardTab().click();
+		session.getGiftCardConfigurationPopup().clickConfigurationBtn().click();
+		if(session.getGiftCardConfigurationPopup().getFundingResourceElement().isDisplayed()) {
+			session.getGiftCardConfigurationPopup().switchOnFundingSourceToggele().click();
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceDiabledText().getText(),"Funding source is optional");
+			session.getGiftCardConfigurationPopup().switchoffFundingSourceToggele().click();
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceEnabledText().getText(), "Funding source is restricted");
+			Assertions.assertEquals(String.valueOf(session.getGiftCardConfigurationPopup().getTextareaElement().isDisplayed()),"true");
+			session.getGiftCardConfigurationPopup().fillTextArea().setText("You are not allowed to fill more than 50 characters in this textarea so you will get validation tool tip now, after clicking save btn");
+			session.getGiftCardConfigurationPopup().clickSaveConfigurationBtn().click();
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getTextAreaToolTip().getToolTipMessage(),"Please enter not more than 50 characters for line item #01");
+
+
+		}
+		else{
+
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceDiabledText().getText(),"Funding source is optional");
+			session.getGiftCardConfigurationPopup().switchoffFundingSourceToggele().click();
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getFundingSourceEnabledText().getText(), "Funding source is restricted");
+			Assertions.assertEquals(String.valueOf(session.getGiftCardConfigurationPopup().getTextareaElement().isDisplayed()),"true");
+			session.getGiftCardConfigurationPopup().fillTextArea().setText("You are not allowed to fill more than 50 characters in this textarea so you will get validation tool tip now, after clicking save btn");
+			session.getGiftCardConfigurationPopup().clickSaveConfigurationBtn().click();
+			Assertions.assertEquals(session.getGiftCardConfigurationPopup().getTextAreaToolTip().getToolTipMessage(),"Please enter not more than 50 characters for line item #01");
+
+		}
 
 	}
 
