@@ -1,5 +1,6 @@
 package org.automation.pages;
 
+import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
@@ -23,12 +24,15 @@ By referenceNoToggle=By.cssSelector("input[name=\"ReferenceNo\"] ~ i:nth-child(2
 By referenceToggleOff = By.xpath("(//i[contains(@class, 'far') and contains(@class, 'fa-toggle-on') and contains(@class, 'fa-rotate-180') and contains(@class, 'custom-check-off')])[2]");
 By referenceToggeleOn = By.xpath("(//i[contains(@class, 'far') and contains(@class, 'fa-toggle-on') and contains(@class, 'custom-check-on')])[2]");
 By fundingSourceToggle=By.xpath("//label[@class='custom-checkbox mx-2 mx-1']");
+By textArea = By.cssSelector("textarea[name=\"fundSourceList\"]");
+By alertMessageText = By.cssSelector("p.alert-content");
 By saveConfigurationBtn = By.xpath("//button[@class='btn btn-outline-primary ms-auto mt-3']");
 By popupTitle=By.cssSelector("h5.modal-title");
 By maxGiftCardAmtTbx=By.xpath("//input[@name='maximumGCAmount']");
 By closeBtn= By.xpath("//button[@class='btn-close']");
 By fundingSourceTbx=By.xpath("//textarea[@name='fundSourceList']");
-	By saveBtn= By.cssSelector("button.btn.btn-outline-primary.ms-auto.mt-3");
+By saveBtn= By.cssSelector("button.btn.btn-outline-primary.ms-auto.mt-3");
+
 
 	public WebElement getReferenceEnabledElement(){
 		 return getElement(referenceNoEnabledText);
@@ -36,10 +40,8 @@ By fundingSourceTbx=By.xpath("//textarea[@name='fundSourceList']");
 	 public WebElement getFundingResourceElement(){
 		 return getElement(referenceNoEnabledText);
 	 }
-
-	public Clickable clickConfigurationBtn(){
-		return Clickable.getElementBy(configurationBtn,"Configuration");
-	}
+	 public WebElement getTextareaElement(){ return getElement(textArea);}
+	public Clickable clickConfigurationBtn(){return Clickable.getElementBy(configurationBtn,"Configuration");}
 	public Clickable switchOnIssueGiftCardToggle(){return Clickable.getElementBy(issueGiftCardToggle,"Disabled");}
 	public Clickable getDisableText(){return Clickable.getElementBy(disabledText);}
 	public Clickable clickOnSaveConfigurationBtn() {WebdriverWaits.waitForElementUntilVisible(saveBtn,100);return Clickable.getElementBy(saveBtn);}
@@ -54,6 +56,11 @@ By fundingSourceTbx=By.xpath("//textarea[@name='fundSourceList']");
 	public Clickable switchOnRefeNoToggele(){WebdriverWaits.waitForElementUntilVisible(referenceToggeleOn,100);return  Clickable.getElementBy(referenceToggeleOn);}
 	public Clickable switchOnFundingSourceToggele(){WebdriverWaits.waitForElementUntilVisible(fundingSourceOnToggle,100);return  Clickable.getElementBy(fundingSourceOnToggle);}
 	public Clickable switchoffFundingSourceToggele(){WebdriverWaits.waitForElementUntilVisible(fundingSourceOffToggle,100);return  Clickable.getElementBy(fundingSourceOffToggle);}
+	public Clickable clickSaveConfigurationBtn(){WebdriverWaits.waitForElementUntilVisible(saveConfigurationBtn,100);return  Clickable.getElementBy(saveConfigurationBtn);}
+	public Clickable getTextAreaToolTip(){WebdriverWaits.waitForElementUntilVisible(textArea,100);return  Clickable.getElementBy(textArea);}
+	public Clickable getAlertMessageText(){WebdriverWaits.waitForElementUntilVisible(alertMessageText,100);return  Clickable.getElementBy(alertMessageText);}
+   public Editable fillTextArea(){WebdriverWaits.waitForElementUntilVisible(textArea,100);return  Editable.getElementBy(textArea);}
+
 
 
 
