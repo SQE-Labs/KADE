@@ -396,9 +396,9 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
 
         //Logout as Store manager
-        session.getSidePannel().getSignOutButton().click();
-        WebdriverWaits.sleep(3000);
-        WebdriverWaits.fluentWait_ElementIntactable(5000,500, By.cssSelector("[name='userName']"));
+        session.getSidePannel().getSignOutButton().clickByMouse();
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
+
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -406,8 +406,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
         session.getPaymentsPage().getChangePaymentButton().clickbyJS();
-        WebdriverWaits.sleep(3000);
-        WebdriverWaits.fluentWait_ElementIntactable(1000,500, By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]"));
+        WebdriverWaits.fluentWait_ElementIntactable(3000,500, By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]"));
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
         WebdriverWaits.sleep(2000);
@@ -433,9 +432,8 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Step 5: Logout as Store manager
-        session.getSidePannel().getSignOutButton().click(); // Signing out
-        WebdriverWaits.sleep(3000);
-        WebdriverWaits.fluentWait_ElementIntactable(5000,500, By.cssSelector("[name='userName']"));
+        session.getSidePannel().getSignOutButton().clickByMouse();
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
 
         //Step 6: Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -491,9 +489,8 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Step 5: Logout as Store manager
-        session.getSidePannel().getSignOutButton().click();
-        WebdriverWaits.sleep(3000);
-        WebdriverWaits.fluentWait_ElementIntactable(5000,500, By.cssSelector("[name='userName']"));
+        session.getSidePannel().getSignOutButton().clickByMouse();
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
 
         //Step 6: Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");

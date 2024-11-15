@@ -1,5 +1,6 @@
 package scenarios;
 
+import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
 import org.automation.pages.MyStorePage;
@@ -342,6 +343,7 @@ public class MyStoreTest extends BaseTest {
 
         //Step 2: Click on 'Configure' Button
         myStore.getConfigureButton().click();
+        WebdriverWaits.sleep(3000);
 
         //Step 3: Click on 'Payment-Processing' Sub-Tab
         myStore.getPaymentProcessingSubTab().click();

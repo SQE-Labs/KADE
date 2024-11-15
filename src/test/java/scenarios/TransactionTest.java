@@ -126,9 +126,8 @@ public class TransactionTest extends BaseTest {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 3);
 
         //Logout as Store manager
-        session.getSidePannel().getSignOutButton().click();
-        WebdriverWaits.sleep(3000);
-        WebdriverWaits.fluentWait_ElementIntactable(5000, 500, By.cssSelector("[name='userName']"));
+        session.getSidePannel().getSignOutButton().clickByMouse();
+       WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -145,7 +144,6 @@ public class TransactionTest extends BaseTest {
         session.getPaymentsPage().getBlueCloseButton().clickbyJS();
 
         // logout customer .
-
         session.getSidePannel().getSignOutButton().clickByMouse();
         WebdriverWaits.sleep(3000);
 
@@ -331,9 +329,8 @@ public class TransactionTest extends BaseTest {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 3);
 
         //Logout as Store manager
-        session.getSidePannel().getSignOutButton().click();
-        WebdriverWaits.sleep(3000);
-        WebdriverWaits.fluentWait_ElementIntactable(5000, 500, By.cssSelector("[name='userName']"));
+        session.getSidePannel().getSignOutButton().clickByMouse();
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
         session.getNotificationPage().getNotificationIcon().click();
@@ -347,9 +344,8 @@ public class TransactionTest extends BaseTest {
         session.getPaymentsPage().getBlueCloseButton().clickbyJS();
 
         // logout customer .
-        session.getSidePannel().getSignOutButton().click();
-        WebdriverWaits.sleep(3000);
-        WebdriverWaits.fluentWait_ElementIntactable(5000, 500, By.cssSelector("[name='userName']"));
+        session.getSidePannel().getSignOutButton().clickByMouse();
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
         // login as store manager
         session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
 
@@ -396,9 +392,8 @@ public class TransactionTest extends BaseTest {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 3);
 
         //Logout as Store manager
-        session.getSidePannel().getSignOutButton().click();
-        WebdriverWaits.sleep(3000);
-        WebdriverWaits.fluentWait_ElementIntactable(5000, 500, By.cssSelector("[name='userName']"));
+        session.getSidePannel().getSignOutButton().clickByMouse();
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -414,9 +409,9 @@ public class TransactionTest extends BaseTest {
         session.getPaymentsPage().getBlueCloseButton().clickByMouse();
 
         // logout customer .
-        session.getSidePannel().getSignOutButton().click();
-        WebdriverWaits.sleep(3000);
-        WebdriverWaits.fluentWait_ElementIntactable(5000, 500, By.cssSelector("[name='userName']"));
+        session.getSidePannel().getSignOutButton().clickByMouse();
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
+
         // login as store manager
         session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
 
@@ -477,9 +472,8 @@ public class TransactionTest extends BaseTest {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 3);
 
         //Logout as Store manager
-        session.getSidePannel().getSignOutButton().click();
-        WebdriverWaits.sleep(3000);
-        WebdriverWaits.fluentWait_ElementIntactable(5000, 500, By.cssSelector("[name='userName']"));
+        session.getSidePannel().getSignOutButton().clickByMouse();
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
 
         //Login as Customer
         session.getLoginPage().performSignIn(KadeUserAccount.Customer.getUserName(), KadeUserAccount.Customer.getPassword());
@@ -487,8 +481,9 @@ public class TransactionTest extends BaseTest {
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
         session.getPaymentsPage().getChangePaymentButton().clickbyJS();
-        WebdriverWaits.sleep(3000);
-        WebdriverWaits.fluentWait_ElementIntactable(5000, 500, By.xpath("savedCreditcard"));
+//        WebdriverWaits.sleep(3000);
+        WebdriverWaits.waitForElementVisible(By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]"),5000);
+
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
         session.getPaymentsPage().getBlueCloseButton().clickByMouse();
@@ -503,7 +498,7 @@ public class TransactionTest extends BaseTest {
         session.getSidePannel().getTransactionButton().click();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
         TransactionsPage transaction = session.getTransactionsPage();
-        transaction.getCurrentPaidBill().click();
+        transaction.getCurrentPaidBill().clickByMouse();
 
         // Verify Refund Button
         Assertions.assertTrue(transaction.getRefundButton().isDisplayed());
@@ -570,9 +565,8 @@ public class TransactionTest extends BaseTest {
         //Step 5: Logout as Store manager
 
         //Logout as Store manager
-        session.getSidePannel().getSignOutButton().click();
-        WebdriverWaits.sleep(3000);
-        WebdriverWaits.fluentWait_ElementIntactable(5000, 500, By.cssSelector("[name='userName']"));
+        session.getSidePannel().getSignOutButton().clickByMouse();
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -590,7 +584,7 @@ public class TransactionTest extends BaseTest {
         //Step 10: Click on 'Change Payment Method' Button
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
 //         WebdriverWaits.sleep(5000);
-        WebdriverWaits.fluentWait_ElementIntactable(10000, 5000, By.xpath("(//span[text()='Bank Account 6789'])[1]"));
+        WebdriverWaits.fluentWait_ElementIntactable(5000, 500, By.xpath("(//span[text()='Bank Account 6789'])[1]"));
         //Step 11: Select 'Bank Account' Method
         session.getPaymentsPage().getSavedBankAccount().clickbyJS();
 
@@ -768,7 +762,7 @@ public class TransactionTest extends BaseTest {
         session.getSidePannel().getTransactionButton().click();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
         TransactionsPage transaction = session.getTransactionsPage();
-        transaction.getCurrentPaidBill().click();
+        transaction.getCurrentPaidBill().clickByMouse();
         WebdriverWaits.sleep(3000);
 
         // Verifying the elements on Transaction Popup
@@ -797,9 +791,9 @@ public class TransactionTest extends BaseTest {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 2);
 
         //Logout as Store manager
-        session.getSidePannel().getSignOutButton().click(); // Signing out
-        WebdriverWaits.sleep(3000);
-        WebdriverWaits.fluentWait_ElementIntactable(5000, 500, By.cssSelector("[name='userName']"));
+        session.getSidePannel().getSignOutButton().clickByMouse();
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
+
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -809,8 +803,8 @@ public class TransactionTest extends BaseTest {
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-        WebdriverWaits.sleep(4000);
-        session.getPaymentsPage().getSavedVenmoCard().clickByMouse();
+        WebdriverWaits.fluentWait_ElementIntactable(3000,500, By.xpath("//span[@class='text-nowrap fs-pn25' and text()='Venmo']"));
+        session.getPaymentsPage().getSavedVenmoCard().click();
         WebdriverWaits.sleep(3000);
         session.getPaymentsPage().getIMadeMyPaymentButton().clickbyJS();
         session.getPaymentsPage().getConfirmVenmoCheckbox().click();
@@ -884,10 +878,8 @@ public class TransactionTest extends BaseTest {
 
         //Close the Pop-up
         session.getPaymentsPage().getBlueCloseButton().clickbyJS();
-        session.getSidePannel().getSignOutButton().click();
-        WebdriverWaits.sleep(5000);
-
-        WebdriverWaits.fluentWait_ElementIntactable(5000,500, By.cssSelector("[name='userName']"));
+        session.getSidePannel().getSignOutButton().clickByMouse();
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
 
         // login as store manager
         session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
@@ -896,7 +888,7 @@ public class TransactionTest extends BaseTest {
         session.getSidePannel().getTransactionButton().click();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
         TransactionsPage transaction = session.getTransactionsPage();
-        transaction.getCurrentPaidBill().click();
+        transaction.getCurrentPaidBill().clickByMouse();
         transaction.getRecurringIcon().isDisplayed();
 
 

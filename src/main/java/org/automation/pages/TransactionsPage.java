@@ -19,7 +19,7 @@ public class TransactionsPage extends BasePage {
     By uniqueTransactionId = By.xpath("//span[@class='badge position-relative bg-light text-dark p-1 px-2 text-truncate']");
     By transactionID = By.cssSelector(".badge.position-relative.bg-light.text-dark.p-1");
     By store = By.xpath("//span[@class='fs-pn15 mb-2']");
-    By payment = By.xpath("//div[@class='fs-pn25']");
+    By payment = By.cssSelector(".fs-pn25.ms-2");
     By customerName = By.xpath("//div[@class='d-flex mb-2']");
     By transactionAmmount = By.xpath("//div[@class='d-flex align-items-center']");
     By customNameONRecipt = By.xpath("//a[@class='text-truncate']");
@@ -29,7 +29,7 @@ public class TransactionsPage extends BasePage {
     By newChargeTab = By.xpath("//div[@class='d-flex flex-wrap'] //button[2]");
     By filterIcon = By.xpath("//div[@class='d-flex flex-wrap'] //button[3]");
     By terminalAlertMessage = By.xpath("//p[text()='Terminal charges are not accepted']");
-    By currentPaidBill = By.xpath("//div[contains(@class,'row bg-white ')][1]");
+    By currentPaidBill = By.xpath("(//div[contains(@class, 'bg-white') and contains(@class, 'position-relative')])[1]");
     By refundButton = By.cssSelector("[title='Refund']");
     By refundRefenceNo = By.cssSelector("[name='refNo']");
     By refundReason = By.cssSelector("[name='reason']");
