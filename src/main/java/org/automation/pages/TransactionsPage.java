@@ -17,9 +17,9 @@ public class TransactionsPage extends BasePage {
     By storesCombobox = By.xpath("//span[@role='combobox']");
     By continueBtn = By.xpath("//button[@type='submit']");
     By uniqueTransactionId = By.xpath("//span[@class='badge position-relative bg-light text-dark p-1 px-2 text-truncate']");
-    By transactionID = By.xpath("//span[@class='badge position-relative bg-light text-dark p-1 px-2 text-truncate mb-1 max-15c']");
+    By transactionID = By.cssSelector(".badge.position-relative.bg-light.text-dark.p-1");
     By store = By.xpath("//span[@class='fs-pn15 mb-2']");
-    By payment = By.xpath("//div[@class='fs-pn25']");
+    By payment = By.cssSelector(".fs-pn25.ms-2");
     By customerName = By.xpath("//div[@class='d-flex mb-2']");
     By transactionAmmount = By.xpath("//div[@class='d-flex align-items-center']");
     By customNameONRecipt = By.xpath("//a[@class='text-truncate']");
@@ -29,7 +29,7 @@ public class TransactionsPage extends BasePage {
     By newChargeTab = By.xpath("//div[@class='d-flex flex-wrap'] //button[2]");
     By filterIcon = By.xpath("//div[@class='d-flex flex-wrap'] //button[3]");
     By terminalAlertMessage = By.xpath("//p[text()='Terminal charges are not accepted']");
-    By currentPaidBill = By.xpath("//div[contains(@class,'row bg-white ')][1]");
+    By currentPaidBill = By.xpath("(//div[contains(@class, 'bg-white') and contains(@class, 'position-relative')])[1]");
     By refundButton = By.cssSelector("[title='Refund']");
     By refundRefenceNo = By.cssSelector("[name='refNo']");
     By refundReason = By.cssSelector("[name='reason']");
@@ -75,10 +75,12 @@ public class TransactionsPage extends BasePage {
     By questionMarkIcon = By.cssSelector(".align-items-end>i");
     By capturedButton = By.cssSelector("[value='captured']");
     By failedButton = By.cssSelector(".mx-3");
+    By recurringIcon = By.cssSelector(".fa.fa-repeat.me-1");
 
     public Clickable getFailedButton() {
         return Clickable.getElementBy(failedButton, "failed Button ");
     }
+    public Clickable getRecurringIcon() {return Clickable.getElementBy(recurringIcon, "Recurring Icon");}
     public Clickable getCapturedButton() {
         return Clickable.getElementBy(capturedButton, "Captured Button");
     }
@@ -150,8 +152,8 @@ public class TransactionsPage extends BasePage {
     }
 
     public boolean matchPattern(String transID) {
-        if (transID.startsWith("T-")) {
-            transID = transID.substring(2);
+        if (transID.startsWith("TR-")) {
+            transID = transID.substring(3);
         }
         boolean checkflag = true;
         // Check if the transaction ID contains only digits on Transaction Page

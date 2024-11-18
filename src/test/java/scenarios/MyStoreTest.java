@@ -1,5 +1,6 @@
 package scenarios;
 
+import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
 import org.automation.pages.MyStorePage;
@@ -17,8 +18,9 @@ public class MyStoreTest extends BaseTest {
     public void sc01b_DeletionOfStore() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         //Step 1: Click on 'My Stores' Tab
-
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
+
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Register New Business' Button
@@ -36,7 +38,6 @@ public class MyStoreTest extends BaseTest {
             myStore.getSkipStripeAccountPopUpButton().clickByMouse();
         }
 
-
         //Step 5: Click on 'Delete' Button
         myStore.getDeleteStoreButton().clickByMouse();
 
@@ -51,6 +52,7 @@ public class MyStoreTest extends BaseTest {
         String storeName = "Zencode "+RandomGenerator.requiredString(6);
         String phoneNumber = RandomGenerator.requiredNumber(10);
         //Step 1: Click on 'My Stores' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
@@ -103,13 +105,12 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getAddedTaxRate().getText(), defaultTaxRate);
     }
 
-
-
     @Test(enabled = false, description = "SC_04(A) Verifying buying Monthly Business Plan for already created Store")
-    public void sc04a_VerifyingBuyingMonthlyBusinessPlanForAlreadyCreatedStore() {
+    public void a_VerifyingBuyingMonthlyBusinessPlanForAlreadyCreatedStore() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Stores' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
@@ -150,6 +151,7 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Stores' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
@@ -194,6 +196,7 @@ public class MyStoreTest extends BaseTest {
         String tipAmountPercent3 = RandomGenerator.requiredNumber(2);
 
         //Step 1: Click on 'My Stores' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
@@ -201,7 +204,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getConfigureButton().click();
 
         //Step 3: Click on 'Settings' Sub-Tab
-        myStore.getSettingsSubTab().click();
+        myStore.getSettingsSubTab().clickByMouse();
 
         //Verifying Minimum, Maximum and Default values of 'Maximum Bill Amount' Field
         String maximumBillAmount = "50000.00";
@@ -286,6 +289,7 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Store' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
@@ -301,7 +305,7 @@ public class MyStoreTest extends BaseTest {
         }
 
         //Step 5: Click on 'Configure' button
-        myStore.getTipConfigureButton().click();
+        myStore.getTipConfigureButton().clickByMouse();
 
         //Verifying the 'Tip Configuration' Pop-up Title
         Assertions.assertEquals(myStore.getTipConfigPopUpTitle().getText(), "Tip configuration");
@@ -333,11 +337,13 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Store' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Button
         myStore.getConfigureButton().click();
+        WebdriverWaits.sleep(3000);
 
         //Step 3: Click on 'Payment-Processing' Sub-Tab
         myStore.getPaymentProcessingSubTab().click();
@@ -403,6 +409,7 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Store' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
@@ -410,7 +417,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getConfigureButtonForBusinessPlanStore().click();
 
         //Step 3: Click on 'Manage User' Sub Tab
-        myStore.getManageUserSubTab().click();
+        myStore.getManageUserSubTab().clickByMouse();
 
         //Step 4: Click on 'Add User' Button
         myStore.getAddUserButton().click();
@@ -450,6 +457,7 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Store' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 
@@ -483,6 +491,7 @@ public class MyStoreTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1:Click on 'My Store' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
         MyStorePage myStore = session.getMyStorePage();
 

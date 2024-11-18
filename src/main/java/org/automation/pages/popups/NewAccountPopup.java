@@ -64,5 +64,4 @@ public class NewAccountPopup extends BasePage {
         return Clickable.getElementBy(signInButton, "Sign In Button");
     }
 
-
 }

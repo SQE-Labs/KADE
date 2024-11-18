@@ -23,6 +23,7 @@ public class ObjectBuilder{
             bill.setStore(StoreAccount.AutomationTransactions3);
             return bill;
         }
+
     }
 }
 

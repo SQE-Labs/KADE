@@ -11,9 +11,9 @@ public class SidePannel extends BasePage {
 
 	By profileLink = By.xpath("//a[@class='btn btn-link p-0 fs-pn15 ']");
 	By validationMessage=By.xpath("//p[@class='alert-content']");
-	public By billBtn = By.cssSelector(".sidebar-nav > li:nth-child(3)");
-	By transactionsButton=By.cssSelector(".sidebar-nav > li:nth-child(2)");
-	By myStoreBtn=By.xpath("//i[@class='align-middle me-2 fa-fw fas fa-store']");
+	public By billBtn = By.cssSelector(".sidebar-nav > li:nth-child(5)");
+	By transactionsButton=By.cssSelector(".sidebar-nav > li:nth-child(4)");
+	By myStoreBtn=By.cssSelector(".fa-fw.fas.fa-store");
 	By giftCardsDashboardTab=By.xpath("//a[text()='Gift Cards Dashboard']");
 	By pageHeader=By.xpath("//h1[@class='header-title mb-0']");
 	By reportBtn=By.xpath("(//a[@class='sidebar-link'])[11]");
@@ -78,7 +78,7 @@ public class SidePannel extends BasePage {
 	}
 
     public Clickable getSignOutButton() {
-		WebdriverWaits.sleep(3000);
+	WebdriverWaits.sleep(3000);
 		return Clickable.getElementBy(signOutBtn,"Sign Out Button");
     }
 

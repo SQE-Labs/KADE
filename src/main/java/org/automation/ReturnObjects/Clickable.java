@@ -25,7 +25,7 @@ public class Clickable extends ActionEngine {
     }
 
     public void click() {
-        performClickOperation(() -> clickBy(target, label));
+        performClickOperation(() -> clickBy(target));
     }
 
     public void clickbyJS() {

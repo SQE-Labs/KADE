@@ -105,6 +105,7 @@ public class PaymentsAndRefundTest extends BasePage {
 
         //Logout as Store manager
         session.getSidePannel().getSignOutButton().click(); // Signing out
+        WebdriverWaits.sleep(3000);
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -140,6 +141,7 @@ public class PaymentsAndRefundTest extends BasePage {
 
         //Step 16: Click on 'Submit' Button
         session.getPaymentsPage().getVenmoSubmitButton().click();
+        WebdriverWaits.sleep(3000);
 
         //Step 17: Click on 'Close' Icon
         session.getPaymentsPage().getCloseButton().clickbyJS();
@@ -164,6 +166,7 @@ public class PaymentsAndRefundTest extends BasePage {
 
         //Step 5: Logout as Store manager
         session.getSidePannel().getSignOutButton().click();
+        WebdriverWaits.sleep(3000);
 
         //Step 6: Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -213,7 +216,7 @@ public class PaymentsAndRefundTest extends BasePage {
 
         //Step 20: Click on 'Swipe to pay' field
         session.getPaymentsPage().getSwipeToPayButton().clickbyJS();
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.sleep(3000);
 
         //Step 21: Enter Amount
         session.getPaymentsPage().getMoreAmountField().setText("1000.00");

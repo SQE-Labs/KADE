@@ -9,13 +9,14 @@ import org.automation.ReturnObjects.Clickable;
 import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
 import org.automation.objectBuilder.pages.BillsPage;
+import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.*;
 
 import static org.automation.ReturnObjects.Clickable.getElementBy;
 
 public class BillPage extends BasePage {
 
-    public By newBillBtn = By.xpath("//button[@class='btn btn-outline-dark']");
+    public By newBillBtn = By.cssSelector(".fs-p15>i+div");
     public By recurringBtn = By.xpath("//div[text()='Recurring']");
     public By alertMessage = By.xpath("//div[@class='alert-message']");
     public By transactionsLink = By.xpath("//div[text()='Transactions']");
@@ -102,7 +103,7 @@ public class BillPage extends BasePage {
     By documentIcon = By.xpath("(//button[contains(@onclick,'pdf')])[2]");
     By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
     By attachedImage = By.xpath("//img[@class='img-thumbnail  bg-black']");
-    By notPaidBill = By.xpath("(//div[contains(@class,'row bg-white ')])[1]");
+    By notPaidBill = By.xpath("//div[contains(@class, 'row bg-white')][1]");
     By unPaidBill=By.xpath("(//div[contains(@class,'row bg-white ')])[1]/div[2]");
     By deleteButton = By.cssSelector(".btn-outline-danger");
     By deleteIcon = By.cssSelector(".fa.fa-check");
@@ -178,9 +179,9 @@ public class BillPage extends BasePage {
     By processPaymentBtn = By.xpath("//button[text()='Process Payment']");
     By deleteBillBtn = By.xpath("//button[text()='Delete']");
     By editBillBtn = By.xpath("//i[@class='far fa-edit']");
-    By uniqueRefNo = By.xpath("//div[@class='modal-content']//i[@class='fad fa-hashtag me-2']/..");
+    By uniqueRefNo = By.cssSelector(".badge.position-relative:first-child");
     By notPaidLabel = By.cssSelector(".badge.bg-danger");
-    By billTimeOnPopup = By.xpath("//div[@class='fs-pn15 mb-1']");
+    By billTimeOnPopup = By.cssSelector("div[role='document'] div.d-flex.justify-content-between div+div>div");
     By taxValue = By.xpath("//input[@name='applyTax']/../span");
     By taxToggleBtnDisable = By.xpath("//input[@name='applyTax']/../i[1]");
     By customName = By.xpath("//*[@id=\"_B7O\"]/span");
@@ -343,16 +344,53 @@ public class BillPage extends BasePage {
             getCustomerButton().click();
             getCustomerPhoneNoField().setText(billObj.getCustomerPhnNo());
             getGoPhoneNumberButton().click();
-            getConfirmButton().click();
+            getConfirmButton().clickByMouse();
         }
         if(billObj.getCustomerEmail() != null){
             getCustomerButton().click();
             getUserEmailField().setText(billObj.getCustomerEmail());
             getEmailGoButton().click();
         }
-        getConfirmButton().click();
+        getConfirmButton().clickbyJS();
+        WebdriverWaits.sleep(2000);
         getContinueWithoutButton().clickIfExist();
     }
+    public void createBillForRT(BillsPage billObj, boolean navigateToBillSection) {
+        if (navigateToBillSection) {
+            getStoresDropdown().click();
+            selectStore(billObj.getStore());
+            getContinueButton().click();
+        }
+
+        getNewBillButton().click();
+        if (billObj.getAmount() != null) {
+            getAmountField().setText(billObj.getAmount());
+        }
+        getDisableTaxToggleButton().clickIfExist();
+        getDescriptionTextbox().click();
+        if (billObj.getCustomerPhnNo() != null) {
+            getCustomerButton().click();
+            getCustomerPhoneNoField().setText(billObj.getCustomerPhnNo());
+            getGoPhoneNumberButton().click();
+            getConfirmButton().clickByMouse();
+        }
+        if(billObj.getCustomerEmail() != null) {
+            getCustomerButton().click();
+            getUserEmailField().setText(billObj.getCustomerEmail());
+            getEmailGoButton().click();
+            WebdriverWaits.sleep(2000);
+            getMoreOption().click();
+            WebdriverWaits.sleep(3000);
+            getRepeatField().click();
+            getRepeatOption().click();
+            getCustomerCancelOption().click();
+            getDoneBtn().click();
+        }
+        getConfirmButton().clickbyJS();
+        WebdriverWaits.sleep(2000);
+        getContinueWithoutButton().clickIfExist();
+    }
+
 
     public Clickable getEmailGoButton(){
         return Clickable.getElementBy(goBtnEmail,"Email go button");
