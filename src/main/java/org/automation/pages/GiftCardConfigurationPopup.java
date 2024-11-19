@@ -27,6 +27,7 @@ By fundingSourceToggle=By.xpath("//label[@class='custom-checkbox mx-2 mx-1']");
 By textArea = By.cssSelector("textarea[name=\"fundSourceList\"]");
 By alertMessageText = By.cssSelector("p.alert-content");
 By saveConfigurationBtn = By.xpath("//button[@class='btn btn-outline-primary ms-auto mt-3']");
+By giftAmount = By.cssSelector("input[type=\"text\"][name=\"maximumGCAmount\"]");
 By popupTitle=By.cssSelector("h5.modal-title");
 By maxGiftCardAmtTbx=By.xpath("//input[@name='maximumGCAmount']");
 By closeBtn= By.xpath("//button[@class='btn-close']");
@@ -60,6 +61,7 @@ By saveBtn= By.cssSelector("button.btn.btn-outline-primary.ms-auto.mt-3");
 	public Clickable getTextAreaToolTip(){WebdriverWaits.waitForElementUntilVisible(textArea,100);return  Clickable.getElementBy(textArea);}
 	public Clickable getAlertMessageText(){WebdriverWaits.waitForElementUntilVisible(alertMessageText,100);return  Clickable.getElementBy(alertMessageText);}
    public Editable fillTextArea(){WebdriverWaits.waitForElementUntilVisible(textArea,100);return  Editable.getElementBy(textArea);}
+	public Editable setGiftAmount(){WebdriverWaits.waitForElementUntilVisible(giftAmount,100);return  Editable.getElementBy(giftAmount);}
 
 
 

@@ -12,8 +12,7 @@ import org.automation.utilities.GiftCardsForSalePage;
 import org.openqa.selenium.Keys;
 import org.testng.annotations.Test;
 
-import static org.automation.data.KadeUserAccount.Customer;
-import static org.automation.data.KadeUserAccount.Default;
+import static org.automation.data.KadeUserAccount.*;
 
 public class GiftCardDashboardTest extends BaseTest {
 	LoginPage login=new LoginPage();
@@ -150,6 +149,8 @@ public class GiftCardDashboardTest extends BaseTest {
 
 
 		}
+		KadeSession.login(Admin);
+
 
 	}
 	@Test(enabled = true, description="TC_08 Verify that tooltip should appear after entering 50 characters in 'Funding source is restricted' textbox, on 'Gift Cards Configuration' popup.")
