@@ -84,6 +84,7 @@ public class KadeSession extends BaseTest {
         return  new NewAccountPopup();
     }
     public GiftCardConfigurationPopup getGiftCardConfigurationPopup(){return new GiftCardConfigurationPopup();}
+    public  AdminPage getAdminPage() {return  new AdminPage();}
 
 }
 
