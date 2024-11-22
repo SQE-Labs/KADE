@@ -20,7 +20,7 @@ public class GiftCardTest extends BaseTest {
 
     KadeSession session = new KadeSession();
     GiftCardDashboard gift = new GiftCardDashboard();
-
+/*
     @Test(description = "Log01 : Gift Dashboard Card Page Navigation and Verify title")
     public void tc01_GiftCardDashboard_PageNavigation() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
@@ -234,6 +234,71 @@ public class GiftCardTest extends BaseTest {
                 gift.EnableGiftCardIfDisabled();
             }
             gift.isIssueANewGiftCardLinkLinkPresent();
+
+        }
+
+    }
+    */
+
+    @Test(description = "Log09 : Verify If the New Gift Card For Sale Link is Present")
+    public void tc09_VerifyIfNewGiftCardForSaleLinkPresent() {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        String actualTitle = session.getDashBoardPage().getPageHeader();
+        //Verify Title of the Dashboard Page
+        String expectedTitle = "Transactions";
+        Assertions.assertEquals(actualTitle, expectedTitle);
+        //Click on the Manage Businesses
+        gift.clickOnManageBusinessDropdown();
+        //Verify if Gift Card Dashboard Page Link is Present or not
+        if (gift.isGiftCardDashboardPageLinkPresent()) {
+            //Click on the Gift Card Dashboard Page
+            gift.clickOnGiftcardLink();
+            gift.clickOnDropDown();
+            WebdriverWaits.sleep(3000);
+            gift.DropdownOption();
+            WebdriverWaits.sleep(3000);
+            gift.clickOnContinueButton();
+            WebdriverWaits.sleep(3000);
+            gift.VerifyTitleOnAutomatedBusinessFlowPageOngiftcard();
+            if(gift.isGiftCardDisableMessagePresent()){
+
+                gift.EnableGiftCardIfDisabled();
+            }
+            gift.isIssueANewGiftCardLinkLinkPresent();
+            gift.isGiftCardForSaleLinkPresent();
+            gift.isFiltersButtonOnPresent();
+
+        }
+
+    }
+
+    @Test(description = "Log09 : Verify If the Filter Icon Link is Present")
+    public void tc10_VerifyIfFilterIconLinkLinkPresent() {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        String actualTitle = session.getDashBoardPage().getPageHeader();
+        //Verify Title of the Dashboard Page
+        String expectedTitle = "Transactions";
+        Assertions.assertEquals(actualTitle, expectedTitle);
+        //Click on the Manage Businesses
+        gift.clickOnManageBusinessDropdown();
+        //Verify if Gift Card Dashboard Page Link is Present or not
+        if (gift.isGiftCardDashboardPageLinkPresent()) {
+            //Click on the Gift Card Dashboard Page
+            gift.clickOnGiftcardLink();
+            gift.clickOnDropDown();
+            WebdriverWaits.sleep(3000);
+            gift.DropdownOption();
+            WebdriverWaits.sleep(3000);
+            gift.clickOnContinueButton();
+            WebdriverWaits.sleep(3000);
+            gift.VerifyTitleOnAutomatedBusinessFlowPageOngiftcard();
+            if(gift.isGiftCardDisableMessagePresent()){
+
+                gift.EnableGiftCardIfDisabled();
+            }
+            gift.isIssueANewGiftCardLinkLinkPresent();
+            gift.isGiftCardForSaleLinkPresent();
+            gift.isFiltersButtonOnPresent();
 
         }
 

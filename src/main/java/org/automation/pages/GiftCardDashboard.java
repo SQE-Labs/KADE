@@ -38,6 +38,40 @@ public class GiftCardDashboard extends BasePage {
     By IssueANewGiftCardLink=By.xpath("//body/div[4]/div[1]/div[1]/main[1]/div[1]/div[2]/div[1]/div[1]/button[2]");
     By GiftCardForSaleLink=By.xpath("//body/div[4]/div[1]/div[1]/main[1]/div[1]/div[2]/div[1]/div[1]/a[1]");
     By FiltersButtonOn=By.xpath("//body/div[4]/div[1]/div[1]/main[1]/div[1]/div[3]/div[1]/button[1]/i[1]");
+//    By IssueAGiftCardFormTitle=By.xpath("//h5[contains(text(),'Issue a new gift card')]");
+//    By YouAreIssuingGiftCardMessageOnForm=By.xpath("//p[contains(text(),'You are issuing a new gift card for your customer.')]");
+//    By customerBlockOnIssueGiftCardForm=By.xpath("//body/div[5]/div[1]/div[1]/div[1]/div[2]/form[1]/div[1]/div[1]/div[1]/div[1]/a[1]");
+//    By customerForm=By.xpath("//span[contains(text(),'Customer')]");
+//    By phoneNumberOnCustomerForm=By.xpath("//body/div[@id='jsid_7']/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]/form[1]/div[2]/input[1]");
+//    By GoButtonForPhoneNumberOnCustomerForm=By.xpath("//body/div[@id='jsid_7']/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]/form[1]/div[2]/button[1]");
+//    By emailOnCustomerForm=By.xpath("//body/div[@id='jsid_7']/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]/form[2]/div[2]/input[1]");
+//    By searchOnCustomerForm=By.xpath("//body/div[@id='jsid_7']/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]/div[1]/form[1]/div[2]/input[1]");
+//    By errorMessageForPhoneNumberOnCustomerForm=By.xpath("//body/div[@id='jsid_7']/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]/form[1]/div[1]");
+//    By errorMessageForEmailOnCustomerForm=By.xpath("//body/div[@id='jsid_7']/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]/form[2]/div[1]");
+//    By ThereAreNoResultsMessageOnCustomerForm=By.xpath("//body[1]/div[10]/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[4]/div[2]/div[1]/p[1]");
+//    By GoButtonForEmailOnCustomerForm=By.xpath("//body/div[@id='jsid_7']/div[1]/div[1]/div[1]/div[1]/div[2]/div[1]/div[1]/div[3]/form[2]/div[2]/button[1]");
+//    By closeIconOnCustomerForm=By.xpath("//body/div[@id='jsid_7']/div[1]/div[1]/div[1]/div[1]/div[1]/button[1]");
+//    By initialAmountTitleOnIssueNewGiftCardForm=By.xpath("//label[contains(text(),'Initial amount')]");
+//    By currencyIconOnIssueNewGiftCardForm=By.xpath("//body/div[5]/div[1]/div[1]/div[1]/div[2]/form[1]/div[2]/div[1]/span[1]");
+//    By initialAmountTextboxOnIssueNewGiftCardForm=By.xpath("//body/div[5]/div[1]/div[1]/div[1]/div[2]/form[1]/div[2]/div[1]/input[1]");
+//    By messageToTheReceiverMessageTitleOnIssueNewGiftCardForm=By.xpath("//label[contains(text(),'Message to the receiver')]");
+//    By messageToTheReceiverMessageTextboxOnIssueNewGiftCardForm=By.xpath("//body/div[5]/div[1]/div[1]/div[1]/div[2]/form[1]/div[3]/textarea[1]");
+//    By referenceNumberTitleOnIssueNewGiftCardForm=By.xpath("//label[contains(text(),'Reference No.')]");
+//    By referenceNumberTextboxOnIssueNewGiftCardForm=By.xpath("//body/div[5]/div[1]/div[1]/div[1]/div[2]/form[1]/div[4]/input[1]");
+//    By moreOptionsButtonOnIssueNewGiftCardForm=By.xpath("//body/div[5]/div[1]/div[1]/div[1]/div[2]/form[1]/div[5]/a[1]");
+//    By cardNumberTitleOnIssueNewGiftCardForm=By.xpath("//label[contains(text(),'Card No')]");
+//    By cardNumberTextboxOnIssueNewGiftCardForm=By.xpath("//body/div[5]/div[1]/div[1]/div[1]/div[2]/form[1]/div[6]/div[1]/input[1]");
+//    By fundingSourceTitleOnIssueNewGiftCardForm=By.xpath("//label[contains(text(),'Funding source')]");
+//    By fundingSourceTextboxOnIssueNewGiftCardForm=By.xpath("//body/div[5]/div[1]/div[1]/div[1]/div[2]/form[1]/div[6]/div[2]/select[1]");
+//    By memoTitleOnIssueNewGiftCardForm=By.xpath("//body/div[5]/div[1]/div[1]/div[1]/div[2]/form[1]/div[6]/div[2]/select[1]");
+//    By memoTextboxOnIssueNewGiftCardForm=By.xpath("//body/div[5]/div[1]/div[1]/div[1]/div[2]/form[1]/div[6]/div[2]/select[1]");
+//    By startDateTitleOnIssueNewGiftCardForm=By.xpath("//body/div[5]/div[1]/div[1]/div[1]/div[2]/form[1]/div[6]/div[2]/select[1]");
+//    By startDateTextboxOnIssueNewGiftCardForm=By.xpath("//input[@id='_JJJ']");
+//    By expDateTitleOnIssueNewGiftCardForm=By.xpath("//label[contains(text(),'Exp. Date:')]");
+//    By expDateTextboxOnIssueNewGiftCardForm=By.xpath("//input[@id='_JJK']");
+//    By createButtonOnIssueNewGiftCardForm=By.xpath("//button[contains(text(),'Create')]");
+//    By =By.xpath("");
+//    By =By.xpath("");
 //    By =By.xpath("");
 //    By =By.xpath("");
 
@@ -53,7 +87,9 @@ public class GiftCardDashboard extends BasePage {
 
     public boolean isIssueANewGiftCardLinkLinkPresent() {
         WebdriverWaits.waitForElementUntilVisible(IssueANewGiftCardLink, 5);
+        System.out.println("Gift card Present!!!!!");
         return isElementPresent(IssueANewGiftCardLink,"Issue A New Gift Card Link");
+
     }
 
     public boolean isGiftCardForSaleLinkPresent() {
