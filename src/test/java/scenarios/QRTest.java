@@ -15,7 +15,7 @@ public class QRTest extends BaseTest {
     @Test(description = "Verify that customer is able to directly pay to the store, after scanning the 'Direct Pay' QR Code.")
     public void directPayByQr(){
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.sleep(5000);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getQrCodeDashboardButton().click();
         QrCodeDashboardPage qr = session.getQRCodeDashboardPage();
@@ -37,7 +37,7 @@ public class QRTest extends BaseTest {
         payment.getAmountTextbox().setText("1000");
         payment.getUpdateAmountToPayButton().click();
         payment.getChangePaymentMethodButton().clickbyJS();
-        WebdriverWaits.sleep(5000);
+        WebdriverWaits.sleep(2000);
         payment.getSavedCreditCard().click();
         payment.swipeToPay();
         payment.getBlueCloseButton().clickbyJS();
