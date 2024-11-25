@@ -7,6 +7,7 @@ import org.automation.objectBuilder.pages.BillsPage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 import java.awt.*;
@@ -182,6 +183,7 @@ public class PaymentsAndRefundTest extends BasePage {
 
         //Step 10: Click on 'Swipe to Pay; field
         session.getPaymentsPage().getSwipeToPayButton().click();
+        WebdriverWaits.waitForElementUntilVisible(By.xpath("//input[@lbl-title='Amount']"),5);
 
         //Step 11: Enter Amount
         session.getPaymentsPage().getMoreAmountField().setText("1000.00");

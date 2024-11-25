@@ -210,7 +210,7 @@ public class CreateAccountTest extends BaseTest {
 
     @Test(description = "CA_TC 2(b) : Verify that creating new account by phone number with Business Account option.")
     public void verifyCreateNewAccountByPhoneNumberWithBusinessAccount() {
-        String Phone = "6465551107";
+        String Phone = "6465551105";
         session.getLoginPage().getSignUpLink().click();
 
         //Clicking on Business Account Option

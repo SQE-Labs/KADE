@@ -10,7 +10,7 @@ import org.openqa.selenium.By;
 public class LoginPage extends BasePage {
 
     // Locators
-    By userNameField = By.cssSelector("[name='userName']");
+    public By userNameField = By.cssSelector("[name='userName']");
     By passwordField =By.cssSelector("[name='passWord']");
     By forgotPasswordLink = By.linkText("Forgot password?");
     By signInButton = By.xpath("//div[@class='text-center ']/button[text()='Sign in']");

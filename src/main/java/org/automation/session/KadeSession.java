@@ -80,8 +80,11 @@ public class KadeSession extends BaseTest {
     public NewAccountPopup getNewAccountPopup(){
         return  new NewAccountPopup();
     }
-    public AttentionRTPopup getAttentionRTpopup(){ return new AttentionRTPopup();}
-}
+    public GiftCardConfigurationPopup getGiftCardConfigurationPopup(){return new GiftCardConfigurationPopup();}
+    public AttentionRTPopup getAttentionRTPopup() {return new AttentionRTPopup();}
+    public AdminPage getAdminPage() {return new AdminPage();}
+    }
+
 
 
 

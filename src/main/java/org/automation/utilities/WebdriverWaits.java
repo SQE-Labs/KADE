@@ -10,6 +10,7 @@ import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.sql.SQLOutput;
 import java.time.Duration;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -38,6 +39,7 @@ public class WebdriverWaits extends BaseTest {
        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
     }
+     
 
     public static void waitForElementInVisible(By locator, int waitTime) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
@@ -72,6 +74,7 @@ public class WebdriverWaits extends BaseTest {
     public static WebElement waitForElementUntilVisible(By locator, int waitTime) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
         WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        System.out.println("Value of locator= "+locator);
         return e;
     }
 

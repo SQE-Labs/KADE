@@ -33,7 +33,7 @@ public class SidePannel extends BasePage {
         }
 	}
 
-	public Clickable expandManageBusinessAccordionBttn(){
+	public Clickable expandManageBusinessAccordionBttn() {
 		return  Clickable.getElementBy(manageBusinessAcc, "Expand Manage Business Accordion");
 	}
 
