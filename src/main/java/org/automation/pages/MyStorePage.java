@@ -10,6 +10,7 @@ import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 
 public class MyStorePage extends BasePage {
+    public String storeName;
     By registerNewBusinessBtn = By.partialLinkText("Register new business");
     By skipPopUpTitle = By.xpath("//h5[text()='Skip']");
     By skipStripeAccountBtn = By.cssSelector(".btn-lg.fw-bold.w-100.btn.btn-outline-primary");
@@ -116,6 +117,11 @@ public class MyStorePage extends BasePage {
     By deleteUserIcon = By.xpath("(//h5[text()='Users with access to this store']/../..//button)[2]");
     By saveZellePaymentSettings = By.xpath("//form[@action='/api/Stores/SaveZelleGatewayApplication'] //button[text()='Save']");
     By editStoreBtn = By.xpath("//i[@class='far fa-edit ms-2']");
+    By premiumTitle = By.xpath("//h4[text()='Premium']");
+    By premiumMonthlyBtn = By.cssSelector(".flex-fill label[for='rdo_p3_0']");
+    By premiumYearlyBtn = By.cssSelector(".flex-fill label[for='rdo_p3_1']");
+    By premiumSignUpBtn = By.cssSelector("div#div_p3_0>a");
+
 
     public MyStorePage() {
     }
@@ -547,5 +553,13 @@ public class MyStorePage extends BasePage {
     public Clickable getEditStoreButton() {
         return Clickable.getElementBy(editStoreBtn, "Edit store config button");
     }
+    public Clickable getPremiumTitle() { return Clickable.getElementBy(premiumTitle, "Premium title");}
+    public Clickable getPremiumMonthlyBtn(){ return Clickable.getElementBy(premiumMonthlyBtn, " Premium Monthly button");}
+    public Clickable getPremiumYearlyBtn(){ return Clickable.getElementBy(premiumYearlyBtn, " Premium yearly button ");}
+    public Clickable getPremiumnSignUpBtn(){ return Clickable.getElementBy(premiumSignUpBtn, " Preemium Sign up button ");}
+
+
+
+
 }
 

@@ -7,6 +7,7 @@ import org.automation.listeners.TestRunListener;
 import org.automation.session.KadeSession;
 import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.Screenshot;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -41,7 +42,6 @@ public class BaseTest {
 	public static ExtentTest getExtentTest() {
 		return extentTest.get();
 	}
-
 	public static void closeDriver() {
 		getDriver().close();
 		getDriver().quit();

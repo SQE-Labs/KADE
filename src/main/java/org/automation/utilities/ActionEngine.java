@@ -564,4 +564,13 @@ public class ActionEngine extends BaseTest {
             return "File not found";
         }
     }
+    public WebElement getElement(By locator) {
+        try {
+            return getDriver().findElement(locator);
+        } catch (Exception e) {
+            System.out.println("Element not found: " + locator.toString());
+            e.printStackTrace();
+            return null;
+        }
+    }
 }
