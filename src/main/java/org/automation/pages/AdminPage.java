@@ -3,6 +3,8 @@ package org.automation.pages;
 import org.automation.ReturnObjects.Clickable;
 import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
+import org.automation.data.KadeUserAccount;
+import org.automation.session.KadeSession;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 
@@ -42,5 +44,23 @@ public class AdminPage extends BasePage {
     public Editable getEditDeleteStoreNameBox(){ return Editable.getElementBy(deleteStoreNameField);}
     public Clickable getPermanentDeleteBtn(){return Clickable.getElementBy(clickPermanentDeleteBtn);}
     public Clickable getFirstResult(){ return Clickable.getElementBy(clickFirstResult, "Click First Search Result");}
+
+
+    public void selectedStoreDeleted(String storeName1) throws InterruptedException {
+        KadeSession session = KadeSession.login(KadeUserAccount.Admin);
+        session.getAdminPage().getFindStoreLink().click();
+        session.getAdminPage().getFilterIcon().click();
+        session.getAdminPage().getStoreName().setText(storeName1);
+        System.out.println(storeName1);
+        session.getAdminPage().getApplyBtn().click();
+        session.getAdminPage().getStoreBtn().click();
+        session.getAdminPage().getBlockBtn().clickbyJS();
+        Thread.sleep(1000);
+        session.getAdminPage().getEditStatusTextBox().setText("This needs to delete");
+        session.getAdminPage().getUpdateStatusBtn().clickbyJS();
+        session.getAdminPage().getDeleteBtn().clickbyJS();
+        session.getAdminPage().getEditDeleteStoreNameBox().setText(storeName1);
+        session.getAdminPage().getPermanentDeleteBtn().clickbyJS();
+    }
 }
 

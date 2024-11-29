@@ -7,6 +7,7 @@ import org.automation.pages.popups.*;
 
 public class KadeSession extends BaseTest {
 
+    public static KadeSession session;
     private static KadeUserAccount logggedInUser;
 
     public static KadeSession login(KadeUserAccount user) {
