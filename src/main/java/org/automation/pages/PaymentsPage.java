@@ -28,7 +28,7 @@ public class PaymentsPage extends BasePage {
     By creditCardInfoFrame = By.xpath("//h5[text()='Credit card information']/../..//iframe");
     By voidBtn = By.xpath("//button[text()='Void']");
     By paymentLogo = By.xpath("//span[@class='payment-logo-bg me-1']");
-    By totalPaidAmt = By.xpath("//h4[contains(text(),'Total paid')]");
+    public By totalPaidAmt = By.xpath("//h4[contains(text(),'Total paid')]");
     By voidedTag = By.xpath("//h6[text()='VOIDED']");
     By changeButton = By.xpath("//div[contains(text(),'Change')]");
     By swipeBtn = By.xpath("//input[@type='range']");
@@ -43,7 +43,7 @@ public class PaymentsPage extends BasePage {
     By receiveAmountTbx = By.xpath("//input[@name='amount']");
     By creditCardBtn = By.xpath("//button[text()='Credit Card']");
     By othersBtn = By.xpath("//button[text()='Other']");
-   public By savedCreditcard = By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]");
+   public By savedCreditcard = By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')][1]");
 
 
     /*
@@ -64,7 +64,7 @@ public class PaymentsPage extends BasePage {
     By confirmationPopUp = By.xpath("//h5[text()='Confirmation']");
 
     // By savedCreditcard = By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]");
-    By savedBankAccount = By.xpath("(//span[text()='Bank Account 6789'])[1]");
+    public By savedBankAccount = By.xpath("//span[text()='Bank Account 6789'][1]");
     By SavedVenmoCard = By.xpath("//span[@class='text-nowrap fs-pn25' and text()='Venmo']");
     By iMadeMyPaymentButtonVenmo = By.cssSelector(".text-center.mb-3>button");
     By personalMessageVenmo = By.xpath("//textarea[@placeholder='Personal message']");

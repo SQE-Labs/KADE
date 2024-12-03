@@ -262,7 +262,7 @@ public class CreateAccountTest extends BaseTest {
         Assertions.assertEquals(session.getNewAccountPopup().getSecurityCodeAlertMessage().getText(), "Invalid security code");
 
         // Entering Valid security Code
-        session.getCreateAccountPage().getSecurityCodeField().setText("343434");
+        session.getCreateAccountPage().getSecurityCodeField().setText("346543");
 
         // Clicking Continue Button
         session.getNewAccountPopup().getContinueButtonOfBusinessAccount().click();

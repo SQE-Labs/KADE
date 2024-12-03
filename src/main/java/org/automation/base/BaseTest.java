@@ -49,6 +49,19 @@ public class BaseTest {
 	}
 
 	@BeforeSuite
+	@Parameters({"xmlFileName"})
+	public void setExtent(@Optional("testng.xml") String xmlFileName) throws InterruptedException, IOException {
+		extent = new ExtentReports();
+		extentSparkReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/test-report/Report.html");
+		extentSparkReporter.config().thumbnailForBase64(true);
+		extent.attachReporter(extentSparkReporter);
+
+		// Add system info
+		extent.setSystemInfo("Environment", "QA");
+		extent.setSystemInfo("Executed By", System.getProperty("user.name")); // Add executor's name
+		extent.setSystemInfo("TestNG XML File", xmlFileName); // Add XML file name
+	}
+
 	public void setExtent() throws InterruptedException, IOException {
 		extent = new ExtentReports();
 		extentSparkReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/test-report/Report.html");
