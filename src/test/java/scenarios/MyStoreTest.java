@@ -3,18 +3,22 @@ package scenarios;
 import io.netty.handler.codec.http.websocketx.WebSocketFrame;
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
+import org.automation.objectBuilder.ObjectBuilder;
 import org.automation.pages.MyStorePage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.RandomGenerator;
 import org.automation.utilities.WebdriverWaits;
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
+
+import java.sql.SQLOutput;
+
 
 public class MyStoreTest extends BaseTest {
 
 
-
-    @Test(enabled=true, description = "SC_01(B) Verifying deletion of Store when Stripe Account is not Registered Yet")
+    @Test(enabled = true, description = "SC_01(B) Verifying deletion of Store when Stripe Account is not Registered Yet")
     public void sc01b_DeletionOfStore() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         //Step 1: Click on 'My Stores' Tab
@@ -26,7 +30,7 @@ public class MyStoreTest extends BaseTest {
         //Step 2: Click on 'Register New Business' Button
         myStore.getRegisterNewBusinessButton().click();
 
-        if(!myStore.getStoreLogo().isDisplayed()) {
+        if (!myStore.getStoreLogo().isDisplayed()) {
             //Step 3: Click on 'Skip' Button
             myStore.getSkipStripeAccountButton().click();
 
@@ -45,11 +49,11 @@ public class MyStoreTest extends BaseTest {
         myStore.getDeleteStoreIcon().click();
     }
 
-    @Test(enabled=true, description = "SC_02 Verify creation of Store with Stripe Payment Account")
-    public void sc02_CreationOfStoreWithStripeAccount() {
+    @Test(enabled = true, description = "SC_02 Verify creation of Store with Stripe Payment Account")
+    public void a2sc02_CreationOfStoreWithStripeAccount() throws InterruptedException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
-        String storeName = "Zencode "+RandomGenerator.requiredString(6);
+        String storeName = "Zencode " + RandomGenerator.requiredString(6);
         String phoneNumber = RandomGenerator.requiredNumber(10);
         //Step 1: Click on 'My Stores' Tab
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
@@ -59,7 +63,7 @@ public class MyStoreTest extends BaseTest {
         //Step 2: Click on 'Register New Business' Button
         myStore.getRegisterNewBusinessButton().click();
 
-        if(myStore.getStoreLogo().isDisplayed()) {
+        if (myStore.getStoreLogo().isDisplayed()) {
             myStore.getDeleteStoreButton().clickByMouse();
             myStore.getDeleteStoreIcon().clickByMouse();
             session.getSidePannel().getMyStoresTab().click();
@@ -100,13 +104,15 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getAddedStoreName().getText(), storeName);
         Assertions.assertEquals(myStore.getAddedLocationDescription().getText(), defaultLocationDescription);
         Assertions.assertEquals(myStore.getAddedStoreAddress().getText(), defaultStoreAddress);
-        Assertions.assertEquals(myStore.getAddedStorePhone().getText().replaceAll("[+()\\s-]", "").substring(1,11), phoneNumber);
+        Assertions.assertEquals(myStore.getAddedStorePhone().getText().replaceAll("[+()\\s-]", "").substring(1, 11), phoneNumber);
         Assertions.assertEquals(myStore.getAddedCurrencyOfStore().getText(), defaultCurrency);
         Assertions.assertEquals(myStore.getAddedTaxRate().getText(), defaultTaxRate);
+        session.getSidePannel().getSignOutButton().click();
+        session.getAdminPage().selectedStoreDeleted(storeName);
     }
 
-    @Test(enabled = false, description = "SC_04(A) Verifying buying Monthly Business Plan for already created Store")
-    public void a_VerifyingBuyingMonthlyBusinessPlanForAlreadyCreatedStore() {
+    @Test(enabled = true, description = "SC_04(A) Verifying buying Monthly Business Plan for already created Store")
+    public void a3VerifyingBuyingMonthlyBusinessPlanForAlreadyCreatedStore() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Stores' Tab
@@ -115,6 +121,7 @@ public class MyStoreTest extends BaseTest {
         MyStorePage myStore = session.getMyStorePage();
 
         //Step 2: Click on 'Configure' Link
+
         myStore.getConfigureLink().click();
 
         //Step 3: Click on 'Plans' sub-tab
@@ -144,6 +151,7 @@ public class MyStoreTest extends BaseTest {
 
         //Verifying that next bill date is generated
         Assertions.assertTrue(myStore.getNextBillDate().isDisplayed());
+
     }
 
     @Test(enabled = false, description = "SC_04(B) Verifying buying Yearly Business Plan for already created Store")
@@ -209,14 +217,14 @@ public class MyStoreTest extends BaseTest {
         //Verifying Minimum, Maximum and Default values of 'Maximum Bill Amount' Field
         String maximumBillAmount = "50000.00";
         String minimumBillAmount = "50.00";
-        String maxBillAmount = RandomGenerator.generateRandomNumber(Float.parseFloat(minimumBillAmount),Float.parseFloat(maximumBillAmount));
+        String maxBillAmount = RandomGenerator.generateRandomNumber(Float.parseFloat(minimumBillAmount), Float.parseFloat(maximumBillAmount));
         Assertions.assertEquals(myStore.getMaximumBillAmountField().getAttribute("max"), maximumBillAmount);
         Assertions.assertEquals(myStore.getMaximumBillAmountField().getAttribute("min"), minimumBillAmount);
 
         //Step 4: Enter amount in 'Maximum Bill Amount' field
         myStore.getMaximumBillAmountField().setText(maxBillAmount);
 
-        if(!myStore.getTipConfigureButton().isDisplayed()) {
+        if (!myStore.getTipConfigureButton().isDisplayed()) {
             //Step 4: Click on 'Tip & Gratuity' Toggle Button
             myStore.getTipGratuityToggleOnButton().click();
         }
@@ -226,7 +234,7 @@ public class MyStoreTest extends BaseTest {
         //Verifying the 'Tip Configuration' Pop-up Title
         Assertions.assertEquals(myStore.getTipConfigPopUpTitle().getText(), "Tip configuration");
 
-        if(!myStore.getAlertTipConfigurationMessage().isDisplayed()) {
+        if (!myStore.getAlertTipConfigurationMessage().isDisplayed()) {
             //Step 6: Click on 'Enter in Percentage' Toggle button
             myStore.getEnterInPerCentToggleButton().click();
         }
@@ -249,7 +257,7 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getRewardConfigPopUpTitle().getText(), "Rewards Program Configuration");
 
         //Step 10: Click on 'Reward Point' Toggle button
-        if(!myStore.getRewardPointsField().isDisplayed()) {
+        if (!myStore.getRewardPointsField().isDisplayed()) {
             myStore.getRewardPointToggleOnButton().click();
         }
         //Verifying the Minimum and Maximum Values of 'Reward Points' Field
@@ -275,7 +283,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getRewardPointsValueField().setText(rewardPoints);
 
         //Step 15: Enter Website URL
-        myStore.getWebsiteURLField().setText("www.KadePay"+RandomGenerator.requiredString(4)+".com");
+        myStore.getWebsiteURLField().setText("www.KadePay" + RandomGenerator.requiredString(4) + ".com");
 
         //Step 16: Click on 'Earn Rewards Points' Toggle Button
         myStore.getEarnRewardsPointsToggleButton().click();
@@ -299,7 +307,7 @@ public class MyStoreTest extends BaseTest {
         //Step 3: Click on 'Settings' Sub-Tab
         myStore.getSettingsSubTab().click();
 
-        if(!myStore.getTipConfigureButton().isDisplayed()) {
+        if (!myStore.getTipConfigureButton().isDisplayed()) {
             //Step 4: Click on 'Tip & Gratuity' Toggle Button
             myStore.getTipGratuityToggleOnButton().click();
         }
@@ -310,7 +318,7 @@ public class MyStoreTest extends BaseTest {
         //Verifying the 'Tip Configuration' Pop-up Title
         Assertions.assertEquals(myStore.getTipConfigPopUpTitle().getText(), "Tip configuration");
 
-        if(myStore.getAlertTipConfigurationMessage().getListOfWebElements().size()>0) {
+        if (myStore.getAlertTipConfigurationMessage().getListOfWebElements().size() > 0) {
             //Step 6: Click on 'Enter in Percentage' Toggle button
             myStore.getEnterInPerCentToggleButton().click();
         }
@@ -318,9 +326,9 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getTipAmountFlatValueField1().getAttribute("min"), "0.01");
         Assertions.assertEquals(myStore.getTipAmountFlatValueField1().getAttribute("max"), "999.00");
 
-        String value1 = RandomGenerator.generateRandomNumber(Float.parseFloat("0.01"),Float.parseFloat("999.00"));
-        String value2 = RandomGenerator.generateRandomNumber(Float.parseFloat("0.01"),Float.parseFloat("999.00"));
-        String value3 = RandomGenerator.generateRandomNumber(Float.parseFloat("0.01"),Float.parseFloat("999.00"));
+        String value1 = RandomGenerator.generateRandomNumber(Float.parseFloat("0.01"), Float.parseFloat("999.00"));
+        String value2 = RandomGenerator.generateRandomNumber(Float.parseFloat("0.01"), Float.parseFloat("999.00"));
+        String value3 = RandomGenerator.generateRandomNumber(Float.parseFloat("0.01"), Float.parseFloat("999.00"));
 
 
         //Step 7: Enter Tip Values
@@ -348,9 +356,9 @@ public class MyStoreTest extends BaseTest {
         //Step 3: Click on 'Payment-Processing' Sub-Tab
         myStore.getPaymentProcessingSubTab().click();
 
-        if(myStore.getAcceptVenmoHeader().getListOfWebElements().size()==1){
-        //Step 4: Click on 'Accept Venmo' Toggle Button
-        myStore.getAcceptVenmoToggleButton().clickByMouse();
+        if (myStore.getAcceptVenmoHeader().getListOfWebElements().size() == 1) {
+            //Step 4: Click on 'Accept Venmo' Toggle Button
+            myStore.getAcceptVenmoToggleButton().clickByMouse();
         }
 
         //Verifying Maximum length of 'VenmoID' field
@@ -368,7 +376,7 @@ public class MyStoreTest extends BaseTest {
         //Step 8: Click on 'Save' Button
         myStore.getVenmoSaveButton().clickByMouse();
 
-        if(myStore.getAcceptZelleHeader().getListOfWebElements().size()==1) {
+        if (myStore.getAcceptZelleHeader().getListOfWebElements().size() == 1) {
             //Step 9: Click on 'Accept Zelle" toggle button
             myStore.getAcceptZelleToggleButton().clickByMouse();
         }
@@ -383,7 +391,7 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getZelleNameField().getAttribute("maxlength"), "40");
 
         //Step 12: Enter Zelle Account Name
-        myStore.getZelleNameField().setText("Zelle"+RandomGenerator.requiredString(6));
+        myStore.getZelleNameField().setText("Zelle" + RandomGenerator.requiredString(6));
 
         //Step 13: Click on 'Save' Button
         myStore.getZelleSaveButton().clickByMouse();
@@ -404,8 +412,9 @@ public class MyStoreTest extends BaseTest {
         //Step 17: Click on 'Save' Button
         myStore.getSaveButton().click();
     }
+
     @Test(description = "SC_07(A) Verifying the Configuration of the Store using 'Manage Users' Sub-Tab")
-    public void sc07a_VerifyingConfigurationOfStoreUsingManageUsersSubTabs(){
+    public void sc07a_VerifyingConfigurationOfStoreUsingManageUsersSubTabs() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'My Store' Tab
@@ -426,7 +435,7 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getAddUserPopUpTitle().getText(), "Add User");
 
         //Step 5: Enter UserName in 'Username' field
-        myStore.getManageUserNameField().setText("Manage store user "+RandomGenerator.requiredString(8));
+        myStore.getManageUserNameField().setText("Manage store user " + RandomGenerator.requiredString(8));
 
         //Verifying the Maximum length of 'Username' field.
         Assertions.assertEquals(myStore.getManageUserNameField().getAttribute("maxlength"), "30");
@@ -487,7 +496,7 @@ public class MyStoreTest extends BaseTest {
     }
 
     @Test(description = "SC_08 Verify deactivating an activated Store")
-    public void sc_08_VerifyDeactivatingAnActivatedStore(){
+    public void sc_08_VerifyDeactivatingAnActivatedStore() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1:Click on 'My Store' Tab
@@ -513,4 +522,87 @@ public class MyStoreTest extends BaseTest {
         //Verifying that store gets Deactivated and success message appears
         Assertions.assertEquals(myStore.getActiveStoreLabel().getText(), "Store is active and ready to receive payments");
     }
-}
+
+    @Test(description = "SC 09-a Verify that store creation and purchasing the 'Premium' monthly plan subscription for the store, on 'Store Configuration' page.")
+    public void verifyingStoreCreationWithPurchasingMonthlyPremiumPlan() throws InterruptedException {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+
+        //Step 1: Click on 'My Stores' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getMyStoresTab().click();
+        // Creating new Store
+        MyStorePage myStore = ObjectBuilder.BillDetails.getStoreCreation();
+        System.out.println(myStore.storeName);
+        // Clicking on Subscription Plans store tab
+        myStore.getPlansSubTab().click();
+
+        // Verifying the Premium title
+        Assertions.assertTrue(myStore.getPremiumTitle().isDisplayed());
+
+        // byuing the Premium plan
+        myStore.getPremiumMonthlyBtn().click();
+        myStore.getPremiumnSignUpBtn().click();
+        //Verifying that by-default Visa Payment method is enabled
+        Assertions.assertEquals(myStore.getDefaultPaymentMethod().getText(), "Visa 1111");
+
+       // Click on 'Change Pay Method' Link
+        myStore.getChangePayMethodLink().click();
+
+        //Verifying that other payment methods are available
+        Assertions.assertTrue(myStore.getNewCreditCardButton().isDisplayed());
+        Assertions.assertTrue(myStore.getNewBankAccountButton().isDisplayed());
+
+        //Click on 'Terms' Checkbox
+        myStore.getTermsCheckbox().click();
+
+        // Click on 'Change Plan' Button
+        myStore.getChangePlanButton().click();
+
+        //Verifying that next bill date is generated
+        Assertions.assertTrue(myStore.getNextBillDate().isDisplayed());
+        session.getSidePannel().getSignOutButton().click();
+        session.getAdminPage().selectedStoreDeleted(myStore.storeName);
+    }
+
+    @Test(description="Verify that store creation and purchasing the 'Premium' yearly plan subscription for the store, on 'Store Configuration' page.")
+    public void verifyThatPurchasingPremiumYearlyPlan() throws InterruptedException {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+
+        //Step 1: Click on 'My Stores' Tab
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getMyStoresTab().click();
+        // Creating new Store
+        MyStorePage myStore = ObjectBuilder.BillDetails.getStoreCreation();
+        System.out.println(myStore.storeName);
+        // Clicking on Subscription Plans store tab
+        myStore.getPlansSubTab().click();
+
+        // Verifying the Premium title
+        Assertions.assertTrue(myStore.getPremiumTitle().isDisplayed());
+
+        // Clicking on Yearly button
+        myStore.getYearlyPlanButton().click();
+        myStore.getPremiumnSignUpBtn().click();
+        //Verifying that by-default Visa Payment method is enabled
+        Assertions.assertEquals(myStore.getDefaultPaymentMethod().getText(), "Visa 1111");
+
+        // Click on 'Change Pay Method' Link
+        myStore.getChangePayMethodLink().click();
+
+        //Verifying that other payment methods are available
+        Assertions.assertTrue(myStore.getNewCreditCardButton().isDisplayed());
+        Assertions.assertTrue(myStore.getNewBankAccountButton().isDisplayed());
+
+        //Click on 'Terms' Checkbox
+        myStore.getTermsCheckbox().click();
+
+        // Click on 'Change Plan' Button
+        myStore.getChangePlanButton().click();
+
+        //Verifying that next bill date is generated
+        Assertions.assertTrue(myStore.getNextBillDate().isDisplayed());
+        session.getSidePannel().getSignOutButton().click();
+        session.getAdminPage().selectedStoreDeleted(myStore.storeName);
+    }
+    }
+

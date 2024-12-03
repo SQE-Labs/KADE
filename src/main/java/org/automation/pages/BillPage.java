@@ -176,7 +176,7 @@ public class BillPage extends BasePage {
     By billPopupHeader = By.xpath("//span[text()='Bill']");
     By qrCodeBtn = By.xpath("//span[text()='QR Code']");
     By shareBtn = By.xpath("//span[text()='Share']");
-    By processPaymentBtn = By.xpath("//button[text()='Process Payment']");
+    public By processPaymentBtn = By.xpath("//button[text()='Process Payment']");
     By deleteBillBtn = By.xpath("//button[text()='Delete']");
     By editBillBtn = By.xpath("//i[@class='far fa-edit']");
     By uniqueRefNo = By.cssSelector(".badge.position-relative:first-child");
