@@ -35,7 +35,7 @@ public class Clickable extends ActionEngine {
     public void scrollPopupAndClick(){scrollPopupAndClick(() -> clickBy(target, label));}
 
     public String getText() {
-        WebdriverWaits.waitForElementUntilVisible(target, 5);
+        WebdriverWaits.waitForElementUntilVisible(target, 6);
         return getElementText(target);
     }
 

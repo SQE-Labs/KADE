@@ -755,7 +755,7 @@ public class TransactionTest extends BaseTest {
     }
 
     @Test(description = "TRS6 Verify that 'Transaction details' popup opens up after clicking on any transaction of 'Transaction' page.")
-    public void cverifyThatElementsOfTransactionDetailsPopup() {
+    public void verifyThatElementsOfTransactionDetailsPopup() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         // go to transaction Page .

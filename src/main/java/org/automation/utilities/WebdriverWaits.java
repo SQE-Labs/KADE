@@ -71,8 +71,7 @@ public class WebdriverWaits extends BaseTest {
 
     public static WebElement waitForElementUntilVisible(By locator, int waitTime) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
-        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-        return e;
+        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
     }
 
     /**
@@ -85,9 +84,9 @@ public class WebdriverWaits extends BaseTest {
      * @param driver WebDriver instance
      * @param title  title the page should have
      */
-    public static boolean waitForPageTitle(String title, int waitTime) {
+    public static void waitForPageTitle(String title, int waitTime) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
-        return wait.until(ExpectedConditions.titleContains(title));
+        wait.until(ExpectedConditions.titleContains(title));
     }
 
 

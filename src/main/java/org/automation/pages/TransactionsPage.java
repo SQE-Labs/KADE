@@ -11,7 +11,7 @@ import java.util.List;
 
 public class TransactionsPage extends BasePage {
     //Locators
-    By transactionRow = By.xpath("//div[contains(@class,'row bg-white ')]");
+    By transactionRow = By.xpath("(//div[contains(@class,'bg-white border ')])[1]");
     By billAmount = By.xpath("//div[@class='display-6 fw-bold pt-2']");
     By closeTransactionPopupBtn = By.xpath("(//button[@class='btn-close'])[1]");
     By storesCombobox = By.xpath("//span[@role='combobox']");
