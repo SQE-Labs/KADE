@@ -11,3 +11,4 @@ test-report/
 /.metadata/
 /.DS_Store
 allure-results/
+debugger.xml

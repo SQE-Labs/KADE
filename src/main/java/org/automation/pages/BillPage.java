@@ -149,7 +149,7 @@ public class BillPage extends BasePage {
     By paidRepeatField = By.xpath("(//div[contains(@class,'text-nowrap d-flex align-items-center w-100')])[3]");
     //By paidExpiryField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative -expdate-div-']");
     By paidExpiryField = By.xpath("//label[text()='Expiration Date:']");
-    By repeatPopUpTitle = By.xpath("//h5[text()='Repeat']");
+    public By repeatPopUpTitle = By.xpath("//h5[text()='Repeat']");
     By expiryDatePopUpTitle = By.xpath("//h5[text()='Expiration Date']");
     By unpaidAmount = By.cssSelector(".text-danger.fs-4");
 

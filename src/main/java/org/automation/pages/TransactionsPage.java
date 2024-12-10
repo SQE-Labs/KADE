@@ -17,10 +17,10 @@ public class TransactionsPage extends BasePage {
     By storesCombobox = By.xpath("//span[@role='combobox']");
     By continueBtn = By.xpath("//button[@type='submit']");
     By uniqueTransactionId = By.xpath("//span[@class='badge position-relative bg-light text-dark p-1 px-2 text-truncate']");
-    By transactionID = By.cssSelector(".badge.position-relative.bg-light.text-dark.p-1");
+    public By transactionID = By.cssSelector(".badge.position-relative.bg-light.text-dark.p-1");
     By store = By.xpath("//span[@class='fs-pn15 text-truncate']");
     By payment = By.cssSelector(".fs-pn25.ms-2");
-    By customerName = By.cssSelector(".flex-column.overflow-hidden>a");
+    public By customerName = By.cssSelector(".flex-column.overflow-hidden>a");
     By transactionAmmount = By.xpath("//div[@class='d-flex align-items-center']");
     By customNameONRecipt = By.xpath("//a[@class='text-truncate']");
     By time = By.xpath("//span[@class='fs-pn25 mb-2 ms-auto']");
@@ -35,13 +35,13 @@ public class TransactionsPage extends BasePage {
     By refundReason = By.cssSelector("[name='reason']");
     By processFullRefund = By.cssSelector("[name='refundAll']");
     By refundAmountOnReceipt = By.cssSelector("[class=\"d-flex align-items-end\"]");
-    By refundLabel = By.xpath("//h4[text()='** Refund **']");
+    public By refundLabel = By.xpath("//h4[text()='** Refund **']");
     By verifyButton = By.cssSelector("button.btn.btn-outline-success");
     By partialRefundLink = By.xpath("//button[text()='Partial refund']");
     By selectPaymentInfo = By.cssSelector("div[id='_B1Q'] p");
     By paymentCheckBox = By.xpath(" //label[@class='custom-checkbox']");
     By validationMessage = By.xpath("//p[text()='Select at least one payment to refund']");
-    By processRefundButton = By.xpath("//button[text()='Process Refund']");
+    public By processRefundButton = By.xpath("//button[text()='Process Refund']");
     By refundAmountField = By.cssSelector("[name='refunds[0].amount']");
     By verifyButtonOnPopup = By.xpath("//button[@class='btn btn-success']");
     By informationMessageOnVerifyPopup = By.xpath("//div[@class='alert-message']");
@@ -60,11 +60,11 @@ public class TransactionsPage extends BasePage {
     By pendingPayments = By.xpath("//option[@value='pending']");
     By failedPayments = By.xpath("//option[@value='failed']");
     By unverifiedPayments = By.xpath("//option[@value='unverified']");
-    By pendingPaymentIcon = By.xpath("//i[contains(@class,'fas fa-hourglass-half text-warning fs-5 me-2')]");
-    By excalamatrySign = By.xpath("//i[contains(@class,'fas fa-exclamation-circle text-danger fs-5 me-2')]");
-    By quotionmarkSign = By.xpath("//i[@class='fas fa-question-square text-info fs-5 me-2']");
-    By qrCodeSign = By.xpath("//i[contains(@class,'fa fa-qrcode me-2')]");
-    By paymentLinkField = By.xpath("//select[@name='billTemplate']");
+    public By pendingPaymentIcon = By.xpath("//i[contains(@class,'fas fa-hourglass-half text-warning fs-5 me-2')]");
+   public By excalamatrySign = By.xpath("//i[contains(@class,'fas fa-exclamation-circle text-danger fs-5 me-2')]");
+   public By quotionmarkSign = By.xpath("//i[@class='fas fa-question-square text-info fs-5 me-2']");
+   public By qrCodeSign = By.xpath("//i[contains(@class,'fa fa-qrcode me-2')]");
+   public By paymentLinkField = By.xpath("//select[@name='billTemplate']");
     By qrCodeSeletct = By.xpath("(//select[@name='billTemplate']/option)[2]");
     By amountRangeFrom = By.xpath("//input[@placeholder='From']");
     By amountRangeTo = By.xpath("//input[@placeholder='To']");
@@ -72,8 +72,8 @@ public class TransactionsPage extends BasePage {
     By ammountList = By.xpath("(//div[contains(@class,'d-flex align-items-center')])");
     By paidLabelOnPopup = By.cssSelector("span.bg-success");
     By returnSymbol = By.xpath("//div[span[text()='Refunded']]/following::div[4]/i");
-    By questionMarkIcon = By.cssSelector(".align-items-end>i");
-    By capturedButton = By.cssSelector("[value='captured']");
+    public By questionMarkIcon = By.cssSelector(".align-items-end>i");
+    public By capturedButton = By.cssSelector("[value='captured']");
     By failedButton = By.cssSelector(".mx-3");
     By recurringIcon = By.cssSelector(".fa.fa-repeat.me-1");
 

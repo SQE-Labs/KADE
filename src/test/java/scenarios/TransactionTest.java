@@ -127,7 +127,7 @@ public class TransactionTest extends BaseTest {
 
         //Logout as Store manager
         session.getSidePannel().getSignOutButton().clickByMouse();
-       WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, session.getLoginPage().userNameField);
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -137,15 +137,16 @@ public class TransactionTest extends BaseTest {
         session.getPaymentsPage().getPayNowButton().click();
         String expectedTotalPayment = session.getBillPage().getActiveBillAmmount().getText();
         session.getPaymentsPage().getChangePaymentButton().clickbyJS();
-        WebdriverWaits.fluentWait_ElementIntactable(3000,500,By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]"));
         String expectedPaymentMethod = session.getPaymentsPage().getSavedCreditCard().getText().replaceAll("\\s.*", "");
-        session.getPaymentsPage().getSavedCreditCard().click();
+        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().savedCreditcard,10);
+        session.getPaymentsPage().getSavedCreditCard().clickByMouse();
         session.getPaymentsPage().swipeToPay();
+        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().closeBlueBtn,3);
         session.getPaymentsPage().getBlueCloseButton().clickbyJS();
 
         // logout customer .
         session.getSidePannel().getSignOutButton().clickByMouse();
-        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, session.getLoginPage().userNameField);
 
         // login as store manager
         session.getLoginPage().performSignIn("6465551114", "Test@123");
@@ -172,7 +173,7 @@ public class TransactionTest extends BaseTest {
         transactions.getLastTransactionRow().click();
         String expectedCustomerNAme = transactions.getCustomeName().getText();
         transactions.getCloseTransactionPopupButton().click();
-        WebdriverWaits.waitForElementVisible(By.cssSelector(".flex-column.overflow-hidden>a"),3000);
+        WebdriverWaits.waitForElementVisible(session.getTransactionsPage().customerName,5);
         Assertions.assertEquals(transactions.getCustomerNameOnTransactionPage().getText(), expectedCustomerNAme);
 
         // check Time
@@ -241,11 +242,11 @@ public class TransactionTest extends BaseTest {
         // Enter amount in new charge popup
         session.getNewChargePopup().getNewChargeAmountField().setText(amount);
         session.getNewChargePopup().getDescriptionfield().setText(description);
-        session.getNewChargePopup().getNewChargeConfirmButton().click();
+        session.getNewChargePopup().getNewChargeConfirmButton().clickByMouse();
 
         // Making new charge payment manually with Credit Card
         session.getPaymentsPage().payByCreditCard();
-        WebdriverWaits.waitForElementVisible(By.xpath("//h5[text()='Send the receipt']"),3000);
+        WebdriverWaits.waitForElementUntilVisible(session.getSendTheReceiptPopup().sendReceiptTitle,5);
 
         // Verify the Send Receipt Popup is Displayed
         Assertions.assertTrue(session.getSendTheReceiptPopup().getSendReceiptTitle().isDisplayed());
@@ -255,7 +256,7 @@ public class TransactionTest extends BaseTest {
 
     @Test(description = "TRS5 (b): Verify that store manager is able to charge a customer when terminal is configured for a store.")
     public void newChargerWithTerminal() {
-        String amount = "100.00";
+        String amount = "200.00";
         String description = "New charge payment";
 
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
@@ -264,6 +265,7 @@ public class TransactionTest extends BaseTest {
         session.getTransactionsPage().selectStore("Automation Transaction 3");
 
         transactions.getNewChargeTab().click();
+        WebdriverWaits.waitForElementUntilVisible(session.getNewChargePopup().newChargeAmountField,4);
 
         // Enter amount in new charge popup
         session.getNewChargePopup().getNewChargeAmountField().setText(amount);
@@ -272,10 +274,11 @@ public class TransactionTest extends BaseTest {
 
         // Waiting for Automatic Terminal Payment
         Assertions.assertTrue(session.getNewChargePopup().getTerminalPopup().isDisplayed());
-       WebdriverWaits.waitForElementVisible(By.xpath("//h5[text()='Send the receipt']"),3000);
 
         // Verify the Send Receipt Popup is Displayed
+        WebdriverWaits.waitForElementUntilVisible(session.getSendTheReceiptPopup().sendReceiptTitle,10);
         Assertions.assertTrue(session.getSendTheReceiptPopup().getSendReceiptTitle().isDisplayed());
+
         Assertions.assertEquals(session.getSendTheReceiptPopup().getAmountField().getText(), "$" + amount);
         Assertions.assertEquals(session.getSendTheReceiptPopup().getSuccessMessageField().getText(), "Processed successfully!");
     }
@@ -306,7 +309,7 @@ public class TransactionTest extends BaseTest {
         // Paying through credit card after canceling terminal payment
         session.getNewChargePopup().getManualChargeTab().click();
         session.getPaymentsPage().payByCreditCard();
-        WebdriverWaits.waitForElementVisible(By.xpath("//h5[text()='Send the receipt']"),3000);
+        WebdriverWaits.waitForElementVisible(session.getSendTheReceiptPopup().sendReceiptTitle,4);
 
         // Verify the Send Receipt Popup is Displayed
         Assertions.assertTrue(session.getSendTheReceiptPopup().getSendReceiptTitle().isDisplayed());
@@ -330,22 +333,22 @@ public class TransactionTest extends BaseTest {
 
         //Logout as Store manager
         session.getSidePannel().getSignOutButton().clickByMouse();
-        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, session.getLoginPage().userNameField);
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
         session.getNotificationPage().getNotificationIcon().click();
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
         session.getPaymentsPage().getChangePaymentButton().clickbyJS();
-        WebdriverWaits.waitForElementClickable(By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]"),3000);
+        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().savedCreditcard,5);
         session.getPaymentsPage().getSavedCreditCard().clickByMouse();
         session.getPaymentsPage().swipeToPay();
-        WebdriverWaits.waitForElementClickable(By.xpath("//a[text()='Close']"),3000);
+        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().closeBlueBtn,5);
         session.getPaymentsPage().getBlueCloseButton().clickbyJS();
 
         // logout customer .
         session.getSidePannel().getSignOutButton().clickByMouse();
-        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
+        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().savedCreditcard,5);
         // login as store manager
         session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
 
@@ -361,7 +364,7 @@ public class TransactionTest extends BaseTest {
         transaction.getRefundReason().setText("Refund Checking");
         transaction.getFullRefundButton().click();
         Assertions.assertEquals(transaction.getRefundAmountOnReceipt().getText(), "$" + amt);
-        WebdriverWaits.waitForElementVisible(By.xpath("//h4[text()='** Refund **']"),3000);
+        WebdriverWaits.waitForElementVisible(session.getTransactionsPage().refundLabel,3);
         Assertions.assertTrue(transaction.getRefundLabel().isDisplayed());
         Assertions.assertTrue(transaction.getVerifyButton().isDisplayed());
 
@@ -393,7 +396,7 @@ public class TransactionTest extends BaseTest {
 
         //Logout as Store manager
         session.getSidePannel().getSignOutButton().clickByMouse();
-        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, session.getLoginPage().userNameField);
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -403,14 +406,14 @@ public class TransactionTest extends BaseTest {
         WebdriverWaits.sleep(1000);
         session.getPaymentsPage().getPayNowButton().click();
         session.getPaymentsPage().getChangePaymentButton().clickbyJS();
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().savedCreditcard,10);
         session.getPaymentsPage().getSavedCreditCard().clickByMouse();
         session.getPaymentsPage().swipeToPay();
         session.getPaymentsPage().getBlueCloseButton().clickByMouse();
 
         // logout customer .
         session.getSidePannel().getSignOutButton().clickByMouse();
-        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, session.getLoginPage().userNameField);
 
         // login as store manager
         session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
@@ -473,7 +476,7 @@ public class TransactionTest extends BaseTest {
 
         //Logout as Store manager
         session.getSidePannel().getSignOutButton().clickByMouse();
-        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, session.getLoginPage().userNameField);
 
         //Login as Customer
         session.getLoginPage().performSignIn(KadeUserAccount.Customer.getUserName(), KadeUserAccount.Customer.getPassword());
@@ -482,8 +485,7 @@ public class TransactionTest extends BaseTest {
         WebdriverWaits.waitForElementVisible(session.getPaymentsPage().payNowButton,5);
         session.getPaymentsPage().getPayNowButton().click();
         session.getPaymentsPage().getChangePaymentButton().clickbyJS();
-        WebdriverWaits.waitForElementVisible(By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]"),5);
-
+        WebdriverWaits.waitForElementSelected(session.getPaymentsPage().savedBankAccount,5);
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
         session.getPaymentsPage().getBlueCloseButton().clickByMouse();
@@ -510,7 +512,7 @@ public class TransactionTest extends BaseTest {
 
         // Clicking on partial refund link.
         transaction.getPartialRefundLink().click();
-        WebdriverWaits.waitForElementClickable(By.xpath("//button[text()='Process Refund']"),5);
+        WebdriverWaits.waitForElementClickable(session.getTransactionsPage().processRefundButton,4);
 
         // Verify the validation message when no payment checkbox is selected.
         transaction.getProcessRefundButton().click();
@@ -566,7 +568,7 @@ public class TransactionTest extends BaseTest {
 
         //Logout as Store manager
         session.getSidePannel().getSignOutButton().clickByMouse();
-        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, session.getLoginPage().userNameField);
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -583,7 +585,7 @@ public class TransactionTest extends BaseTest {
 
         //Step 10: Click on 'Change Payment Method' Button
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-        WebdriverWaits.fluentWait_ElementIntactable(5000, 500, By.xpath("(//span[text()='Bank Account 6789'])[1]"));
+        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().savedBankAccount,5);
         //Step 11: Select 'Bank Account' Method
         session.getPaymentsPage().getSavedBankAccount().clickbyJS();
 
@@ -604,7 +606,7 @@ public class TransactionTest extends BaseTest {
         //Step 13: Close the Pop-up
         session.getPaymentsPage().getBlueCloseButton().clickbyJS();
         session.getSidePannel().getSignOutButton().click();
-        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, session.getLoginPage().userNameField);
 
         // login as store manager
         session.getLoginPage().performSignIn("6465551114", "Test@123");
@@ -660,7 +662,7 @@ public class TransactionTest extends BaseTest {
             System.out.println("deleteStatus :" + deletStatus);
         }
       transactions.getDownloadButton().clickByMouse();
-        WebdriverWaits.fluentWait_ElementIntactable(5000,500,By.xpath("//div[@class='d-flex flex-wrap'] //button[3]"));
+        WebdriverWaits.sleep(3000);
         String fileDownloadStatus = ActionEngine.isFileDownloaded("Transactions.xlsx");
         System.out.println("fileDownloadStatus: " + fileDownloadStatus);
         Assertions.assertEquals(ActionEngine.isFileDownloaded("Transactions.xlsx"), "File Present");
@@ -689,7 +691,7 @@ public class TransactionTest extends BaseTest {
         transactions.getPaymentStatusDropdown().click();
         transactions.getPendingPayments().click();
         transactions.getApplyButtonOnPopup().click();
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.waitForElementVisible(session.getTransactionsPage().pendingPaymentIcon,4);
 
         Assertions.assertTrue(transactions.getPendingPaymentIcon().isDisplayed());
 
@@ -697,7 +699,7 @@ public class TransactionTest extends BaseTest {
         transactions.getPaymentStatusDropdown().click();
         transactions.getFailedPayments().click();
         transactions.getApplyButtonOnPopup().click();
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.waitForElementVisible(session.getTransactionsPage().excalamatrySign,4);
 
         Assertions.assertTrue(transactions.getExcalamatrySign().isDisplayed());
 
@@ -706,19 +708,18 @@ public class TransactionTest extends BaseTest {
         WebdriverWaits.sleep(2000);
         transactions.getUnverifiedPayments().click();
         transactions.getApplyButtonOnPopup().click();
-        WebdriverWaits.sleep(2000);
-
+        WebdriverWaits.waitForElementVisible(session.getTransactionsPage().quotionmarkSign,4);
         Assertions.assertTrue(transactions.getQuotionmarkSign().isDisplayed());
 
         transactions.getFilterIcon().click();
         transactions.getPaymentStatusDropdown().click();
         transactions.getClearPaymentField().click();
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementClickable(session.getTransactionsPage().paymentLinkField,3);
         transactions.getPaymentLinkField().click();
         transactions.getQrCodeSeletct().click();
         transactions.getApplyButtonOnPopup().click();
 
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementVisible(session.getTransactionsPage().qrCodeSign,4);
 
         Assertions.assertTrue(transactions.getQrCodeSign().isDisplayed());
 
@@ -762,7 +763,7 @@ public class TransactionTest extends BaseTest {
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
         TransactionsPage transaction = session.getTransactionsPage();
         transaction.getCurrentPaidBill().clickByMouse();
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.waitForElementVisible(transaction.transactionID,3);
 
         // Verifying the elements on Transaction Popup
         Assertions.assertTrue(transaction.getTransactionID().isDisplayed());
@@ -801,9 +802,10 @@ public class TransactionTest extends BaseTest {
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-        WebdriverWaits.fluentWait_ElementIntactable(3000,500, By.xpath("//span[@class='text-nowrap fs-pn25' and text()='Venmo']"));
+        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().SavedVenmoCard,5);
         session.getPaymentsPage().getSavedVenmoCard().clickbyJS();
-        WebdriverWaits.waitForElementUntilVisible(By.cssSelector(".text-center.mb-3>button"),3000);
+        WebdriverWaits.waitForElementUntilVisible(session.getPaymentsPage().iMadeMyPaymentButtonVenmo,3);
+
         session.getPaymentsPage().getIMadeMyPaymentButton().clickbyJS();
         session.getPaymentsPage().getConfirmVenmoCheckbox().click();
         session.getPaymentsPage().getVenmoSubmitButton().click();
@@ -811,7 +813,7 @@ public class TransactionTest extends BaseTest {
 
         // logout customer .
         session.getSidePannel().getSignOutButton().click();
-        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, session.getLoginPage().userNameField);
 
         // login as store manager
         session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
@@ -824,17 +826,17 @@ public class TransactionTest extends BaseTest {
 
         // Clicking on the paid amount and verify the question mark icon is displayed
         Assertions.assertTrue(transaction.getQuestionMarkIcon().isDisplayed());
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.waitForElementClickable(transaction.questionMarkIcon,4);
 
         transaction.getQuestionMarkIcon().clickByMouse();
 
-        WebdriverWaits.waitForElementVisible( By.cssSelector("[value='captured']"),2000);
+        WebdriverWaits.waitForElementVisible(transaction.capturedButton,5);
         // Verify Capture and Failed Button is visible
         Assertions.assertTrue(transaction.getCapturedButton().isDisplayed());
         Assertions.assertTrue(transaction.getFailedButton().isDisplayed());
 
         transaction.getCapturedButton().click();
-        WebdriverWaits.waitForElementInVisible(By.cssSelector(".align-items-end>i"),3000);
+        WebdriverWaits.waitForElementInVisible(transaction.questionMarkIcon,4);
 
         //verify that question mark icon gets removed after clicking on captured button
         Assertions.assertFalse(transaction.getQuestionMarkIcon().isDisplayed());
@@ -855,7 +857,7 @@ public class TransactionTest extends BaseTest {
 
         //Logout as Store manager
         session.getSidePannel().getSignOutButton().click(); // Signing out
-        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, session.getLoginPage().userNameField);
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -864,21 +866,20 @@ public class TransactionTest extends BaseTest {
         session.getNotificationPage().getNotificationIcon().click();
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.waitForElementUntilVisible(session.getAttentionRTPopup().attentionTitle, 4);
         Assertions.assertTrue(session.getAttentionRTPopup().getAttentionPopupTitle().isDisplayed());
         session.getAttentionRTPopup().getAttentionCrossIcon().click();
 
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-        WebdriverWaits.fluentWait_ElementIntactable(3000,500, By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]"));
+        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().savedBankAccount,5);
         session.getPaymentsPage().getSavedBankAccount().clickbyJS();
         session.getPaymentsPage().swipeToPay();
-        WebdriverWaits.waitForElementVisible(By.xpath("//a[text()='Close']"),3000);
+        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().closeBlueBtn,3);
 
         //Close the Pop-up
         session.getPaymentsPage().getBlueCloseButton().clickbyJS();
         session.getSidePannel().getSignOutButton().clickByMouse();
-        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
-
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, session.getLoginPage().userNameField);
         // login as store manager
         session.getLoginPage().performSignIn(KadeUserAccount.Default.getUserName(), KadeUserAccount.Default.getPassword());
 

@@ -40,8 +40,8 @@ public class PaymentsPage extends BasePage {
      */
     By balanceDue = By.xpath("//span[text()='Balance Due:']//following-sibling::span");
     By totalAmount = By.xpath("//span[contains(text(),'Total')]");
-    By receiveAmountTbx = By.xpath("//input[@name='amount']");
-    By creditCardBtn = By.xpath("//button[text()='Credit Card']");
+   public By receiveAmountTbx = By.xpath("//input[@name='amount']");
+    public By creditCardBtn = By.xpath("//button[text()='Credit Card']");
     By othersBtn = By.xpath("//button[text()='Other']");
    public By savedCreditcard = By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')][1]");
 
@@ -65,12 +65,12 @@ public class PaymentsPage extends BasePage {
 
     // By savedCreditcard = By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]");
     public By savedBankAccount = By.xpath("//span[text()='Bank Account 6789'][1]");
-    By SavedVenmoCard = By.xpath("//span[@class='text-nowrap fs-pn25' and text()='Venmo']");
-    By iMadeMyPaymentButtonVenmo = By.cssSelector(".text-center.mb-3>button");
+    public By SavedVenmoCard = By.xpath("//span[@class='text-nowrap fs-pn25' and text()='Venmo']");
+   public By iMadeMyPaymentButtonVenmo = By.cssSelector(".text-center.mb-3>button");
     By personalMessageVenmo = By.xpath("//textarea[@placeholder='Personal message']");
     By screenshotButton = By.xpath("//button[text()='Do you have a screenshot?']");
     By confirmVenmoCheckbox = By.xpath("//i[@class='fal fa-square custom-check-off ']");
-    By venmoSubmitButton = By.xpath("//button[text()='Submit']");
+  public  By venmoSubmitButton = By.xpath("//button[text()='Submit']");
     By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
     By selectedBankDisplay = By.xpath("//div[@class='-placeholder- link-empty']");
 
@@ -82,7 +82,7 @@ public class PaymentsPage extends BasePage {
     By processSuccessMsg = By.xpath("//div[@class='d-flex justify-content-center align-items-center fs-1 text-success py-2']");
     By rateYourExperienceLink = By.xpath("//div[@class='col-sm fs-4 pb-2']");
     By viewReceipt = By.xpath("//div[@class='mt-4']/child::div/a[1]");
-    By closeBlueBtn = By.xpath("//a[text()='Close']");
+    public By closeBlueBtn = By.xpath("//a[text()='Close']");
     By tapToPayMoreLink = By.partialLinkText("Tap to pay more");
     //By tapToPayMoreLink=By.xpath("//a[text()='Tap to pay more']");
     By moreAmountTbx = By.xpath("//input[@lbl-title='Amount']");
@@ -201,6 +201,7 @@ public class PaymentsPage extends BasePage {
     }
 
     public Clickable getChangePaymentMethodButton() {
+        WebdriverWaits.sleep(2000);
         return Clickable.getElementBy(changeButton, "change Payment Method button");
     }
 
@@ -243,6 +244,7 @@ public class PaymentsPage extends BasePage {
 
     public Clickable getChangePaymentButton() {
         return Clickable.getElementBy(changeButton, "change Payment type button");
+
     }
 
     public Clickable getSavedCreditCard() {

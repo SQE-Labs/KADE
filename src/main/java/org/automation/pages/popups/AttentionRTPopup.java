@@ -8,7 +8,7 @@ import org.openqa.selenium.By;
 
 public class AttentionRTPopup extends BasePage {
     By attentionCrossIcon = By.cssSelector("div.modal-content .btn-close");
-    By attentionTitle = By.xpath("//H4[text()='Attention!']");
+   public By attentionTitle = By.xpath("//H4[text()='Attention!']");
 
 
     public Clickable getAttentionPopupTitle() {

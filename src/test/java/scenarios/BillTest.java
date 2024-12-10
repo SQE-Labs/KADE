@@ -699,7 +699,7 @@ public class BillTest extends BaseTest {
 
         //Click on 'Repeat' Field
         bill.getRepeatField().clickByMouse();
-        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.xpath("//h5[text()='Repeat']"));
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, bill.repeatPopUpTitle);
         Assertions.assertEquals(bill.getRepeatPopUpTitle().getText(), "Repeat");
         bill.getDoneButton().click();
 
