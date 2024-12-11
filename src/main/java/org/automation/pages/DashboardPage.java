@@ -12,10 +12,10 @@ public class DashboardPage extends BaseTest {
     By processPaymentTitle =By.xpath("//h5[text()='Processed Payments']");
     By todayPaymentTitle = By.xpath("//h5[text()='Today’s Payments']");
     By recentTransactionsTitle =By.cssSelector("a +h5.card-title.mb-0");
-    By customerTrends =By.xpath("//h5[text()='Customer Trends']");
-    By pymtmethodPopularityTitle =By.xpath("//h5[text()='Payment Methods Popularity']");
     By refreshIcon = By.cssSelector(".card-title.mb-0 .btn >i");
     By fullListLink = By.cssSelector("a.float-end");
+    By customerTrends =By.xpath("//h5[text()='Customer Trends']");
+    By pymtmethodPopularityTitle =By.xpath("//h5[text()='Payment Methods Popularity']");
     By contactSupportLink =By.cssSelector(".card-title +h6 a");
 
 
