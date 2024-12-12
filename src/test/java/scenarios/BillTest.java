@@ -11,6 +11,7 @@ import org.automation.pages.BillPage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
+import org.openqa.selenium.By;
 import org.testng.annotations.Test;
 
 public class BillTest extends BaseTest {
@@ -697,8 +698,9 @@ public class BillTest extends BaseTest {
         bill.getMoreOption().click();
 
         //Click on 'Repeat' Field
-        bill.getRepeatField().clickByMouse();
+        bill.getRepeatField().click();
         WebdriverWaits.sleep(2000);
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.xpath("//h5[text()='Repeat']"));
         Assertions.assertEquals(bill.getRepeatPopUpTitle().getText(), "Repeat");
         bill.getDoneButton().click();
 

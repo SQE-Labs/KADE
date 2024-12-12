@@ -7,6 +7,7 @@ import org.automation.listeners.TestRunListener;
 import org.automation.session.KadeSession;
 import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.Screenshot;
+import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -41,7 +42,6 @@ public class BaseTest {
 	public static ExtentTest getExtentTest() {
 		return extentTest.get();
 	}
-
 	public static void closeDriver() {
 		getDriver().close();
 		getDriver().quit();
@@ -49,6 +49,19 @@ public class BaseTest {
 	}
 
 	@BeforeSuite
+	@Parameters({"xmlFileName"})
+	public void setExtent(@Optional("testng.xml") String xmlFileName) throws InterruptedException, IOException {
+		extent = new ExtentReports();
+		extentSparkReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/test-report/Report.html");
+		extentSparkReporter.config().thumbnailForBase64(true);
+		extent.attachReporter(extentSparkReporter);
+
+		// Add system info
+		extent.setSystemInfo("Environment", "QA");
+		extent.setSystemInfo("Executed By", System.getProperty("user.name")); // Add executor's name
+		extent.setSystemInfo("TestNG XML File", xmlFileName); // Add XML file name
+	}
+
 	public void setExtent() throws InterruptedException, IOException {
 		extent = new ExtentReports();
 		extentSparkReporter = new ExtentSparkReporter(System.getProperty("user.dir") + "/test-report/Report.html");

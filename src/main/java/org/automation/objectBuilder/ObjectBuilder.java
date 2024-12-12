@@ -2,8 +2,12 @@ package org.automation.objectBuilder;
 
 import org.automation.data.StoreAccount;
 import org.automation.objectBuilder.pages.BillsPage;
+import org.automation.pages.MyStorePage;
+import org.automation.pages.SidePannel;
+import org.automation.session.KadeSession;
+import org.automation.utilities.RandomGenerator;
 
-public class ObjectBuilder{
+public class ObjectBuilder {
     public static class BillDetails {
         public static BillsPage getDefaultBillDetails() {
             BillsPage bill = new BillsPage();
@@ -24,6 +28,33 @@ public class ObjectBuilder{
             return bill;
         }
 
+        public static MyStorePage getStoreCreation() {
+            MyStorePage myStore = new MyStorePage();
+            myStore.storeName = "Zencode "+ RandomGenerator.requiredString(6);
+            String phoneNumber = RandomGenerator.requiredNumber(10);
+            myStore.getRegisterNewBusinessButton().click();
+            if (myStore.getStoreLogo().isDisplayed()) {
+                myStore.getDeleteStoreButton().clickByMouse();
+                myStore.getDeleteStoreIcon().clickByMouse();
+                KadeSession.session.getSidePannel().getMyStoresTab().click();
+                myStore.getRegisterNewBusinessButton().click();}
+                myStore.getStipeAccountButton().clickByMouse();
+                myStore.getTestStripeAccountButton().click();
+               //Edit Store name
+              myStore.getEditStoreButton().click();
+              myStore.getStoreNameField().setText(myStore.storeName);
+              myStore.getPhoneField().setText(phoneNumber);
+              myStore.getSaveButton().clickByMouse();
+              myStore.getBankTransferToggleButton().click();
+              myStore.getContinueButton().clickByMouse();
+              myStore.getSkipForNowButton().clickByMouse();
+              //Click on 'Continue' Button
+            myStore.getContinueButton().clickByMouse();
+            return myStore;
+        }
     }
-}
+    }
+
+
+
 

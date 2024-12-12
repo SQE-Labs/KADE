@@ -5,10 +5,7 @@ public enum KadeUserAccount {
 
         Default("6465551114", "Test@123"),
         Customer("yonro@yopmail.com", "Test@123"),
-        Admin("6465551113", "Test@123"),
-
-
-        Manager("asd", "asd");
+        Admin("6465551113", "Test@123");
 
         private KadeUserAccount(String userName, String password) {
             this.userName = userName;

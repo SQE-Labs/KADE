@@ -11,19 +11,19 @@ import java.util.List;
 
 public class TransactionsPage extends BasePage {
     //Locators
-    By transactionRow = By.xpath("(//div[contains(@class,'bg-white border ')])[1]");
+    By transactionRow = By.xpath("//div[contains(@class,'bg-white border')]");
     By billAmount = By.xpath("//div[@class='display-6 fw-bold pt-2']");
     By closeTransactionPopupBtn = By.xpath("(//button[@class='btn-close'])[1]");
     By storesCombobox = By.xpath("//span[@role='combobox']");
     By continueBtn = By.xpath("//button[@type='submit']");
     By uniqueTransactionId = By.xpath("//span[@class='badge position-relative bg-light text-dark p-1 px-2 text-truncate']");
     By transactionID = By.cssSelector(".badge.position-relative.bg-light.text-dark.p-1");
-    By store = By.xpath("//span[@class='fs-pn15 mb-2']");
+    By store = By.xpath("//span[@class='fs-pn15 text-truncate']");
     By payment = By.cssSelector(".fs-pn25.ms-2");
-    By customerName = By.xpath("//div[@class='d-flex mb-2']");
+    By customerName = By.cssSelector(".flex-column.overflow-hidden>a");
     By transactionAmmount = By.xpath("//div[@class='d-flex align-items-center']");
     By customNameONRecipt = By.xpath("//a[@class='text-truncate']");
-    By time = By.xpath("//span[@class='fs-pn25 mb-2']");
+    By time = By.xpath("//span[@class='fs-pn25 mb-2 ms-auto']");
     By informationMessage = By.xpath("//p[text()='There are no payments available yet!']");
     By newBillTab = By.xpath("//div[@class='d-flex flex-wrap'] //button[1]");
     By newChargeTab = By.xpath("//div[@class='d-flex flex-wrap'] //button[2]");
@@ -69,9 +69,9 @@ public class TransactionsPage extends BasePage {
     By amountRangeFrom = By.xpath("//input[@placeholder='From']");
     By amountRangeTo = By.xpath("//input[@placeholder='To']");
     By clearQrPayment = By.xpath("(//select[@name='billTemplate']/option)[1]");
-    By ammountList = By.xpath("(//div[contains(@class,'d-flex align-items-center')])");
+    By ammountList = By.xpath("((//div[contains(@class,'d-flex align-items-center')])//span)");
     By paidLabelOnPopup = By.cssSelector("span.bg-success");
-    By returnSymbol = By.xpath("//div[span[text()='Refunded']]/following::div[3]/i");
+    By returnSymbol = By.xpath("//div[span[text()='Refunded']]/following::div[4]/i");
     By questionMarkIcon = By.cssSelector(".align-items-end>i");
     By capturedButton = By.cssSelector("[value='captured']");
     By failedButton = By.cssSelector(".mx-3");

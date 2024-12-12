@@ -9,12 +9,16 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
+import java.sql.SQLOutput;
 import java.time.Duration;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
 public class WebdriverWaits extends BaseTest {
+    private static final Logger log = LoggerFactory.getLogger(WebdriverWaits.class);
     /**
      * Waits for a given element to be visible
      *
@@ -30,14 +34,16 @@ public class WebdriverWaits extends BaseTest {
     /**
      * Waits for a given element to be visible
      *
-     * @param driver WebDriver instance
-     * @param e      element to wait for
+     //* @param driver WebDriver instance
+     * @param locator The locator of the element to wait for.
+     * @param waitTime element to wait for
      */
     public static void waitForElementVisible(By locator, int waitTime) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
        wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
     }
+     
 
     public static void waitForElementInVisible(By locator, int waitTime) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
@@ -48,8 +54,8 @@ public class WebdriverWaits extends BaseTest {
 
     /**
      * Waits for a given element to be selected
-     *
-     * @param driver  WebDriver instance
+     * @param waitTime element to wait for
+     //* @param driver  WebDriver instance
      * @param locator By of the element to wait for
      */
     public static void waitForElementSelected(By locator, int waitTime) {
@@ -60,8 +66,8 @@ public class WebdriverWaits extends BaseTest {
 
     /**
      * Waits for a given element to be clickable
-     *
-     * @param driver  WebDriver instance
+     * @param waitTime element to wait for
+     //* @param driver  WebDriver instance
      * @param locator By to locate element to wait for
      */
     public static void waitForElementClickable(By locator, int waitTime) {
@@ -71,7 +77,9 @@ public class WebdriverWaits extends BaseTest {
 
     public static WebElement waitForElementUntilVisible(By locator, int waitTime) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
-        return wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
+        log.info("Value of locator= {}", locator);
+        return e;
     }
 
     /**
@@ -81,12 +89,14 @@ public class WebdriverWaits extends BaseTest {
      * are trying to check the page title on page load before the title has
      * changed to that of the new page.
      *
-     * @param driver WebDriver instance
+     //* @param driver WebDriver instance
      * @param title  title the page should have
+     * @param waitTime The maximum time to wait for the title to appear, in seconds.
+     * @return true if the page title contains the specified title within the given time; false otherwise.
      */
-    public static void waitForPageTitle(String title, int waitTime) {
+    public static boolean waitForPageTitle(String title, int waitTime) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
-        wait.until(ExpectedConditions.titleContains(title));
+        return wait.until(ExpectedConditions.titleContains(title));
     }
 
 

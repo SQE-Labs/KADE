@@ -7,6 +7,7 @@ import org.automation.pages.popups.*;
 
 public class KadeSession extends BaseTest {
 
+    public static KadeSession session;
     private static KadeUserAccount logggedInUser;
 
     public static KadeSession login(KadeUserAccount user) {
@@ -80,8 +81,11 @@ public class KadeSession extends BaseTest {
     public NewAccountPopup getNewAccountPopup(){
         return  new NewAccountPopup();
     }
-    public AttentionRTPopup getAttentionRTpopup(){ return new AttentionRTPopup();}
-}
+    public GiftCardConfigurationPopup getGiftCardConfigurationPopup(){return new GiftCardConfigurationPopup();}
+    public AttentionRTPopup getAttentionRTPopup() {return new AttentionRTPopup();}
+    public AdminPage getAdminPage() {return new AdminPage();}
+    }
+
 
 
 
