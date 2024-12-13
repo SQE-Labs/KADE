@@ -1,10 +1,7 @@
 package org.automation.utilities;
 
 import org.automation.base.BaseTest;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
@@ -12,7 +9,6 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.sql.SQLOutput;
 import java.time.Duration;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -124,14 +120,46 @@ public class WebdriverWaits extends BaseTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
     }
-    
+
     public static void fluentWait_ElementIntactable(long waitTimeForTimeout, long waitTimeForPolling, By locator) {
-        Wait<WebDriver> wait = new FluentWait<>(getDriver()).withTimeout(Duration.ofSeconds(waitTimeForTimeout))
+        Wait<WebDriver> wait = new FluentWait<>(getDriver())
+                .withTimeout(Duration.ofMillis(waitTimeForTimeout))
                 .pollingEvery(Duration.ofMillis(waitTimeForPolling))
+                .ignoring(NoSuchElementException.class)
                 .ignoring(ElementNotInteractableException.class);
         wait.until(ExpectedConditions.elementToBeClickable(locator));
-
     }
+
+    public static void fluentWaitForDuration(long timeoutInMillis, long pollingInMillis) {
+        Wait<WebDriver> wait = new FluentWait<>(getDriver())
+                .withTimeout(Duration.ofMillis(timeoutInMillis))  // Total wait time
+                .pollingEvery(Duration.ofMillis(pollingInMillis)) // Polling interval
+                .ignoring(Exception.class); // Ignore exceptions during polling
+
+        // Wait until timeout is reached (dummy condition)
+        wait.until(driver -> true); // A condition that always returns false, making it wait the full duration
+    }
+
+    public static void waitForElementValueToUpdate(long timeoutInMillis, long pollingInMillis, By locator, String oldValue) {
+        Wait<WebDriver> wait = new FluentWait<>(getDriver())
+                .withTimeout(Duration.ofMillis(timeoutInMillis))
+                .pollingEvery(Duration.ofMillis(pollingInMillis))
+                .ignoring(Exception.class);
+
+
+        WebElement element = wait.until(driver -> {
+            WebElement ele = driver.findElement(locator);
+            String currentValue = ele.getAttribute("value");
+
+            if (!currentValue.equals(oldValue)) {
+                return ele;
+            } else {
+                return null;
+            }
+        });
+    }
+
+
  
     
     public static void SwitchToNewTab() throws InterruptedException {

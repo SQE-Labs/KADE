@@ -18,6 +18,7 @@ import org.openqa.selenium.WebElement;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class TransactionTest extends BaseTest {
 
@@ -493,7 +494,7 @@ public class TransactionTest extends BaseTest {
         WebdriverWaits.waitForElementVisible(session.getPaymentsPage().payNowButton,5);
         session.getPaymentsPage().getPayNowButton().click();
         session.getPaymentsPage().getChangePaymentButton().clickbyJS();
-        WebdriverWaits.sleep(1000);
+        WebdriverWaits.sleep(2000);
      //   WebdriverWaits.waitForElementVisible(By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]"),5);
 
         session.getPaymentsPage().getSavedCreditCard().click();
@@ -610,6 +611,7 @@ public class TransactionTest extends BaseTest {
         session.getPaymentsPage().swipeToPay();
 
         System.out.println(session.getPaymentsPage().getProcessSuccessMsg().getText());
+        WebdriverWaits.sleep(2000);
 
         //Verify that success message appears after Payment is made successfully
         Assertions.assertEquals(session.getPaymentsPage().getProcessSuccessMsg().getText(), "$4,999.00 PAID");
@@ -629,14 +631,21 @@ public class TransactionTest extends BaseTest {
         session.getSidePannel().getTransactionButton().click();
         session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
 
-        List<WebElement> eleOfAllTrans = session.getTransactionsPage().getTransactionID().getListOfWebElements();
-        System.out.println("size of ids" + eleOfAllTrans.size());
-        List<String> listOfAllTransactionID = new ArrayList<>();
-        for (int i = 0; i < eleOfAllTrans.size(); i++) {
-            listOfAllTransactionID.add(eleOfAllTrans.get(i).getText());
-        }
-        System.out.println(listOfAllTransactionID);
+        List<WebElement> transactionElements = session.getTransactionsPage().getTransactionID().getListOfWebElements();
+        System.out.println("Size of transaction IDs: " + transactionElements.size());
 
+// Extract text values of all transaction IDs into a list
+        List<String> allTransactionIDs = transactionElements.stream()
+                .map(WebElement::getText)
+                .collect(Collectors.toList());
+
+        System.out.println("All Transaction IDs: " + allTransactionIDs);
+
+// Retrieve the first 5 transaction IDs, if available
+        int transactionCount = Math.min(5, transactionElements.size()); // Handle cases where fewer than 5 elements exist
+        List<String> transactionIDsBeforeFilter = allTransactionIDs.subList(0, transactionCount);
+
+        System.out.println("Transaction IDs before filter (first 5): " + transactionIDsBeforeFilter);
         List<WebElement> ele1 = session.getTransactionsPage().getTransactionID().getListOfWebElements();
         List<String> transactionIDBeforeFilterApply = new ArrayList<>();
         for (int i = 0; i < 5; i++) {
@@ -750,24 +759,39 @@ public class TransactionTest extends BaseTest {
         WebdriverWaits.sleep(5000);
 
         List<WebElement> ammountList = transactions.getAmmountList().getListOfWebElements();
-        List<String> ammountList1 = new ArrayList<>();
+        List<Double> ammountList1 = new ArrayList<>();
+
+// Parse amounts into a list of doubles
         for (WebElement element : ammountList) {
             String text = element.getText().trim();
-            System.out.println(text);
-            WebdriverWaits.sleep(4000);
-        //    ammountList1.add(Integer.parseInt(text.substring(0)));
-            ammountList1.add(text);
-        }
-        System.out.println(ammountList1);
-        boolean flag = false;
-        System.out.println(Integer.parseInt(ammountFrom.split("\\.")[0]));
+            System.out.println("Amount: " + text);
 
-//        for (int i = 0; i < ammountList1.size(); i++) {
-////            double temp = ammountList1.get(i);
-//            if (temp >= Integer.parseInt(ammountFrom.split("\\.")[0]) && temp <= Integer.parseInt(ammountTo.split("\\.")[0])) {
-//                flag = true;
-//            }
-//        }
+            // Extract numeric values, assuming amounts may include currency symbols or formatting
+            String numericText = text.replaceAll("[^\\d.]", ""); // Remove non-numeric characters
+            if (!numericText.isEmpty()) {
+                try {
+                    ammountList1.add(Double.parseDouble(numericText)); // Parse to Double
+                } catch (NumberFormatException e) {
+                    System.err.println("Failed to parse amount: " + text);
+                }
+            }
+        }
+        System.out.println("Parsed Amounts: " + ammountList1);
+
+        boolean flag = false;
+        double amountFromValue = Double.parseDouble(ammountFrom.split("\\.")[0]); // Parse lower bound
+        double amountToValue = Double.parseDouble(ammountTo.split("\\.")[0]); // Parse upper bound
+
+// Check if any amount is within the range
+        for (Double amount : ammountList1) {
+            if (amount >= amountFromValue && amount <= amountToValue) {
+                flag = true;
+                break; // Exit loop as soon as a valid amount is found
+            }
+        }
+
+
+
         Assert.assertTrue(flag, "The amount does not lie between the applied filter");
 
 

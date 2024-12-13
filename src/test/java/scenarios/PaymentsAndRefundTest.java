@@ -293,7 +293,8 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getPaymentsPage().getCreditCardButton().click();
         session.getPaymentsPage().payByCreditCard();
 
-        WebdriverWaits.fluentWait_ElementIntactable(5000,2000,session.getPaymentsPage().totalPaidAmt);
+        //WebdriverWaits.waitForElementValueToUpdate(2000,500,session.getPaymentsPage().totalPaidAmt,"Total paid:$1,850.99");
+        WebdriverWaits.sleep(5000);
         //Verify Total Paid Amount (Full Payment);
         Assertions.assertEquals(session.getPaymentsPage().getTotalPaidAmount().getText().split(":")[1],"$"+amt);
         Assertions.assertTrue(session.getPaymentsPage().getPaidLabel().isDisplayed()); 
@@ -454,6 +455,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         WebdriverWaits.sleep(2000);
 
         //Step 10: Click on 'Change Payment Method' Button
+        session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
         WebdriverWaits.sleep(2000);
 
