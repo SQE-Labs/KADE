@@ -406,16 +406,15 @@ public class PaymentsAndRefundTest extends KadeSession {
         //Logout as Store manager
         session.getSidePannel().getSignOutButton().clickByMouse();
         WebdriverWaits.fluentWait_ElementIntactable(2000, 500, session.getLoginPage().userNameField);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
         session.getNotificationPage().getNotificationIcon().clickByMouse();
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
-        WebdriverWaits.sleep(2000);
 
         session.getPaymentsPage().swipeToPay();
-        WebdriverWaits.sleep(3000);
         session.getPaymentsPage().getBlueCloseButton().clickbyJS();
     }
 
@@ -456,8 +455,8 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         //Step 10: Click on 'Change Payment Method' Button
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-        session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
         WebdriverWaits.sleep(2000);
+
 
         //Step 11: Select the 'Bank Account' Method
         session.getPaymentsPage().getSavedBankAccount().clickbyJS();
