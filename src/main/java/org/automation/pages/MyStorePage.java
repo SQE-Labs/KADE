@@ -14,8 +14,8 @@ public class MyStorePage extends BasePage {
     By registerNewBusinessBtn = By.partialLinkText("Register new business");
     By skipPopUpTitle = By.xpath("//h5[text()='Skip']");
     By skipStripeAccountBtn = By.cssSelector(".btn-lg.fw-bold.w-100.btn.btn-outline-primary");
-    By skipStripeAccountPopUpBtn = By.xpath("//div[@class='modal-content']//button[text()='Skip']");
-    By deleteStoreBtn = By.xpath("//button[text()='Delete the store']");
+    public By skipStripeAccountPopUpBtn = By.xpath("//div[@class='modal-content']//button[text()='Skip']");
+    public By deleteStoreBtn = By.xpath("//button[text()='Delete the store']");
     By deleteStoreIcon = By.cssSelector(".fa.fa-check");
     By alertMessage = By.cssSelector("form.link-check.checked div.alert-message");
     By configureBtnBusinessPlanStore = By.xpath("(//h6[text()='Automation Flow Business']/../..//a)[1]");
@@ -39,10 +39,11 @@ public class MyStorePage extends BasePage {
     By skipForNowBtn = By.xpath("//button[text()='Skip for now']");
     By continueBtn = By.xpath("//button[text()='Continue']");
     By configureLink = By.xpath("(//h6[text()='Automation Flow 3']/../..//a)[1]");
+    By configureLink2 = By.xpath("/html/body/div[4]/div/div/main/div/div[3]/div/div/div[4]/div[1]/a");
     By modifyBtn = By.xpath("//button[text()='Modify']");
     By plansSubTab = By.partialLinkText("Plans");
     By currentPlanMSg = By.xpath("//span[@class='text-success me-1']");
-    By planSignUpBtn = By.partialLinkText("Sign up");
+    public By planSignUpBtn = By.partialLinkText("Sign up");
     By yearlyBtn = By.xpath("//label[text()='Yearly']");
     By termsCbx = By.xpath("//span[text()='     I agree to the']");
     By changePlanBtn = By.xpath("//button[text()='Change plan']");
@@ -84,14 +85,14 @@ public class MyStorePage extends BasePage {
     By earnRewardsToggleBtn = By.xpath("//label[text()=' Website']/../..//i[@class='far fa-toggle-off custom-check-off ']");
     By earnRewardsToggleOffBtn = By.xpath("//label[text()=' Website']/../..//i[@class='far fa-toggle-on custom-check-on ']");
     By enterInPercentToggleBtn = By.xpath("//label[text()=' Enter in percentage']");
-    By paymentProcessingSubTab = By.xpath("//a[text()='Payment Processing']");
+    public By paymentProcessingSubTab = By.xpath("//a[text()='Payment Processing']");
     By acceptVenmoToggleBtn = By.xpath("(//span[text()='Accept Venmo'])[1]");
     By acceptZelleToggleBtn = By.xpath("//span[text()='Accept Zelle']");
     By venmoIDField = By.xpath("//label[text()='Venmo ID']/following-sibling::input");
     By venmoNameField = By.xpath("//label[text()='Venmo Name']/following-sibling::input");
     By zellePhoneField = By.xpath("//input[@name='phoneemail']");
     By zelleNameField = By.xpath("//label[text()='Name of the account in Zelle']/following-sibling::input");
-    By creditCardTerminalBtn = By.xpath("//a[text()='Credit Card Terminals']");
+    public By creditCardTerminalBtn = By.xpath("//a[text()='Credit Card Terminals']");
     By addNewTerminalBtn = By.xpath("//button[text()='Add new terminal']");
     By newTerminalPopUpTitle = By.xpath("//h5[text()='New Terminal']");
     By creditCardTerminalOption = By.xpath("//label[text()='Select your terminal']/../div[1]/label/i[2]");
@@ -114,7 +115,7 @@ public class MyStorePage extends BasePage {
     By activeStoreLabel = By.xpath("//h4[@class='me-2 text-success']");
     By acceptVenmoHeader = By.xpath("//form[@action='/api/Stores/SaveVenmoGatewayApplication' and @style='display: none;']");
     By acceptZelleHeader = By.xpath("//form[@action='/api/Stores/SaveVenmoGatewayApplication']/../..  //div[@style='display: none;']");
-    By deleteUserIcon = By.xpath("(//h5[text()='Users with access to this store']/../..//button)[2]");
+    public By deleteUserIcon = By.xpath("(//h5[text()='Users with access to this store']/../..//button)[2]");
     By saveZellePaymentSettings = By.xpath("//form[@action='/api/Stores/SaveZelleGatewayApplication'] //button[text()='Save']");
     By editStoreBtn = By.xpath("//i[@class='far fa-edit ms-2']");
     By premiumTitle = By.xpath("//h4[text()='Premium']");
@@ -228,6 +229,10 @@ public class MyStorePage extends BasePage {
 
     public Clickable getConfigureLink() {
         return Clickable.getElementBy(configureLink, "Configure Link");
+    }
+
+    public Clickable getConfigureLink2() {
+        return Clickable.getElementBy(configureLink2,"Configure Link 2");
     }
 
     public Clickable getModifyButton() {
