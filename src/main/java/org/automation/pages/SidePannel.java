@@ -20,7 +20,7 @@ public class SidePannel extends BasePage {
 	By signOutBtn = By.xpath("//a[text()='Sign out']");
 	By qrCodeDashboardBtn = By.xpath("//a[text()='QR Code Dashboard']");
 	By manageBusinessAcc = By.xpath("//a[@class='sidebar-link collapsed' and text()='Manage Business']");
-	By dashboardButton = By.cssSelector("a[href^='/Stores/dashboard']");
+	public By dashboardButton = By.cssSelector("a[href^='/Stores/dashboard']");
 
 	public SidePannel() {
 	}

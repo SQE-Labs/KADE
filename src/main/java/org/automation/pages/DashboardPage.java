@@ -17,12 +17,9 @@ public class DashboardPage extends BaseTest {
     By customerTrends =By.xpath("//h5[text()='Customer Trends']");
     By pymtmethodPopularityTitle =By.xpath("//h5[text()='Payment Methods Popularity']");
     By contactSupportLink =By.cssSelector(".card-title +h6 a");
-
-
-
-
-
-
+    By myStore = By.cssSelector("[class^='card p-2 border w-20c overflow-hidden']");
+    By storeCountDashboard = By.xpath("(//span [@class=\"badge rounded-pill bg-dark ms-n1\"])[2]");
+    By listofStoreNameonPopup = By.cssSelector("div.popover-body span:nth-child(1)");
 
 
 
@@ -41,7 +38,8 @@ public class DashboardPage extends BaseTest {
     public Clickable getRefreshIcon() {return Clickable.getElementBy(refreshIcon,"Refresh Icon next to RT");}
     public Clickable getFullListLink() {return Clickable.getElementBy(fullListLink,"Full List Link");}
     public Clickable getContactSupportLink() {return Clickable.getElementBy(contactSupportLink, "Contact Support");}
-
-
+    public Clickable getmyStorescount() {return Clickable.getElementBy(myStore, "my store count ");}
+    public Clickable getStoreCountUnderYourBusiness() { return Clickable.getElementBy(storeCountDashboard, "Get Count of store under Your Business");}
+    public Clickable getListOfStoreNameonPopup() { return Clickable.getElementBy(listofStoreNameonPopup, "Store Names under Your Business");}
 
 }

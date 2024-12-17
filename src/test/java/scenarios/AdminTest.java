@@ -33,32 +33,38 @@ public class AdminTest extends BaseTest {
         session.getAdminPage().getDashboardButton().click();
         session.getAdminPage().getFindStoreLink().click();
         session.getAdminPage().getFilterIcon().click();
-        session.getAdminPage().getStoreName().setText("Zencode");
+        session.getAdminPage().getStoreName().setText("My Store");
         session.getAdminPage().getApplyBtn().click();
-        List<WebElement> storeElements = getDriver().findElements(By.xpath("//span[contains(text(),'Zencode')]"));
-        int elementcount = storeElements.size();
-        while(elementcount > 0){
-            session.getAdminPage().getFirstResult().click();
-            session.getAdminPage().getBlockBtn().clickbyJS();
-            WebdriverWaits.sleep(2000);
-            session.getAdminPage().getEditStatusTextBox().setText("Deletion of Store");
-            session.getAdminPage().getUpdateStatusBtn().clickbyJS();
-            WebdriverWaits.sleep(3000);
-            String storename= session.getAdminPage().getStoreNameText().getText();
-            session.getAdminPage().getDeleteBtn().clickbyJS();
-            session.getAdminPage().getEditDeleteStoreNameBox().setText(storename);
-            session.getAdminPage().getPermanentDeleteBtn().clickbyJS();
+        String ownerEmail = session.getAdminPage().getOwnweEmail().getText();
+        if (ownerEmail.equals("test1114@yopmail.com")){
 
-            // Delete Functionality here
+            List<WebElement> storeElements = getDriver().findElements(By.cssSelector(".ms-2.text-truncate"));
+            int elementcount = storeElements.size();
+            while (elementcount > 0) {
 
-            session.getAdminPage().getFilterIcon().click();
-            session.getAdminPage().getStoreName().setText("Zencode");
-            session.getAdminPage().getApplyBtn().click();
+                session.getAdminPage().getFirstResult().clickByMouse();
+                session.getAdminPage().getBlockBtn().clickbyJS();
+                WebdriverWaits.sleep(2000);
+                session.getAdminPage().getEditStatusTextBox().setText("Deletion of Store");
+                session.getAdminPage().getUpdateStatusBtn().clickbyJS();
+                WebdriverWaits.sleep(3000);
+                String storename = session.getAdminPage().getStoreNameText().getText();
+                session.getAdminPage().getDeleteBtn().clickbyJS();
+                session.getAdminPage().getEditDeleteStoreNameBox().setText(storename);
+                session.getAdminPage().getPermanentDeleteBtn().clickbyJS();
 
-            storeElements = getDriver().findElements(By.xpath("//span[contains(text(),'Zencode')]"));
-            elementcount = storeElements.size();
+                // Delete Functionality here
+
+                session.getAdminPage().getFilterIcon().click();
+                session.getAdminPage().getStoreName().setText("My store");
+                session.getAdminPage().getApplyBtn().click();
+
+                storeElements = getDriver().findElements(By.cssSelector(".ms-2.text-truncate"));
+                elementcount = storeElements.size();
+            }
         }
+    }
     }
 
 
-}
+

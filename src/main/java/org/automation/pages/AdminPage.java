@@ -24,8 +24,9 @@ public class AdminPage extends BasePage {
     By deleteBtn = By.cssSelector("button[href=\".-deleteStore-\"]");
     By deleteStoreNameField = By.cssSelector("input[name=\"name\"][required]");
     By clickPermanentDeleteBtn = By.xpath("//button[text()='Delete Permanently']");
-    By clickFirstResult = By.xpath("(//span[contains(text(),'Zencode')])[1]");
+    By clickFirstResult = By.cssSelector(".ms-2.text-truncate:nth-child(1)");
     By getStoreName = By.cssSelector(" .d-flex .ms-2.text-truncate:nth-child(1)");
+    By ownerEmail = By.cssSelector("a.me-1 +div >a+span");
 
     public Clickable getStoreNameText() { return Clickable.getElementBy(getStoreName,"Get Store Name");}
     public Clickable getDashboardButton() {return Clickable.getElementBy(adminDashboardBtn, "Admin Dashboard button ");}
@@ -44,7 +45,7 @@ public class AdminPage extends BasePage {
     public Editable getEditDeleteStoreNameBox(){ return Editable.getElementBy(deleteStoreNameField);}
     public Clickable getPermanentDeleteBtn(){return Clickable.getElementBy(clickPermanentDeleteBtn);}
     public Clickable getFirstResult(){ return Clickable.getElementBy(clickFirstResult, "Click First Search Result");}
-
+    public Clickable getOwnweEmail() {return Clickable.getElementBy(ownerEmail, "Owner Email");}
 
     public void selectedStoreDeleted(String storeName1) throws InterruptedException {
         KadeSession session = KadeSession.login(KadeUserAccount.Admin);

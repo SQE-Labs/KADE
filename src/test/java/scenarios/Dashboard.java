@@ -5,10 +5,17 @@ import org.automation.data.KadeUserAccount;
 import org.automation.pages.DashboardPage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
+import org.automation.utilities.WebdriverWaits;
 import org.checkerframework.checker.units.qual.A;
+import org.openqa.selenium.By;
+import org.openqa.selenium.SearchContext;
+import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
+import java.util.List;
+
 public class Dashboard extends BaseTest {
+
     @Test(description=" DC01&2 Verify that following sections are displayed, on the 'Dashboard'")
     public void verifyALLSectionsOnDashboardPage(){
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
@@ -52,5 +59,35 @@ public class Dashboard extends BaseTest {
         Assertions.assertTrue(Dashboard.getPaymentMethodPopularityTitle().isDisplayed());
         Assertions.assertEquals(Dashboard.getPaymentMethodPopularityTitle().getText(),"Payment Methods Popularitypast 30 days");
     }
+    
+    @Test(description ="DC04 Verify that 'No. of stores' count appears under 'Your Businesses' section, on the 'Dashboard' page.")
+    public void verifyNoOfCountAppearsUnderBusinessSection(){
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        DashboardPage Dashboard = new DashboardPage();
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getMyStoresTab().click();
 
+        // Verifying the store count from my store page.
+        List <WebElement>storeCount= session.getDashboardPage().getmyStorescount().getListOfWebElements();
+        int actualCount = storeCount.size();
+        System.out.println(storeCount.size());
+
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getDashboardTab().click();
+
+        // Verify the count of the store under 'Your business' tab.
+        String value=session.getDashboardPage().getStoreCountUnderYourBusiness().getText();
+        System.out.println(value);
+
+        //  Verifying the store count
+        Assertions.assertEquals(String.valueOf(storeCount.size()),value);
+
+        // Verify popup opens up after clicking on the store count
+        session.getDashboardPage().getStoreCountUnderYourBusiness().click();
+
+        List<WebElement> storeNames = session.getDashboardPage().getListOfStoreNameonPopup().getListOfWebElements();
+        WebdriverWaits.sleep(3000);
+        System.out.println("list count : " +storeNames.size());
+
+    }
 }
