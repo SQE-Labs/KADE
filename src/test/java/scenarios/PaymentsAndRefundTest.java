@@ -7,10 +7,10 @@ import org.automation.objectBuilder.pages.BillsPage;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import org.automation.session.KadeSession;
+
 
 import java.time.Duration;
 
@@ -248,8 +248,8 @@ public class PaymentsAndRefundTest extends KadeSession {
         float updateAmount1 = Float.parseFloat(updatedAmt1.replace(",", ""));
         float expBalanceDue1= amount - updateAmount1;
         String expectedBalanceDue1 = session.getBillPage().convertToNumberFormat(expBalanceDue1);
-        WebdriverWaits.waitForElementInVisible(session.getPaymentsPage().paymentTypeHeader,5);
-        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().totalPaidAmt,1);
+        WebdriverWaits.waitForElementInVisible(session.getPaymentsPage().paymentTypeHeader,10);
+        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().totalPaidAmt,10);
         Assertions.assertEquals(session.getPaymentsPage().getTotalPaidAmount().getText().split(":")[1],"$"+updatedAmt1);
         Assertions.assertEquals(session.getPaymentsPage().getBalanceDue().getText(),"$"+expectedBalanceDue1);
 
@@ -415,7 +415,8 @@ public class PaymentsAndRefundTest extends KadeSession {
         WebdriverWaits.waitForElementVisible(session.getPaymentsPage().swipeBtn,30);
 
         session.getPaymentsPage().swipeToPay();
-        session.getPaymentsPage().getBlueCloseButton().clickbyJS();
+        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().closeBlueBtn,30);
+        session.getPaymentsPage().getBlueCloseButton().click();
     }
 
     @Test(description = "PYMT9 : Bill Creation and Successful Bill Payment through Bank account by Customer.")
@@ -451,11 +452,11 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         //Step 9: Click on 'Pay Now' Button
         session.getPaymentsPage().getPayNowButton().click();
-        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().changeButton,30);
+        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().changeButton,10);
 
         //Step 10: Click on 'Change Payment Method' Button
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().savedBankAccount,20);
+
 
 
         //Step 11: Select the 'Bank Account' Method

@@ -8,9 +8,11 @@ import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.NoSuchElementException;
 
 import java.time.Duration;
-import java.util.NoSuchElementException;
 import java.util.Set;
 
 public class WebdriverWaits extends BaseTest {
@@ -158,6 +160,26 @@ public class WebdriverWaits extends BaseTest {
             }
         });
     }
+
+    public static void retryClick(WebElement element, int maxRetries) {
+        int attempts = 0;
+        while (attempts < maxRetries) {
+            try {
+                element.click();
+                return; // Exit the loop if the click is successful
+            } catch (Exception e) {
+                attempts++;
+                try {
+                    Thread.sleep(1000); // Short wait before retrying
+                } catch (InterruptedException ignored) {
+                }
+            }
+        }
+        throw new RuntimeException("Unable to click the element after " + maxRetries + " attempts");
+    }
+
+
+
 
 
  

@@ -19,7 +19,6 @@ public class MyStorePage extends BasePage {
     By deleteStoreIcon = By.cssSelector(".fa.fa-check");
     By alertMessage = By.cssSelector("form.link-check.checked div.alert-message");
     By configureBtnBusinessPlanStore = By.xpath("(//h6[text()='Automation Flow Business']/../..//a)[1]");
-
     By blankFieldWarningMsg = By.xpath("//p[@class='alert-content']");
     By storeLogo = By.xpath("//div[@class='display-none -update-div-']//a");
     By StoreNameTbx = By.xpath("//input[@name='name']");

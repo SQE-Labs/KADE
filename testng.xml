@@ -4,33 +4,21 @@
 	<parameter name="xmlFileName" value="Suite.xml" />
 	<test name="TestHeadless" thread-count="2" parallel="classes">
 		<parameter name="headless" value="false" />
-	<!--<packages><package name="scenarios"></package></packages>-->
+		<packages>
+			<package name="scenarios"/>
+		</packages>
 
-    <classes>
-        <class name="scenarios.BillTest" />
-        <class name="scenarios.CreateAccountTest" />
-        <class name="scenarios.LoginTest" />
-        <class name="scenarios.MyStoreTest" />
-        <class name="scenarios.PaymentsAndRefundTest" />
-        <class name="scenarios.TransactionTest" />
-    </classes>
+	</test>
 
-</test>
-
-
-<!-- The Test cases below require windows explorer to open, which does not work in headless mode
-     So the test cases below will not run in parallel, and will be headed.-->
-
+	<!-- The Test cases below require windows explorer to open, which does not work in headless mode
+         So the test cases below will not run in parallel, and will be headed. -->
 
 	<test name="TestHeaded">
 		<parameter name="headless" value="false" />
 		<packages>
-			<package name="singleThreaded"></package>
+			<package name="singleThreaded"/>
 		</packages>
 	</test>
 
-<!--	<listeners>-->
 
-<!--		<listener class-name="org.automation.listeners.TestRunListener"></listener>-->
-<!--	</listeners>-->
 </suite>

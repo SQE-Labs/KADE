@@ -5,13 +5,13 @@
     <test name="TestHeadless" thread-count="2" parallel="classes" >
         <!-- Parameters for browser and headless configuration -->
 
-        <parameter name="headless" value="false"></parameter>
+        <parameter name="headless" value="false"/>
 
         <classes>
            <class name="scenarios.PaymentsAndRefundTest"/>
-<!--            <class name="scenarios.TransactionTest"/>-->
-<!--            <class name="scenarios.BillTest"/>-->
-<!--           <class name="scenarios.MyStoreTest"/>-->
+            <class name="scenarios.TransactionTest"/>
+            <class name="scenarios.BillTest"/>
+           <class name="scenarios.MyStoreTest"/>
         </classes>
     </test>
 </suite>

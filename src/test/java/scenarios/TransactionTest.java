@@ -133,23 +133,26 @@ public class TransactionTest extends BaseTest {
 
         //Logout as Store manager
         session.getSidePannel().getSignOutButton().clickByMouse();
-       WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.cssSelector("[name='userName']"));
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, session.getLoginPage().userNameField);
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
         session.getNotificationPage().getNotificationIcon().click();
         session.getNotificationPage().getFirstNotification().click();
-        WebdriverWaits.waitForElementClickable(By.xpath("//button[@type=\"button\" and text()='Pay Now']"),5);
+        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().payNowButton,5);
         session.getPaymentsPage().getPayNowButton().click();
         String expectedTotalPayment = session.getBillPage().getActiveBillAmmount().getText();
-        WebdriverWaits.waitForElementUntilVisible(By.xpath("//div[contains(text(),'Change')]"),10);
-        session.getPaymentsPage().getChangePaymentButton().clickbyJS();
-        //WebdriverWaits.fluentWait_ElementIntactable(3000,500,By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]"));
-       // String expectedPaymentMethod = session.getPaymentsPage().getSavedCreditCard().getText().replaceAll("\\s.*", "");
-        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().savedCreditcard,20);
+        WebdriverWaits.waitForElementUntilVisible(session.getPaymentsPage().changeButton,3000);
+        session.getPaymentsPage().getChangePaymentMethodButton().clickByMouse();
+        try{
+            WebdriverWaits.waitForElementVisible(session.getPaymentsPage().savedCreditcard,5);
+        }
+        catch (Exception e ) {
+            session.getPaymentsPage().getChangePaymentMethodButton().clickByMouse();
+        };
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
-        WebdriverWaits.waitForElementVisible(By.xpath("//a[text()='Close']"),10);
+        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().closeBlueBtn,1000);
         session.getPaymentsPage().getBlueCloseButton().clickbyJS();
 
         // logout customer .
@@ -250,8 +253,8 @@ public class TransactionTest extends BaseTest {
         // Enter amount in new charge popup
         session.getNewChargePopup().getNewChargeAmountField().setText(amount);
         session.getNewChargePopup().getDescriptionfield().setText(description);
-        WebdriverWaits.waitForElementVisible(session.getNewChargePopup().newChargeConfirm,20);
-        session.getNewChargePopup().getNewChargeConfirmButton().click();
+        WebdriverWaits.waitForElementVisible(session.getNewChargePopup().newChargeConfirm,10);
+        session.getNewChargePopup().getNewChargeConfirmButton().clickByMouse();
 
         // Making new charge payment manually with Credit Card
         session.getPaymentsPage().payByCreditCard();
@@ -278,6 +281,7 @@ public class TransactionTest extends BaseTest {
         // Enter amount in new charge popup
         session.getNewChargePopup().getNewChargeAmountField().setText(amount);
         session.getNewChargePopup().getDescriptionfield().setText(description);
+        WebdriverWaits.waitForElementVisible(session.getNewChargePopup().newChargeConfirm,10);
         session.getNewChargePopup().getNewChargeConfirmButton().click();
 
         // Waiting for Automatic Terminal Payment
@@ -347,8 +351,13 @@ public class TransactionTest extends BaseTest {
         session.getNotificationPage().getNotificationIcon().click();
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
-        session.getPaymentsPage().getChangePaymentButton().clickbyJS();
-        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().savedCreditcard,3000);
+        session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
+        try{
+            WebdriverWaits.waitForElementVisible(session.getPaymentsPage().savedCreditcard,10);
+        }
+        catch (Exception e ) {
+            session.getPaymentsPage().getChangePaymentMethodButton().click();
+        };
         session.getPaymentsPage().getSavedCreditCard().clickByMouse();
         session.getPaymentsPage().swipeToPay();
         WebdriverWaits.waitForElementClickable(session.getPaymentsPage().closeBlueBtn,30);
@@ -413,12 +422,15 @@ public class TransactionTest extends BaseTest {
 
         session.getNotificationPage().getNotificationIcon().click();
         session.getNotificationPage().getFirstNotification().click();
-        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().payNowButton,10);
         session.getPaymentsPage().getPayNowButton().click();
         WebdriverWaits.waitForElementVisible(session.getPaymentsPage().changeButton,10);
-        session.getPaymentsPage().getChangePaymentButton().click();
-        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().savedCreditcard,10);
-        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().savedCreditcard,30);
+        session.getPaymentsPage().getChangePaymentMethodButton().click();
+        try{
+            WebdriverWaits.waitForElementVisible(session.getPaymentsPage().savedCreditcard,10);
+        }
+        catch (Exception e ) {
+            session.getPaymentsPage().getChangePaymentMethodButton().click();
+        };
         session.getPaymentsPage().getSavedCreditCard().clickByMouse();
         session.getPaymentsPage().swipeToPay();
         session.getPaymentsPage().getBlueCloseButton().clickByMouse();
@@ -496,9 +508,13 @@ public class TransactionTest extends BaseTest {
         session.getNotificationPage().getFirstNotification().clickByMouse();
         WebdriverWaits.waitForElementVisible(session.getPaymentsPage().payNowButton,10);
         session.getPaymentsPage().getPayNowButton().click();
-        session.getPaymentsPage().getChangePaymentButton().clickbyJS();
-        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().savedCreditcard,10);
-
+        session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
+        try{
+            WebdriverWaits.waitForElementVisible(session.getPaymentsPage().savedCreditcard,10);
+        }
+        catch (Exception e ) {
+            session.getPaymentsPage().getChangePaymentMethodButton().click();
+        };
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
         session.getPaymentsPage().getBlueCloseButton().clickByMouse();
@@ -597,12 +613,16 @@ public class TransactionTest extends BaseTest {
         session.getPaymentsPage().getPayNowButton().clickByMouse();
 
         //Step 10: Click on 'Change Payment Method' Button
-        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().changeButton,20);
+    //    WebdriverWaits.waitForElementVisible(session.getPaymentsPage().changeButton,10);
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().changeButton,20);
-        session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
+        try{
+            WebdriverWaits.waitForElementVisible(session.getPaymentsPage().savedBankAccount,10);
+        }
+        catch (Exception e ) {
+            session.getPaymentsPage().getChangePaymentMethodButton().click();
+        };
 
-        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().savedBankAccount,20);
+
         //Step 11: Select 'Bank Account' Method
         session.getPaymentsPage().getSavedBankAccount().clickbyJS();
 
@@ -852,12 +872,15 @@ public class TransactionTest extends BaseTest {
         session.getNotificationPage().getNotificationIcon().click();
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
-        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().changeButton,20);
-        session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().changeButton,20);
-        session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().SavedVenmoCard,20);
-        WebdriverWaits.fluentWait_ElementIntactable(3000,500, By.xpath("//span[@class='text-nowrap fs-pn25' and text()='Venmo']"));
+        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().changeButton,10);
+
+        session.getPaymentsPage().getChangePaymentMethodButton().click();
+        try{
+            WebdriverWaits.waitForElementClickable(session.getPaymentsPage().SavedVenmoCard,10);
+        }
+        catch (Exception e ) {
+            session.getPaymentsPage().getChangePaymentMethodButton().click();
+        }
         session.getPaymentsPage().getSavedVenmoCard().clickbyJS();
         WebdriverWaits.waitForElementUntilVisible(session.getPaymentsPage().iMadeMyPaymentButtonVenmo,3000);
         session.getPaymentsPage().getIMadeMyPaymentButton().clickbyJS();

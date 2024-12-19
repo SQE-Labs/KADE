@@ -201,6 +201,7 @@ public class PaymentsPage extends BasePage {
     }
 
     public Clickable getChangePaymentMethodButton() {
+        System.out.println(changeButton);
         return Clickable.getElementBy(changeButton, "change Payment Method button");
     }
 
@@ -241,9 +242,6 @@ public class PaymentsPage extends BasePage {
         return Clickable.getElementBy(payNowButton, "Pay Now Button");
     }
 
-    public Clickable getChangePaymentButton() {
-        return Clickable.getElementBy(changeButton, "change Payment type button");
-    }
 
     public Clickable getSavedCreditCard() {
         return Clickable.getElementBy(savedCreditcard, "Saved Credit card");
