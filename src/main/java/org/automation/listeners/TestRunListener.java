@@ -8,7 +8,14 @@ import org.openqa.selenium.JavascriptExecutor;
 import org.testng.*;
 
 
-public final class TestRunListener extends BaseTest implements ITestListener, ISuiteListener {
+import org.testng.IRetryAnalyzer;
+import org.testng.ITestResult;
+
+
+public final class TestRunListener extends BaseTest implements ITestListener, ISuiteListener,   IRetryAnalyzer{
+
+    private static final int maxRetryCount = 3;
+    private int retryCount = 2;
 
     @Override
     public void onTestStart(ITestResult result) {
@@ -56,6 +63,8 @@ public final class TestRunListener extends BaseTest implements ITestListener, IS
     @Override
     public void onFinish(ITestContext context) {
         Log.info("About to end executing Test [" + context.getName() + "]");
+        extent.setSystemInfo(context.getName(), getPassPercentage(context) + "%");
+        extent.flush();
     }
 
     @Override
@@ -66,6 +75,22 @@ public final class TestRunListener extends BaseTest implements ITestListener, IS
     @Override
     public void onFinish(ISuite suite) {
         Log.info("About to end executing Suite [" + suite.getName() + "]");
+
     }
 
+    private int getPassPercentage(ITestContext context) {
+        int totalTests = context.getAllTestMethods().length;
+        int passedTests = context.getPassedTests().size();
+        return (passedTests * 100) / totalTests;
+    }
+
+    @Override
+    public boolean retry(ITestResult result) {
+        if (retryCount < maxRetryCount) {
+            retryCount++;
+            return true;  // Indicate to retry the test
+        }
+        return false; // Do not retry after max attempts
+    }
 }
+

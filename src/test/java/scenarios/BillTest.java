@@ -62,11 +62,11 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getContinueWithoutButton().isDisplayed());
 
         //Click On Continue Button
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.waitForElementVisible(session.getBillPage().continueWithoutBtn,30);
         bill.getContinueWithoutButton().clickByMouse();
 
         //Verify toast message : Success message Popup.
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.waitForElementVisible(session.getBillPage().toastMessage,30);
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
         String toastMessage = "Bill has been created successfully.Click here to open the bill";
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
@@ -114,14 +114,14 @@ public class BillTest extends BaseTest {
         Assertions.assertTrue(bill.getConfirmButton().isEnabled());
 
         //Click Confirm
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.waitForElementVisible(session.getBillPage().confirmBtn,30);
         bill.getConfirmButton().clickbyJS();
 
         //Verify Message popup and Buttons
         Assertions.assertEquals(bill.getMessagePopupHeader().getText(), "Message");
         Assertions.assertTrue(bill.getSelectCustomerButton().isDisplayed());
         Assertions.assertTrue(bill.getContinueWithoutButton().isDisplayed());
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementVisible(session.getBillPage().selectACustomerBtn,30);
         bill.getSelectACustomerButton().click();
 
         //Verify Customer popup
@@ -139,7 +139,7 @@ public class BillTest extends BaseTest {
         bill.getConfirmButton().click();
 
         //Verify toast message
-        WebdriverWaits.sleep(4000);
+        WebdriverWaits.waitForElementVisible(session.getBillPage().toastMessage,30);
         Assertions.assertTrue(bill.getToastMessage().isDisplayed());
         String toastMessage = "Bill has been created successfully.Click here to open the bill";
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
@@ -284,7 +284,7 @@ public class BillTest extends BaseTest {
 
         //Delete the 1st unpaid bill
         bill.getUnpaidBillWithoutDescription().clickByMouse();
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementVisible(session.getBillPage().deleteButton,30);
         bill.getDeleteButton().click();
         bill.getDeleteIcon().click();
     }
@@ -488,11 +488,10 @@ public class BillTest extends BaseTest {
 
         // Click on New Bill Button
         bill.getNewBillButton().click();
-        WebdriverWaits.sleep(3000);
 
         //Enter amount
         String amount = "60,000.00";
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementVisible(session.getBillPage().amtTbx,30);
         bill.getAmountTextbox().setText(amount);
         bill.getDisableTaxToggleButton().clickIfExist();
 
@@ -508,7 +507,7 @@ public class BillTest extends BaseTest {
         Assertions.assertEquals(bill.getToastMessage().getText(), toastMessage);
 
         //Verify Created Bill
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementVisible(session.getBillPage().closeLogoPopupBtn,30);
         bill.getCloseLogoPopupBtn().clickIfExist(true,3);
         bill.getUnpaidBillWithoutDescription().clickByMouse();
         Assertions.assertNotEquals(bill.getUnpaidAmount().getText(), amount);
@@ -573,15 +572,13 @@ public class BillTest extends BaseTest {
 
         // Click on New Bill Button
         bill.getNewBillButton().click();
-        WebdriverWaits.sleep(3000);
 
         //Enter amount
         String amount = "5,000.00";
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementVisible(session.getBillPage().amtTbx,30);
         bill.getAmountTextbox().setText(amount);
         bill.getDisableTaxToggleButton().clickIfExist();
         bill.getNewBillButton().click();
-        WebdriverWaits.sleep(3000);
 
         //Enter amount
 
@@ -699,13 +696,13 @@ public class BillTest extends BaseTest {
 
         //Click on 'Repeat' Field
         bill.getRepeatField().click();
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementVisible(session.getBillPage().repeatPopUpTitle,30);
         WebdriverWaits.fluentWait_ElementIntactable(2000, 500, By.xpath("//h5[text()='Repeat']"));
         Assertions.assertEquals(bill.getRepeatPopUpTitle().getText(), "Repeat");
         bill.getDoneButton().click();
 
         //Click on 'Expiry' Field
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.waitForElementVisible(session.getBillPage().paidExpiryField,30);
         bill.getExpiryField().clickByMouse();
         Assertions.assertEquals(bill.getExpiryDatePopUpTitle().getText(), "Expiration Date");
         bill.getDoneButton().click();
@@ -760,7 +757,8 @@ public class BillTest extends BaseTest {
 
         //Click on More Option
         bill.getMoreOption().click();
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.sleep(2000);
+    //    WebdriverWaits.waitForElementVisible(session.getBillPage().paidExpiryField,40);
         bill.getExpiryField().clickByMouse();
         Assertions.assertEquals(bill.getExpiryDatePopUpTitle().getText(), "Expiration Date");
         Assertions.assertTrue(bill.getExpiryNoneOption().isDisplayed());
@@ -771,7 +769,7 @@ public class BillTest extends BaseTest {
         bill.getDoneButton().click();
 
         //Click on Expiry Field
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.waitForElementVisible(session.getBillPage().paidExpiryField,30);
         bill.getExpiryField().clickByMouse();
         String expiresIn = "20";
         bill.getExpiresInField().setText(expiresIn);

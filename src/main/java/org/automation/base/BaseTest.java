@@ -60,6 +60,7 @@ public class BaseTest {
 		extent.setSystemInfo("Environment", "QA");
 		extent.setSystemInfo("Executed By", System.getProperty("user.name")); // Add executor's name
 		extent.setSystemInfo("TestNG XML File", xmlFileName); // Add XML file name
+
 	}
 
 	public void setExtent() throws InterruptedException, IOException {

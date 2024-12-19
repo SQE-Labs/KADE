@@ -7,9 +7,11 @@ import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.RandomGenerator;
 import org.automation.utilities.WebdriverWaits;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 
 import java.awt.*;
+import java.time.Duration;
 
 public class MyStoreTest extends BasePage {
     @Test(enabled=true, description = "SC_01(A) Verifying creation of Store without Stripe Payment Account Configuration")
@@ -52,6 +54,7 @@ public class MyStoreTest extends BasePage {
         WebdriverWaits.sleep(3000);
         myStore.getStoreLogo().click();
         myStore.uploadImageInStoreLogo();
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(5));
         myStore.getCheckButton().click();
 
         //Verifying maximum length of 'Store Name' field

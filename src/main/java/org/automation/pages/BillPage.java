@@ -87,15 +87,15 @@ public class BillPage extends BasePage {
     By goBtnEmail = By.xpath("//input[@placeholder='Email']/..//button");
     By searcherName = By.xpath("(//div[@data-field='alias'])[2]");
     By discardBtn = By.xpath("(//*[contains(text(),'discard')])[5]/.. //button[text()='Discard']");
-    By confirmBtn = By.xpath("//button[@name='method']");
-    By continueWithoutBtn = By.xpath("//*[@role='dialog'] //button[text()='Continue without']");
-    By selectACustomerBtn = By.xpath("//*[@role=\"dialog\"] //button[text()='Select a customer']");
+    public By confirmBtn = By.xpath("//button[@name='method']");
+    public By continueWithoutBtn = By.xpath("//*[@role='dialog'] //button[text()='Continue without']");
+    public By selectACustomerBtn = By.xpath("//*[@role=\"dialog\"] //button[text()='Select a customer']");
     By whichStorePopup = By.xpath("//p[text()='Which store?']");
     By newBusinessCard = By.xpath("div.overflow-hidden.border.border-info");
     By storesCombobox = By.xpath("//span[@role='combobox']");
     By continueBtn = By.xpath("//button[@type='submit']");
     By messagePopupHeader = By.xpath("//*[@role='dialog'] //h5[text()='Message']");
-    By closeLogoPopupBtn = By.xpath("//div[@class='modal fade show' and not(@data-bs-keyboard='false')]" +
+    public By closeLogoPopupBtn = By.xpath("//div[@class='modal fade show' and not(@data-bs-keyboard='false')]" +
             "//child::button");
     By totalAmt = By.xpath("//span[@data-field='total']");
     By tapToAddFiles = By.cssSelector(".flex-column-reverse > div:nth-child(3)");
@@ -105,7 +105,7 @@ public class BillPage extends BasePage {
     By attachedImage = By.xpath("//img[@class='img-thumbnail  bg-black']");
     By notPaidBill = By.xpath("//div[contains(@class, 'row bg-white')][1]");
     By unPaidBill=By.xpath("(//div[contains(@class,'row bg-white ')])[1]/div[2]");
-    By deleteButton = By.cssSelector(".btn-outline-danger");
+    public By deleteButton = By.cssSelector(".btn-outline-danger");
     By deleteIcon = By.cssSelector(".fa.fa-check");
     By moreOptions = By.cssSelector(".mb-3.border.p-2.py-3.rounded-3.advanced-d-none.position-relative");
     By referenceNo = By.xpath("(//div[@class='border p-2 py-3 mb-2 rounded-3  d-none advanced-d-block'])[1]");
@@ -148,8 +148,8 @@ public class BillPage extends BasePage {
     //    By paidRepeatField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative']");
     By paidRepeatField = By.xpath("(//div[contains(@class,'text-nowrap d-flex align-items-center w-100')])[3]");
     //By paidExpiryField = By.xpath("//div[@class='border p-2 py-3 mb-2 rounded-3 position-relative -expdate-div-']");
-    By paidExpiryField = By.xpath("//label[text()='Expiration Date:']");
-    By repeatPopUpTitle = By.xpath("//h5[text()='Repeat']");
+    public By paidExpiryField = By.xpath("//label[text()='Expiration Date:']");
+    public By repeatPopUpTitle = By.xpath("//h5[text()='Repeat']");
     By expiryDatePopUpTitle = By.xpath("//h5[text()='Expiration Date']");
     By unpaidAmount = By.cssSelector(".text-danger.fs-4");
 
@@ -168,13 +168,13 @@ public class BillPage extends BasePage {
     By customerCancelOption = By.xpath("//span[text()='Customer can cancel at any time']");
     By everyDayField = By.xpath("//input[@class='max-5c form-control']");
     By recurringBillText = By.xpath("//a[@class='btn btn-link']");
-    By billTag = By.xpath("//div[contains(@class,'col-5  text-end') ]//div[1]/span");
+    public By billTag = By.xpath("//div[contains(@class,'col-5  text-end') ]//div[1]/span");
 
     /*
     Locators of Bill popup
      */
-    By billPopupHeader = By.xpath("//span[text()='Bill']");
-    By qrCodeBtn = By.xpath("//span[text()='QR Code']");
+    public By billPopupHeader = By.xpath("//span[text()='Bill']");
+    public By qrCodeBtn = By.xpath("//span[text()='QR Code']");
     By shareBtn = By.xpath("//span[text()='Share']");
     public By processPaymentBtn = By.xpath("//button[text()='Process Payment']");
     By deleteBillBtn = By.xpath("//button[text()='Delete']");
