@@ -30,7 +30,7 @@ public class PaymentsPage extends BasePage {
     By paymentLogo = By.xpath("//span[@class='payment-logo-bg me-1']");
     public By totalPaidAmt = By.xpath("//h4[contains(text(),'Total paid')]");
     By voidedTag = By.xpath("//h6[text()='VOIDED']");
-    By changeButton = By.xpath("//div[contains(text(),'Change')]");
+    public By changeButton = By.xpath("//div[contains(text(),'Change')]");
     By swipeBtn = By.xpath("//input[@type='range']");
     By closeBtn = By.xpath("//a[text()='Close']");
 
@@ -44,7 +44,7 @@ public class PaymentsPage extends BasePage {
     public By creditCardBtn = By.xpath("//button[text()='Credit Card']");
     By othersBtn = By.xpath("//button[text()='Other']");
    public By savedCreditcard = By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')][1]");
-
+ By selectPaymentPopupTitle = By.xpath("//h5[text()=\"Select payment method\"]");
 
     /*
     Payment Type Panel
@@ -201,7 +201,7 @@ public class PaymentsPage extends BasePage {
     }
 
     public Clickable getChangePaymentMethodButton() {
-        WebdriverWaits.sleep(2000);
+//        WebdriverWaits.sleep(2000);
         return Clickable.getElementBy(changeButton, "change Payment Method button");
     }
 
@@ -399,5 +399,7 @@ public class PaymentsPage extends BasePage {
     public Clickable  getUpdateAmountToPayButton(){
         return  Clickable.getElementBy(updateAmtBtn, "Update Amount to pay button");
     }
-
+    public Clickable getSelectPaymentPopupTitle() {
+        return Clickable.getElementBy(selectPaymentPopupTitle,"payment title");
+    }
 }

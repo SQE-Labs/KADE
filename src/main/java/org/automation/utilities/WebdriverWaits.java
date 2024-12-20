@@ -15,6 +15,9 @@ import java.time.Duration;
 import java.util.NoSuchElementException;
 import java.util.Set;
 
+//import static org.automation.base.BaseTest.driver;
+import static org.automation.base.BaseTest.getDriver;
+
 public class WebdriverWaits extends BaseTest {
     /**
      * Waits for a given element to be visible
@@ -31,8 +34,8 @@ public class WebdriverWaits extends BaseTest {
     /**
      * Waits for a given element to be visible
      *
-     * @param driver WebDriver instance
-     * @param e      element to wait for
+//     * @param driver WebDriver instance
+//     * @param e      element to wait for
      */
     public static void waitForElementVisible(By locator, int waitTime) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
@@ -51,7 +54,7 @@ public class WebdriverWaits extends BaseTest {
     /**
      * Waits for a given element to be selected
      *
-     * @param driver  WebDriver instance
+//     * @param driver  WebDriver instance
      * @param locator By of the element to wait for
      */
     public static void waitForElementSelected(By locator, int waitTime) {
@@ -63,7 +66,7 @@ public class WebdriverWaits extends BaseTest {
     /**
      * Waits for a given element to be clickable
      *
-     * @param driver  WebDriver instance
+//     * @param driver  WebDriver instance
      * @param locator By to locate element to wait for
      */
     public static void waitForElementClickable(By locator, int waitTime) {
@@ -85,7 +88,7 @@ public class WebdriverWaits extends BaseTest {
      * are trying to check the page title on page load before the title has
      * changed to that of the new page.
      *
-     * @param driver WebDriver instance
+//     * @param driver WebDriver instance
      * @param title  title the page should have
      */
     public static boolean waitForPageTitle(String title, int waitTime) {
@@ -140,4 +143,45 @@ public class WebdriverWaits extends BaseTest {
 
 		Thread.sleep(3000);
 	}
+
+    public static void retryClick(By locator, int retryCount) {
+        int waitTime = 5;
+        if (retryCount <= 0) {
+            throw new IllegalArgumentException("Retry count must be greater than 0");
+        }
+
+        int attempts = 0;
+        boolean isClicked = false;
+
+        while (attempts < retryCount && !isClicked) {
+            try {
+                /* Wait until the element is clickable */
+
+                WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
+                WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
+
+                // Attempt to click the element
+                element.click();
+                isClicked = true;
+                System.out.println("Click successful on attempt " + (attempts + 1));
+            } catch (Exception e) {
+                attempts++;
+                if (attempts < retryCount) {
+                    System.out.println("Click attempt " + attempts + " failed. Retrying...");
+                } else {
+                    System.out.println("Click failed after " + attempts + " attempts. Locator: " + locator.toString());
+                    throw e; // Rethrow exception after all retries fail
+                }
+
+                // Add a delay before retrying
+                try {
+                    Thread.sleep(1000 * attempts); // Incremental delay (e.g., 1s, 2s, 3s...)
+                } catch (InterruptedException ie) {
+                    Thread.currentThread().interrupt();
+
+                }
+            }
+        }
+    }
+
 }

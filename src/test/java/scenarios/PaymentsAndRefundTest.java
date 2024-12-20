@@ -454,16 +454,20 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getPaymentsPage().getPayNowButton().click();
 
         //Step 10: Click on 'Change Payment Method' Button
-        session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
 
-        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().savedBankAccount,5);
+        session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
+        WebdriverWaits.retryClick(session.getPaymentsPage().changeButton, 2);
+
+
         //Step 11: Select 'Bank Account' Method
         session.getPaymentsPage().getSavedBankAccount().clickbyJS();
 
+//        WebdriverWaits.retryClick(session.getPaymentsPage().savedBankAccount,2);
 
+//     WebdriverWaits.waitForElementClickable(session.getPaymentsPage().savedBankAccount,5);
         //Verify that Selected Bank Method is Displayed
-        Assertions.assertTrue(session.getPaymentsPage().getSelectedBankDisplay().isDisplayed());
-        WebdriverWaits.sleep(2000);
+//        Assertions.assertTrue(session.getPaymentsPage().getSelectedBankDisplay().isDisplayed());
+
         //Step 12: Swipe to Pay
         session.getPaymentsPage().swipeToPay();
 

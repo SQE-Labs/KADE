@@ -86,8 +86,30 @@ public class Dashboard extends BaseTest {
         session.getDashboardPage().getStoreCountUnderYourBusiness().click();
 
         List<WebElement> storeNames = session.getDashboardPage().getListOfStoreNameonPopup().getListOfWebElements();
-        WebdriverWaits.sleep(3000);
         System.out.println("list count : " +storeNames.size());
 
+    }
+    @Test(description = "DC05,06,07 : Verify that Processed Payments, No.of Customer Count and Today's Payment of All Stores")
+    public void getVerifyThatProcessPaymentsNoofCustomerAndTodayPayment(){
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        DashboardPage Dashboard = new DashboardPage();
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getDashboardTab().click();
+
+        // Verify the Process Payment of Last 30 days
+        Assertions.assertTrue(session.getDashboardPage().getTotalAmountOfProcessPayment().isDisplayed());
+        String valueA = session.getDashboardPage().getTotalAmountOfProcessPayment().getText();
+        System.out.println("Process Payment of Last 30 days is: "+valueA);
+
+
+        // Verify the  customer count of all stores displayed under Customer Section
+        Assertions.assertTrue(session.getDashboardPage().getCountOfAllStoreCustomer().isDisplayed());
+        String valueB = session.getDashboardPage().getCountOfAllStoreCustomer().getText();
+        System.out.println("Total Count of last 30 days of all stores: "+valueB);
+
+        // Verify that Today's Payment appears of  all stores under 'Today's Payment' section.
+        Assertions.assertTrue(session.getDashboardPage().getTodayPayment().isDisplayed());
+        String valueC = session.getDashboardPage().getTodayPayment().getText();
+        System.out.println("Sum of Today's payment of all stores: "+valueC);
     }
 }
