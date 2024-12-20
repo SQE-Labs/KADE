@@ -456,13 +456,15 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         //Step 10: Click on 'Change Payment Method' Button
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-
-
+        try{
+            WebdriverWaits.waitForElementVisible(session.getPaymentsPage().savedCreditcard,10);
+        }
+        catch (Exception e ) {
+            session.getPaymentsPage().getChangePaymentMethodButton().click();
+        };
 
         //Step 11: Select the 'Bank Account' Method
         session.getPaymentsPage().getSavedBankAccount().clickbyJS();
-
-
 
 
         //Verify that Selected Bank Method is Displayed
