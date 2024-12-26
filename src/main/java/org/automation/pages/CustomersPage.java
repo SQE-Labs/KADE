@@ -19,7 +19,7 @@ public class CustomersPage extends BasePage {
     By filter = By.cssSelector(".far.fa-2x.fa-sliders-h-square");
     By phoneNumber = By.xpath("//input[@placeholder='Phone number']");
     By goBtn = By.xpath("//button[text()=\"Go\"]");
-    By emailGoBtn = By.xpath("(//button[text()=\"Go\"])[2]");
+    public By emailGoBtn = By.xpath("(//button[text()=\"Go\"])[2]");
     By customerName = By.xpath("(//input[@lbl-title=\"Customer's name?\"])[2]");
     By done = By.xpath("//button[text()=\"Done\"]");
     By emailField = By.xpath("//input[@placeholder='Email']");
@@ -28,7 +28,7 @@ public class CustomersPage extends BasePage {
     public By filterEmail = By.xpath("(//input[@class='form-control'])[2]");
     By invalidFilterEmail = By.xpath("//input[@class='form-control is-invalid']");
     By filterName  = By.xpath("(//input[@class='form-control'])[3]");
-    By filterApplyBtn = By.xpath("//button[@class='btn-sm mt-4 -apply- btn btn-primary']");
+    public By filterApplyBtn = By.xpath("//button[@class='btn-sm mt-4 -apply- btn btn-primary']");
     By filterTitle = By.xpath("//h5[@class='offcanvas-title']");
     By pencilIcon = By.xpath("//i[@class='fas fa-pencil fs-pn15']");
     By chngeName = By.xpath("//input[@name='userAliasName']");
@@ -48,18 +48,18 @@ public class CustomersPage extends BasePage {
     By rewardPoints = By.xpath("//input[@placeholder='Points']");
     By submitRewardPts = By.cssSelector(".btn.btn-outline-primary.ms-auto");
     By phoneValidation = By.cssSelector(".alert.alert-error.text-danger.display-none");
-    By customerPopupClose = By.xpath("(//button[@class=\"btn-close\"])[2]");
+    public By customerPopupClose = By.xpath("(//button[@class=\"btn-close\"])[2]");
     By emailValidation = By.xpath("(//div[@class=\"alert alert-error text-danger  display-none\"])[2]");
     By newBill = By.cssSelector(".fs-4");
     By newBillDropdown = By.xpath("//span[@class=\"select2-selection select2-selection--single\"]");
     By newBillSoreSelection = By.xpath("//ul[@class='select2-results__options']//li[contains(text(), \"Automation Cust Test\")]");
     By newBillBrn = By.cssSelector(".fs-p15.btn.btn-outline-dark");
-    public By amountInput = By.xpath("//input[@class=\"text-center p-3 fs-inherit display-4 text-end form-control\"]");
-    By selectCustomer = By.xpath("//div[@id=\"_EH\"]");
+    public By amountInput = By.xpath(" //input[@name='amount']");
+    By selectCustomer = By.xpath("(//label[text()=\"Customer\"])[2]");
     By billPhonenumber = By.xpath("//input[@placeholder=\"Phone number\"]");
-    public By billPhoneGoBtn = By.xpath("//button[@class=\"btn btn-primary\"]");
-    public By billSendBtn = By.xpath("//div[@class=\"-totalDivId- d-flex justify-content-around position-relative\"]");
-    By customerDisplayed = By.xpath("//span[text()=\"Rishabh\"]");
+    public By billPhoneGoBtn = By.xpath("(//button[@class='btn btn-primary'][text()='Go'])[1]");
+    public By billSendBtn = By.xpath("//div[@class='d-none -link-cust-d-block']");
+    By customerDisplayed = By.xpath("//span[text()=\"Santa\"]");
     By searchField = By.xpath("//input[@placeholder=\"Search\"]");
     By searchBtn = By.xpath("(//button[@class=\"btn btn-primary\"])[3]");
     By alertValidation = By.xpath("//h4[@class=\"alert-heading\"]");
@@ -76,8 +76,15 @@ public class CustomersPage extends BasePage {
     By countrySelect = By.xpath("//select[@class=\"Input p-Select-select\"]");
     By selectCountry = By.xpath("//option[text()=\"Australia\"]");
     By saveCardBtn = By.xpath("//button[@class=\"btn btn-primary display-none\"]");
-    By closefilter = By.xpath("//button[@class='btn-close text-reset']");
+    public By closefilter = By.xpath("//button[@class='btn-close text-reset']");
     By frame1 = By.xpath("//iframe[@title='Secure payment input frame']");
+    By amountText = By.xpath("//label[text()='Amount']");
+    By closePopup = By.xpath("//div[@class='modal fade show' and not(@data-bs-keyboard='false')] //child::button");
+    By addGiftCardBtn = By.cssSelector(".fas.fa-plus.fa-2x");
+    By initialAmt = By.xpath("//input[@name='initialAmount']");
+    By createGiftCardBtn = By.cssSelector(".btn.btn-success.btn-lg.w-100");
+
+
 
     public void storeSelection() {
         click(storesCombobox);
@@ -160,8 +167,15 @@ public class CustomersPage extends BasePage {
         click(newBillSoreSelection);
     }
 
+    public Clickable amountText() {
+        return Clickable.getElementBy(amountText,"Amount field title");
+    }
     public Editable getAmount() {
         return Editable.getElementBy(amountInput,"Enter amount");
+    }
+
+    public Clickable closePopup() {
+        return Clickable.getElementBy(closePopup,"Close unnecessary popup");
     }
 
 //    public void setAmount(String billAmountInput) {
@@ -376,12 +390,24 @@ public class CustomersPage extends BasePage {
         securityCode().setText("123");
         countrySelection().click();
         selectCountry().click();
-
+        getDriver().switchTo().defaultContent();
         saveCard().click();
     }
 
     public void seitchToFrame() {
         switchToFrame(frame1);
+    }
+
+    public Clickable addGiftCardIcon() {
+        return Clickable.getElementBy(addGiftCardBtn,"Add gift card to customer");
+    }
+
+    public Editable getGiftCardAmt() {
+        return Editable.getElementBy(initialAmt,"Enter Initial amount for the Gift Card");
+    }
+
+    public Clickable createGiftCardBtn() {
+        return Clickable.getElementBy(createGiftCardBtn,"Create Gift card");
     }
 
 

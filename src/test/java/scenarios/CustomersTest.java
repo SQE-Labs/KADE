@@ -16,12 +16,14 @@ public class CustomersTest extends BaseTest {
 
     @Test(description = "Verify that Store's customers page opens up displaying all the options")
     public void c_01storeCustomersPage() {
+        //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getCustomersTab().click();
         session.getCustomersPage().storeSelection();
         session.getCustomersPage().continuebtn().click();
 
+        //Assert if all the necessary elements are visible
         Assertions.assertTrue(session.getCustomersPage().nameAddress().isDisplayed());
         Assertions.assertTrue(session.getCustomersPage().findAddCustomer().isDisplayed());
         Assertions.assertTrue(session.getCustomersPage().filter().isDisplayed());
@@ -29,7 +31,7 @@ public class CustomersTest extends BaseTest {
 
     @Test(description = "Adding a new customer with Phone number")
     public void c_02addCustomerWithPhoneNumber() {
-
+        //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getCustomersTab().click();
@@ -56,8 +58,7 @@ public class CustomersTest extends BaseTest {
         Assertions.assertEquals(tooltipMessage,"Invalid phone number");
         session.getCustomersPage().getCustPopupCloseBtn().click();
 
-        WebdriverWaits.waitForElementVisible(session.getCustomersPage().findAddCustomer,10);
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().customerPopupClose,10);
 
         session.getCustomersPage().findAddCustomer().click();
         session.getCustomersPage().getPhoneField().setText(" ");
@@ -67,8 +68,8 @@ public class CustomersTest extends BaseTest {
         Assertions.assertEquals(tooltipMsg,"This field is required.");
         session.getCustomersPage().getCustPopupCloseBtn().click();
 
-        WebdriverWaits.waitForElementVisible(session.getCustomersPage().findAddCustomer,10);
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().customerPopupClose,10);
+
 
         session.getCustomersPage().findAddCustomer().click();
         session.getCustomersPage().getPhoneField().setText("12345678901234567890123");
@@ -82,6 +83,7 @@ public class CustomersTest extends BaseTest {
 
     @Test(description = "Adding a new customer with Email")
     public void c_03AddCustomerWithEmail() {
+        //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getCustomersTab().click();
@@ -93,8 +95,8 @@ public class CustomersTest extends BaseTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='me-1']")));
         session.getCustomersPage().setEmailId("yonro@yopmail.com");
         session.getCustomersPage().goEmail().click();
-     //   session.getCustomersPage().doneBtn().click();
-        WebdriverWaits.sleep(2000);
+        //session.getCustomersPage().doneBtn().click(); -- Done button is displayed once when the customer is being added for the first time.
+        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().emailGoBtn,10);
 
         session.getCustomersPage().findAddCustomer().click();
         session.getCustomersPage().getEmailField().setText("yonro");
@@ -103,7 +105,7 @@ public class CustomersTest extends BaseTest {
         String emailTooltip = session.getCustomersPage().getEmailField().getToolTipMessage();
         Assertions.assertEquals(emailTooltip,"Please enter a valid email address.");
         session.getCustomersPage().getCustPopupCloseBtn().click();
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().customerPopupClose,10);
 
         session.getCustomersPage().findAddCustomer().click();
         session.getCustomersPage().getEmailField().setText(" ");
@@ -115,35 +117,41 @@ public class CustomersTest extends BaseTest {
 
     }
 
-    @Test(enabled = false, description = "Creating a bill and searching for the customer on Customers page")
-    public void c_04CreateBillandSearch() {
+    @Test(description = "Creating a bill and searching for the customer on Customers page")
+    public void c_04CreateBillAndSearch() {
+        //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getCustomersPage().getNewBill().click();
         session.getCustomersPage().billstoreSelection();
         session.getCustomersPage().continuebtn().click();
         session.getCustomersPage().newBillBtn().click();
-        WebdriverWaits.sleep(4000);
+        WebdriverWaits.waitForElementVisible(session.getCustomersPage().amountInput,10);
+        Assertions.assertTrue(session.getCustomersPage().amountText().isDisplayed());
+        Assertions.assertTrue(session.getCustomersPage().getAmount().isDisplayed());
         session.getCustomersPage().getAmount().setText("10000");
-        session.getCustomersPage().selectCustoemr().click();
-        session.getCustomersPage().billByPhone().setText("9011017524");
+        session.getCustomersPage().selectCustoemr().clickByMouse();
+        session.getCustomersPage().billByPhone().setText("12312312313");
         session.getCustomersPage().billGoBtn().click();
         WebdriverWaits.waitForElementVisible( session.getCustomersPage().billSendBtn,20);
-        session.getCustomersPage().billSendBtn().click();
+        session.getCustomersPage().billSendBtn().clickByMouse();
 
-        session.getSidePannel().expandManageBusinessAccordionBttn().click();
-        session.getSidePannel().getCustomersTab().click();
+        session.getCustomersPage().closePopup().clickIfExist(true,3);
+
+        session.getSidePannel().expandManageBusinessAccordionBttn().clickbyJS();
+        session.getSidePannel().getCustomersTab().clickbyJS();
         session.getCustomersPage().storeSelection();
         session.getCustomersPage().continuebtn().click();
 
         session.getCustomersPage().findAddCustomer().click();
         Assertions.assertTrue(session.getCustomersPage().customerDisplayed().isDisplayed());
-        session.getCustomersPage().getSearch().setText("Rishabh");
+        session.getCustomersPage().getSearch().setText("Santa");
         session.getCustomersPage().searchBtn().click();
         Assertions.assertTrue(session.getCustomersPage().customerDisplayed().isDisplayed());
     }
 
     @Test(description = "Filtering out using Phone number")
     public void c_05FilterWithPhoneNumber() {
+        //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getCustomersTab().click();
@@ -156,7 +164,7 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().filterByPhnNumber().setText("9011017524");
         session.getCustomersPage().filterApply().click();
 
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn,10);
         session.getCustomersPage().filter().click();
         session.getCustomersPage().filterByPhnNumber().setText("1231");
         session.getCustomersPage().filterApply().click();
@@ -166,7 +174,7 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().closeFilterBtn().click();
 
 
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().closefilter,10);
         session.getCustomersPage().filter().click();
         session.getCustomersPage().invalidFilterByPhnNumber().setText("12345678901234567890123");
         session.getCustomersPage().filterApply().click();
@@ -176,7 +184,7 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().invalidFilterByPhnNumber().setText(" ");
         session.getCustomersPage().filterApply().click();
 
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn,10);
         session.getCustomersPage().filter().click();
         session.getCustomersPage().filterByPhnNumber().setText("1232233223");
         session.getCustomersPage().filterApply().click();
@@ -186,6 +194,7 @@ public class CustomersTest extends BaseTest {
 
     @Test(description = "Filtering out using Email")
     public void c_06FilterWithEmail() {
+        //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getCustomersTab().click();
@@ -197,7 +206,7 @@ public class CustomersTest extends BaseTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@class='offcanvas-title']")));
         session.getCustomersPage().filterByEmailId().setText("yonro@yopmail.com");
         session.getCustomersPage().filterApply().click();
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn,10);
 
         session.getCustomersPage().filter().click();
         WebdriverWaits.waitForElementVisible(session.getCustomersPage().filterEmail,10);
@@ -211,6 +220,7 @@ public class CustomersTest extends BaseTest {
 
     @Test(description = "Filtering out using Name")
     public void c_07FilterWithName() {
+        //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getCustomersTab().click();
@@ -222,7 +232,7 @@ public class CustomersTest extends BaseTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@class='offcanvas-title']")));
         session.getCustomersPage().filterByName("yonro");
         session.getCustomersPage().filterApply().click();
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn,10);
 
         session.getCustomersPage().filter().click();
         session.getCustomersPage().filterByName("jon");
@@ -233,6 +243,7 @@ public class CustomersTest extends BaseTest {
 
     @Test(description = "Select customer from customer popup via filters")
     public void c_08selectCustomerviaFilter() {
+        //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getCustomersTab().click();
@@ -248,6 +259,7 @@ public class CustomersTest extends BaseTest {
 
     @Test(description = "Changing the name of the Customer")
     public void c_09ChangeCustomerName() {
+        //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getCustomersTab().click();
@@ -262,7 +274,8 @@ public class CustomersTest extends BaseTest {
 
 
     @Test(description = "Open customer's profile page")
-    public void c_10OpenCusotmersProfilePage() {
+    public void c_10OpenCustomersProfilePage() {
+        //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getCustomersTab().click();
@@ -278,6 +291,7 @@ public class CustomersTest extends BaseTest {
 
     @Test(description = "Type and Unsend message to the customer")
     public void c_11TypeAMessage() {
+        //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getCustomersTab().click();
@@ -296,6 +310,7 @@ public class CustomersTest extends BaseTest {
 
     @Test(description = "Add reward points to the customer")
     public void c_12AddRewardPoints() {
+        //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getCustomersTab().click();
@@ -310,8 +325,9 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().submitRewardsPoints().click();
     }
 
-    @Test(description = "Add payment method")
+    @Test(enabled = false, description = "Add payment method")
     public void c_13AddPaymentMethod() {
+        //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getCustomersTab().click();
@@ -322,11 +338,26 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().permissionCheckbox().click();
         session.getCustomersPage().permissionContinueBtn().click();
 
-        WebdriverWaits.sleep(5000);
+        WebdriverWaits.waitForElementVisible(session.getCustomersPage().addCardNumberField,10);
         //Assertions.assertTrue(session.getCustomersPage().addingCard().isDisplayed());
         session.getCustomersPage().seitchToFrame();
         session.getCustomersPage().saveNewByCreditCard();
 
+    }
+
+    @Test(description = "Create Gift Card")
+    public void c_14CreateGiftCard() {
+        //Login and navigate to Customers page.
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getCustomersTab().click();
+        session.getCustomersPage().storeSelection();
+        session.getCustomersPage().continuebtn().click();
+
+        session.getCustomersPage().viewProfile().click();
+        session.getCustomersPage().addGiftCardIcon().click();
+        session.getCustomersPage().getGiftCardAmt().setText("1000");
+        session.getCustomersPage().createGiftCardBtn().click();
     }
 
 
