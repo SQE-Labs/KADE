@@ -8,6 +8,7 @@ import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.annotations.DataProvider;
 import org.testng.annotations.Test;
 
 import java.time.Duration;
@@ -29,57 +30,49 @@ public class CustomersTest extends BaseTest {
         Assertions.assertTrue(session.getCustomersPage().filter().isDisplayed());
     }
 
-    @Test(description = "Adding a new customer with Phone number")
-    public void c_02addCustomerWithPhoneNumber() {
-        //Login and navigate to Customers page.
+    @DataProvider(name = "phoneNumberData")
+    public Object[][] phoneNumberData() {
+        return new Object[][]{
+                {"9011017524", null}, // Valid phone number
+                {"901101752", "Invalid phone number"}, // Invalid phone number
+                {"", "This field is required."}, // Blank phone number
+                {"12345678901234567890123", "Please enter no more than 22 characters."} // More than 22 characters
+        };
+    }
+
+    @Test(description = "Adding a new customer with Phone number", dataProvider = "phoneNumberData")
+    public void c_02addCustomerWithPhoneNumber(String phoneNumber, String expectedValidationMessage) {
+        // Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getCustomersTab().click();
         session.getCustomersPage().storeSelection();
         session.getCustomersPage().continuebtn().click();
 
+        // Open Customer popup by clicking 'Find or add a new Customer'
         session.getCustomersPage().findAddCustomer().click();
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='me-1']")));
-        System.out.println(getDriver().findElement(By.xpath("//span[@class='me-1']")).getText());
-        session.getCustomersPage().setPhoneNumber("9011017524");
-        session.getCustomersPage().goPhoneNumber().click();
-//        WebdriverWaits.sleep(2000);
-//        session.getCustomersPage().setCustomerName("Rishabh");
-//        session.getCustomersPage().doneBtn().click();
 
-        session.getCustomersPage().findAddCustomer().click();
-        WebDriverWait waitt = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
-        waitt.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='me-1']")));
-        session.getCustomersPage().getPhoneField().setText("90110");
+        // Enter phone number and check for validation
+        session.getCustomersPage().getPhoneField().setText(phoneNumber);
         session.getCustomersPage().goPhoneNumber().click();
-        Assertions.assertTrue(session.getCustomersPage().getPhoneValidation().isDisplayed());
-        String tooltipMessage = session.getCustomersPage().getPhoneField().getToolTipMessage();
-        Assertions.assertEquals(tooltipMessage,"Invalid phone number");
+
+        if (expectedValidationMessage != null) {
+            Assertions.assertTrue(session.getCustomersPage().getPhoneValidation().isDisplayed());
+            String actualValidationMessage = session.getCustomersPage().getPhoneField().getToolTipMessage();
+            Assertions.assertEquals(actualValidationMessage, expectedValidationMessage);
+        } else {
+            // No validation expected for valid phone number
+            //Assertions.assertFalse(session.getCustomersPage().getPhoneValidation().isDisplayed());
+            Assertions.assertTrue(session.getCustomersPage().findAddCustomer().isDisplayed());
+        }
+
         session.getCustomersPage().getCustPopupCloseBtn().click();
-
-        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().customerPopupClose,10);
-
-        session.getCustomersPage().findAddCustomer().click();
-        session.getCustomersPage().getPhoneField().setText(" ");
-        session.getCustomersPage().goPhoneNumber().click();
-        Assertions.assertTrue(session.getCustomersPage().getPhoneValidation().isDisplayed());
-        String tooltipMsg = session.getCustomersPage().getPhoneField().getToolTipMessage();
-        Assertions.assertEquals(tooltipMsg,"This field is required.");
-        session.getCustomersPage().getCustPopupCloseBtn().click();
-
-        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().customerPopupClose,10);
-
-
-        session.getCustomersPage().findAddCustomer().click();
-        session.getCustomersPage().getPhoneField().setText("12345678901234567890123");
-        session.getCustomersPage().goPhoneNumber().click();
-        Assertions.assertTrue(session.getCustomersPage().getPhoneValidation().isDisplayed());
-        String phnNumbertTt3 = session.getCustomersPage().getPhoneField().getToolTipMessage();
-        Assertions.assertEquals(phnNumbertTt3,"Please enter no more than 22 characters.");
-        session.getCustomersPage().getCustPopupCloseBtn().click();
-
+        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().customerPopupClose, 10);
     }
+
+
 
     @Test(description = "Adding a new customer with Email")
     public void c_03AddCustomerWithEmail() {
@@ -93,11 +86,14 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().findAddCustomer().click();
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//span[@class='me-1']")));
+
+        //Enter valid email address in the 'Email' field.
         session.getCustomersPage().setEmailId("yonro@yopmail.com");
         session.getCustomersPage().goEmail().click();
         //session.getCustomersPage().doneBtn().click(); -- Done button is displayed once when the customer is being added for the first time.
         WebdriverWaits.waitForElementInVisible(session.getCustomersPage().emailGoBtn,10);
 
+        //Enter invalid email address in the 'Email' field
         session.getCustomersPage().findAddCustomer().click();
         session.getCustomersPage().getEmailField().setText("yonro");
         session.getCustomersPage().goEmail().click();
@@ -107,6 +103,7 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().getCustPopupCloseBtn().click();
         WebdriverWaits.waitForElementInVisible(session.getCustomersPage().customerPopupClose,10);
 
+        //Leave 'Email' field blank
         session.getCustomersPage().findAddCustomer().click();
         session.getCustomersPage().getEmailField().setText(" ");
         session.getCustomersPage().goEmail().click();
@@ -119,8 +116,10 @@ public class CustomersTest extends BaseTest {
 
     @Test(description = "Creating a bill and searching for the customer on Customers page")
     public void c_04CreateBillAndSearch() {
-        //Login and navigate to Customers page.
+        //Login
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
+
+        //Create a new bill
         session.getCustomersPage().getNewBill().click();
         session.getCustomersPage().billstoreSelection();
         session.getCustomersPage().continuebtn().click();
@@ -137,11 +136,13 @@ public class CustomersTest extends BaseTest {
 
         session.getCustomersPage().closePopup().clickIfExist(true,3);
 
+        //Navigate to 'Customers' page
         session.getSidePannel().expandManageBusinessAccordionBttn().clickbyJS();
         session.getSidePannel().getCustomersTab().clickbyJS();
         session.getCustomersPage().storeSelection();
         session.getCustomersPage().continuebtn().click();
 
+        //Search for the name of the customer after creating a bill
         session.getCustomersPage().findAddCustomer().click();
         Assertions.assertTrue(session.getCustomersPage().customerDisplayed().isDisplayed());
         session.getCustomersPage().getSearch().setText("Santa");
@@ -158,24 +159,28 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().storeSelection();
         session.getCustomersPage().continuebtn().click();
 
+        //Open 'Filter' pop up
         session.getCustomersPage().filter().click();
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@class='offcanvas-title']")));
+        //Filter by valid name
         session.getCustomersPage().filterByPhnNumber().setText("9011017524");
         session.getCustomersPage().filterApply().click();
 
         WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn,10);
         session.getCustomersPage().filter().click();
+        //Filter by invalid number
         session.getCustomersPage().filterByPhnNumber().setText("1231");
         session.getCustomersPage().filterApply().click();
         Assertions.assertTrue(session.getCustomersPage().alertValidation().isDisplayed());
-        String flterPhnNumberTooltip = session.getCustomersPage().invalidFilterByPhnNumber().getToolTipMessage();
-        Assertions.assertEquals(flterPhnNumberTooltip,"Invalid phone number");
+        String filterPhnNumberTooltip = session.getCustomersPage().invalidFilterByPhnNumber().getToolTipMessage();
+        Assertions.assertEquals(filterPhnNumberTooltip,"Invalid phone number");
         session.getCustomersPage().closeFilterBtn().click();
 
 
         WebdriverWaits.waitForElementInVisible(session.getCustomersPage().closefilter,10);
         session.getCustomersPage().filter().click();
+        //Check if the field accepts more than 22 characters
         session.getCustomersPage().invalidFilterByPhnNumber().setText("12345678901234567890123");
         session.getCustomersPage().filterApply().click();
         Assertions.assertTrue(session.getCustomersPage().alertValidation().isDisplayed());
@@ -186,6 +191,7 @@ public class CustomersTest extends BaseTest {
 
         WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn,10);
         session.getCustomersPage().filter().click();
+        //Check for a valid phone number but of a non-existing customer
         session.getCustomersPage().filterByPhnNumber().setText("1232233223");
         session.getCustomersPage().filterApply().click();
         Assertions.assertTrue(session.getCustomersPage().getNoResult().isDisplayed());
@@ -204,12 +210,14 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().filter().click();
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@class='offcanvas-title']")));
+        //Filter by valid and existing customer's email address
         session.getCustomersPage().filterByEmailId().setText("yonro@yopmail.com");
         session.getCustomersPage().filterApply().click();
         WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn,10);
 
         session.getCustomersPage().filter().click();
         WebdriverWaits.waitForElementVisible(session.getCustomersPage().filterEmail,10);
+        //Filter by invalid email address
         session.getCustomersPage().filterByEmailId().setText("yonro");
         session.getCustomersPage().filterApply().click();
         Assertions.assertTrue(session.getCustomersPage().alertValidation().isDisplayed());
@@ -230,12 +238,14 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().filter().click();
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@class='offcanvas-title']")));
+        //Filter by the name of an existing customer
         session.getCustomersPage().filterByName("yonro");
         session.getCustomersPage().filterApply().click();
         WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn,10);
 
         session.getCustomersPage().filter().click();
-        session.getCustomersPage().filterByName("jon");
+        //Filter by an non-existing customer's name
+        session.getCustomersPage().filterByName("jon123");
         session.getCustomersPage().filterApply().click();
         Assertions.assertTrue(session.getCustomersPage().getNoResult().isDisplayed());
 
@@ -266,6 +276,7 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().storeSelection();
         session.getCustomersPage().continuebtn().click();
 
+        //Change the name of the customer
         session.getCustomersPage().chngeName().click();
         session.getCustomersPage().changeCustomerName("Yonro");
         session.getCustomersPage().saveBtn().click();
@@ -282,6 +293,7 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().storeSelection();
         session.getCustomersPage().continuebtn().click();
 
+        //Open customer's profile page
         session.getCustomersPage().viewProfile().click();
         Assertions.assertTrue(session.getCustomersPage().profileHeading().isDisplayed());
         Assertions.assertTrue(session.getCustomersPage().messageIcon().isDisplayed());
@@ -290,7 +302,7 @@ public class CustomersTest extends BaseTest {
     }
 
     @Test(description = "Type and Unsend message to the customer")
-    public void c_11TypeAMessage() {
+    public void c_11OpenMessagePg() {
         //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
@@ -298,14 +310,10 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().storeSelection();
         session.getCustomersPage().continuebtn().click();
 
+        //Open message page
         session.getCustomersPage().viewProfile().click();
         session.getCustomersPage().messageIcon().click();
         Assertions.assertTrue(session.getCustomersPage().getMsgPgHeader().isDisplayed());
-//        session.getCustomersPage().typeMessage("Hi");
-//        session.getCustomersPage().sendButton().click();
-//        WebdriverWaits.sleep(2000);
-//        session.getCustomersPage().unsendBtn().click();
-//        session.getCustomersPage().confirmUnsend().click();
     }
 
     @Test(description = "Add reward points to the customer")
@@ -317,6 +325,7 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().storeSelection();
         session.getCustomersPage().continuebtn().click();
 
+        //Create reward points memo
         session.getCustomersPage().viewProfile().click();
         session.getCustomersPage().rewardIcon().click();
         session.getCustomersPage().addRewardPoints().click();
@@ -334,6 +343,7 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().storeSelection();
         session.getCustomersPage().continuebtn().click();
 
+        //Adding Payment method for a customer
         session.getCustomersPage().addPaymentMethod().click();
         session.getCustomersPage().permissionCheckbox().click();
         session.getCustomersPage().permissionContinueBtn().click();
@@ -354,6 +364,7 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().storeSelection();
         session.getCustomersPage().continuebtn().click();
 
+        //Creating a gift card for a customer
         session.getCustomersPage().viewProfile().click();
         session.getCustomersPage().addGiftCardIcon().click();
         session.getCustomersPage().getGiftCardAmt().setText("1000");

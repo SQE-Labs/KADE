@@ -111,6 +111,11 @@ public class CustomersPage extends BasePage {
         return Clickable.getElementBy(filter,"Filter icon");
     }
 
+//    public void setAndAddPhonenumber() {
+//        setPhoneNumber("9011017524");
+//        goPhoneNumber().click();
+//    }
+
     public void setPhoneNumber(String phoneNumberInput) {
         Editable phoneField = Editable.getElementBy(phoneNumber, "Phone Number field");
         phoneField.setText(phoneNumberInput); // Assuming setText() exists in the Editable class
