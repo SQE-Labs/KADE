@@ -23,6 +23,7 @@ public class DashboardPage extends BaseTest {
     By myStore = By.cssSelector("[class^='card p-2 border w-20c overflow-hidden']");
     By storeCountDashboard = By.xpath("(//span [@class=\"badge rounded-pill bg-dark ms-n1\"])[2]");
     By listofStoreNameonPopup = By.cssSelector("div.popover-body span:nth-child(1)");
+    By messagePage = By.cssSelector("nav.navbar >h1 ");
 
 
     public Clickable getYourBusinessTitle() {
@@ -85,4 +86,5 @@ public class DashboardPage extends BaseTest {
         return Clickable.getElementBy(last30DaysTotalAmount, "total payment under Process Payment");}
     public Clickable getCountOfAllStoreCustomer() {return Clickable.getElementBy(last30DaysCustomerCount, "All Stores Customer Count");}
     public Clickable getTodayPayment() { return Clickable.getElementBy(todayPayment, "Today's payment");}
+    public Clickable getMessagePage() { return Clickable.getElementBy(messagePage, "Message Page");}
     }

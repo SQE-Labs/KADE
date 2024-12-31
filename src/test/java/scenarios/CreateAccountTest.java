@@ -1,6 +1,8 @@
 package scenarios;
 
 import org.automation.base.BaseTest;
+import org.automation.pages.SetYourPasswordPage;
+import org.automation.pages.VerifyYourAccountPage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.RandomGenerator;
@@ -11,7 +13,7 @@ public class CreateAccountTest extends BaseTest {
 
     KadeSession session = new KadeSession();
     RandomGenerator randomGenerator = new RandomGenerator();
-    //VerifyYourAccountPage = new VerifyYourAccountPage();
+    //VerifyYourAccountPage = new void VerifyYourAccountPage();
     //SetYourPasswordPage setYourPasswordPage = new SetYourPasswordPage();
 
 

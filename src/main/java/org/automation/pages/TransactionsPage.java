@@ -69,7 +69,7 @@ public class TransactionsPage extends BasePage {
     By amountRangeFrom = By.xpath("//input[@placeholder='From']");
     By amountRangeTo = By.xpath("//input[@placeholder='To']");
     By clearQrPayment = By.xpath("(//select[@name='billTemplate']/option)[1]");
-    By ammountList = By.xpath("(//div[contains(@class,'d-flex align-items-center')])");
+    By ammountList = By.xpath("((//div[contains(@class,'d-flex align-items-center')])//span)");
     By paidLabelOnPopup = By.cssSelector("span.bg-success");
     By returnSymbol = By.xpath("//div[span[text()='Refunded']]/following::div[4]/i");
     public By questionMarkIcon = By.cssSelector(".align-items-end>i");

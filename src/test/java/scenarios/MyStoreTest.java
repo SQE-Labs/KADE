@@ -429,7 +429,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getManageUserSubTab().clickByMouse();
 
         //Step 4: Click on 'Add User' Button
-        myStore.getAddUserButton().click();
+        myStore.getAddUserButton().clickByMouse();
 
         //Verifying 'Add User' Pop-Up Title
         Assertions.assertEquals(myStore.getAddUserPopUpTitle().getText(), "Add User");
@@ -477,7 +477,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getManageUserSubTab().click();
 
         //Step 4: Click on 'Invite Existing User' Button
-        myStore.getInviteExistingUserButton().click();
+        myStore.getInviteExistingUserButton().clickByMouse();
 
         //Verifying the 'Invite Existing User' PopUp Title
         Assertions.assertEquals(myStore.getInviteExistingUserPopupTitle().getText(), "Invite users");

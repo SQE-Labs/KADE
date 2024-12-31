@@ -112,4 +112,15 @@ public class Dashboard extends BaseTest {
         String valueC = session.getDashboardPage().getTodayPayment().getText();
         System.out.println("Sum of Today's payment of all stores: "+valueC);
     }
+    @Test(description=" DC08: Verify that user get directed to 'Messages' page after clicking on 'Contact Support' link under 'Messages' section, on 'Dashboard' page.")
+    public void userGetDirectToMessagePage(){
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        DashboardPage Dashboard = new DashboardPage();
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getDashboardTab().click();
+
+        session.getDashboardPage().getContactSupportLink().click();
+        Assertions.assertTrue(session.getDashboardPage().getMessagePage().isDisplayed());
+    }
+
 }
