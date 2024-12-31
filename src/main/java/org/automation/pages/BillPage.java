@@ -106,7 +106,7 @@ public class BillPage extends BasePage {
     By notPaidBill = By.xpath("//div[contains(@class, 'row bg-white')][1]");
     By unPaidBill=By.xpath("(//div[contains(@class,'row bg-white ')])[1]/div[2]");
     public By deleteButton = By.cssSelector(".btn-outline-danger");
-    By deleteIcon = By.cssSelector(".fa.fa-check");
+    By deleteIcon = By.cssSelector(".fal.fa-thumbs-up.text-white");
     By moreOptions = By.cssSelector(".mb-3.border.p-2.py-3.rounded-3.advanced-d-none.position-relative");
     By referenceNo = By.xpath("(//div[@class='border p-2 py-3 mb-2 rounded-3  d-none advanced-d-block'])[1]");
     public By refNoField = By.xpath("(//input[@lbl-title='Reference No.'])[2]");

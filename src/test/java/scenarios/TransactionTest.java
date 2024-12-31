@@ -517,6 +517,7 @@ public class TransactionTest extends BaseTest {
         };
         session.getPaymentsPage().getSavedCreditCard().click();
         session.getPaymentsPage().swipeToPay();
+        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().closeBlueBtn,10);
         session.getPaymentsPage().getBlueCloseButton().clickByMouse();
 
         // logout customer .
@@ -948,7 +949,12 @@ public class TransactionTest extends BaseTest {
         session.getAttentionRTPopup().getAttentionCrossIcon().click();
 
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-        WebdriverWaits.fluentWait_ElementIntactable(3000,500, By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]"));
+        try{
+            WebdriverWaits.waitForElementClickable(session.getPaymentsPage().savedBankAccount,10);
+        }
+        catch (Exception e ) {
+            session.getPaymentsPage().getChangePaymentMethodButton().click();
+        }
         session.getPaymentsPage().getSavedBankAccount().clickbyJS();
         session.getPaymentsPage().swipeToPay();
         WebdriverWaits.waitForElementVisible(session.getPaymentsPage().closeBlueBtn,3000);

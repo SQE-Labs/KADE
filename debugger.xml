@@ -10,8 +10,8 @@
         <classes>
            <class name="scenarios.PaymentsAndRefundTest"/>
             <class name="scenarios.TransactionTest"/>
-            <class name="scenarios.BillTest"/>
-           <class name="scenarios.MyStoreTest"/>
+            <class name="scenarios.CustomersTest"/>
+<!--           <class name="scenarios.MyStoreTest"/>-->
         </classes>
     </test>
 </suite>
