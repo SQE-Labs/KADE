@@ -38,11 +38,12 @@ public class MyStoreTest extends BaseTest {
             Assertions.assertEquals(myStore.getSkipPopUpTitle().getText(), "Skip");
 
             //Step 4: Click on 'Skip' button
-            WebdriverWaits.sleep(2000);
+            WebdriverWaits.waitForElementVisible(session.getMyStorePage().skipStripeAccountPopUpBtn,30);
             myStore.getSkipStripeAccountPopUpButton().clickByMouse();
         }
 
         //Step 5: Click on 'Delete' Button
+        WebdriverWaits.waitForElementVisible(session.getMyStorePage().deleteStoreBtn,30);
         myStore.getDeleteStoreButton().clickByMouse();
 
         //Step 6: Click on 'Confirmation' icon
@@ -131,6 +132,7 @@ public class MyStoreTest extends BaseTest {
         Assertions.assertEquals(myStore.getCurrentPlanSuccessMessage().getText(), "Current plan");
 
         //Step 4: Click on 'Sign up' button
+        WebdriverWaits.waitForElementVisible(session.getMyStorePage().planSignUpBtn,30);
         myStore.getPlansSignUpButton().click();
 
         //Verifying that by-default Visa Payment method is enabled
@@ -351,7 +353,7 @@ public class MyStoreTest extends BaseTest {
 
         //Step 2: Click on 'Configure' Button
         myStore.getConfigureButton().click();
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.waitForElementVisible(session.getMyStorePage().paymentProcessingSubTab,30);
 
         //Step 3: Click on 'Payment-Processing' Sub-Tab
         myStore.getPaymentProcessingSubTab().click();
@@ -397,7 +399,7 @@ public class MyStoreTest extends BaseTest {
         myStore.getZelleSaveButton().clickByMouse();
 
         //Step 14: Click on 'Credit Card Terminal' button
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.waitForElementVisible(session.getMyStorePage().creditCardTerminalBtn,30);
         myStore.getCreditCardTerminalButton().clickbyJS();
 
         //Step 15: Click on 'Add new Terminal' button
@@ -454,7 +456,7 @@ public class MyStoreTest extends BaseTest {
 
         //Step 9: Click on 'Create User' Button
         myStore.getCreateUserButton().click();
-        WebdriverWaits.sleep(5000);
+        WebdriverWaits.waitForElementVisible(session.getMyStorePage().deleteUserIcon,30);
 
         //Delete Created user
         myStore.getDeleteUserButton().clickbyJS();

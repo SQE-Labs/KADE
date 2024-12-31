@@ -7,10 +7,10 @@ import org.automation.objectBuilder.pages.BillsPage;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.Test;
 import org.automation.session.KadeSession;
+
 
 import java.time.Duration;
 
@@ -33,7 +33,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         //Verify all the WebElements on Bill popup
         String expectedPopupHeader = session.getBillPage().getBillPopupHeader().getText();
         Assertions.assertEquals(expectedPopupHeader,"Bill");
-        WebdriverWaits.waitForElementVisible(By.xpath("//span[text()='QR Code']"),2000);
+        WebdriverWaits.waitForElementVisible(session.getBillPage().qrCodeBtn,2000);
         Assertions.assertTrue(session.getBillPage().getQRCodeButton().isDisplayed());
         Assertions.assertTrue(session.getBillPage().getShareButton().isDisplayed());
         Assertions.assertTrue(session.getBillPage().getEditBillButton().isDisplayed());
@@ -96,7 +96,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
         //Open Bill Details popup
         session.getBillPage().getUnpaidBillWithoutDescription().clickByMouse();
-        WebdriverWaits.waitForElementVisible(By.xpath("//span[text()='Bill']"),2000);
+        WebdriverWaits.waitForElementVisible(session.getBillPage().billPopupHeader,2000);
 
         //Verify all the WebElements on Bill popup
         String expectedPopupHeader = session.getBillPage().getBillPopupHeader().getText();
@@ -248,8 +248,8 @@ public class PaymentsAndRefundTest extends KadeSession {
         float updateAmount1 = Float.parseFloat(updatedAmt1.replace(",", ""));
         float expBalanceDue1= amount - updateAmount1;
         String expectedBalanceDue1 = session.getBillPage().convertToNumberFormat(expBalanceDue1);
-        WebdriverWaits.waitForElementInVisible(session.getPaymentsPage().paymentTypeHeader,5);
-        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().totalPaidAmt,1);
+        WebdriverWaits.waitForElementInVisible(session.getPaymentsPage().paymentTypeHeader,10);
+        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().totalPaidAmt,10);
         Assertions.assertEquals(session.getPaymentsPage().getTotalPaidAmount().getText().split(":")[1],"$"+updatedAmt1);
         Assertions.assertEquals(session.getPaymentsPage().getBalanceDue().getText(),"$"+expectedBalanceDue1);
 
@@ -293,7 +293,8 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getPaymentsPage().getCreditCardButton().click();
         session.getPaymentsPage().payByCreditCard();
 
-        WebdriverWaits.fluentWait_ElementIntactable(5000,2000,session.getPaymentsPage().totalPaidAmt);
+        //WebdriverWaits.waitForElementValueToUpdate(2000,500,session.getPaymentsPage().totalPaidAmt,"Total paid:$1,850.99");
+        WebdriverWaits.sleep(5000);
         //Verify Total Paid Amount (Full Payment);
         Assertions.assertEquals(session.getPaymentsPage().getTotalPaidAmount().getText().split(":")[1],"$"+amt);
         Assertions.assertTrue(session.getPaymentsPage().getPaidLabel().isDisplayed()); 
@@ -326,7 +327,7 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         //Update Amount
         session.getPaymentsPage().getAmountTextbox().setText(payAmt);
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().creditCardBtn,20);
 
         session.getPaymentsPage().getCreditCardButton().click();
 
@@ -341,9 +342,8 @@ public class PaymentsAndRefundTest extends KadeSession {
         Assertions.assertEquals(session.getPaymentsPage().getBalanceDue().getText(),"$"+expectedBalanceDue);
         Assertions.assertTrue(session.getPaymentsPage().getPaymentLogo().isDisplayed());
         session.getPaymentsPage().getCloseReceivedPopupButton().click();
-        WebdriverWaits.sleep(1000);
         session.getPaymentsPage().refreshPage();
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementVisible(session.getBillPage().billTag,20);
         Assertions.assertEquals(session.getBillPage().getPaymentStatusOfLatestBill().getText(),"PARTIAL");
     }
 
@@ -359,7 +359,7 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,3);
         session.getBillPage().getUnpaidBillWithoutDescription().clickByMouse();
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.waitForElementVisible(session.getBillPage().processPaymentBtn,20);
         session.getBillPage().getProcessPaymentButton().click();
         // Process payment successfully
         session.getPaymentsPage().getOthersButton().click();
@@ -405,17 +405,18 @@ public class PaymentsAndRefundTest extends KadeSession {
         //Logout as Store manager
         session.getSidePannel().getSignOutButton().clickByMouse();
         WebdriverWaits.fluentWait_ElementIntactable(2000, 500, session.getLoginPage().userNameField);
+        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
         session.getNotificationPage().getNotificationIcon().clickByMouse();
         session.getNotificationPage().getFirstNotification().click();
         session.getPaymentsPage().getPayNowButton().click();
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().swipeBtn,30);
 
         session.getPaymentsPage().swipeToPay();
-        WebdriverWaits.sleep(3000);
-        session.getPaymentsPage().getBlueCloseButton().clickbyJS();
+        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().closeBlueBtn,30);
+        session.getPaymentsPage().getBlueCloseButton().click();
     }
 
     @Test(description = "PYMT9 : Bill Creation and Successful Bill Payment through Bank account by Customer.")
@@ -451,16 +452,19 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         //Step 9: Click on 'Pay Now' Button
         session.getPaymentsPage().getPayNowButton().click();
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().changeButton,10);
 
         //Step 10: Click on 'Change Payment Method' Button
         session.getPaymentsPage().getChangePaymentMethodButton().clickbyJS();
-        WebdriverWaits.sleep(2000);
+        try{
+            WebdriverWaits.waitForElementVisible(session.getPaymentsPage().savedCreditcard,10);
+        }
+        catch (Exception e ) {
+            session.getPaymentsPage().getChangePaymentMethodButton().click();
+        };
 
         //Step 11: Select the 'Bank Account' Method
         session.getPaymentsPage().getSavedBankAccount().clickbyJS();
-
-
 
 
         //Verify that Selected Bank Method is Displayed

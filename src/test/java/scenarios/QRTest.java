@@ -166,7 +166,6 @@ public class QRTest extends BaseTest {
         session.getQRCodeDashboardPage().getContinueButton().click();
         session.getQRCodeDashboardPage().clickDirectPay().click();
         Assertions.assertEquals(session.getQRCodeDashboardPage().getDirectPayTitle().getText(),"QR code view");
-        Thread.sleep(1000);
 
         session.getQRCodeDashboardPage().clickDirectPayCopyBtn().click();
         String clipboardText = (String) clipboard.getData(DataFlavor.stringFlavor);
