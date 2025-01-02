@@ -11,6 +11,8 @@
            <class name="scenarios.PaymentsAndRefundTest"/>
             <class name="scenarios.TransactionTest"/>
             <class name="scenarios.CustomersTest"/>
+            <class name="scenarios.BillTest"/>
+            <class name="scenarios.CreateAccountTest"></class>
 <!--           <class name="scenarios.MyStoreTest"/>-->
         </classes>
     </test>
