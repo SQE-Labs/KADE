@@ -6,6 +6,7 @@ import org.automation.base.BasePage;
 import org.automation.base.BaseTest;
 import org.openqa.selenium.By;
 
+import java.awt.*;
 import java.security.PublicKey;
 
 public class BasicInfoPage extends BasePage {
@@ -20,12 +21,26 @@ public class BasicInfoPage extends BasePage {
     By storePhone = By.xpath("//label[@class='text-muted fs-pn15'][text()='Store Phone']");
     By storeCurrency = By.xpath("//label[@class='text-muted fs-pn15'][text()='Currency of the Store']");
     By storeTaxRate = By.xpath("//label[@class='text-muted fs-pn15'][text()='Tax rate']");
-    By modifyBtn = By.xpath("//button[@class='-btn-modify- btn btn-outline-primary']");
+    public By modifyBtn = By.xpath("//button[@class='-btn-modify- btn btn-outline-primary']");
     By storeNameField = By.xpath("//input[@name='name']");
     By saveButton = By.xpath("//button[@class='-btn-save- btn btn-primary']");
     By storeFullAddress = By.xpath("//input[@name='fulladdress']");
     By storePhoneField = By.xpath("//input[@name='phone']");
+    By storeTexRateField = By.xpath("//input[@name='taxRate']");
+    public By storeLogo = By.xpath("//a[@class=' -profile- d-inline-block position-relative start-50 translate-middle-x']");
+    By checkBtn = By.cssSelector(".fa.fa-check");
+    By validationMsg = By.cssSelector(".toast-message");
+    By alertMsg = By.cssSelector(".alert-content");
 
+    public Clickable getAlertMessage() {return Clickable.getElementBy(alertMsg,"Alert message that is displayed after entering invalid data");}
+
+    public Clickable getValidationMsg() {return Clickable.getElementBy(validationMsg,"Validation message for uploading invalid file as store logo");}
+
+    public Clickable getCheckBtn() {return Clickable.getElementBy(checkBtn,"Check button");}
+
+    public Clickable getStoreLogo() {return Clickable.getElementBy(storeLogo,"Store logo");}
+
+    public Editable getStoreTaxRateField() {return Editable.getElementBy(storeTexRateField,"Store tax rate field");}
 
     public Editable getStorePhoneField() {return Editable.getElementBy(storePhoneField,"Store contact number");}
 
