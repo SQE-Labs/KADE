@@ -73,6 +73,7 @@ public class KadeSession extends BaseTest {
     }
     public BasicInfoPage getBasicInfoPage() {return new BasicInfoPage();}
 
+    public SecurityAndPassword getSecurityAndPassword() {return new SecurityAndPassword();}
     public SecurityAndPasswordPage getSecurityAndPasswordPage() {
         return new SecurityAndPasswordPage();
     }
