@@ -12,7 +12,7 @@ import java.util.UUID;
 public class SecurityAndPasswordTabTest extends BaseTest {
 
     @Test(description = "Verify Update Email popup opens")
-    public void getUpdateEmailPopup() {
+    public void sp_1getUpdateEmailPopup() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSecurityAndPassword().getUserProfileBtn().click();
         session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
@@ -24,7 +24,7 @@ public class SecurityAndPasswordTabTest extends BaseTest {
     }
 
     @Test(description = "Verify for Invalid Email inputs in Update email address popup")
-    public void InvalidInputForEmailUpdate() {
+    public void sp_2InvalidInputForEmailUpdate() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSecurityAndPassword().getUserProfileBtn().click();
         session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
@@ -49,7 +49,8 @@ public class SecurityAndPasswordTabTest extends BaseTest {
         WebdriverWaits.waitForElementInVisible(session.getSecurityAndPassword().updateEmailPopupTitle,10);
 
         session.getSecurityAndPassword().getEditEmailBtn().click();
-        session.getSecurityAndPassword().getUpdateEmailField().setText("test1114@yopmail.com");
+        String currentEmail = session.getSecurityAndPassword().getEmailField().getAttribute("value");
+        session.getSecurityAndPassword().getUpdateEmailField().setText(currentEmail);
         session.getSecurityAndPassword().getSendBtnForUpdatedEmail().click();
         Assertions.assertTrue(session.getSecurityAndPassword().getAlertMessage().isDisplayed());
         Assertions.assertEquals(session.getSecurityAndPassword().getUpdateEmailField().getToolTipMessage(),"New email cannot be the same as the current email!");
@@ -57,7 +58,7 @@ public class SecurityAndPasswordTabTest extends BaseTest {
     }
 
     @Test(description = "Verify for Valid Email inputs in Update email address popup")
-    public void ValidInputForEmailUpdate() {
+    public void sp_3ValidInputForEmailUpdate() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSecurityAndPassword().getUserProfileBtn().click();
         session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
@@ -104,6 +105,101 @@ public class SecurityAndPasswordTabTest extends BaseTest {
     private String generateRandomEmail() {
         String uniqueId = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
         return uniqueId + "@yopmail.com";
+    }
+
+    @Test(description = "Verify user is able to edit phone number")
+    public void sp_4editPhoneNumber() {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getSecurityAndPassword().getUserProfileBtn().click();
+        session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
+        session.getSecurityAndPassword().getEditPhoneBtn().click();
+        Assertions.assertTrue(session.getSecurityAndPassword().getUpdatePhonePopupTitle().isDisplayed());
+
+        session.getSecurityAndPassword().getSecurityCodeBtn().click();
+        Assertions.assertTrue(session.getSecurityAndPassword().getSystemAlertMessage().isDisplayed());
+        Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneFIeld().getToolTipMessage(),"This field is required.");
+
+        session.getSecurityAndPassword().getNewPhoneFIeld().setText("12312312");
+        session.getSecurityAndPassword().getSecurityCodeBtn().click();
+        Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneFIeld().getToolTipMessage(),"Invalid phone number");
+        session.getSecurityAndPassword().getPopupCloseBtn().click();
+
+    }
+
+    @Test(description = "verify different scenarios of security code fields after entering valid phone number")
+    public void sp_5securityCodeScenarios() {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getSecurityAndPassword().getUserProfileBtn().click();
+        session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
+        session.getSecurityAndPassword().getEditPhoneBtn().click();
+
+        session.getSecurityAndPassword().getNewPhoneFIeld().setText("1231231231");
+        session.getSecurityAndPassword().getSecurityCodeBtn().click();
+        WebdriverWaits.waitForElementVisible(session.getSecurityAndPassword().saveNewPhoneBtn,10);
+        session.getSecurityAndPassword().getSaveNewPhoneBtn().click();
+        Assertions.assertTrue(session.getSecurityAndPassword().getSystemAlertMessage().isDisplayed());
+        Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneOTPField().getToolTipMessage(),"This field is required.");
+        Assertions.assertEquals(session.getSecurityAndPassword().getCurrentPhoneOTPField().getToolTipMessage(),"This field is required.");
+
+        session.getSecurityAndPassword().getCurrentEmailSecurityCode().setText("123456");
+        session.getSecurityAndPassword().getNewEmailSecurityCode().setText("12345");
+        session.getSecurityAndPassword().getSaveNewPhoneBtn().click();
+        Assertions.assertTrue(session.getSecurityAndPassword().getSystemAlertMessage().isDisplayed());
+        Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneOTPField().getToolTipMessage(),"Please enter at least 6 characters.");
+
+        session.getSecurityAndPassword().getCurrentEmailSecurityCode().setText("123456");
+        session.getSecurityAndPassword().getNewEmailSecurityCode().setText("122222");
+        session.getSecurityAndPassword().getSaveNewPhoneBtn().click();
+        Assertions.assertTrue(session.getSecurityAndPassword().getSystemAlertMessage().isDisplayed());
+
+        session.getSecurityAndPassword().getDiffCellPhone().click();
+        session.getSecurityAndPassword().getNewPhoneFIeld().setText("12334545676");
+        session.getSecurityAndPassword().getSecurityCodeBtn().click();
+        session.getSecurityAndPassword().getCurrentEmailSecurityCode().setText("123456");
+        session.getSecurityAndPassword().getNewEmailSecurityCode().setText("123456");
+        session.getSecurityAndPassword().getSaveNewPhoneBtn().click();
+
+    }
+
+    @Test(description = "Verify user can update/change phone number using Different phone number option")
+    public void sp_6differentCellPhone() {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getSecurityAndPassword().getUserProfileBtn().click();
+        session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
+        session.getSecurityAndPassword().getEditPhoneBtn().click();
+
+        session.getSecurityAndPassword().getNewPhoneFIeld().setText("1231231231");
+        session.getSecurityAndPassword().getSecurityCodeBtn().click();
+        session.getSecurityAndPassword().getDiffCellPhone().click();
+
+        session.getSecurityAndPassword().getNewPhoneFIeld().setText("1233454");
+        session.getSecurityAndPassword().getSecurityCodeBtn().click();
+        Assertions.assertTrue(session.getSecurityAndPassword().getSystemAlertMessage().isDisplayed());
+        Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneFIeld().getToolTipMessage(),"Invalid phone number");
+
+        session.getSecurityAndPassword().getNewPhoneFIeld().setText("12334");
+        session.getSecurityAndPassword().getSecurityCodeBtn().click();
+        session.getSecurityAndPassword().getCurrentEmailSecurityCode().setText("123456");
+        session.getSecurityAndPassword().getNewEmailSecurityCode().setText("123456");
+        session.getSecurityAndPassword().getSaveNewPhoneBtn().click();
+        session.getSecurityAndPassword().getPopupCloseBtn().click();
+
+        session.getSecurityAndPassword().getEditPhoneBtn().click();
+
+        session.getSecurityAndPassword().getNewPhoneFIeld().setText("1231231231");
+        session.getSecurityAndPassword().getSecurityCodeBtn().click();
+        session.getSecurityAndPassword().getDiffCellPhone().click();
+        session.getSecurityAndPassword().getNewPhoneFIeld().setText("1231231231");
+
+    }
+
+    @Test(description = "verify that 'Chnage password' popup opens up, when user clicks on 'Reset your password' button")
+    public void sp_7resetYourPassword() {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getSecurityAndPassword().getUserProfileBtn().click();
+        session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
+        session.getSecurityAndPassword().getResetPasswordBtn().click();
+
     }
 
 
