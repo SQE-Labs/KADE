@@ -44,6 +44,10 @@ public class KadeSession extends BaseTest {
         return new NotificationsPage();
     }
 
+    public GiftCardDashboard giftCardDashboard() {
+        return new GiftCardDashboard();
+    }
+
 
 }
 

@@ -3,7 +3,7 @@
 <suite name="Suite">
     <test thread-count="1" parallel="classes" name="Test">
         <classes>
-            <class name="scenarios.GiftCardTest"/>
+            <class name="scenarios.giftCardTest"/>
         </classes>
     </test> <!-- Test -->
 </suite> <!-- Suite -->
