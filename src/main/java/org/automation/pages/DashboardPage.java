@@ -15,8 +15,13 @@ public class DashboardPage extends BaseTest {
     By todayPaymentTitle = By.xpath("//h5[text()='Today’s Payments']");
     By todayPayment = By.xpath("(//h1[contains(@class, 'display-5 mt-2 mb-4')])[3]");
     By recentTransactionsTitle = By.cssSelector("a +h5.card-title.mb-0");
+    By customerNameUnderRTSection = By.cssSelector(".row.g-1.p-1 >div> div:nth-child(2)");
+    By recentAmountUnderRT = By.cssSelector(" div:nth-child(4) strong");
+    By recentRTTime = By.cssSelector(" div:nth-child(4) strong+a");
     By refreshIcon = By.cssSelector(".card-title.mb-0 .btn >i");
     By fullListLink = By.cssSelector("a.float-end");
+    public By transactionPopup = By.cssSelector("div div.modal-content:nth-child(1)");
+    By RTpopupCrossIcon = By.cssSelector(" h5+ button.btn-close:nth-child(2)");
     By customerTrends = By.xpath("//h5[text()='Customer Trends']");
     By pymtmethodPopularityTitle = By.xpath("//h5[text()='Payment Methods Popularity']");
     By contactSupportLink = By.cssSelector(".card-title +h6 a");
@@ -29,6 +34,7 @@ public class DashboardPage extends BaseTest {
     public Clickable getYourBusinessTitle() {
         return Clickable.getElementBy(yourBusinessTitle, "Your Bussiness Title");
     }
+
 
     public Clickable getCustomerTitle() {
         return Clickable.getElementBy(customerTitle, "Customer Title");
@@ -47,8 +53,17 @@ public class DashboardPage extends BaseTest {
     }
 
     public Clickable getRecentTransactionsTitle() {
-        return Clickable.getElementBy(recentTransactionsTitle, "Recent Transactions");
-    }
+        return Clickable.getElementBy(recentTransactionsTitle, "Recent Transactions");}
+
+    public Clickable getRecentRTAmount(){ return Clickable.getElementBy(recentAmountUnderRT, " Recent Transaction Amount");}
+
+    public Clickable getRecentRTTime() { return Clickable.getElementBy(recentRTTime, "Recent Transaction Time");}
+
+    public Clickable getCustomerNameUnderRTSection(){
+        return  Clickable.getElementBy(customerNameUnderRTSection, "Customer Name Under Recent Transactions");}
+
+    public Clickable getRTpopupCrossIcon() {
+        return Clickable.getElementBy(RTpopupCrossIcon, "Cross Icon");}
 
     public Clickable getCustomerTrends() {
         return Clickable.getElementBy(customerTrends, "Customer Trends");
@@ -87,4 +102,5 @@ public class DashboardPage extends BaseTest {
     public Clickable getCountOfAllStoreCustomer() {return Clickable.getElementBy(last30DaysCustomerCount, "All Stores Customer Count");}
     public Clickable getTodayPayment() { return Clickable.getElementBy(todayPayment, "Today's payment");}
     public Clickable getMessagePage() { return Clickable.getElementBy(messagePage, "Message Page");}
+    public Clickable getTransactionPopupUnderRT() { return Clickable.getElementBy(transactionPopup, "Transaction popup under RT section");}
     }

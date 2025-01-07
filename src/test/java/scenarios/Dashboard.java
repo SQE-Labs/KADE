@@ -2,7 +2,10 @@ package scenarios;
 
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
+import org.automation.objectBuilder.ObjectBuilder;
+import org.automation.objectBuilder.pages.BillsPage;
 import org.automation.pages.DashboardPage;
+import org.automation.pages.TransactionsPage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
@@ -16,7 +19,7 @@ import java.util.List;
 
 public class Dashboard extends BaseTest {
 
-    @Test(description=" DC01&2 Verify that following sections are displayed, on the 'Dashboard'")
+    @Test(description=" DC01 & 2 Verify that following sections are displayed, on the 'Dashboard'")
     public void verifyALLSectionsOnDashboardPage(){
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         DashboardPage Dashboard = new DashboardPage();
@@ -60,7 +63,7 @@ public class Dashboard extends BaseTest {
         Assertions.assertEquals(Dashboard.getPaymentMethodPopularityTitle().getText(),"Payment Methods Popularitypast 30 days");
     }
     
-    @Test(description ="DC04 Verify that 'No. of stores' count appears under 'Your Businesses' section, on the 'Dashboard' page.")
+    @Test(description = "DC03 & DC04 Verify that 'No. of stores' count appears under 'Your Businesses' section, on the 'Dashboard' page.")
     public void verifyNoOfCountAppearsUnderBusinessSection(){
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         DashboardPage Dashboard = new DashboardPage();
@@ -121,6 +124,89 @@ public class Dashboard extends BaseTest {
 
         session.getDashboardPage().getContactSupportLink().click();
         Assertions.assertTrue(session.getDashboardPage().getMessagePage().isDisplayed());
+    }
+
+    @Test (description = "DC09,DC10, DC11 and DC 12: Verify that Recent transactions of all stores appear under 'Recent transactions' section, on 'Dashboard' page.")
+    public void verifyThatRecentTransactionForAllStoreAppearsUnderRecentTransactionSection(){
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getSidePannel().getBillButton().click();
+        TransactionsPage transactions = session.getTransactionsPage();
+        String amt = "200.22";
+        String customerEmail = "yonro@yopmail.com";
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
+
+        //Creating Bill
+        session.getBillPage().createBill(bills);
+        session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 3);
+
+        //Logout as Store manager
+        session.getSidePannel().getSignOutButton().clickByMouse();
+
+        //Login as Customer
+        session.getLoginPage().performSignIn(customerEmail, "Test@123");
+        session.getNotificationPage().getNotificationIcon().click();
+        session.getNotificationPage().getFirstNotification().click();
+        WebdriverWaits.waitForElementClickable(session.getPaymentsPage().payNowButton,5);
+        session.getPaymentsPage().getPayNowButton().click();
+        String expectedTotalPayment = session.getBillPage().getActiveBillAmmount().getText();
+        WebdriverWaits.waitForElementUntilVisible(session.getPaymentsPage().changeButton,3000);
+        session.getPaymentsPage().getChangePaymentMethodButton().clickByMouse();
+        try{
+            WebdriverWaits.waitForElementVisible(session.getPaymentsPage().savedCreditcard,5);
+        }
+        catch (Exception e ) {
+            session.getPaymentsPage().getChangePaymentMethodButton().clickByMouse();
+        };
+        session.getPaymentsPage().getSavedCreditCard().click();
+        session.getPaymentsPage().swipeToPay();
+        WebdriverWaits.waitForElementVisible(session.getPaymentsPage().closeBlueBtn,1000);
+        session.getPaymentsPage().getBlueCloseButton().clickbyJS();
+
+        // logout customer .
+        session.getSidePannel().getSignOutButton().clickByMouse();
+        WebdriverWaits.fluentWait_ElementIntactable(2000, 500, session.getLoginPage().userNameField);
+
+        // login as store manager
+        session.getLoginPage().performSignIn("6465551114", "Test@123");
+
+
+        // got to transaction Page .
+        session.getSidePannel().getTransactionButton().click();
+        transactions.selectStore(bills.getStore());
+
+        // Payment Amount
+        String Payment = transactions.getTransactionAmmount().getText();
+        System.out.println(Payment);
+
+        // Customer Name
+        transactions.getLastTransactionRow().click();
+        String CustomerName = transactions.getCustomeName().getText();
+        System.out.println(CustomerName);
+        String Time= transactions.getTimeOnTransactionPage().getText();
+        System.out.println(Time);
+        transactions.getCloseTransactionPopupButton().click();
+
+        //Clicking on the Dashboard Tab
+        DashboardPage Dashboard = new DashboardPage();
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getDashboardTab().click();
+
+        // Verifying the recent Transaction.
+        Assertions.assertEquals(Dashboard.getCustomerNameUnderRTSection().getText(),CustomerName);
+        Assertions.assertEquals(Dashboard.getRecentRTAmount().getText(),Payment);
+        Assertions.assertEquals(Dashboard.getRecentRTTime().getText(),Time);
+
+        // Verify that user is able to refresh the transaction list
+        Dashboard.getRefreshIcon().click();
+
+        // Verify that Compelete transaction popup appears after clicking on any  Transaction.
+        Dashboard.getCustomerNameUnderRTSection().clickByMouse();
+        WebdriverWaits.waitForElementInVisible(Dashboard.transactionPopup,3);
+        Assertions.assertTrue(Dashboard.getTransactionPopupUnderRT().isDisplayed());
+        Dashboard.getRTpopupCrossIcon().click();
+
+        // Verify that user gets directed to the 'Transactions' page after clicking on 'Full List' link.
+        Dashboard.getFullListLink().click();
     }
 
 }

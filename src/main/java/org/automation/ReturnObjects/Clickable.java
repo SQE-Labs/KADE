@@ -24,12 +24,14 @@ public class Clickable extends ActionEngine {
         this.label = label;
     }
 
-    public void click() {
+    public WebElement click() {
         performClickOperation(() -> clickBy(target));
+        return null;
     }
 
-    public void clickbyJS() {
+    public WebElement clickbyJS() {
         performClickOperation(() -> clickElementByJS(target));
+        return null;
     }
 
     public void scrollPopupAndClick(){scrollPopupAndClick(() -> clickBy(target, label));}
@@ -78,6 +80,14 @@ public class Clickable extends ActionEngine {
         } else {
             System.err.println("Element is not fully visible or not interactable: " + target);
         }
+    }
+
+    public void scrollIntoView() {
+        WebElement popupContainer = getDriver().findElement(By.xpath("(//div[@class='modal-content'])[1]"));
+        WebElement element = getDriver().findElement(target);
+        WebdriverWaits.waitForElementUntilVisible(target, 5);
+        WebdriverWaits.waitForElementClickable(target, 5);
+        js.executeScript("arguments[0].scrollTop = arguments[1].offsetTop;", popupContainer, element);
     }
 
     public Boolean isDisplayed() {

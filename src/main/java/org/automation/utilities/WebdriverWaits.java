@@ -1,24 +1,22 @@
 package org.automation.utilities;
 
 import org.automation.base.BaseTest;
-import org.openqa.selenium.By;
-import org.openqa.selenium.ElementNotInteractableException;
-import org.openqa.selenium.WebDriver;
-import org.openqa.selenium.WebElement;
+import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.FluentWait;
 import org.openqa.selenium.support.ui.Wait;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.NoSuchElementException;
 
-import java.sql.SQLOutput;
 import java.time.Duration;
-import java.util.NoSuchElementException;
 import java.util.Set;
 
-//import static org.automation.base.BaseTest.driver;
-import static org.automation.base.BaseTest.getDriver;
-
 public class WebdriverWaits extends BaseTest {
+    private static final Logger log = LoggerFactory.getLogger(WebdriverWaits.class);
     /**
      * Waits for a given element to be visible
      *
@@ -34,8 +32,9 @@ public class WebdriverWaits extends BaseTest {
     /**
      * Waits for a given element to be visible
      *
-//     * @param driver WebDriver instance
-//     * @param e      element to wait for
+     //* @param driver WebDriver instance
+     * @param locator The locator of the element to wait for.
+     * @param waitTime element to wait for
      */
     public static void waitForElementVisible(By locator, int waitTime) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
@@ -53,8 +52,8 @@ public class WebdriverWaits extends BaseTest {
 
     /**
      * Waits for a given element to be selected
-     *
-//     * @param driver  WebDriver instance
+     * @param waitTime element to wait for
+     //* @param driver  WebDriver instance
      * @param locator By of the element to wait for
      */
     public static void waitForElementSelected(By locator, int waitTime) {
@@ -65,8 +64,8 @@ public class WebdriverWaits extends BaseTest {
 
     /**
      * Waits for a given element to be clickable
-     *
-//     * @param driver  WebDriver instance
+     * @param waitTime element to wait for
+     //* @param driver  WebDriver instance
      * @param locator By to locate element to wait for
      */
     public static void waitForElementClickable(By locator, int waitTime) {
@@ -77,7 +76,7 @@ public class WebdriverWaits extends BaseTest {
     public static WebElement waitForElementUntilVisible(By locator, int waitTime) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
         WebElement e = wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
-        System.out.println("Value of locator= "+locator);
+        log.info("Value of locator= {}", locator);
         return e;
     }
 
@@ -88,8 +87,10 @@ public class WebdriverWaits extends BaseTest {
      * are trying to check the page title on page load before the title has
      * changed to that of the new page.
      *
-//     * @param driver WebDriver instance
+     //* @param driver WebDriver instance
      * @param title  title the page should have
+     * @param waitTime The maximum time to wait for the title to appear, in seconds.
+     * @return true if the page title contains the specified title within the given time; false otherwise.
      */
     public static boolean waitForPageTitle(String title, int waitTime) {
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
@@ -121,14 +122,66 @@ public class WebdriverWaits extends BaseTest {
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
 
     }
-    
+
     public static void fluentWait_ElementIntactable(long waitTimeForTimeout, long waitTimeForPolling, By locator) {
-        Wait<WebDriver> wait = new FluentWait<>(getDriver()).withTimeout(Duration.ofSeconds(waitTimeForTimeout))
+        Wait<WebDriver> wait = new FluentWait<>(getDriver())
+                .withTimeout(Duration.ofMillis(waitTimeForTimeout))
                 .pollingEvery(Duration.ofMillis(waitTimeForPolling))
+                .ignoring(NoSuchElementException.class)
                 .ignoring(ElementNotInteractableException.class);
         wait.until(ExpectedConditions.elementToBeClickable(locator));
-
     }
+
+    public static void fluentWaitForDuration(long timeoutInMillis, long pollingInMillis) {
+        Wait<WebDriver> wait = new FluentWait<>(getDriver())
+                .withTimeout(Duration.ofMillis(timeoutInMillis))  // Total wait time
+                .pollingEvery(Duration.ofMillis(pollingInMillis)) // Polling interval
+                .ignoring(Exception.class); // Ignore exceptions during polling
+
+        // Wait until timeout is reached (dummy condition)
+        wait.until(driver -> true); // A condition that always returns false, making it wait the full duration
+    }
+
+    public static void waitForElementValueToUpdate(long timeoutInMillis, long pollingInMillis, By locator, String oldValue) {
+        Wait<WebDriver> wait = new FluentWait<>(getDriver())
+                .withTimeout(Duration.ofMillis(timeoutInMillis))
+                .pollingEvery(Duration.ofMillis(pollingInMillis))
+                .ignoring(Exception.class);
+
+
+        WebElement element = wait.until(driver -> {
+            WebElement ele = driver.findElement(locator);
+            String currentValue = ele.getAttribute("value");
+
+            if (!currentValue.equals(oldValue)) {
+                return ele;
+            } else {
+                return null;
+            }
+        });
+    }
+
+    public static void retryClick(WebElement element, int maxRetries) {
+        int attempts = 0;
+        while (attempts < maxRetries) {
+            try {
+                element.click();
+                return; // Exit the loop if the click is successful
+            } catch (Exception e) {
+                attempts++;
+                try {
+                    Thread.sleep(1000); // Short wait before retrying
+                } catch (InterruptedException ignored) {
+                }
+            }
+        }
+        throw new RuntimeException("Unable to click the element after " + maxRetries + " attempts");
+    }
+
+
+
+
+
  
     
     public static void SwitchToNewTab() throws InterruptedException {
@@ -143,45 +196,6 @@ public class WebdriverWaits extends BaseTest {
 
 		Thread.sleep(3000);
 	}
-
-    public static void retryClick(By locator, int retryCount) {
-        int waitTime = 5;
-        if (retryCount <= 0) {
-            throw new IllegalArgumentException("Retry count must be greater than 0");
-        }
-
-        int attempts = 0;
-        boolean isClicked = false;
-
-        while (attempts < retryCount && !isClicked) {
-            try {
-                /* Wait until the element is clickable */
-
-                WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(waitTime));
-                WebElement element = wait.until(ExpectedConditions.elementToBeClickable(locator));
-
-                // Attempt to click the element
-                element.click();
-                isClicked = true;
-                System.out.println("Click successful on attempt " + (attempts + 1));
-            } catch (Exception e) {
-                attempts++;
-                if (attempts < retryCount) {
-                    System.out.println("Click attempt " + attempts + " failed. Retrying...");
-                } else {
-                    System.out.println("Click failed after " + attempts + " attempts. Locator: " + locator.toString());
-                    throw e; // Rethrow exception after all retries fail
-                }
-
-                // Add a delay before retrying
-                try {
-                    Thread.sleep(1000 * attempts); // Incremental delay (e.g., 1s, 2s, 3s...)
-                } catch (InterruptedException ie) {
-                    Thread.currentThread().interrupt();
-
-                }
-            }
-        }
-    }
-
 }
+
+

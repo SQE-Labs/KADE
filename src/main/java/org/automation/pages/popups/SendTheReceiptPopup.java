@@ -6,7 +6,7 @@ import org.openqa.selenium.By;
 
 public class SendTheReceiptPopup {
 
-   public By sendReceiptTitle = By.xpath("//h5[text()='Send the receipt']");
+    public By sendReceiptTitle = By.xpath("//h5[text()='Send the receipt']");
     By amountField = By.cssSelector("h3.text-success.display-3");
     By successMessage = By.cssSelector("div.text-center > p");
 

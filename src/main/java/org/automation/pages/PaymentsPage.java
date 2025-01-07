@@ -31,7 +31,7 @@ public class PaymentsPage extends BasePage {
     public By totalPaidAmt = By.xpath("//h4[contains(text(),'Total paid')]");
     By voidedTag = By.xpath("//h6[text()='VOIDED']");
     public By changeButton = By.xpath("//div[contains(text(),'Change')]");
-    By swipeBtn = By.xpath("//input[@type='range']");
+    public By swipeBtn = By.xpath("//input[@type='range']");
     By closeBtn = By.xpath("//a[text()='Close']");
 
 
@@ -40,11 +40,11 @@ public class PaymentsPage extends BasePage {
      */
     By balanceDue = By.xpath("//span[text()='Balance Due:']//following-sibling::span");
     By totalAmount = By.xpath("//span[contains(text(),'Total')]");
-   public By receiveAmountTbx = By.xpath("//input[@name='amount']");
+    By receiveAmountTbx = By.xpath("//input[@name='amount']");
     public By creditCardBtn = By.xpath("//button[text()='Credit Card']");
     By othersBtn = By.xpath("//button[text()='Other']");
    public By savedCreditcard = By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')][1]");
- By selectPaymentPopupTitle = By.xpath("//h5[text()=\"Select payment method\"]");
+
 
     /*
     Payment Type Panel
@@ -66,11 +66,11 @@ public class PaymentsPage extends BasePage {
     // By savedCreditcard = By.xpath("//div[contains(@class,'-paymethodbox-')] //span[contains(text(),'Visa')]");
     public By savedBankAccount = By.xpath("//span[text()='Bank Account 6789'][1]");
     public By SavedVenmoCard = By.xpath("//span[@class='text-nowrap fs-pn25' and text()='Venmo']");
-   public By iMadeMyPaymentButtonVenmo = By.cssSelector(".text-center.mb-3>button");
+    public By iMadeMyPaymentButtonVenmo = By.cssSelector(".text-center.mb-3>button");
     By personalMessageVenmo = By.xpath("//textarea[@placeholder='Personal message']");
     By screenshotButton = By.xpath("//button[text()='Do you have a screenshot?']");
     By confirmVenmoCheckbox = By.xpath("//i[@class='fal fa-square custom-check-off ']");
-  public  By venmoSubmitButton = By.xpath("//button[text()='Submit']");
+    By venmoSubmitButton = By.xpath("//button[text()='Submit']");
     By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
     By selectedBankDisplay = By.xpath("//div[@class='-placeholder- link-empty']");
 
@@ -201,7 +201,7 @@ public class PaymentsPage extends BasePage {
     }
 
     public Clickable getChangePaymentMethodButton() {
-//        WebdriverWaits.sleep(2000);
+        System.out.println(changeButton);
         return Clickable.getElementBy(changeButton, "change Payment Method button");
     }
 
@@ -242,10 +242,6 @@ public class PaymentsPage extends BasePage {
         return Clickable.getElementBy(payNowButton, "Pay Now Button");
     }
 
-    public Clickable getChangePaymentButton() {
-        return Clickable.getElementBy(changeButton, "change Payment type button");
-
-    }
 
     public Clickable getSavedCreditCard() {
         return Clickable.getElementBy(savedCreditcard, "Saved Credit card");
@@ -399,7 +395,5 @@ public class PaymentsPage extends BasePage {
     public Clickable  getUpdateAmountToPayButton(){
         return  Clickable.getElementBy(updateAmtBtn, "Update Amount to pay button");
     }
-    public Clickable getSelectPaymentPopupTitle() {
-        return Clickable.getElementBy(selectPaymentPopupTitle,"payment title");
-    }
+
 }

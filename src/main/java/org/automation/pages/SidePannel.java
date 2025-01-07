@@ -20,7 +20,9 @@ public class SidePannel extends BasePage {
 	By signOutBtn = By.xpath("//a[text()='Sign out']");
 	By qrCodeDashboardBtn = By.xpath("//a[text()='QR Code Dashboard']");
 	By manageBusinessAcc = By.xpath("//a[@class='sidebar-link collapsed' and text()='Manage Business']");
-	public By dashboardButton = By.cssSelector("a[href^='/Stores/dashboard']");
+	By CustomersBtn = By.cssSelector(".fa-fw.fas.fa-user-friends");
+	By dashboardTab = By.cssSelector("[href=\"/Stores/dashboard\"]");
+
 
 	public SidePannel() {
 	}
@@ -43,6 +45,10 @@ public class SidePannel extends BasePage {
 	}
 	public Clickable getMyStoresTab(){
 		return getElementBy(myStoreBtn);
+	}
+
+	public Clickable getCustomersTab(){
+		return getElementBy(CustomersBtn);
 	}
 
 	public Clickable getGiftCardsDashboardTab(){
@@ -83,8 +89,13 @@ public class SidePannel extends BasePage {
 		return Clickable.getElementBy(signOutBtn,"Sign Out Button");
     }
 
-    public Clickable getQrCodeDashboardButton() {return Clickable.getElementBy(qrCodeDashboardBtn , "Qr code dashboard button");}
-	public Clickable getDashboardTab() { return Clickable.getElementBy(dashboardButton, "Dashboard");}
+    public Clickable getQrCodeDashboardButton() {
+		return Clickable.getElementBy(qrCodeDashboardBtn , "Qr code dashboard button");
+    }
+	public Clickable getDashboardTab(){
+		return Clickable.getElementBy(dashboardTab, "Dashboard Tab");
+	}
+
 }
 
 
