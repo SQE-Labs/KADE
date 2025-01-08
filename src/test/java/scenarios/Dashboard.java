@@ -100,14 +100,14 @@ public class Dashboard extends BaseTest {
         session.getSidePannel().getDashboardTab().click();
 
         // Verify the Process Payment of Last 30 days
-        Assertions.assertTrue(session.getDashboardPage().getTotalAmountOfProcessPayment().isDisplayed());
-        String valueA = session.getDashboardPage().getTotalAmountOfProcessPayment().getText();
+        Assertions.assertTrue(Dashboard.getTotalAmountOfProcessPayment().isDisplayed());
+        String valueA = Dashboard.getTotalAmountOfProcessPayment().getText();
         System.out.println("Process Payment of Last 30 days is: "+valueA);
 
 
         // Verify the  customer count of all stores displayed under Customer Section
-        Assertions.assertTrue(session.getDashboardPage().getCountOfAllStoreCustomer().isDisplayed());
-        String valueB = session.getDashboardPage().getCountOfAllStoreCustomer().getText();
+        Assertions.assertTrue(Dashboard.getCountOfAllStoreCustomer().isDisplayed());
+        String valueB = Dashboard.getCountOfAllStoreCustomer().getText();
         System.out.println("Total Count of last 30 days of all stores: "+valueB);
 
         // Verify that Today's Payment appears of  all stores under 'Today's Payment' section.
@@ -207,6 +207,26 @@ public class Dashboard extends BaseTest {
 
         // Verify that user gets directed to the 'Transactions' page after clicking on 'Full List' link.
         Dashboard.getFullListLink().click();
+    }
+
+    @Test(description = "DC 18, 19 & 20: Verify that user get directed to 'Dashboard' page of store after selecting store, on 'No. of stores' popup, under 'Your Businesses' section.")
+        public void verifyThatDirectedToDashboardPageOfSelectedStore(){
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        DashboardPage Dashboard = new DashboardPage();
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getDashboardTab().click();
+
+        // Clicking on the first store from the Store Popups
+       Dashboard.getStoreCountUnderYourBusiness().click();
+       Dashboard.getFirstStoreUnderYourBusiness().click();
+       Dashboard.getSettingIcon().click();
+
+       // Verify that store Configuration page title
+        Assertions.assertTrue(Dashboard.getStoreConfigurationTitle().isDisplayed());
+
+
+
+
     }
 
 }

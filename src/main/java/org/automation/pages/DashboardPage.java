@@ -28,13 +28,28 @@ public class DashboardPage extends BaseTest {
     By myStore = By.cssSelector("[class^='card p-2 border w-20c overflow-hidden']");
     By storeCountDashboard = By.xpath("(//span [@class=\"badge rounded-pill bg-dark ms-n1\"])[2]");
     By listofStoreNameonPopup = By.cssSelector("div.popover-body span:nth-child(1)");
+    By getFirstStore = By.cssSelector(".popover-body >div a:nth-child(1)");
+    By settingIcon = By.cssSelector("a.p-0.float-end");
+    By yourBusinessLink = By.cssSelector("span.fs-pn15 + a");
     By messagePage = By.cssSelector("nav.navbar >h1 ");
+    By storeConfigurationTitle = By.cssSelector("h1.header-title");
 
 
     public Clickable getYourBusinessTitle() {
         return Clickable.getElementBy(yourBusinessTitle, "Your Bussiness Title");
     }
-
+    public Clickable getFirstStoreUnderYourBusiness() {
+        return Clickable.getElementBy(getFirstStore, "Get First Store");
+    }
+    public Clickable getSettingIcon() {
+        return  Clickable.getElementBy(settingIcon,"Setting Icon");
+    }
+    public Clickable getYourBusinessLink() {
+        return Clickable.getElementBy(yourBusinessLink,"Your Business Link");
+    }
+    public Clickable getStoreConfigurationTitle() {
+        return Clickable.getElementBy(storeConfigurationTitle,"Store Configuration Title");
+    }
 
     public Clickable getCustomerTitle() {
         return Clickable.getElementBy(customerTitle, "Customer Title");
