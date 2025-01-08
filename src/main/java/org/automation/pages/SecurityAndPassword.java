@@ -15,7 +15,7 @@ public class SecurityAndPassword extends BasePage {
     By updateEmailInputField = By.xpath("//input[@placeholder='email@gmail.com']");
     By sendBtnForUpdatedEmail = By.cssSelector(".-email-.btn.btn-primary");
     By alertMessage = By.xpath("//p[text()='Please review the highlighted field(s)']");
-    By currentSecurityCode = By.xpath("//input[@name='current_otp']");
+    public By currentSecurityCode = By.xpath("//input[@name='current_OTP']");
     public By newEmailSecurityCode = By.xpath("//input[@name='otp']");
     By saveBtn = By.xpath("//button[@class='display-none -otp- btn btn-primary']");
     By emailField = By.xpath("//input[@name='email'][@type='text']");
@@ -38,10 +38,22 @@ public class SecurityAndPassword extends BasePage {
     By resetPwdSecurityCodeBtn = By.cssSelector(".-email-.btn.btn-primary");
     By resetPwdCodeInputField = By.cssSelector(".form-control-lg.fs-3.text-center.form-control");
     By resetPwdContinueBtn = By.cssSelector(".btn-lg.btn.btn-primary");
-    By passwordField = By.xpath("//input[@name='password']");
+    public By passwordField = By.xpath("//input[@name='password']");
     By confirmPasswordField = By.xpath("//input[@name='confirmPassword']");
-    By showPasswordIcon = By.cssSelector(".fal.fa-eye.custom-check-on");
+    By showPasswordIcon = By.cssSelector(".fal.fa-eye-slash.custom-check-off");
     By submitNewPasswordBtn = By.xpath("//button[@class='btn-lg btn btn-primary'][text()='Submit']");
+    By deleteEmailBtn = By.xpath("//button[@data-action='/users/_userProfile_deleteEmail']");
+    By deletePhoneBtn = By.xpath("//button[@data-action='/users/_userProfile_deletePhone']");
+    By deletePhoneValidationMsg = By.xpath("//p[text()='You cannot remove the phone number from a Business account.']");
+    By deleteEmailValidationMsg = By.xpath("//p[text()='You cannot remove the email address from a Business account.']");
+
+    public Clickable getDelPhoneValidationMsg() {return Clickable.getElementBy(deletePhoneValidationMsg,"validation message showing You cannot remove the phone number from a Business account.");}
+
+    public Clickable getDelEmailValidationMsg() {return Clickable.getElementBy(deleteEmailValidationMsg,"Validation message showing You cannot remove the email address from a Business account.");}
+
+    public Clickable getDeleteEmailBtn() {return Clickable.getElementBy(deleteEmailBtn,"Delete Email button");}
+
+    public Clickable getDeletePhoneBtn() {return Clickable.getElementBy(deletePhoneBtn,"Delete Phone number button");}
 
     public Clickable getSubmitNewPasswordBtn() {return Clickable.getElementBy(submitNewPasswordBtn,"Submit and save the new password");}
 

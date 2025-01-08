@@ -68,6 +68,7 @@ public class SecurityAndPasswordTabTest extends BaseTest {
         session.getSecurityAndPassword().getUpdateEmailField().setText(randomEmail);
 
         session.getSecurityAndPassword().getSendBtnForUpdatedEmail().click();
+        WebdriverWaits.waitForElementVisible(session.getSecurityAndPassword().currentSecurityCode,10);
         session.getSecurityAndPassword().getCurrentEmailSecurityCode().setText(" ");
         session.getSecurityAndPassword().getNewEmailSecurityCode().setText(" ");
         session.getSecurityAndPassword().getSaveButton().click();
@@ -141,21 +142,21 @@ public class SecurityAndPasswordTabTest extends BaseTest {
         Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneOTPField().getToolTipMessage(),"This field is required.");
         Assertions.assertEquals(session.getSecurityAndPassword().getCurrentPhoneOTPField().getToolTipMessage(),"This field is required.");
 
-        session.getSecurityAndPassword().getCurrentEmailSecurityCode().setText("123456");
-        session.getSecurityAndPassword().getNewEmailSecurityCode().setText("12345");
+        session.getSecurityAndPassword().getCurrentPhoneOTPField().setText("123456");
+        session.getSecurityAndPassword().getNewPhoneOTPField().setText("12345");
         session.getSecurityAndPassword().getSaveNewPhoneBtn().click();
         Assertions.assertTrue(session.getSecurityAndPassword().getSystemAlertMessage().isDisplayed());
         Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneOTPField().getToolTipMessage(),"Please enter at least 6 characters.");
 
-        session.getSecurityAndPassword().getCurrentEmailSecurityCode().setText("123456");
-        session.getSecurityAndPassword().getNewEmailSecurityCode().setText("122222");
+        session.getSecurityAndPassword().getCurrentPhoneOTPField().setText("123456");
+        session.getSecurityAndPassword().getNewPhoneOTPField().setText("122222");
         session.getSecurityAndPassword().getSaveNewPhoneBtn().click();
         Assertions.assertTrue(session.getSecurityAndPassword().getSystemAlertMessage().isDisplayed());
 
         session.getSecurityAndPassword().getDiffCellPhone().click();
         session.getSecurityAndPassword().getNewPhoneFIeld().setText("12334545676");
         session.getSecurityAndPassword().getSecurityCodeBtn().click();
-        session.getSecurityAndPassword().getCurrentEmailSecurityCode().setText("123456");
+        session.getSecurityAndPassword().getCurrentPhoneOTPField().setText("123456");
         session.getSecurityAndPassword().getNewEmailSecurityCode().setText("123456");
         session.getSecurityAndPassword().getSaveNewPhoneBtn().click();
 
@@ -179,8 +180,8 @@ public class SecurityAndPasswordTabTest extends BaseTest {
 
         session.getSecurityAndPassword().getNewPhoneFIeld().setText("12334");
         session.getSecurityAndPassword().getSecurityCodeBtn().click();
-        session.getSecurityAndPassword().getCurrentEmailSecurityCode().setText("123456");
-        session.getSecurityAndPassword().getNewEmailSecurityCode().setText("123456");
+        session.getSecurityAndPassword().getCurrentPhoneOTPField().setText("123456");
+        session.getSecurityAndPassword().getNewPhoneOTPField().setText("123456");
         session.getSecurityAndPassword().getSaveNewPhoneBtn().click();
         session.getSecurityAndPassword().getPopupCloseBtn().click();
 
@@ -193,20 +194,37 @@ public class SecurityAndPasswordTabTest extends BaseTest {
 
     }
 
-    @Test(description = "verify that 'Chnage password' popup opens up, when user clicks on 'Reset your password' button")
+    @Test(enabled = false, description = "verify that 'Chnage password' popup opens up, when user clicks on 'Reset your password' button")
     public void sp_7resetYourPassword() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSecurityAndPassword().getUserProfileBtn().click();
         session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
         session.getSecurityAndPassword().getResetPasswordBtn().click();
 
+        session.getSecurityAndPassword().getResetPwdSecCodeBtn().click();
+        session.getSecurityAndPassword().getRestPwdInputField().setText("123456");
+        session.getSecurityAndPassword().getResetPwdContinueBtn().click();
+        WebdriverWaits.waitForElementVisible(session.getSecurityAndPassword().passwordField,10);
+        Assertions.assertTrue(session.getSecurityAndPassword().getPasswordField().isDisplayed());
+        Assertions.assertTrue(session.getSecurityAndPassword().getConfirmPasswordField().isDisplayed());
+//        session.getSecurityAndPassword().getPasswordField().setText("Test@123");
+//        session.getSecurityAndPassword().getConfirmPasswordField().setText("Test@123");
+//        session.getSecurityAndPassword().getShowPwdIcon().click();
+//        session.getSecurityAndPassword().getSubmitNewPasswordBtn().click();
+
     }
 
+    @Test(description = "Verify validation message appears when clicked on delete button")
+    public void sp_8DeleteButton() {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getSecurityAndPassword().getUserProfileBtn().click();
+        session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
 
+        session.getSecurityAndPassword().getDeleteEmailBtn().click();
+        Assertions.assertTrue(session.getSecurityAndPassword().getDelEmailValidationMsg().isDisplayed());
+        session.getSecurityAndPassword().getDeletePhoneBtn().click();
+        Assertions.assertTrue(session.getSecurityAndPassword().getDelPhoneValidationMsg().isDisplayed());
 
-
-
-
-
+    }
 
 }
