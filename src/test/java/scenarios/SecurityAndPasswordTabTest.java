@@ -224,7 +224,7 @@ public class SecurityAndPasswordTabTest extends BaseTest {
         Assertions.assertTrue(session.getSecurityAndPassword().getDelEmailValidationMsg().isDisplayed());
         session.getSecurityAndPassword().getDeletePhoneBtn().click();
         Assertions.assertTrue(session.getSecurityAndPassword().getDelPhoneValidationMsg().isDisplayed());
-
     }
+
 
 }
