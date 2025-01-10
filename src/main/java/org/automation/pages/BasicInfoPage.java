@@ -13,8 +13,8 @@ public class BasicInfoPage extends BasePage {
 
     By manageBusinessAcc = By.xpath("//a[@class='sidebar-link collapsed' and text()='Manage Business']");
     By myStores = By.cssSelector(".align-middle.me-2.fa-fw.fas.fa-store");
-    By custStoreConfig = By.xpath("//a[contains(@href, '/Stores/manageStore/3790')]");
-    By storeConfigTitle = By.xpath("//h1[@class='header-title mb-0']");
+    By custStoreConfig = By.cssSelector("a.float-end.btn.btn-link[href^=\"/Stores/manageStore/3790\"]");
+    By storeConfigTitle = By.cssSelector(".header-title.mb-0");
     By basicInfoTab = By.xpath("//a[contains(@href, '#_71Z')]");
     By basicInfoPg = By.cssSelector(".col-md-9.col-xl-10");
     By storeAddress = By.xpath("//label[@class='text-muted fs-pn15'][text()='Store Address']");
@@ -28,7 +28,7 @@ public class BasicInfoPage extends BasePage {
     By storePhoneField = By.xpath("//input[@name='phone']");
     By storeTexRateField = By.xpath("//input[@name='taxRate']");
     public By storeLogo = By.xpath("//a[@class=' -profile- d-inline-block position-relative start-50 translate-middle-x']");
-    By checkBtn = By.cssSelector(".fa.fa-check");
+    public By checkBtn = By.cssSelector(".fa.fa-check");
     By validationMsg = By.cssSelector(".toast-message");
     By alertMsg = By.cssSelector(".alert-content");
 
