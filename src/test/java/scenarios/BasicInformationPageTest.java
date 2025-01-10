@@ -98,9 +98,12 @@ public class BasicInformationPageTest extends BaseTest {
         WebElement fileInput = getDriver().findElement(By.xpath("//input[@type='file']"));
 
         // Set the file path to upload
-        String filePath = "C:\\Users\\Itsqe\\Downloads\\Waterfall Model.jpg";
+        String filePath = "C:\\Users\\Itsqe\\Downloads\\tomat.png";
         fileInput.sendKeys(filePath);
+        WebdriverWaits.sleep(2000);
+        WebdriverWaits.waitForElementClickable(session.getBasicInfoPage().checkBtn,20);
         session.getBasicInfoPage().getCheckBtn().click();
+        WebdriverWaits.waitForElementInVisible(session.getBasicInfoPage().checkBtn,10);
 
     }
 
