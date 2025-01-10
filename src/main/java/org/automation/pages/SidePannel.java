@@ -21,6 +21,7 @@ public class SidePannel extends BasePage {
 	By qrCodeDashboardBtn = By.xpath("//a[text()='QR Code Dashboard']");
 	By manageBusinessAcc = By.xpath("//a[@class='sidebar-link collapsed' and text()='Manage Business']");
 	By CustomersBtn = By.cssSelector(".fa-fw.fas.fa-user-friends");
+	By SearchBtn = By.cssSelector(".fa-search");
 
 	public SidePannel() {
 	}
@@ -47,6 +48,10 @@ public class SidePannel extends BasePage {
 
 	public Clickable getCustomersTab(){
 		return getElementBy(CustomersBtn);
+	}
+
+	public Clickable getSearchTab(){
+		return getElementBy(SearchBtn);
 	}
 
 	public Clickable getGiftCardsDashboardTab(){
