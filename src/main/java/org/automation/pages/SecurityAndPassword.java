@@ -7,9 +7,9 @@ import org.openqa.selenium.By;
 
 public class SecurityAndPassword extends BasePage {
 
-    By userProfile = By.cssSelector("a.btn.btn-link.p-0.fs-pn15[href=\"/Users/userprofile\"] ");
-    By securityAndPasswordTab = By.cssSelector("a.list-group-item.list-group-item-action.active");
-    By editEmailBtn = By.cssSelector("button.btn.btn-outline-secondary[data-action=\"/users/_userProfile_replaceEmail\"]");
+    By userProfile = By.cssSelector("a.btn.btn-link.p-0.fs-pn15[href='/Users/userprofile']");
+    public By securityAndPasswordTab = By.xpath("//a[@class='list-group-item list-group-item-action'][@data-section='security']");
+    By editEmailBtn = By.cssSelector("button.btn.btn-outline-secondary[data-action='/users/_userProfile_replaceEmail']");
     public By updateEmailPopupTitle = By.cssSelector("h5.modal-title");
     By closePopupBtn = By.cssSelector(".btn-close");
     By updateEmailInputField = By.xpath("//input[@placeholder='email@gmail.com']");

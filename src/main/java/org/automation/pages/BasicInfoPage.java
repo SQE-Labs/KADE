@@ -3,17 +3,13 @@ package org.automation.pages;
 import org.automation.ReturnObjects.Clickable;
 import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
-import org.automation.base.BaseTest;
 import org.openqa.selenium.By;
-
-import java.awt.*;
-import java.security.PublicKey;
 
 public class BasicInfoPage extends BasePage {
 
     By manageBusinessAcc = By.xpath("//a[@class='sidebar-link collapsed' and text()='Manage Business']");
     By myStores = By.cssSelector(".align-middle.me-2.fa-fw.fas.fa-store");
-    By custStoreConfig = By.cssSelector("a.float-end.btn.btn-link[href^=\"/Stores/manageStore/3790\"]");
+    By custStoreConfig = By.cssSelector("a.float-end.btn.btn-link[href^='/Stores/manageStore/3790']");
     By storeConfigTitle = By.cssSelector(".header-title.mb-0");
     By basicInfoTab = By.xpath("//a[contains(@href, '#_71Z')]");
     By basicInfoPg = By.cssSelector(".col-md-9.col-xl-10");
@@ -75,5 +71,7 @@ public class BasicInfoPage extends BasePage {
     public Clickable getBasicInfoTab() {
         return Clickable.getElementBy(basicInfoTab,"Basic Information tab button");
     }
+
+
 
 }
