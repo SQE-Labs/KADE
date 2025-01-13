@@ -34,6 +34,8 @@ public class DashboardPage extends BaseTest {
     By messagePage = By.cssSelector("nav.navbar >h1 ");
     By storeConfigurationTitle = By.cssSelector("h1.header-title");
     By storeName = By.cssSelector(".d-flex.flex-column h3");
+    By BankAccountBar = By.xpath("//*[@seriesName='BankxAccount' and @id='SvgjsG1179']");
+    By cashGraph = By.xpath("//*[@seriesName='Cash' and @id='SvgjsG1188']");
 
 
     public Clickable getYourBusinessTitle() {

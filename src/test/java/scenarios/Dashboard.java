@@ -206,7 +206,7 @@ public class Dashboard extends BaseTest {
         Dashboard.getFullListLink().click();
     }
 
-    @Test(description = "DC 18, 19 & 20,21,22 &23: Verify that user get directed to 'Dashboard' page of store after selecting store, on 'No. of stores' popup, under 'Your Businesses' section.")
+    @Test(description = "DC 18, 19 & 20,21,22,23& 24: Verify that user get directed to 'Dashboard' page of store after selecting store, on 'No. of stores' popup, under 'Your Businesses' section.")
         public void verifyThatDirectedToDashboardPageOfSelectedStore(){
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         DashboardPage Dashboard = new DashboardPage();
@@ -246,8 +246,6 @@ public class Dashboard extends BaseTest {
 
         // Verify that user gets directed to message page of the same store.
         Dashboard.getContactSupportLink().click();
-
-
     }
 
 }
