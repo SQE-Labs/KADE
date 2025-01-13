@@ -13,3 +13,4 @@ test-report/
 allure-results/
 testng.xml
 pom.xml
+debugger.xml
