@@ -11,3 +11,5 @@ test-report/
 /.metadata/
 /.DS_Store
 allure-results/
+testng.xml
+pom.xml

@@ -16,7 +16,7 @@ import java.io.File;
 public class BasicInformationPageTest extends BaseTest {
 
     @Test(description = "Verify 'Basic Information' page is visible after clicking on 'Configure' button of any store")
-    public void b_01verifyBasicInformationPageOpens() {
+    public void verifyBasicInformationPageOpens() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
@@ -31,7 +31,7 @@ public class BasicInformationPageTest extends BaseTest {
     }
 
     @Test(description = "Verify that the user is able to modify information after clicking on 'Modify' button")
-    public void b_02verifyModifyAndSaveChangesFunctionality() {
+    public void verifyModifyAndSaveChangesFunctionality() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
@@ -52,7 +52,7 @@ public class BasicInformationPageTest extends BaseTest {
     }
 
     @Test(description = "Enter Invalid or Unverified address in the Store Address field of the Store Basic Information page")
-    public void b_03verifyInvalidAddressValidation() {
+    public void verifyInvalidAddressValidation() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
@@ -68,7 +68,7 @@ public class BasicInformationPageTest extends BaseTest {
     }
 
     @Test(description = "Enter Invalid Phone number in the Phone number field of the Store Basic Information page")
-    public void b_04verifyInvalidPhoneValidation() {
+    public void verifyInvalidPhoneValidation() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
@@ -84,7 +84,7 @@ public class BasicInformationPageTest extends BaseTest {
 
 
     @Test(description = "Change Store logo")
-    public void b_05verifyStoreLogoChange() {
+    public void verifyStoreLogoChange() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
@@ -103,7 +103,7 @@ public class BasicInformationPageTest extends BaseTest {
     }
 
     @Test(description = "Try uploading invalid file format as store logo")
-    public void b_06verifyStoreLogoChangeWithInvalidFile() {
+    public void verifyStoreLogoChangeWithInvalidFile() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getMyStoresTab().click();
@@ -119,6 +119,5 @@ public class BasicInformationPageTest extends BaseTest {
         Assertions.assertEquals(session.getBasicInfoPage().getValidationMsg().getText(),"Not a valid image file");
 
     }
-
 
 }

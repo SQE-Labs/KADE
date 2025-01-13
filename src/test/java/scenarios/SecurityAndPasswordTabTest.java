@@ -14,7 +14,7 @@ import java.util.UUID;
 public class SecurityAndPasswordTabTest extends BaseTest {
 
     @Test(description = "Verify Update Email popup opens")
-    public void sp_1verifyUpdateEmailPopupOpens() {
+    public void verifyUpdateEmailPopupOpens() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSecurityAndPassword().getUserProfileBtn().click();
         session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
@@ -26,7 +26,7 @@ public class SecurityAndPasswordTabTest extends BaseTest {
     }
 
     @Test(description = "Verify for Invalid Email inputs in Update email address popup")
-    public void sp_2verifyInvalidEmailUpdateInput() {
+    public void verifyInvalidEmailUpdateInput() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSecurityAndPassword().getUserProfileBtn().click();
         session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
@@ -57,7 +57,7 @@ public class SecurityAndPasswordTabTest extends BaseTest {
     }
 
     @Test(description = "Verify for Valid Email inputs in Update email address popup")
-    public void sp_3verifyValidEmailUpdateInput() {
+    public void verifyValidEmailUpdateInput() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSecurityAndPassword().getUserProfileBtn().click();
         session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
@@ -106,7 +106,7 @@ public class SecurityAndPasswordTabTest extends BaseTest {
     }
 
     @Test(description = "Verify user is able to edit phone number")
-    public void sp_4UpdatePhoneNumber() {
+    public void UpdatePhoneNumber() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSecurityAndPassword().getUserProfileBtn().click();
         session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
@@ -125,7 +125,7 @@ public class SecurityAndPasswordTabTest extends BaseTest {
     }
 
     @Test(description = "verify different scenarios of security code fields after entering valid phone number")
-    public void sp_5verifyAllSecurityCodeScenarios() {
+    public void verifyAllSecurityCodeScenarios() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSecurityAndPassword().getUserProfileBtn().click();
         session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
@@ -159,7 +159,7 @@ public class SecurityAndPasswordTabTest extends BaseTest {
     }
 
     @Test(description = "Verify user can update/change phone number using Different phone number option")
-    public void sp_6verifyAlternatePhoneNumber() {
+    public void verifyAlternatePhoneNumber() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSecurityAndPassword().getUserProfileBtn().click();
         session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
@@ -191,7 +191,7 @@ public class SecurityAndPasswordTabTest extends BaseTest {
     }
 
     @Test(enabled = false, description = "verify that 'Chnage password' popup opens up, when user clicks on 'Reset your password' button")
-    public void sp_7verifyResetYourPasswordPopupOpens() {
+    public void verifyResetYourPasswordPopupOpens() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSecurityAndPassword().getUserProfileBtn().click();
         session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
@@ -205,7 +205,7 @@ public class SecurityAndPasswordTabTest extends BaseTest {
     }
 
     @Test(description = "Verify validation message appears when clicked on delete button")
-    public void sp_8verifyDeleteButton() {
+    public void verifyDeleteButton() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSecurityAndPassword().getUserProfileBtn().click();
         session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
