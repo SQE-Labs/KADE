@@ -35,7 +35,7 @@ public class MyStoreTest extends BasePage {
 
             //Step 3: Click on 'Skip' button
             myStore.getSkipStripeAccountButton().click();
-            WebdriverWaits.sleep(2000);
+            WebdriverWaits.sleep(3000);
             //Verifying the 'Skip' PopUp Title
             Assertions.assertEquals(myStore.getSkipPopUpTitle().getText(), "Skip");
 

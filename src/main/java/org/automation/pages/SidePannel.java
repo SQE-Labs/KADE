@@ -23,6 +23,7 @@ public class SidePannel extends BasePage {
 	By CustomersBtn = By.cssSelector(".fa-fw.fas.fa-user-friends");
 	By dashboardTab = By.cssSelector("[href=\"/Stores/dashboard\"]");
 
+	By SearchBtn = By.cssSelector(".fa-search");
 
 	public SidePannel() {
 	}
@@ -49,6 +50,10 @@ public class SidePannel extends BasePage {
 
 	public Clickable getCustomersTab(){
 		return getElementBy(CustomersBtn);
+	}
+
+	public Clickable getSearchTab(){
+		return getElementBy(SearchBtn);
 	}
 
 	public Clickable getGiftCardsDashboardTab(){
