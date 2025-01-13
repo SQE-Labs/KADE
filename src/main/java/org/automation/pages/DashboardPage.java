@@ -33,6 +33,7 @@ public class DashboardPage extends BaseTest {
     By yourBusinessLink = By.cssSelector("span.fs-pn15 + a");
     By messagePage = By.cssSelector("nav.navbar >h1 ");
     By storeConfigurationTitle = By.cssSelector("h1.header-title");
+    By storeName = By.cssSelector(".d-flex.flex-column h3");
 
 
     public Clickable getYourBusinessTitle() {
@@ -117,5 +118,6 @@ public class DashboardPage extends BaseTest {
     public Clickable getCountOfAllStoreCustomer() {return Clickable.getElementBy(last30DaysCustomerCount, "All Stores Customer Count");}
     public Clickable getTodayPayment() { return Clickable.getElementBy(todayPayment, "Today's payment");}
     public Clickable getMessagePage() { return Clickable.getElementBy(messagePage, "Message Page");}
+    public Clickable getStoreName() { return Clickable.getElementBy(storeName, "Store Name");}
     public Clickable getTransactionPopupUnderRT() { return Clickable.getElementBy(transactionPopup, "Transaction popup under RT section");}
     }

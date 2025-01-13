@@ -9,9 +9,6 @@ import org.automation.pages.TransactionsPage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
-import org.checkerframework.checker.units.qual.A;
-import org.openqa.selenium.By;
-import org.openqa.selenium.SearchContext;
 import org.openqa.selenium.WebElement;
 import org.testng.annotations.Test;
 
@@ -19,7 +16,7 @@ import java.util.List;
 
 public class Dashboard extends BaseTest {
 
-    @Test(description=" DC01 & 2 Verify that following sections are displayed, on the 'Dashboard'")
+    @Test(description=" DC01 & 2 Verify all sections are displayed on the 'Dashboard'")
     public void verifyALLSectionsOnDashboardPage(){
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         DashboardPage Dashboard = new DashboardPage();
@@ -209,7 +206,7 @@ public class Dashboard extends BaseTest {
         Dashboard.getFullListLink().click();
     }
 
-    @Test(description = "DC 18, 19 & 20: Verify that user get directed to 'Dashboard' page of store after selecting store, on 'No. of stores' popup, under 'Your Businesses' section.")
+    @Test(description = "DC 18, 19 & 20,21,22 &23: Verify that user get directed to 'Dashboard' page of store after selecting store, on 'No. of stores' popup, under 'Your Businesses' section.")
         public void verifyThatDirectedToDashboardPageOfSelectedStore(){
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         DashboardPage Dashboard = new DashboardPage();
@@ -219,12 +216,36 @@ public class Dashboard extends BaseTest {
         // Clicking on the first store from the Store Popups
        Dashboard.getStoreCountUnderYourBusiness().click();
        Dashboard.getFirstStoreUnderYourBusiness().click();
-       Dashboard.getSettingIcon().click();
 
-       // Verify that store Configuration page title
+       // Clicking on the your business link to get redirected to the All stores dashboard page.
+        Dashboard.getYourBusinessLink().click();
+        Dashboard.getStoreCountUnderYourBusiness().click();
+        Dashboard.getFirstStoreUnderYourBusiness().click();
+
+        // Verify the Process Payment of Last 30 days
+        Assertions.assertTrue(Dashboard.getTotalAmountOfProcessPayment().isDisplayed());
+        String valueA = Dashboard.getTotalAmountOfProcessPayment().getText();
+        System.out.println("Process Payment of Last 30 days is: "+valueA);
+
+
+        // Verify the  customer count of all stores displayed under Customer Section
+        Assertions.assertTrue(Dashboard.getCountOfAllStoreCustomer().isDisplayed());
+        String valueB = Dashboard.getCountOfAllStoreCustomer().getText();
+        System.out.println("Total Count of last 30 days of a stores: "+valueB);
+
+        // Verify that Today's Payment appears of  all stores under 'Today's Payment' section.
+        Assertions.assertTrue(session.getDashboardPage().getTodayPayment().isDisplayed());
+        String valueC = session.getDashboardPage().getTodayPayment().getText();
+        System.out.println("Sum of Today's payment of a stores is : "+valueC);
+
+
+        Dashboard.getSettingIcon().click();
+        // Verify that store Configuration page title
         Assertions.assertTrue(Dashboard.getStoreConfigurationTitle().isDisplayed());
+        Dashboard.getDriver().navigate().back();
 
-
+        // Verify that user gets directed to message page of the same store.
+        Dashboard.getContactSupportLink().click();
 
 
     }

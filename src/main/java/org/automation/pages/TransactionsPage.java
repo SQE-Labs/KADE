@@ -335,11 +335,11 @@ public class TransactionsPage extends BasePage {
     }
 
     public Clickable getPaymentLinkField() {
-        return Clickable.getElementBy(paymentLinkField, "quotionmarkSign is displayed");
+        return Clickable.getElementBy(paymentLinkField, "payment link is displayed");
     }
 
     public Clickable getQrCodeSeletct() {
-        return Clickable.getElementBy(qrCodeSeletct, "quotionmarkSign is displayed");
+        return Clickable.getElementBy(qrCodeSeletct, "Qr code selected  is displayed");
     }
 
     public Clickable getQrClearField() {

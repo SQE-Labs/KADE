@@ -63,7 +63,10 @@ public class BasePage extends ActionEngine {
         Log.info("Refresh the browser");
         getDriver().navigate().refresh();
     }
-
+    public void navigateBack() {
+        Log.info("navigate to the previous page of the browser");
+        getDriver().navigate().back();
+    }
     /**
      * Get the Hash String of the specified file.
      *

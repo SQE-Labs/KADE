@@ -23,7 +23,7 @@ public class SecurityAndPasswordPage extends BasePage {
 	By closeValidationIcon=By.xpath("(//button[@class='btn-close'])[2]");
 	By resetYourPasswordBtn=By.xpath("//div[@class='col-sm-10']/a");
 	By deleteAccountButton = By.xpath("//button[text()='Close and delete my account']");
-	By tickIcon = By.cssSelector("[class='btn btn-outline-success']");
+	By tickIcon = By.cssSelector(".fa-thumbs-up");
 	public void clickOnEditEmailIcon() {
 		click(editEmailIcon);
 	}
