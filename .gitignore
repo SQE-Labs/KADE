@@ -12,4 +12,5 @@ test-report/
 /.DS_Store
 allure-results/
 testng.xml
+pom.xml
 debugger.xml
