@@ -72,10 +72,6 @@ public class BasicInfoPage extends BasePage {
         return Clickable.getElementBy(basicInfoTab,"Basic Information tab button");
     }
 
-    public static class TestConstants {
-        public static final String addressVerificationError = "Address cannot be verified";
-        public static final String invalidPhnValidation = "Invalid phone number";
 
-    }
 
 }

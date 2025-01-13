@@ -1,6 +1,7 @@
 package scenarios;
 
 import org.automation.base.BaseTest;
+import org.automation.data.Constants;
 import org.automation.data.KadeUserAccount;
 import org.automation.pages.SecurityAndPassword;
 import org.automation.session.KadeSession;
@@ -37,21 +38,21 @@ public class SecurityAndPasswordTabTest extends BaseTest {
 
         Assertions.assertTrue(session.getSecurityAndPassword().getAlertMessage().isDisplayed());
 
-        Assertions.assertEquals(session.getSecurityAndPassword().getUpdateEmailField().getToolTipMessage(),SecurityAndPassword.TestConstants.requiredFieldValidation);
+        Assertions.assertEquals(session.getSecurityAndPassword().getUpdateEmailField().getToolTipMessage(),Constants.requiredFieldValidation);
         session.getSecurityAndPassword().getCloseUpdateEmailPopupBtn().click();
 
         session.getSecurityAndPassword().getEditEmailBtn().click();
         session.getSecurityAndPassword().getUpdateEmailField().setText("yonro");
         session.getSecurityAndPassword().getSendBtnForUpdatedEmail().click();
         Assertions.assertTrue(session.getSecurityAndPassword().getAlertMessage().isDisplayed());
-        Assertions.assertEquals(session.getSecurityAndPassword().getUpdateEmailField().getToolTipMessage(),SecurityAndPassword.TestConstants.invalidEmailValidation);
+        Assertions.assertEquals(session.getSecurityAndPassword().getUpdateEmailField().getToolTipMessage(),Constants.invalidEmailValidation);
         session.getSecurityAndPassword().getCloseUpdateEmailPopupBtn().click();
         session.getSecurityAndPassword().getEditEmailBtn().click();
         String currentEmail = session.getSecurityAndPassword().getEmailField().getAttribute("value");
         session.getSecurityAndPassword().getUpdateEmailField().setText(currentEmail);
         session.getSecurityAndPassword().getSendBtnForUpdatedEmail().click();
         Assertions.assertTrue(session.getSecurityAndPassword().getAlertMessage().isDisplayed());
-        Assertions.assertEquals(session.getSecurityAndPassword().getUpdateEmailField().getToolTipMessage(),SecurityAndPassword.TestConstants.sameEmailErrorMessage);
+        Assertions.assertEquals(session.getSecurityAndPassword().getUpdateEmailField().getToolTipMessage(),Constants.sameEmailErrorMessage);
 
     }
 
@@ -70,8 +71,8 @@ public class SecurityAndPasswordTabTest extends BaseTest {
         session.getSecurityAndPassword().getNewEmailSecurityCode().setText(" ");
         session.getSecurityAndPassword().getSaveButton().click();
         Assertions.assertTrue(session.getSecurityAndPassword().getAlertMessage().isDisplayed());
-        Assertions.assertEquals(session.getSecurityAndPassword().getCurrentEmailSecurityCode().getToolTipMessage(),SecurityAndPassword.TestConstants.requiredFieldValidation);
-        Assertions.assertEquals(session.getSecurityAndPassword().getNewEmailSecurityCode().getToolTipMessage(),SecurityAndPassword.TestConstants.requiredFieldValidation);
+        Assertions.assertEquals(session.getSecurityAndPassword().getCurrentEmailSecurityCode().getToolTipMessage(),Constants.requiredFieldValidation);
+        Assertions.assertEquals(session.getSecurityAndPassword().getNewEmailSecurityCode().getToolTipMessage(),Constants.requiredFieldValidation);
 
         session.getSecurityAndPassword().getCurrentEmailSecurityCode().setText("123654");
         session.getSecurityAndPassword().getNewEmailSecurityCode().setText("123456");
@@ -87,8 +88,8 @@ public class SecurityAndPasswordTabTest extends BaseTest {
         session.getSecurityAndPassword().getNewEmailSecurityCode().setText("1236");
         session.getSecurityAndPassword().getSaveButton().click();
         Assertions.assertTrue(session.getSecurityAndPassword().getAlertMessage().isDisplayed());
-        Assertions.assertEquals(session.getSecurityAndPassword().getCurrentEmailSecurityCode().getToolTipMessage(),SecurityAndPassword.TestConstants.atLeastCharReqMessage);
-        Assertions.assertEquals(session.getSecurityAndPassword().getNewEmailSecurityCode().getToolTipMessage(),SecurityAndPassword.TestConstants.atLeastCharReqMessage);
+        Assertions.assertEquals(session.getSecurityAndPassword().getCurrentEmailSecurityCode().getToolTipMessage(),Constants.atLeastCharReqMessage);
+        Assertions.assertEquals(session.getSecurityAndPassword().getNewEmailSecurityCode().getToolTipMessage(),Constants.atLeastCharReqMessage);
 
         session.getSecurityAndPassword().getDifferentEmailBtn().click();
         session.getSecurityAndPassword().getSendBtnOfNewEmailPopup().clickByMouse();
@@ -114,11 +115,11 @@ public class SecurityAndPasswordTabTest extends BaseTest {
 
         session.getSecurityAndPassword().getSecurityCodeBtn().click();
         Assertions.assertTrue(session.getSecurityAndPassword().getSystemAlertMessage().isDisplayed());
-        Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneFIeld().getToolTipMessage(), SecurityAndPassword.TestConstants.requiredFieldValidation);
+        Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneFIeld().getToolTipMessage(), Constants.requiredFieldValidation);
 
         session.getSecurityAndPassword().getNewPhoneFIeld().setText("12312312");
         session.getSecurityAndPassword().getSecurityCodeBtn().click();
-        Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneFIeld().getToolTipMessage(),SecurityAndPassword.TestConstants.invalidPhnValidation);
+        Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneFIeld().getToolTipMessage(),Constants.invalidPhnValidation);
         session.getSecurityAndPassword().getPopupCloseBtn().click();
 
     }
@@ -134,14 +135,14 @@ public class SecurityAndPasswordTabTest extends BaseTest {
         session.getSecurityAndPassword().getSecurityCodeBtn().click();
         session.getSecurityAndPassword().getSaveNewPhoneBtn().click();
         Assertions.assertTrue(session.getSecurityAndPassword().getSystemAlertMessage().isDisplayed());
-        Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneOTPField().getToolTipMessage(),SecurityAndPassword.TestConstants.requiredFieldValidation);
-        Assertions.assertEquals(session.getSecurityAndPassword().getCurrentPhoneOTPField().getToolTipMessage(),SecurityAndPassword.TestConstants.requiredFieldValidation);
+        Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneOTPField().getToolTipMessage(),Constants.requiredFieldValidation);
+        Assertions.assertEquals(session.getSecurityAndPassword().getCurrentPhoneOTPField().getToolTipMessage(),Constants.requiredFieldValidation);
 
         session.getSecurityAndPassword().getCurrentPhoneOTPField().setText("123456");
         session.getSecurityAndPassword().getNewPhoneOTPField().setText("12345");
         session.getSecurityAndPassword().getSaveNewPhoneBtn().click();
         Assertions.assertTrue(session.getSecurityAndPassword().getSystemAlertMessage().isDisplayed());
-        Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneOTPField().getToolTipMessage(),SecurityAndPassword.TestConstants.atLeastCharReqMessage);
+        Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneOTPField().getToolTipMessage(),Constants.atLeastCharReqMessage);
 
         session.getSecurityAndPassword().getCurrentPhoneOTPField().setText("123456");
         session.getSecurityAndPassword().getNewPhoneOTPField().setText("122222");
@@ -171,7 +172,7 @@ public class SecurityAndPasswordTabTest extends BaseTest {
         session.getSecurityAndPassword().getNewPhoneFIeld().setText("1233454");
         session.getSecurityAndPassword().getSecurityCodeBtn().click();
         Assertions.assertTrue(session.getSecurityAndPassword().getSystemAlertMessage().isDisplayed());
-        Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneFIeld().getToolTipMessage(),SecurityAndPassword.TestConstants.invalidPhnValidation);
+        Assertions.assertEquals(session.getSecurityAndPassword().getNewPhoneFIeld().getToolTipMessage(),Constants.invalidPhnValidation);
 
         session.getSecurityAndPassword().getNewPhoneFIeld().setText("12334");
         session.getSecurityAndPassword().getSecurityCodeBtn().click();

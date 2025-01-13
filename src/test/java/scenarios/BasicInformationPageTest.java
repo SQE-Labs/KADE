@@ -1,6 +1,7 @@
 package scenarios;
 
 import org.automation.base.BaseTest;
+import org.automation.data.Constants;
 import org.automation.data.KadeUserAccount;
 import org.automation.pages.BasicInfoPage;
 import org.automation.session.KadeSession;
@@ -62,7 +63,7 @@ public class BasicInformationPageTest extends BaseTest {
         session.getBasicInfoPage().getStoreAddressField().setText("New");
         session.getBasicInfoPage().getSaveButton().clickByMouse();
         Assertions.assertTrue(session.getBasicInfoPage().getAlertMessage().isDisplayed());
-        Assertions.assertEquals(session.getBasicInfoPage().getStoreAddressField().getToolTipMessage(),BasicInfoPage.TestConstants.addressVerificationError);
+        Assertions.assertEquals(session.getBasicInfoPage().getStoreAddressField().getToolTipMessage(),Constants.addressVerificationError);
 
     }
 
@@ -78,7 +79,7 @@ public class BasicInformationPageTest extends BaseTest {
         session.getBasicInfoPage().getStorePhoneField().setText("1231");
         session.getBasicInfoPage().getSaveButton().clickByMouse();
         Assertions.assertTrue(session.getBasicInfoPage().getAlertMessage().isDisplayed());
-        Assertions.assertEquals(session.getBasicInfoPage().getStorePhoneField().getToolTipMessage(),BasicInfoPage.TestConstants.invalidPhnValidation);
+        Assertions.assertEquals(session.getBasicInfoPage().getStorePhoneField().getToolTipMessage(),Constants.addressVerificationError);
     }
 
 
