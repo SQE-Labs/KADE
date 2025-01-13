@@ -41,6 +41,8 @@ public class KadeSession extends BaseTest {
         return new TransactionsPage();
     }
 
+    public SearchPage getSearchPage() { return new SearchPage(); }
+
 
     public LoginPage getLoginPage() {
         return new LoginPage();
