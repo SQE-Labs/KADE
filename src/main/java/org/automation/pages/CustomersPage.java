@@ -12,7 +12,7 @@ public class CustomersPage extends BasePage {
 
     By customersPageText = By.cssSelector(".header-title.mb-0");
     By storesCombobox = By.xpath("//span[@role='combobox']");
-    By selectStore = By.xpath("//ul[@class=\"select2-results__options\"]//li[contains(text(), \"Automation Cust Test\")]");
+    By selectStore = By.xpath("//ul[@class=\"select2-results__options\"]//li[contains(text(), \"Automation Customer Store\")]");
     By cnt = By.cssSelector(".btn.btn-primary");
     By nameAddress = By.xpath("//div[@class='d-flex flex-column  overflow-hidden']");
     public By findAddCustomer = By.xpath("//button[@class='-addnew- btn btn-outline-dark']");
