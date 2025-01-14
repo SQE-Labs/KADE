@@ -69,17 +69,7 @@ public class KadeSession extends BaseTest {
     public CreateNewAccountPage getCreateAccountPage() {
         return new CreateNewAccountPage();
     }
-
-    public BasicInformationPage getBasicInformationPage() {
-        return new BasicInformationPage();
-    }
     public BasicInfoPage getBasicInfoPage() {return new BasicInfoPage();}
-
-
-    public SecurityAndPasswordPage getSecurityAndPasswordPage() {
-        return new SecurityAndPasswordPage();
-    }
-
     public SignInPopup getSignInPopup(){
         return  new SignInPopup();
     }

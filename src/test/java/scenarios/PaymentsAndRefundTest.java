@@ -1,7 +1,7 @@
 package scenarios;
 
+import org.automation.data.Constants;
 import org.automation.data.KadeUserAccount;
-import org.automation.data.StoreAccount;
 import org.automation.objectBuilder.ObjectBuilder;
 import org.automation.objectBuilder.pages.BillsPage;
 import org.automation.utilities.Assertions;
@@ -302,7 +302,7 @@ public class PaymentsAndRefundTest extends KadeSession {
 
         // Open Transaction
         session.getSidePannel().getTransactionButton().click();
-        session.getTransactionsPage().selectStore(StoreAccount.AutomationBillFlow);
+        session.getTransactionsPage().selectStore(Constants.AutomationBillFlow);
         session.getTransactionsPage().getLastTransactionRow().click();
         Assertions.assertEquals(session.getTransactionsPage().getBillAmount().getText(),"$"+bills.getAmount());
         Assertions.assertTrue(session.getTransactionsPage().getUniqueTransactionId().isDisplayed());

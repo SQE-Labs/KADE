@@ -5,8 +5,8 @@ import java.text.ParseException;
 import java.util.Locale;
 
 import org.automation.base.BaseTest;
+import org.automation.data.Constants;
 import org.automation.data.KadeUserAccount;
-import org.automation.data.StoreAccount;
 import org.automation.pages.BillPage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
@@ -24,7 +24,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore(StoreAccount.AutomationBillFlow);
+        bill.selectStore(Constants.AutomationBillFlow);
         bill.getContinueButton().click();
 
         // Click on New Bill Button
@@ -93,7 +93,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore(StoreAccount.AutomationBillFlow);
+        bill.selectStore(Constants.AutomationBillFlow);
         bill.getContinueButton().click();
 
         // Click on New Bill Button
@@ -167,7 +167,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore(StoreAccount.AutomationBillFlow);
+        bill.selectStore(Constants.AutomationBillFlow);
         bill.getContinueButton().click();
 
         //Click on New Bill Button
@@ -212,7 +212,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore(StoreAccount.AutomationBillFlow);
+        bill.selectStore(Constants.AutomationBillFlow);
         bill.getContinueButton().click();
 
         // Click on New Bill Button
@@ -265,7 +265,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore(StoreAccount.AutomationBillFlow);
+        bill.selectStore(Constants.AutomationBillFlow);
         bill.getContinueButton().click();
 
         bill.getNewBillButton().click();
@@ -297,7 +297,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore(StoreAccount.AutomationBillFlow);
+        bill.selectStore(Constants.AutomationBillFlow);
         bill.getContinueButton().click();
 
         //Click on New Bill Button
@@ -402,7 +402,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore(StoreAccount.AutomationBillFlow);
+        bill.selectStore(Constants.AutomationBillFlow);
         bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
@@ -446,7 +446,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore(StoreAccount.AutomationBillFlow);
+        bill.selectStore(Constants.AutomationBillFlow);
         bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
@@ -531,7 +531,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore(StoreAccount.AutomationBillTest);
+        bill.selectStore(Constants.AutomationBillTest);
         bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
@@ -616,7 +616,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore(StoreAccount.AutomationBillFlow);
+        bill.selectStore(Constants.AutomationBillFlow);
         bill.getContinueButton().click();
 
         // Click on New Bill Button
@@ -673,7 +673,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore(StoreAccount.AutomationBillTest);
+        bill.selectStore(Constants.AutomationBillTest);
         bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
@@ -735,7 +735,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore(StoreAccount.AutomationBillTest);
+        bill.selectStore(Constants.AutomationBillTest);
         bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
@@ -806,7 +806,7 @@ public class BillTest extends BaseTest {
 
         //Select Store
         bill.getStoresDropdown().click();
-        bill.selectStore(StoreAccount.AutomationBillTest);
+        bill.selectStore(Constants.AutomationBillTest);
         bill.getContinueButton().click();
 
         //Verifying that these buttons appear on Bill Page
