@@ -22,6 +22,7 @@ public class SidePannel extends BasePage {
 	By manageBusinessAcc = By.xpath("//a[@class='sidebar-link collapsed' and text()='Manage Business']");
 	By CustomersBtn = By.cssSelector(".fa-fw.fas.fa-user-friends");
 	By dashboardTab = By.cssSelector("[href=\"/Stores/dashboard\"]");
+	By RewardsProgramPage = By.xpath("//a[text()='Rewards Program']");
 
 	By SearchBtn = By.cssSelector(".fa-search");
 

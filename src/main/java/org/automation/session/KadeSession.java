@@ -73,6 +73,8 @@ public class KadeSession extends BaseTest {
     public BasicInformationPage getBasicInformationPage() {
         return new BasicInformationPage();
     }
+    public BasicInfoPage getBasicInfoPage() {return new BasicInfoPage();}
+
 
     public SecurityAndPasswordPage getSecurityAndPasswordPage() {
         return new SecurityAndPasswordPage();
@@ -89,6 +91,8 @@ public class KadeSession extends BaseTest {
     public AttentionRTPopup getAttentionRTPopup() {return new AttentionRTPopup();}
     public AdminPage getAdminPage() {return new AdminPage();}
     public DashboardPage getDashboardPage() { return new DashboardPage();}
+    public SecurityAndPassword getSecurityAndPassword() {return new SecurityAndPassword();}
+
     }
 
 
