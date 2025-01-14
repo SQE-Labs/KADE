@@ -2,25 +2,13 @@ package scenarios;
 
 import org.automation.base.BaseTest;
 
-import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
-import org.automation.data.StoreAccount;
-import org.automation.objectBuilder.ObjectBuilder;
-import org.automation.objectBuilder.pages.BillsPage;
-import org.automation.pages.BillPage;
-import org.automation.pages.SidePannel;
-import org.automation.pages.TransactionsPage;
 import org.automation.session.KadeSession;
-import org.automation.utilities.ActionEngine;
-import org.automation.utilities.Assertions;
-import org.automation.utilities.RandomGenerator;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
-import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 

@@ -16,12 +16,6 @@ public final class Log {
         //	Reporter.log(message + "<br />");
     }
 
-    /**
-     * Provides the error logs.
-     *
-     * @param message error message
-     * @param error   the exception to log, including its stack trace
-     */
     public static void error(String message, Throwable error) {
         LogConfig.getLogger().error(message, error);
         //Reporter.log(message + "<br />");
