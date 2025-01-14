@@ -92,7 +92,8 @@ public class KadeSession extends BaseTest {
     public AttentionRTPopup getAttentionRTPopup() {return new AttentionRTPopup();}
     public AdminPage getAdminPage() {return new AdminPage();}
 
-    public RewardsProgramPage getRewardsProgramPage() {return new RewardsProgramPage();}
+
+
 
     }
 
