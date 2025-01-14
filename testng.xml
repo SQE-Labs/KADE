@@ -7,12 +7,10 @@
 		<packages>
 			<package name="scenarios"/>
 		</packages>
-
 	</test>
 
 	<!-- The Test cases below require windows explorer to open, which does not work in headless mode
          So the test cases below will not run in parallel, and will be headed. -->
-
 	<test name="TestHeaded">
 		<parameter name="headless" value="false" />
 		<packages>

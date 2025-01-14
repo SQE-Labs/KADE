@@ -49,6 +49,7 @@ public class CustomersTest extends BaseTest {
         session.getCustomersPage().storeSelection();
         session.getCustomersPage().continuebtn().click();
 
+
         // Open Customer popup by clicking 'Find or add a new Customer'
         session.getCustomersPage().findAddCustomer().click();
         WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
