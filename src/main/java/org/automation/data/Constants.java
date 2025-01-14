@@ -8,4 +8,8 @@ public class Constants {
     public static final String invalidEmailValidation = "Please enter a valid email address.";
     public static final String atLeastCharReqMessage = "Please enter at least 6 characters.";
     public static final String sameEmailErrorMessage = "New email cannot be the same as the current email!";
+    public static final String PaymentHistoryTitle = "Payment History";
+    public static final String NoPaymentsMessage = "There are no payments available yet!";
+
+
 }
