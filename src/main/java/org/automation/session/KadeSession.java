@@ -78,6 +78,9 @@ public class KadeSession extends BaseTest {
         return new SecurityAndPasswordPage();
     }
 
+
+
+
     public SignInPopup getSignInPopup(){
         return  new SignInPopup();
     }
