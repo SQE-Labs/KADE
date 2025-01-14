@@ -81,4 +81,14 @@ public class SearchTest extends BaseTest {
         Assertions.assertEquals(CopyActualTransactionId,copiedTransId);
 
     }
+
+    @Test(description = "Verify that user is directed to specific cutomer's page using phone number")
+    public void verifyUserDirectedToCustomerPageUsingPhoneNumber()
+    {
+        KadeSession session = KadeSession.login(KadeUserAccount.SearchUser);
+        //Click On Bill Tab
+        session.getSidePannel().getBillButton().click();
+        session.getSearchPage().getUserProfile().click();
+
+    }
 }

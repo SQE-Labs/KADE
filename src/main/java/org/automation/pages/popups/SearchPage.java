@@ -31,6 +31,7 @@ public class SearchPage extends BasePage {
     public By SearchTransReferenceId = By.xpath("(//div[@class='position-relative loaded']/div/div/span)[1]");
     By BillPageReferenceId = By.xpath("(//div[@class='modal-body']/div/div)[3]");
     public By TransactionId = By.xpath("(//div[@class='col-7']/div/span)[1]");
+    By UserProfile = By.xpath("(//a[@class='text-truncate'])[1]");
 
 
     public SearchPage()
@@ -80,8 +81,13 @@ public class SearchPage extends BasePage {
     public Clickable getBillPageReferenceId() {
         return Clickable.getElementBy(BillPageReferenceId,"Bill Page Reference Id");
     }
+
     public Clickable getTransactionId() {
         return Clickable.getElementBy(TransactionId,"Transaction Id");
+    }
+
+    public Clickable getUserProfile() {
+        return Clickable.getElementBy(UserProfile,"User Profile");
     }
 
 
