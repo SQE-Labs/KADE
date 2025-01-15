@@ -18,17 +18,17 @@ public class PaymentsAndRefundTest extends BasePage {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'Bill' sub-Tab
-      session.getSidePannel().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
 
         //Step 2: Enter Amount
-      String amt = "4999.00";
+        String amt = "4999.00";
 
         //Step 3: Enter Customer Email
         String customerEmail = "yonro@yopmail.com";
-       BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
 
         //Step 4: Create Bill
-       session.getBillPage().createBill(bills);
+        session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Step 5: Logout as Store manager
@@ -214,11 +214,11 @@ public class PaymentsAndRefundTest extends BasePage {
 
         //Step 19: Swipe to Pay the Partial amount
         session.getPaymentsPage().swipeToPay();
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.sleep(5000);
 
         //Step 20: Click on 'Swipe to pay' field
         session.getPaymentsPage().getSwipeToPayButton().clickbyJS();
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.sleep(5000);
 
         //Step 21: Enter Amount
         session.getPaymentsPage().getMoreAmountField().setText("1000.00");
@@ -232,7 +232,7 @@ public class PaymentsAndRefundTest extends BasePage {
         //Step 24: Select 'Venmo' Method
         WebdriverWaits.sleep(2000);
         session.getPaymentsPage().getSavedVenmoCard().clickbyJS();
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.sleep(2000);
 
         //Verifying that Venmo PopUp is displayed
         Assertions.assertTrue(session.getPaymentsPage().getVenmoPopup().isDisplayed());
@@ -271,7 +271,8 @@ public class PaymentsAndRefundTest extends BasePage {
         session.getPaymentsPage().getVenmoSubmitButton().click();
 
         //Step 30: Click on 'Close' Icon
-        session.getPaymentsPage().getCloseButton().clickbyJS();
+        session.getPaymentsPage().getCloseButton().click();
     }
 
 }
+
