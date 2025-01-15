@@ -697,7 +697,7 @@ public class TransactionTest extends BaseTest {
 
         String fileStatus = ActionEngine.isFileDownloaded("Transactions.xlsx");
         System.out.println("fileStatus :" + fileStatus);
-
+        WebdriverWaits.sleep(3000);
         if (fileStatus.equalsIgnoreCase("File Present")) {
             String deletStatus = ActionEngine.deleteFile("Transactions.xlsx");
             System.out.println("deleteStatus :" + deletStatus);
