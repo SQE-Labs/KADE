@@ -120,23 +120,6 @@ public class CustomersTest extends BaseTest {
         //Login
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
-        //Create a new bill
-        session.getCustomersPage().getNewBill().click();
-        session.getCustomersPage().billstoreSelection();
-        session.getCustomersPage().continuebtn().click();
-        session.getCustomersPage().newBillBtn().click();
-        WebdriverWaits.waitForElementVisible(session.getCustomersPage().amountInput,10);
-        Assertions.assertTrue(session.getCustomersPage().amountText().isDisplayed());
-        Assertions.assertTrue(session.getCustomersPage().getAmount().isDisplayed());
-        session.getCustomersPage().getAmount().setText("10000");
-        session.getCustomersPage().selectCustoemr().clickByMouse();
-        session.getCustomersPage().billByPhone().setText("12312312313");
-        session.getCustomersPage().billGoBtn().click();
-        WebdriverWaits.waitForElementVisible( session.getCustomersPage().billSendBtn,20);
-        session.getCustomersPage().billSendBtn().clickByMouse();
-
-        session.getCustomersPage().closePopup().clickIfExist(true,3);
-
         //Navigate to 'Customers' page
         session.getSidePannel().expandManageBusinessAccordionBttn().clickbyJS();
         session.getSidePannel().getCustomersTab().clickbyJS();

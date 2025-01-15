@@ -79,7 +79,7 @@ public class BasicInformationPageTest extends BaseTest {
         session.getBasicInfoPage().getStorePhoneField().setText("1231");
         session.getBasicInfoPage().getSaveButton().clickByMouse();
         Assertions.assertTrue(session.getBasicInfoPage().getAlertMessage().isDisplayed());
-        Assertions.assertEquals(session.getBasicInfoPage().getStorePhoneField().getToolTipMessage(),Constants.addressVerificationError);
+        Assertions.assertEquals(session.getBasicInfoPage().getStorePhoneField().getToolTipMessage(),Constants.invalidPhnValidation);
     }
 
 
