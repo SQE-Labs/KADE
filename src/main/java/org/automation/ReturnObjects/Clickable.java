@@ -82,14 +82,6 @@ public class Clickable extends ActionEngine {
         }
     }
 
-    public void scrollIntoView() {
-        WebElement popupContainer = getDriver().findElement(By.xpath("(//div[@class='modal-content'])[1]"));
-        WebElement element = getDriver().findElement(target);
-        WebdriverWaits.waitForElementUntilVisible(target, 5);
-        WebdriverWaits.waitForElementClickable(target, 5);
-        js.executeScript("arguments[0].scrollTop = arguments[1].offsetTop;", popupContainer, element);
-    }
-
     public Boolean isDisplayed() {
         return isElementPresent(target, label);
     }
@@ -122,8 +114,7 @@ public class Clickable extends ActionEngine {
     }
 
     public List<WebElement> getListOfWebElements() {
-        return super.getListOfWebElements(target);
-    }
+        return super.getListOfWebElements(target);}
 
     public void clickByMouse(){
         clickByMouseActions(target);

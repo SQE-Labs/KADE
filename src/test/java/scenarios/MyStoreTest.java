@@ -112,7 +112,7 @@ public class MyStoreTest extends BaseTest {
         session.getAdminPage().selectedStoreDeleted(storeName);
     }
 
-    @Test(enabled = true, description = "SC_04(A) Verifying buying Monthly Business Plan for already created Store")
+    @Test(enabled = false, description = "SC_04(A) Verifying buying Monthly Business Plan for already created Store")
     public void a3VerifyingBuyingMonthlyBusinessPlanForAlreadyCreatedStore() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 

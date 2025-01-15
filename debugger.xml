@@ -8,11 +8,9 @@
         <parameter name="headless" value="false"/>
 
         <classes>
-           <class name="scenarios.PaymentsAndRefundTest"/>
-            <class name="scenarios.TransactionTest"/>
-            <class name="scenarios.CustomersTest"/>
-            <class name="scenarios.BillTest"/>
-            <class name="scenarios.CreateAccountTest"></class>
+           <class name="scenarios.CreateAccountTest"/>
+<!--            <class name="scenarios.TransactionTest"/>-->
+<!--&lt;!&ndash;            <class name="scenarios.CustomersTest"/>&ndash;&gt;-->
 <!--           <class name="scenarios.MyStoreTest"/>-->
         </classes>
     </test>

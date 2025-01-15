@@ -71,17 +71,7 @@ public class KadeSession extends BaseTest {
     public CreateNewAccountPage getCreateAccountPage() {
         return new CreateNewAccountPage();
     }
-
-    public BasicInformationPage getBasicInformationPage() {
-        return new BasicInformationPage();
-    }
     public BasicInfoPage getBasicInfoPage() {return new BasicInfoPage();}
-
-    public SecurityAndPassword getSecurityAndPassword() {return new SecurityAndPassword();}
-    public SecurityAndPasswordPage getSecurityAndPasswordPage() {
-        return new SecurityAndPasswordPage();
-    }
-
     public SignInPopup getSignInPopup(){
         return  new SignInPopup();
     }
@@ -92,6 +82,8 @@ public class KadeSession extends BaseTest {
     public GiftCardConfigurationPopup getGiftCardConfigurationPopup(){return new GiftCardConfigurationPopup();}
     public AttentionRTPopup getAttentionRTPopup() {return new AttentionRTPopup();}
     public AdminPage getAdminPage() {return new AdminPage();}
+    public DashboardPage getDashboardPage() { return new DashboardPage();}
+    public SecurityAndPassword getSecurityAndPassword() {return new SecurityAndPassword();}
 
     public RewardsProgramPage getRewardsProgramPage() {return new RewardsProgramPage();}
 

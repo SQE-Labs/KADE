@@ -49,12 +49,7 @@ public class newBusinessPage extends BasePage {
 		sendKeys_withClear(taxRate, string);
 	}
 
-	public void clickOnSave(){
-		ScrollDownThePageMax();
-		WebdriverWaits.waitForElementUntilVisible(saveBtn, 5);
-		click(saveBtn);
-	}
-	
+
 	
 	
 }
