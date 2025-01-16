@@ -3,7 +3,10 @@ package org.automation.pages;
 import org.automation.ReturnObjects.Clickable;
 import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
+import org.automation.utilities.Assertions;
+import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 
 import java.awt.*;
 import java.awt.datatransfer.Clipboard;
@@ -11,26 +14,27 @@ import java.awt.datatransfer.DataFlavor;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
 
+import static org.automation.ReturnObjects.Clickable.getElementBy;
+
 public class SearchPage extends BasePage {
     //Locators
-    public By SearchTab = By.xpath("(//a[@class='sidebar-link '])[1]");
+    public By billBtn = By.xpath("//div[@class='text-nowrap'and contains(text(),'Bills')]");
+    public By SearchBtn = By.xpath("//div[@class='text-nowrap'and contains(text(),'Search')]");
     By SearchPopup = By.cssSelector(".modal-content");
     By SearchLabel = By.xpath("//div[@class = 'modal-body']/div");
-    By SearchClose = By.xpath("//div[@class = 'modal-header']/button");
-    By SearchBillReferenceId = By.xpath("(//div[@class='col-7    ']/span)[1]");
+    public By SearchBillReferenceId = By.xpath("(//div[@class='position-relative loaded']/div/div/span)[1]");
     public By CopyReferenceId = By.xpath("//div[@class='mb-1']/span");
-    By CloseBillButton = By.xpath("//div[@class='modal-header']/button");
+    public By CloseBillButton = By.xpath("//div[@class='modal-header']/button");
     public By ClickSearchBox = By.xpath("//input[@name='phrase']");
-    By ClickSearchIcon =By.xpath("//div[@class='input-group']/button");
-    By Billid = By.xpath("//div[@class='mb-1']/span");
+    public By ClickSearchIcon =By.xpath("//div[@class='input-group']/button");
+    public By Billid = By.xpath("//div[@class='mb-1']/span");
     public By SearchTransReferenceId = By.xpath("(//div[@class='position-relative loaded']/div/div/span)[1]");
-    By BillPageReferenceId = By.xpath("(//div[@class='modal-body']/div/div)[3]");
     public By TransactionId = By.xpath("(//div[@class='col-7']/div/span)[1]");
     By UserProfile = By.xpath("(//a[@class='text-truncate'])[1]");
     By Useremail = By.xpath("//div[@class='d-flex mb-2']/div/div");
     By VerifyUserEmail = By.xpath("//div[@class='d-flex flex-column overflow-hidden']/div");
     By ReferenceValidation = By.cssSelector(".display-none");
-
+    public By transactionsButton = By.xpath("//div[@class='text-nowrap'and contains(text(),'Transactions')]");
 
     public SearchPage()
     {
@@ -47,7 +51,7 @@ public class SearchPage extends BasePage {
     }
 
     //To click on Bill Reference ID
-    public Clickable getSearchBillReferenceId() { return Clickable.getElementBy(SearchBillReferenceId, "Search Reference Id"); }
+    public Editable getSearchBillReferenceId() { return Editable.getElementBy(SearchBillReferenceId, "Search Reference Id"); }
 
     //To copy Bill Reference ID
     public Clickable getCopyReferenceId() {
@@ -72,6 +76,10 @@ public class SearchPage extends BasePage {
         String clipboardtext = (String) clipboard.getData(DataFlavor.stringFlavor);
         return clipboardtext;
     }
+    public Clickable getbillBtn()
+    {
+        return Clickable.getElementBy(billBtn, "Click Bill Button");
+    }
 
     //To click on search icon
     public Clickable getClickSearchIcon() {
@@ -91,6 +99,10 @@ public class SearchPage extends BasePage {
         return Clickable.getElementBy(TransactionId,"Transaction Id");
     }
 
+    public Clickable getSearchTab(){
+        return getElementBy(SearchBtn);
+    }
+
     //To open the profile of the user to copy email id
     public Clickable getUserProfile() {
         return Clickable.getElementBy(UserProfile,"User Profile");
@@ -104,6 +116,48 @@ public class SearchPage extends BasePage {
 
     //To get validation message displayed after searching
     public Editable getReferenceValidation() { return Editable.getElementBy(ReferenceValidation,"Reference Validation"); }
+
+    //To click on Transaction button
+    public Clickable getTransactionsButton() { return Clickable.getElementBy(transactionsButton,"Transaction Button"); }
+
+    //To search & verify bill and transaction id
+    public void performSearchAndVerify(String actiontype) throws IOException, UnsupportedFlavorException {
+        if (actiontype.equals("Bills"))
+        {
+            getbillBtn().click();
+            getSearchBillReferenceId().clickByMouseActions(SearchBillReferenceId);
+            WebdriverWaits.waitForElementClickable(CopyReferenceId,3);
+            getCopyReferenceId().click();
+            getCloseBillButton().click();
+            getSearchTab().click();
+            getClickSearchBox().click();
+            String copiedText = getClipboardText();
+            WebElement searchBoxElement = getElement(ClickSearchBox);
+            searchBoxElement.sendKeys(copiedText);
+            getClickSearchIcon().click();
+            getBillid().click();
+            String actualResult = getClipboardText();
+            Assertions.assertEquals(copiedText, actualResult);
+            getCloseBillButton().click();
+
+        }
+        else
+        {
+            getTransactionsButton().click();
+            getSearchTransReferenceId().clickByMouseActions(SearchTransReferenceId);
+            getSearchTab().click();
+            getClickSearchBox().click();
+            String copiedText = getClipboardText();
+            WebElement searchBoxElement = getElement(ClickSearchBox);
+            searchBoxElement.sendKeys(copiedText);
+            getClickSearchIcon().click();
+            getTransactionId().click();
+            String actualResult = getClipboardText();
+            Assertions.assertEquals(copiedText, actualResult);
+        }
+    }
+
+
 
 
 }
