@@ -91,7 +91,7 @@ public class KadeSession extends BaseTest {
     public GiftCardConfigurationPopup getGiftCardConfigurationPopup(){return new GiftCardConfigurationPopup();}
     public AttentionRTPopup getAttentionRTPopup() {return new AttentionRTPopup();}
     public AdminPage getAdminPage() {return new AdminPage();}
-
+    public RewardsProgramPage getRewardsProgramPage() {return new RewardsProgramPage();}
 
 
 

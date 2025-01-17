@@ -74,6 +74,7 @@ public class PaymentsAndRefundTest extends BasePage {
 
         //Step 14: Upload Screenshot
         session.getPaymentsPage().getScreenshotButton ().click();
+        WebdriverWaits.sleep(1000);
         session.getPaymentsPage().uploadVenmoImageScreenshot();
         session.getPaymentsPage().getCheckButton().click();
 
@@ -214,11 +215,11 @@ public class PaymentsAndRefundTest extends BasePage {
 
         //Step 19: Swipe to Pay the Partial amount
         session.getPaymentsPage().swipeToPay();
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.sleep(5000);
 
         //Step 20: Click on 'Swipe to pay' field
         session.getPaymentsPage().getSwipeToPayButton().clickbyJS();
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.sleep(5000);
 
         //Step 21: Enter Amount
         session.getPaymentsPage().getMoreAmountField().setText("1000.00");
@@ -232,7 +233,7 @@ public class PaymentsAndRefundTest extends BasePage {
         //Step 24: Select 'Venmo' Method
         WebdriverWaits.sleep(2000);
         session.getPaymentsPage().getSavedVenmoCard().clickbyJS();
-        WebdriverWaits.sleep(3000);
+        WebdriverWaits.sleep(2000);
 
         //Verifying that Venmo PopUp is displayed
         Assertions.assertTrue(session.getPaymentsPage().getVenmoPopup().isDisplayed());
@@ -271,7 +272,7 @@ public class PaymentsAndRefundTest extends BasePage {
         session.getPaymentsPage().getVenmoSubmitButton().click();
 
         //Step 30: Click on 'Close' Icon
-        session.getPaymentsPage().getCloseButton().clickbyJS();
+        session.getPaymentsPage().getCloseButton().click();
     }
 
 }
