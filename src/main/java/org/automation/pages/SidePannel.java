@@ -21,10 +21,15 @@ public class SidePannel extends BasePage {
 	By qrCodeDashboardBtn = By.xpath("//a[text()='QR Code Dashboard']");
 	By manageBusinessAcc = By.xpath("//a[@class='sidebar-link collapsed' and text()='Manage Business']");
 	By CustomersBtn = By.cssSelector(".fa-fw.fas.fa-user-friends");
-	By dashboardTab = By.cssSelector("[href=\"/Stores/dashboard\"]");
-	By RewardsProgramPage = By.xpath("//a[text()='Rewards Program']");
 
-	By SearchBtn = By.cssSelector(".fa-search");
+	public By SearchBtn = By.xpath("//i[@class='align-middle me-2 fa-fw far fa-search']");
+	By PaymentHistoryBtn = By.xpath("//i[@class='align-middle me-2 fa-fw fas fa-history']");
+	By MyStuff = By.xpath("//a[text()='My Stuff']");
+	By RewardsProgramPage = By.xpath("//a[text()='Rewards Program']");
+	By dashboardTab = By.cssSelector("[href=\"/Stores/dashboard\"]");
+	//By RewardsProgramPage = By.xpath("//a[text()='Rewards Program']");
+
+	//By SearchBtn = By.cssSelector(".fa-search");
 
 	public SidePannel() {
 	}
@@ -56,6 +61,13 @@ public class SidePannel extends BasePage {
 	public Clickable getSearchTab(){
 		return getElementBy(SearchBtn);
 	}
+
+	public Clickable getPaymentHistoryTab(){
+		return getElementBy(PaymentHistoryBtn);
+	}
+
+	//To click on My Stuff Tab
+	public Clickable getMyStuff() { return Clickable.getElementBy(MyStuff, "My Stuff"); }
 
 	public Clickable getGiftCardsDashboardTab(){
 		return Clickable.getElementBy(giftCardsDashboardTab,"Gift Card Dashboard Tab");
@@ -94,8 +106,10 @@ public class SidePannel extends BasePage {
 	WebdriverWaits.sleep(3000);
 		return Clickable.getElementBy(signOutBtn,"Sign Out Button");
     }
+	public Clickable getRewardsProgramPage() {return Clickable.getElementBy(RewardsProgramPage,"Rewards Program Page");}
 
-    public Clickable getQrCodeDashboardButton() {
+
+	public Clickable getQrCodeDashboardButton() {
 		return Clickable.getElementBy(qrCodeDashboardBtn , "Qr code dashboard button");
     }
 	public Clickable getDashboardTab(){
