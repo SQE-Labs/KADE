@@ -1,9 +1,8 @@
 package scenarios;
 
-import com.github.jaiimageio.impl.plugins.wbmp.WBMPImageReader;
 import org.automation.base.BaseTest;
+import org.automation.data.Constants;
 import org.automation.data.KadeUserAccount;
-import org.automation.data.StoreAccount;
 import org.automation.objectBuilder.ObjectBuilder;
 import org.automation.objectBuilder.pages.BillsPage;
 import org.automation.pages.BillPage;
@@ -15,13 +14,10 @@ import org.automation.utilities.Assertions;
 import org.automation.utilities.RandomGenerator;
 import org.automation.utilities.WebdriverWaits;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-import java.time.Duration;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -196,7 +192,7 @@ public class TransactionTest extends BaseTest {
     public void verifyInfoMessageAppearsWhenNoTransactionIsAvailable() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().getTransactionButton().click();
-        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransaction2);
+        session.getTransactionsPage().selectStore(Constants.AutomationTransaction2);
         String expectedInformationMessage = "There are no payments available yet!";
 
         // Verify the information message when no transaction is available.
@@ -208,7 +204,7 @@ public class TransactionTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().getTransactionButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
-        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransaction2);
+        session.getTransactionsPage().selectStore(Constants.AutomationTransaction2);
 
         // Verifying  New Bill, New Charge, Filter icon is displayed
         Assertions.assertTrue(transactions.getNewBillTab().isDisplayed());
@@ -224,7 +220,7 @@ public class TransactionTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().getTransactionButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
-        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransaction2);
+        session.getTransactionsPage().selectStore(Constants.AutomationTransaction2);
 
         // Clicking on 'New Charge' Tab
         transactions.getNewChargeTab().click();
@@ -246,7 +242,7 @@ public class TransactionTest extends BaseTest {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().getTransactionButton().click();
         TransactionsPage transactions = session.getTransactionsPage();
-        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions);
+        session.getTransactionsPage().selectStore(Constants.AutomationTransactions);
 
         transactions.getNewChargeTab().click();
 
@@ -371,7 +367,7 @@ public class TransactionTest extends BaseTest {
 
         // go to transaction Page .
         session.getSidePannel().getTransactionButton().click();
-        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+        session.getTransactionsPage().selectStore(Constants.AutomationTransactions3);
         TransactionsPage transaction = session.getTransactionsPage();
         transaction.getCurrentPaidBill().click();
         WebdriverWaits.waitForElementVisible(session.getTransactionsPage().refundButton, 10);
@@ -389,7 +385,7 @@ public class TransactionTest extends BaseTest {
 
         // Clicking on transaction tab to verify the refunded transaction
         session.getSidePannel().getTransactionButton().click();
-        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+        session.getTransactionsPage().selectStore(Constants.AutomationTransactions3);
         Assertions.assertTrue(session.getTransactionsPage().getReturnSymbol().isDisplayed());
 
     }
@@ -444,7 +440,7 @@ public class TransactionTest extends BaseTest {
 
         // go to transaction Page .
         session.getSidePannel().getTransactionButton().click();
-        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+        session.getTransactionsPage().selectStore(Constants.AutomationTransactions3);
         TransactionsPage transaction = session.getTransactionsPage();
         transaction.getCurrentPaidBill().click();
 
@@ -528,7 +524,7 @@ public class TransactionTest extends BaseTest {
 
         // go to transaction Page .
         session.getSidePannel().getTransactionButton().click();
-        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+        session.getTransactionsPage().selectStore(Constants.AutomationTransactions3);
         TransactionsPage transaction = session.getTransactionsPage();
         transaction.getCurrentPaidBill().clickByMouse();
 
@@ -651,7 +647,7 @@ public class TransactionTest extends BaseTest {
 
 
         session.getSidePannel().getTransactionButton().click();
-        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+        session.getTransactionsPage().selectStore(Constants.AutomationTransactions3);
 
         List<WebElement> transactionElements = session.getTransactionsPage().getTransactionID().getListOfWebElements();
         System.out.println("Size of transaction IDs: " + transactionElements.size());
@@ -701,7 +697,7 @@ public class TransactionTest extends BaseTest {
 
         String fileStatus = ActionEngine.isFileDownloaded("Transactions.xlsx");
         System.out.println("fileStatus :" + fileStatus);
-
+        WebdriverWaits.sleep(3000);
         if (fileStatus.equalsIgnoreCase("File Present")) {
             String deletStatus = ActionEngine.deleteFile("Transactions.xlsx");
             System.out.println("deleteStatus :" + deletStatus);
@@ -832,7 +828,7 @@ public class TransactionTest extends BaseTest {
 
         // go to transaction Page .
         session.getSidePannel().getTransactionButton().click();
-        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+        session.getTransactionsPage().selectStore(Constants.AutomationTransactions3);
         TransactionsPage transaction = session.getTransactionsPage();
         transaction.getCurrentPaidBill().clickByMouse();
         WebdriverWaits.waitForElementVisible(session.getTransactionsPage().transactionID,20);
@@ -898,7 +894,7 @@ public class TransactionTest extends BaseTest {
 
         // go to transaction Page .
         session.getSidePannel().getTransactionButton().click();
-        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+        session.getTransactionsPage().selectStore(Constants.AutomationTransactions3);
         TransactionsPage transaction = session.getTransactionsPage();
         transaction.getCurrentPaidBill().click();
 
@@ -969,7 +965,7 @@ public class TransactionTest extends BaseTest {
 
         // go to transaction Page .
         session.getSidePannel().getTransactionButton().click();
-        session.getTransactionsPage().selectStore(StoreAccount.AutomationTransactions3);
+        session.getTransactionsPage().selectStore(Constants.AutomationTransactions3);
         TransactionsPage transaction = session.getTransactionsPage();
         transaction.getCurrentPaidBill().clickByMouse();
         transaction.getRecurringIcon().isDisplayed();

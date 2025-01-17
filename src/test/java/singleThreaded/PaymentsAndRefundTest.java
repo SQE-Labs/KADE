@@ -18,17 +18,17 @@ public class PaymentsAndRefundTest extends BasePage {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
         //Step 1: Click on 'Bill' sub-Tab
-      session.getSidePannel().getBillButton().click();
+        session.getSidePannel().getBillButton().click();
 
         //Step 2: Enter Amount
-      String amt = "4999.00";
+        String amt = "4999.00";
 
         //Step 3: Enter Customer Email
         String customerEmail = "yonro@yopmail.com";
-       BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
+        BillsPage bills = ObjectBuilder.BillDetails.getDefaultBillDetails().setAmount(amt).setCustomerEmail(customerEmail);
 
         //Step 4: Create Bill
-       session.getBillPage().createBill(bills);
+        session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Step 5: Logout as Store manager
@@ -276,3 +276,4 @@ public class PaymentsAndRefundTest extends BasePage {
     }
 
 }
+

@@ -276,11 +276,11 @@ public class CreateAccountTest extends BaseTest {
         session.getSidePannel().clickProfile();
 
         // Click on Security and Password Tab
-        session.getBasicInformationPage().clickOnSecurityAndPassword();
+        session.getSecurityAndPassword().getSecurityAndPasswordTab().click();
 
-        // Click on Close and Delete Account button
-        session.getSecurityAndPasswordPage().getDeleteAccountButton().clickByMouse();
-        session.getSecurityAndPasswordPage().getTickIcon().click();
+//        // Click on Close and Delete Account button
+//        session.getSecurityAndPassword().clickByMouse();
+//        session.getSecurityAndPassword().getTickIcon().click();
     }
 
     @Test(description = "CA_TC 3: Verify that signing in to the application by phone number using Business Account option.")

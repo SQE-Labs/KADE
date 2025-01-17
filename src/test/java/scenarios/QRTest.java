@@ -3,15 +3,11 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import org.automation.base.BaseTest;
 import org.automation.data.KadeUserAccount;
-import org.automation.data.StoreAccount;
 import org.automation.pages.MyStorePage;
-import org.automation.pages.PaymentsPage;
-import org.automation.pages.QrCodeDashboardPage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.RandomGenerator;
-import org.automation.utilities.WebdriverWaits;
-import org.openqa.selenium.JavascriptExecutor;
+
 import java.awt.datatransfer.*;
 import java.io.IOException;
 import java.time.Duration;

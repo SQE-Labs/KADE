@@ -16,7 +16,7 @@ public class MyStorePage extends BasePage {
     By skipStripeAccountBtn = By.cssSelector(".btn-lg.fw-bold.w-100.btn.btn-outline-primary");
     public By skipStripeAccountPopUpBtn = By.xpath("//div[@class='modal-content']//button[text()='Skip']");
     public By deleteStoreBtn = By.xpath("//button[text()='Delete the store']");
-    By deleteStoreIcon = By.cssSelector(".fa.fa-check");
+    By deleteStoreIcon = By.xpath("//i[@class='fal fa-thumbs-up text-white']");
     By alertMessage = By.cssSelector("form.link-check.checked div.alert-message");
     By configureBtnBusinessPlanStore = By.xpath("(//h6[text()='Automation Flow Business']/../..//a)[1]");
     By blankFieldWarningMsg = By.xpath("//p[@class='alert-content']");
@@ -78,7 +78,7 @@ public class MyStorePage extends BasePage {
     By rewardPointsField = By.xpath("//input[@name='pointsForGiftcard']");
     By rewardPtsValue = By.xpath("//input[@name='ponitsValue']");
     By checkBtn = By.cssSelector(".btn.btn-dark.-crop-");
-    By checkDeleteUser = By.xpath("//button[@class='btn btn-outline-success']");
+    By checkDeleteUser = By.xpath("//button[@class='btn btn-link ms-5 -yes-']");
     By storeLinksBtn = By.xpath("//button[text()='Store links']");
     By websiteURLField = By.xpath("//input[@name='StoreURLTypes[0].url']");
     By earnRewardsToggleBtn = By.xpath("//label[text()=' Website']/../..//i[@class='far fa-toggle-off custom-check-off ']");

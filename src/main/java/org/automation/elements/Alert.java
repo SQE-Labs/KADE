@@ -23,38 +23,6 @@ public final class Alert {
     }
 
     /**
-     * To check if an alert is present.
-     *
-     * @return true if present, false otherwise
-     */
-    public boolean isPresent() {
-        Log.info("Check for Alert [" + description + "] to be present");
-        try {
-            wait.until(alertIsPresent());
-            return true;
-        } catch (TimeoutException e) {
-            Log.info("Alert [" + description + "] is not present");
-            return false;
-        }
-    }
-
-    /**
-     * Accept the alert.
-     */
-    public void accept() {
-        Log.info("Accept the [" + description + "] alert");
-        wait.until(alertIsPresent()).accept();
-    }
-
-    /**
-     * Dismiss the alert.
-     */
-    public void dismiss() {
-        Log.info("Dismiss the [" + description + "] alert");
-        wait.until(alertIsPresent()).dismiss();
-    }
-
-    /**
      * Get the text present in an alert.
      *
      * @return the text
@@ -64,14 +32,5 @@ public final class Alert {
         return wait.until(alertIsPresent()).getText();
     }
 
-    /**
-     * Enter text in the alert.
-     *
-     * @param textToEnter text to enter
-     */
-    public void enterText(String textToEnter) {
-        Log.info("Enter text [" + textToEnter + "] in the [" + description + "] text box");
-        wait.until(alertIsPresent()).sendKeys(textToEnter);
-    }
 
 }

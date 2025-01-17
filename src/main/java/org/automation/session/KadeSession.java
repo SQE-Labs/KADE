@@ -41,6 +41,8 @@ public class KadeSession extends BaseTest {
         return new TransactionsPage();
     }
 
+    public SearchPage getSearchPage() { return new SearchPage(); }
+
 
     public LoginPage getLoginPage() {
         return new LoginPage();
@@ -68,19 +70,7 @@ public class KadeSession extends BaseTest {
         return new CreateNewAccountPage();
     }
 
-    public BasicInformationPage getBasicInformationPage() {
-        return new BasicInformationPage();
-    }
     public BasicInfoPage getBasicInfoPage() {return new BasicInfoPage();}
-
-    public SecurityAndPassword getSecurityAndPassword() {return new SecurityAndPassword();}
-    public SecurityAndPasswordPage getSecurityAndPasswordPage() {
-        return new SecurityAndPasswordPage();
-    }
-
-
-
-
     public SignInPopup getSignInPopup(){
         return  new SignInPopup();
     }
@@ -94,6 +84,8 @@ public class KadeSession extends BaseTest {
     public RewardsProgramPage getRewardsProgramPage() {return new RewardsProgramPage();}
 
 
+    public DashboardPage getDashboardPage() { return new DashboardPage();}
+    public SecurityAndPassword getSecurityAndPassword() {return new SecurityAndPassword();}
 
     }
 

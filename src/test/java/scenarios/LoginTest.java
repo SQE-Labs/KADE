@@ -36,7 +36,7 @@ public class LoginTest extends BaseTest{
 		Assertions.assertEquals(actualValidation, expectedValidation);
 	}
 	
-	@Test(description = "Log03 : Verify Tool Tip Appear on enterin invalid email")
+	@Test(description = "Log03 : Verify Tool Tip Appear on enter in invalid email")
     public void tc03_validateForgotPasswordLink() {
 		session.getLoginPage().getForgotPasswordLink().click();
 		String actualTitle = session.getLoginPage().getPageTitle();

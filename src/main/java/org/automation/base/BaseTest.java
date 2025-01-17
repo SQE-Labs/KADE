@@ -4,10 +4,10 @@ import com.aventstack.extentreports.ExtentTest;
 import com.aventstack.extentreports.Status;
 import com.aventstack.extentreports.reporter.ExtentSparkReporter;
 import org.automation.listeners.TestRunListener;
-import org.automation.session.KadeSession;
+import org.automation.logger.Log;
+import org.automation.utilities.ExplicitWait;
 import org.automation.utilities.PropertiesUtil;
 import org.automation.utilities.Screenshot;
-import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -26,11 +26,13 @@ import static java.nio.file.Files.lines;
 import static java.nio.file.Paths.get;
 import static java.util.stream.Collectors.toList;
 import static org.automation.logger.Log.error;
-
+import static org.openqa.selenium.support.ui.ExpectedConditions.alertIsPresent;
 
 
 @Listeners({ TestRunListener.class })
 public class BaseTest {
+
+
 	public static ExtentReports extent;
 	ExtentSparkReporter extentSparkReporter;
 	private static ThreadLocal<WebDriver> driver = new ThreadLocal<>();
@@ -83,7 +85,7 @@ public class BaseTest {
 			chromeOptions.addArguments("--remote-allow-origins=*");
 			chromeOptions.addArguments("--window-size=1920,1080");
 			if (Boolean.parseBoolean(headlessParameter)) {
-				chromeOptions.addArguments("--headless=old");
+				chromeOptions.addArguments("--headless");
 
 			}
 			driver.set(new ChromeDriver(chromeOptions));
@@ -114,90 +116,13 @@ public class BaseTest {
 
 	@AfterMethod
 	public void tearDown(ITestResult result){
-		if (result.getStatus() == ITestResult.FAILURE) {
-			String screenshotPath = Screenshot.getScreenshot(getDriver(), result.getTestName());
-			getExtentTest().addScreenCaptureFromPath(screenshotPath);
-			getExtentTest().log(Status.FAIL, result.getThrowable());
 
-		} else if (result.getStatus() == ITestResult.SUCCESS) {
-//			String screenshotPath = Screenshot.getScreenshot(getDriver(), result.getName());
-//			extentTest.log(LogStatus.PASS, extentTest.addScreenCapture(screenshotPath));
-		}
-		new KadeSession().getSidePannel().getSignOutButton().clickIfExist();
 		closeDriver();
 	}
 
 	@AfterSuite(alwaysRun = true)
 	public void afterSuite() {
 		extent.flush();
-	}
-
-	/**
-	 * Data Provider method to get data from Excel file.
-	 *
-	 * @param method test method executed
-	 * @return excel data
-	 */
-	@DataProvider(name = "ExcelDataProvider")
-	public Iterator<Object[]> provideData(Method method) {
-		List<Object[]> excelData = new ArrayList<Object[]>();
-		String pathName = "src" + separator + "test" + separator + "resources" + separator + "ExcelData.xlsx";
-//		Connection con = null;
-//		Recordset record = null;
-//		try {
-//			Fillo fillo = new Fillo();
-//			con = fillo.getConnection(pathName);
-//			record = con.executeQuery("Select * from TestData where TestCase = '"
-//					+ method.getDeclaringClass().getSimpleName() + "." + method.getName() + "'");
-//			while (record.next()) {
-//				Map<String, String> data = new HashMap<String, String>();
-//				for (String field : record.getFieldNames()) {
-//					if (!record.getField(field).isEmpty()) {
-//						data.put(field, record.getField(field));
-//					}
-//				}
-//				excelData.add(new Object[] { data });
-//			}
-//		} catch (FilloException e) {
-//			error("Unable to get data from Excel", e);
-//			throw new RuntimeException("Could not read " + pathName + " file.\n" + e.getStackTrace().toString());
-//		} finally {
-//			con.close();
-//			record.close();
-//		}
-		return excelData.iterator();
-	}
-
-	/**
-	 * Data Provider method to get data from CSV file.
-	 *
-	 * @param method test method executed
-	 * @return CSV data
-	 */
-	@DataProvider(name = "CsvDataProvider")
-	public Iterator<Object[]> getCsvData(Method method) {
-		List<Object[]> csvData = new ArrayList<Object[]>();
-		String csvRegex = ",(?=([^\"]*\"[^\"]*\")*[^\"]*$)";
-		String pathName = "src" + separator + "test" + separator + "resources" + separator + "CsvData.csv";
-		try {
-			String[] keys = lines(get(pathName)).findFirst().orElseThrow(IOException::new).split(csvRegex);
-			List<String[]> dataLines = lines(get(pathName)).filter(
-					line -> line.startsWith(method.getDeclaringClass().getSimpleName() + "." + method.getName()))
-					.map(line -> line.split(csvRegex)).collect(toList());
-			for (String[] values : dataLines) {
-				Map<String, String> data = new HashMap<String, String>();
-				for (int i = 1; i < keys.length; i++) {
-					if (!values[i].isEmpty()) {
-						data.put(keys[i], values[i]);
-					}
-				}
-				csvData.add(new Object[] { data });
-			}
-		} catch (IOException e) {
-			error("Unable to get data from Csv", e);
-			throw new RuntimeException("Could not read " + pathName + " file.\n" + e.getStackTrace().toString());
-		}
-		return csvData.iterator();
 	}
 
 	public void switchToDefaultWindow(){
