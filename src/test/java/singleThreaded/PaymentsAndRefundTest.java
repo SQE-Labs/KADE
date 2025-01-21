@@ -32,6 +32,7 @@ public class PaymentsAndRefundTest extends BasePage {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Step 5: Logout as Store manager
+        WebdriverWaits.sleep(3000);
         session.getSidePannel().getSignOutButton().click();
 
         //Step 6: Login as Customer
@@ -105,8 +106,9 @@ public class PaymentsAndRefundTest extends BasePage {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 2);
 
         //Logout as Store manager
-        session.getSidePannel().getSignOutButton().click(); // Signing out
         WebdriverWaits.sleep(3000);
+
+        session.getSidePannel().getSignOutButton().click(); // Signing out
 
         //Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -166,8 +168,9 @@ public class PaymentsAndRefundTest extends BasePage {
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
 
         //Step 5: Logout as Store manager
-        session.getSidePannel().getSignOutButton().click();
         WebdriverWaits.sleep(3000);
+
+        session.getSidePannel().getSignOutButton().click();
 
         //Step 6: Login as Customer
         session.getLoginPage().performSignIn(customerEmail, "Test@123");
@@ -182,7 +185,7 @@ public class PaymentsAndRefundTest extends BasePage {
         session.getPaymentsPage().getPayNowButton().click();
 
         //Step 10: Click on 'Swipe to Pay; field
-        session.getPaymentsPage().getSwipeToPayButton().click();
+        session.getPaymentsPage().getSwipeToPayButton().clickbyJS();
         WebdriverWaits.waitForElementUntilVisible(By.xpath("//input[@lbl-title='Amount']"),5);
 
         //Step 11: Enter Amount

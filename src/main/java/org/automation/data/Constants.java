@@ -11,8 +11,13 @@ public class Constants {
     public static final String PaymentHistoryTitle = "Payment History";
     public static final String NoPaymentsMessage = "There are no payments available yet!";
     public static final String customerEmail ="yonro@yopmail.com" ;
-    public static final String amt = "4999.00";
+    public static final String Password ="Test@123" ;
+    public static final String amt = "49999.00";
     public static final String expectedSearchValidation = "Nothing found!";
+    public static final String ExpectedAmountStatus = "Paid";
+    public static final String expectedAmountStatus = "Partially Paid";
+    public static final String ExpectedPaymentStatus = "PAID";
+
 
 
     public static String AutomationBillFlow = "Automation Bill Flow";  // Flow 1 without plan

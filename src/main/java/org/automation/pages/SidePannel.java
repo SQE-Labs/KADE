@@ -11,8 +11,8 @@ public class SidePannel extends BasePage {
 
 	By profileLink = By.xpath("//a[@class='btn btn-link p-0 fs-pn15 ']");
 	By validationMessage=By.xpath("//p[@class='alert-content']");
-	public By billBtn = By.cssSelector(".sidebar-nav > li:nth-child(5)");
-	By transactionsButton=By.cssSelector(".sidebar-nav > li:nth-child(4)");
+	public By billBtn = By.xpath("//div[@class='text-nowrap'and contains(text(),'Bills')]");
+	public By transactionsButton=  By.cssSelector(".sidebar-nav > li:nth-child(4)");
 	By myStoreBtn=By.cssSelector(".fa-fw.fas.fa-store");
 	By giftCardsDashboardTab=By.xpath("//a[text()='Gift Cards Dashboard']");
 	By pageHeader=By.xpath("//h1[@class='header-title mb-0']");
@@ -22,8 +22,8 @@ public class SidePannel extends BasePage {
 	By manageBusinessAcc = By.xpath("//a[@class='sidebar-link collapsed' and text()='Manage Business']");
 	By CustomersBtn = By.cssSelector(".fa-fw.fas.fa-user-friends");
 
-	public By SearchBtn = By.xpath("//i[@class='align-middle me-2 fa-fw far fa-search']");
-	By PaymentHistoryBtn = By.xpath("//i[@class='align-middle me-2 fa-fw fas fa-history']");
+	public By SearchBtn = By.xpath("//div[@class='text-nowrap'and contains(text(),'Search')]");
+	By PaymentHistoryBtn = By.xpath("//div[@class='text-nowrap'and contains(text(),'Payment History')]");
 	By MyStuff = By.xpath("//a[text()='My Stuff']");
 	By RewardsProgramPage = By.xpath("//a[text()='Rewards Program']");
 	By dashboardTab = By.cssSelector("[href=\"/Stores/dashboard\"]");

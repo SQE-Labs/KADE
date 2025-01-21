@@ -31,8 +31,11 @@ public class SearchPage extends BasePage {
     public By SearchTransReferenceId = By.xpath("(//div[@class='position-relative loaded']/div/div/span)[1]");
     public By TransactionId = By.xpath("(//div[@class='col-7']/div/span)[1]");
     By UserProfile = By.xpath("(//a[@class='text-truncate'])[1]");
+    By UserProfilePhone = By.xpath("//a[@class='text-truncate' and contains(text(),'Marry')]");
     By Useremail = By.xpath("//div[@class='d-flex mb-2']/div/div");
+    By UserPhoneNumber = By.cssSelector("div[class='text-truncate']");
     By VerifyUserEmail = By.xpath("//div[@class='d-flex flex-column overflow-hidden']/div");
+    By VerifyUserPhoneNumber = By.xpath("//div[@class='d-flex mb-2']/div/div");
     By ReferenceValidation = By.cssSelector(".display-none");
     public By transactionsButton = By.xpath("//div[@class='text-nowrap'and contains(text(),'Transactions')]");
 
@@ -99,6 +102,7 @@ public class SearchPage extends BasePage {
         return Clickable.getElementBy(TransactionId,"Transaction Id");
     }
 
+    //To click on Search Tab
     public Clickable getSearchTab(){
         return getElementBy(SearchBtn);
     }
@@ -111,14 +115,23 @@ public class SearchPage extends BasePage {
     //To get the email id for searching the user
     public Editable getUseremail() { return Editable.getElementBy(Useremail,"User Email");}
 
+    //To get the Phone Number for searching the user
+    public Editable getUserPhoneNumber() { return Editable.getElementBy(UserPhoneNumber,"User Email");}
+
     //To get the email ID from customer's page displayed after searching with email id
     public Editable getVerifyUserEmail() { return Editable.getElementBy(VerifyUserEmail,"Verify User Email"); }
+
+    //To get the Phone Number from customer's page displayed after searching with email id
+    public Editable getVerifyUserPhoneNumber() { return Editable.getElementBy(VerifyUserPhoneNumber,"Verify User Email"); }
 
     //To get validation message displayed after searching
     public Editable getReferenceValidation() { return Editable.getElementBy(ReferenceValidation,"Reference Validation"); }
 
     //To click on Transaction button
     public Clickable getTransactionsButton() { return Clickable.getElementBy(transactionsButton,"Transaction Button"); }
+
+    //To get User profile for phone number
+    public Clickable getUserProfilePhone() { return Clickable.getElementBy(UserProfilePhone,"User Profile Phone"); }
 
     //To search & verify bill and transaction id
     public void performSearchAndVerify(String actiontype) throws IOException, UnsupportedFlavorException {

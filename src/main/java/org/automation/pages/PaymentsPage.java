@@ -86,7 +86,7 @@ public class PaymentsPage extends BasePage {
     By tapToPayMoreLink = By.partialLinkText("Tap to pay more");
     //By tapToPayMoreLink=By.xpath("//a[text()='Tap to pay more']");
     By moreAmountTbx = By.xpath("//input[@lbl-title='Amount']");
-    By updateButton = By.xpath("(//button[contains(text(),'Update')])[2]");
+    By updateButton = By.xpath("//button[contains(text(),'Update')]");
     By swipeButton = By.xpath("//a[contains(@class,' -updateamount-')]");
     By savedZellePaymentButton = By.xpath("//div//span[text()='Zelle']");
     By zellePopup = By.xpath("//h5[@class='modal-title']//span");
