@@ -43,6 +43,9 @@ public class KadeSession extends BaseTest {
 
     public SearchPage getSearchPage() { return new SearchPage(); }
 
+    public GiftCardPage getGiftCardPage() { return new GiftCardPage(); }
+
+
     public PaymentHistoryPage getPaymentHistoryPage() { return new PaymentHistoryPage(); }
 
 

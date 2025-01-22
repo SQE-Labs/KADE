@@ -16,7 +16,8 @@ public class Constants {
     public static final String expectedSearchValidation = "Nothing found!";
     public static final String ExpectedAmountStatus = "Paid";
     public static final String expectedAmountStatus = "Partially Paid";
-    public static final String ExpectedPaymentStatus = "PAID";
+    public static final String ExpectedGiftCard = "Gift Cards";
+    public static final String ExpectedNoGiftCardMsg = "There are no gift cards available in your account.";
 
 
 
