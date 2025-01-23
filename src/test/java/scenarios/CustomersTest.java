@@ -1,6 +1,7 @@
 package scenarios;
 
 import org.automation.base.BaseTest;
+import org.automation.data.Constants;
 import org.automation.data.KadeUserAccount;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
@@ -135,52 +136,58 @@ public class CustomersTest extends BaseTest {
     }
 
     @Test(description = "Filtering out using Phone number")
-    public void c_05FilterWithPhoneNumber() {
-        //Login and navigate to Customers page.
+    public void c_05FilterWithhPhoneNumber() {
+        // Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        navigateToCustomersPage(session);
+
+        // Filter by valid name
+        applyFilter(session, "9011017524");
+
+        // Wait for filter to be applied
+        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn, 10);
+
+        // Check for a valid phone number but of a non-existing customer
+        applyFilter(session, "1232233223");
+        Assertions.assertTrue(session.getCustomersPage().getNoResult().isDisplayed());
+
+        // Check if the field accepts more than 22 characters
+        applyFilter(session, "12345678901234567890123");
+        Assertions.assertTrue(session.getCustomersPage().alertValidation().isDisplayed());
+        Assertions.assertEquals(
+                session.getCustomersPage().invalidFilterByPhnNumber().getToolTipMessage(),
+                Constants.maxPhnFieldCharValidation
+        );
+
+        // Clear field and apply empty filter
+        session.getCustomersPage().invalidFilterByPhnNumber().setText(" ");
+        session.getCustomersPage().filterApply().click();
+
+        // Wait for filter to be applied
+        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn, 10);
+
+        // Filter by invalid number
+        applyFilter(session, "1231");
+        Assertions.assertTrue(session.getCustomersPage().alertValidation().isDisplayed());
+        Assertions.assertEquals(
+                session.getCustomersPage().invalidFilterByPhnNumber().getToolTipMessage(),
+                Constants.invalidPhnValidation
+        );
+    }
+
+    private void navigateToCustomersPage(KadeSession session) {
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
         session.getSidePannel().getCustomersTab().click();
         session.getCustomersPage().storeSelection();
         session.getCustomersPage().continuebtn().click();
-
-        //Open 'Filter' pop up
-        session.getCustomersPage().filter().click();
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@class='offcanvas-title']")));
-        //Filter by valid name
-        session.getCustomersPage().filterByPhnNumber().setText("9011017524");
-        session.getCustomersPage().filterApply().click();
-
-        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn,10);
-        session.getCustomersPage().filter().click();
-        //Filter by invalid number
-        session.getCustomersPage().filterByPhnNumber().setText("1231");
-        session.getCustomersPage().filterApply().click();
-        Assertions.assertTrue(session.getCustomersPage().alertValidation().isDisplayed());
-        String filterPhnNumberTooltip = session.getCustomersPage().invalidFilterByPhnNumber().getToolTipMessage();
-        Assertions.assertEquals(filterPhnNumberTooltip,"Invalid phone number");
-        session.getCustomersPage().closeFilterBtn().click();
-
-
-        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().closefilter,10);
-        session.getCustomersPage().filter().click();
-        //Check if the field accepts more than 22 characters
-        session.getCustomersPage().invalidFilterByPhnNumber().setText("12345678901234567890123");
-        session.getCustomersPage().filterApply().click();
-        Assertions.assertTrue(session.getCustomersPage().alertValidation().isDisplayed());
-        String filterPhoneNumberTooltip = session.getCustomersPage().invalidFilterByPhnNumber().getToolTipMessage();
-        Assertions.assertEquals(filterPhoneNumberTooltip,"Please enter no more than 22 characters.");
-        session.getCustomersPage().invalidFilterByPhnNumber().setText(" ");
-        session.getCustomersPage().filterApply().click();
-
-        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn,10);
-        session.getCustomersPage().filter().click();
-        //Check for a valid phone number but of a non-existing customer
-        session.getCustomersPage().filterByPhnNumber().setText("1232233223");
-        session.getCustomersPage().filterApply().click();
-        Assertions.assertTrue(session.getCustomersPage().getNoResult().isDisplayed());
-
     }
+
+    private void applyFilter(KadeSession session, String phoneNumber) {
+        session.getCustomersPage().filter().click();
+        session.getCustomersPage().filterByPhnNumber().setText(phoneNumber);
+        session.getCustomersPage().filterApply().click();
+    }
+
 
     @Test(description = "Filtering out using Email")
     public void c_06FilterWithEmail() {

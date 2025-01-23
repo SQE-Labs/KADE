@@ -13,6 +13,7 @@ public class Constants {
     public static final String customerEmail ="yonro@yopmail.com" ;
     public static final String amt = "4999.00";
     public static final String expectedSearchValidation = "Nothing found!";
+    public static final String maxPhnFieldCharValidation = "Please enter no more than 22 characters.";
 
     public static final String userPhnEmailTooltip = "Invalid phone or email. Phone numbers must start with country code starting with +";
     public static final String invalidDateRange = "Invalid date range";
