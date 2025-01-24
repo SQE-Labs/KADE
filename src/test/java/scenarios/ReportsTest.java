@@ -1,12 +1,18 @@
 package scenarios;
 
+import org.automation.data.Constants;
 import org.automation.data.KadeUserAccount;
+import org.automation.pages.ReportsPage;
 import org.automation.session.KadeSession;
 import org.automation.utilities.ActionEngine;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.WebdriverWaits;
 import org.testng.annotations.Test;
 import org.automation.base.BaseTest;
+
+import java.io.File;
+
+import static org.automation.utilities.ActionEngine.isFileDownloaded;
 
 public class ReportsTest extends BaseTest{
 
@@ -61,10 +67,12 @@ public class ReportsTest extends BaseTest{
         session.getReportsPage().getContinueBtn().click();
 
         session.getReportsPage().getJanMonth().click();
-        session.getReportsPage().getJanData().click();
-        String fileStatus = ActionEngine.isFileDownloaded("2962-2025-01-20.csv");
+        ReportsPage.deleteFile(Constants.fileNameDaily);
+        session.getReportsPage().getJanData().clickByMouse();
+        WebdriverWaits.sleep(4000);
+        String fileStatus = isFileDownloaded(Constants.fileNameDaily);
         System.out.println("fileStatus :" + fileStatus);
-
+        Assertions.assertEquals(fileStatus,Constants.filePresent);
     }
 
     @Test(description = "Verify that monthly reports get generated under 'Monthly Payments Confirmations' tab on 'Reports' page, after every month end.")
@@ -78,9 +86,12 @@ public class ReportsTest extends BaseTest{
 
         session.getReportsPage().getMonthlyPayConf().click();
         Assertions.assertTrue(session.getReportsPage().getDecMonthReport().isDisplayed());
-        session.getReportsPage().getDecMonthReport().click();
-        String fileStatus = ActionEngine.isFileDownloaded("2962-2025-01-01.csv");
+        ReportsPage.deleteFile(Constants.filenameMonthly);
+        session.getReportsPage().getDecMonthReport().clickByMouse();
+        WebdriverWaits.sleep(4000);
+        String fileStatus = ActionEngine.isFileDownloaded(Constants.filenameMonthly);
         System.out.println("fileStatus :" + fileStatus);
+        Assertions.assertEquals(fileStatus,Constants.filePresent);
     }
 
     @Test(description = "Verify that stats of total received amount appears on 'Payment Received' tab, after clicking on 'Payment Received' tab, on Reports page.")
@@ -110,19 +121,19 @@ public class ReportsTest extends BaseTest{
 
         session.getReportsPage().getPayReceived().click();
         session.getReportsPage().getTodayStats().click();
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.sleep(1000);
         System.out.println(session.getReportsPage().getTotalReceivedPayAmount().getText());
         System.out.println(session.getReportsPage().getTotalTaxAmount().getText());
         System.out.println(session.getReportsPage().getTotalTipAmount().getText());
 
         session.getReportsPage().getYesterdayStats().click();
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.sleep(1000);
         System.out.println(session.getReportsPage().getTotalReceivedPayAmount().getText());
         System.out.println(session.getReportsPage().getTotalTaxAmount().getText());
         System.out.println(session.getReportsPage().getTotalTipAmount().getText());
 
         session.getReportsPage().getLastMonthStats().click();
-        WebdriverWaits.sleep(2000);
+        WebdriverWaits.sleep(1000);
         System.out.println(session.getReportsPage().getTotalReceivedPayAmount().getText());
         System.out.println(session.getReportsPage().getTotalTaxAmount().getText());
         System.out.println(session.getReportsPage().getTotalTipAmount().getText());
@@ -141,18 +152,12 @@ public class ReportsTest extends BaseTest{
         session.getReportsPage().getPayReceived().click();
         session.getReportsPage().getCustomDateStats().click();
         WebdriverWaits.waitForElementVisible(session.getReportsPage().applyDateRangePayRec,20);
-        session.getReportsPage().getCustomDateRangeInputField().setText("01/01/2025 - 02/20/2025");
+        session.getReportsPage().getCustomDateRangeInputField().setText(Constants.dateRange);
         session.getReportsPage().getApplyButton().click();
-        WebdriverWaits.sleep(2000);
         System.out.println(session.getReportsPage().getTotalReceivedPayAmount().getText());
         System.out.println(session.getReportsPage().getTotalTaxAmount().getText());
         System.out.println(session.getReportsPage().getTotalTipAmount().getText());
     }
-
-
-
-
-
 
 
 }

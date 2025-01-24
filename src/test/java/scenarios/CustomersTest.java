@@ -17,7 +17,7 @@ import java.time.Duration;
 public class CustomersTest extends BaseTest {
 
     @Test(description = "Verify that Store's customers page opens up displaying all the options")
-    public void c_01storeCustomersPage() {
+    public void verifystoreCustomersPage() {
         //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
@@ -42,7 +42,7 @@ public class CustomersTest extends BaseTest {
     }
 
     @Test(description = "Adding a new customer with Phone number", dataProvider = "phoneNumberData")
-    public void c_02addCustomerWithPhoneNumber(String phoneNumber, String expectedValidationMessage) {
+    public void verifyAddCustomerWithPhoneNumber(String phoneNumber, String expectedValidationMessage) {
         // Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
@@ -77,7 +77,7 @@ public class CustomersTest extends BaseTest {
 
 
     @Test(description = "Adding a new customer with Email")
-    public void c_03AddCustomerWithEmail() {
+    public void verifyAddCustomerWithEmail() {
         //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
@@ -117,7 +117,7 @@ public class CustomersTest extends BaseTest {
     }
 
     @Test(description = "Creating a bill and searching for the customer on Customers page")
-    public void c_04CreateBillAndSearch() {
+    public void verifyCreateBillAndSearch() {
         //Login
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
@@ -136,23 +136,23 @@ public class CustomersTest extends BaseTest {
     }
 
     @Test(description = "Filtering out using Phone number")
-    public void c_05FilterWithhPhoneNumber() {
+    public void verifyFilterWithPhoneNumber() {
         // Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        navigateToCustomersPage(session);
+        session.getCustomersPage().navigateToCustomersPage(session);
 
         // Filter by valid name
-        applyFilter(session, "9011017524");
+        session.getCustomersPage().applyFilter(session, Constants.phnNumberInput);
 
         // Wait for filter to be applied
         WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn, 10);
 
         // Check for a valid phone number but of a non-existing customer
-        applyFilter(session, "1232233223");
+        session.getCustomersPage().applyFilter(session, Constants.phnNumberInput2);
         Assertions.assertTrue(session.getCustomersPage().getNoResult().isDisplayed());
 
         // Check if the field accepts more than 22 characters
-        applyFilter(session, "12345678901234567890123");
+        session.getCustomersPage().applyFilter(session, Constants.phnNumberInput3);
         Assertions.assertTrue(session.getCustomersPage().alertValidation().isDisplayed());
         Assertions.assertEquals(
                 session.getCustomersPage().invalidFilterByPhnNumber().getToolTipMessage(),
@@ -167,7 +167,7 @@ public class CustomersTest extends BaseTest {
         WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn, 10);
 
         // Filter by invalid number
-        applyFilter(session, "1231");
+        session.getCustomersPage().applyFilter(session, Constants.phnNumberInput4);
         Assertions.assertTrue(session.getCustomersPage().alertValidation().isDisplayed());
         Assertions.assertEquals(
                 session.getCustomersPage().invalidFilterByPhnNumber().getToolTipMessage(),
@@ -175,18 +175,7 @@ public class CustomersTest extends BaseTest {
         );
     }
 
-    private void navigateToCustomersPage(KadeSession session) {
-        session.getSidePannel().expandManageBusinessAccordionBttn().click();
-        session.getSidePannel().getCustomersTab().click();
-        session.getCustomersPage().storeSelection();
-        session.getCustomersPage().continuebtn().click();
-    }
 
-    private void applyFilter(KadeSession session, String phoneNumber) {
-        session.getCustomersPage().filter().click();
-        session.getCustomersPage().filterByPhnNumber().setText(phoneNumber);
-        session.getCustomersPage().filterApply().click();
-    }
 
 
     @Test(description = "Filtering out using Email")

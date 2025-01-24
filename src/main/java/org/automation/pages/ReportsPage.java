@@ -5,7 +5,12 @@ import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
 import org.openqa.selenium.By;
 
+import java.io.File;
+
 public class ReportsPage extends BasePage {
+    String month ="January 2025";
+    String month2 = "December - 2024";
+    String day = "Sunday";
     By storesComboBox = By.cssSelector(".select2-selection.select2-selection--single");
     By storeSelection = By.xpath("//ul[@class=\"select2-results__options\"]//li[contains(text(), \"Automation Transaction 3\")]");
     By continueBtn = By.xpath("//button[@class='btn btn-primary'][text()='Continue']");
@@ -17,9 +22,9 @@ public class ReportsPage extends BasePage {
     By NoResultIcon = By.cssSelector(".no-result-icon");
     By monthCardHeader = By.cssSelector(".card-header");
     By cardBody = By.xpath("//div[@class='card-body max-30c collapse show']");
-    By janDataDownload = By.xpath("//a[@class='btn btn-link stretched-link align-self-center'][@data-download='/api/Stores/dailyPaymentsConfirmationDownload?storeId=2962&reportdate=01%2f20%2f2025']");
-    By selectJanuaryMonth = By.xpath("//a[@class='card-header collapsed' and text()='January 2025']");
-    By dec24Report = By.xpath("//strong[@class='align-self-center' and text()='December - 2024']");
+    By janDataDownload = By.xpath("(//a[contains(text(),'"+month+"')]//parent::div/div[1]//strong[text()='"+day+"'])[1]");
+    By selectJanuaryMonth = By.xpath("//a[@class='card-header collapsed' and text()='"+month+"']");
+    By dec24Report = By.xpath("//strong[@class='align-self-center' and text()='"+month2+"']");
     By totalReceivedamt = By.xpath("//div[@class='col-md-4'] //h4[text()='Total Received Amount']");
     By totalTax = By.xpath("//div[@class='col-md-4'] //h4[text()='Total Tax']");
     By totalTip = By.xpath("//div[@class='col-md-4'] //h4[text()='Total Tip']");
@@ -30,9 +35,9 @@ public class ReportsPage extends BasePage {
     By customDateFilter = By.xpath("//label[@class='btn btn-outline-primary' and text()='Custom date']");
     By dateRangePayReceived = By.xpath("//input[@name='dateRange']");
     public By applyDateRangePayRec = By.cssSelector(".btn-sm.mx-2.-btnapply-.btn.btn-outline-primary");
-    By printTotalReceivedPay = By.xpath("//div[@class='col-md-4' and @style='color: rgb(104, 122, 232)']");
-    By printTotalTaxPay = By.xpath("//div[@class='col-md-4' and @style='color: rgb(0, 204, 153)']");
-    By printTotalTip = By.xpath("//div[@class='col-md-4' and @style='color: rgb(247, 188, 6)']");
+    public By printTotalReceivedPay = By.id("lblTotalReceivedAmount");
+    By printTotalTaxPay = By.id("lblTotalTax");
+    By printTotalTip = By.id("lblTotalTip");
 
     public Clickable getTotalTipAmount() {return Clickable.getElementBy(printTotalTip,"TotalTip amount");}
 
@@ -64,7 +69,9 @@ public class ReportsPage extends BasePage {
 
     public Clickable getJanMonth() {return Clickable.getElementBy(selectJanuaryMonth,"Select january month");}
 
-    public Clickable getJanData() {return Clickable.getElementBy(janDataDownload,"Jan data download file");}
+    public Clickable getJanData() {
+        return Clickable.getElementBy(janDataDownload,"Jan data download file");
+    }
 
     public Clickable getCardBody() {return Clickable.getElementBy(cardBody,"Card Body");}
 
@@ -86,6 +93,32 @@ public class ReportsPage extends BasePage {
 
     public Clickable getStoreSelection() {return Clickable.getElementBy(storeSelection,"Select store");}
 
-    public Clickable getContinueBtn() {return Clickable.getElementBy(continueBtn,"Continue button");}
+    public Clickable getContinueBtn()
+
+    {
+        return Clickable.getElementBy(continueBtn,"Continue button");
+    }
+
+    public static String deleteFile(String fileName) {
+        String home = System.getProperty("user.home");
+        String file_with_location;
+
+        if (System.getProperty("os.name").contains("Windows")) {
+            file_with_location = home + "Downloads" + fileName;
+        } else {
+            file_with_location = home + "/Downloads/" + fileName;
+        }
+        File file = new File(file_with_location);
+
+        if (file.exists()) {
+            if (file.delete()) {
+                return "File deleted successfully.";
+            } else {
+                return "Failed to delete the file.";
+            }
+        } else {
+            return "File does not exist.";
+        }
+    }
 
 }
