@@ -541,14 +541,6 @@ public class ActionEngine extends BaseTest {
         }
     }
 
-    public static void clearDownloads(String downloadDir) {
-        File dir = new File(downloadDir);
-        for (File file : dir.listFiles()) {
-            if (file.isFile()) {
-                file.delete();
-            }
-        }
-    }
 
     public static String deleteFile(String fileName) {
         String home = System.getProperty("user.home");
