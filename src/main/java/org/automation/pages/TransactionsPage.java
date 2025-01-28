@@ -76,6 +76,8 @@ public class TransactionsPage extends BasePage {
     public By capturedButton = By.cssSelector("[value='captured']");
     By failedButton = By.cssSelector(".mx-3");
     By recurringIcon = By.cssSelector(".fa.fa-repeat.me-1");
+    By ConfigureStore = By.xpath("");
+    //div[@class='d-flex flex-column align-items-center']/h6[contains(text(),'Automation Processing Fee')]
 
     public Clickable getFailedButton() {
         return Clickable.getElementBy(failedButton, "failed Button ");
