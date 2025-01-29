@@ -89,6 +89,8 @@ public class KadeSession extends BaseTest {
 
     public ReportsPage getReportsPage() {return new ReportsPage();}
 
+    public RewardPointsPage getRewardPointsPage() {return new RewardPointsPage();}
+
     }
 
 

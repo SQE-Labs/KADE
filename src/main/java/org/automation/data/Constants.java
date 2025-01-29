@@ -20,7 +20,6 @@ public class Constants {
 
 
 
-
     public static String AutomationBillFlow = "Automation Bill Flow";  // Flow 1 without plan
     public static String AutomationBillTest = "Automation Bill Test"; // New Buisness 2 with plan
     public static String AutomationFlowBusiness = "Automation Flow Business";
