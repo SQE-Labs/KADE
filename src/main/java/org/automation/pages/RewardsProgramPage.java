@@ -108,4 +108,12 @@ public class RewardsProgramPage extends BasePage {
     public Clickable getcustomerStoreOption() {return Clickable.getElementBy(cutomerStoreOption,"Store selection");}
 
     public Clickable getStoreDropdown() {return Clickable.getElementBy(storeCombobox,"Store dropdown");}
+
+    public void openStore() {
+        getSession().getSidePannel().expandManageBusinessAccordionBttn().click();
+        getSession().getSidePannel().getRewardsProgramPage().click();
+        getStoreDropdown().click();
+        getcustomerStoreOption().click();
+        getContinueButton().click();
+    }
 }

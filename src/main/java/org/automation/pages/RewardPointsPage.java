@@ -9,7 +9,7 @@ import org.openqa.selenium.interactions.Actions;
 public class RewardPointsPage extends BasePage {
 
 
-    By rewardCard = By.cssSelector(".card.m-0.p-2.p-md-3.rounded-3.border-dark.border.border-2.d-flex.flex-column.rewardCard.justify-content-between");
+    By rewardCard = By.cssSelector(".card.m-0.p-2.p-md-3");
     By alertMsgHours = By.xpath("//div[@class='alert-message' and text()='Reward points may take up to 24 hours to show up']");
     By storeName = By.cssSelector(".text-truncate");
     By storeNameOnCard = By.cssSelector(".ms-2.text-truncate");
