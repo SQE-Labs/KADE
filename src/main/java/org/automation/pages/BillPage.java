@@ -154,7 +154,6 @@ public class BillPage extends BasePage {
     By unpaidAmount = By.cssSelector(".text-danger.fs-4");
 
     By expCloseIcon = By.xpath("(//button[@class='btn-close'])[7]");
-    By repeatCloseIcon = By.xpath("(//button[@class='btn-close'])[8]");
     By expiresInField = By.cssSelector(".form-control.flex-grow-1.me-1");
     By expDropDown = By.cssSelector(".form-control.form-select.max-10c");
     By expDropDownOption = By.xpath("//option[@value='minutes']");
@@ -325,6 +324,9 @@ public class BillPage extends BasePage {
 
     public void createBill(BillsPage billObj) {
         createBill(billObj, true);
+    }
+    public void createBillSearch(BillsPage billObj) {
+        createBill(billObj, false);
     }
 
     public void createBill(BillsPage billObj, boolean navigateToBillSection) {

@@ -8,7 +8,7 @@ import org.openqa.selenium.By;
 public class NewChargePopup extends BasePage {
     //Locators
     By newChargeAmountField = By.xpath("//input[@lbl-title='Amount']");
-    public By newChargeConfirm = By.xpath("//button[@name='method' and @type= 'submit']");
+    public By newChargeConfirm = By.xpath("//span[contains(text(),'Confirm')]");
     By terminal = By.xpath("//h4[text()='Initializing the terminal...']");
     By terminalCancelButton = By.xpath("//div[@class='text-center']/button[text()='Cancel']");
     By manualChargeTab = By.xpath("//div[text()='Manual']");

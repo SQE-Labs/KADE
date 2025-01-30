@@ -33,7 +33,8 @@ public class LoginPage extends BasePage {
     }
 
     public void performSignIn(String userName, String password) {
-    	sendKeys_withClear(userNameField, userName);
+    	WebdriverWaits.waitForElementUntilVisible(userNameField,5000);
+        sendKeys_withClear(userNameField, userName);
     	sendKeys_withClear(passwordField,password);
         getSignInButton().click();
         WebdriverWaits.sleep(3000);

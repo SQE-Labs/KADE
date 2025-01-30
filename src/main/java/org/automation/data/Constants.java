@@ -11,8 +11,24 @@ public class Constants {
     public static final String PaymentHistoryTitle = "Payment History";
     public static final String NoPaymentsMessage = "There are no payments available yet!";
     public static final String customerEmail ="yonro@yopmail.com" ;
-    public static final String amt = "4999.00";
+    public static final String Password ="Test@123" ;
+    public static final String amt = "49999.00";
     public static final String expectedSearchValidation = "Nothing found!";
+    public static final String ExpectedAmountStatus = "Paid";
+    public static final String expectedAmountStatus = "Partially Paid";
+    public static final String ExpectedGiftCard = "Gift Cards";
+    public static final String ExpectedNoGiftCardMsg = "There are no gift cards available in your account.";
+    public static final String ExpectedRewardPointsLabel = "Reward Points";
+    public static final String ExpectedRewardPointsMessage = "Reward points may take up to 24 hours to show up";
+    public static final String ExpectedNoRewarPointsMessage = "There are no reward points available yet!";
+    public static final String ProcessingFee = "0.5% + 5¢";
+    public static final String ProcessingStore = "Automation Processing Fee";
+    public static final String ProcessingFeeAmount = "100.00";
+    public static final String ProcessingFeeDescription = "New Processing Charge";
+    public static final String ExpectedTerminalFee = "+3.39";
+    public static final String ExpectedManualFee = "$3.86";
+
+
 
     public static final String userPhnEmailTooltip = "Invalid phone or email. Phone numbers must start with country code starting with +";
     public static final String invalidDateRange = "Invalid date range";

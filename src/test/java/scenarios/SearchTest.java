@@ -6,6 +6,7 @@ import org.automation.data.KadeUserAccount;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
 import org.automation.utilities.RandomGenerator;
+import org.automation.utilities.WebdriverWaits;
 import org.testng.annotations.Test;
 import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.IOException;
@@ -40,7 +41,7 @@ public class SearchTest extends BaseTest {
 
     }
 
-    @Test(description = " SP04, SP05 : Verify that user is directed to specific cutomer's page using phone number")
+    @Test(description = " SP04, SP05 : Verify that user is directed to specific customer's page after searching with customer's phone number or email in 'Search by Reference ID, Phone, or Email' field, on 'Search' popup.")
     public void verifyUserDirectedToCustomerPageUsingPhoneNumber()
     {
 
@@ -62,8 +63,28 @@ public class SearchTest extends BaseTest {
         String VerifyUserEmail = session.getSearchPage().getVerifyUserEmail().getText();
         Assertions.assertEquals(VerifyUserEmail,Useremail);
 
+        //Click On Bill Tab
+        WebdriverWaits.sleep(3000);
+        session.getSidePannel().getBillButton().click();
+
+        //Get User Phone Number
+        session.getSearchPage().getUserProfilePhone().clickByMouse();
+        //session.getSearchPage().getUserProfile().click();
+        String UserPhoneNumber = session.getSearchPage().getUserPhoneNumber().getText();
+
+        //Click on Search Tab & enter User email in Search Box
+        session.getSidePannel().getSearchTab().click();
+        session.getSearchPage().getClickSearchBox().click();
+        session.getSearchPage().getEditableClickSearchBox().setText(UserPhoneNumber);
+        session.getSearchPage().getClickSearchIcon().click();
+
+        //Get the email displayed after clicking Search Icon and Compare
+        String VerifyUserPhoneNumber = session.getSearchPage().getVerifyUserPhoneNumber().getText();
+        Assertions.assertEquals(VerifyUserPhoneNumber,UserPhoneNumber);
 
         //Click on Search Tab & enter random Reference ID in Search Box
+        WebdriverWaits.sleep(3000);
+        //WebdriverWaits.waitForElementClickable(session.getSearchPage().SearchBtn,5);
         session.getSidePannel().getSearchTab().click();
         session.getSearchPage().getClickSearchBox().click();
         String RandomReferenceID = RandomGenerator.requiredCharacters(10);

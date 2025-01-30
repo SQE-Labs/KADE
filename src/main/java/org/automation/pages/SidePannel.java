@@ -11,8 +11,8 @@ public class SidePannel extends BasePage {
 
 	By profileLink = By.xpath("//a[@class='btn btn-link p-0 fs-pn15 ']");
 	By validationMessage=By.xpath("//p[@class='alert-content']");
-	public By billBtn = By.cssSelector(".sidebar-nav > li:nth-child(5)");
-	By transactionsButton=By.cssSelector(".sidebar-nav > li:nth-child(4)");
+	public By billBtn = By.xpath("//div[@class='text-nowrap'and contains(text(),'Bills')]");
+	public By transactionsButton=  By.cssSelector(".sidebar-nav > li:nth-child(4)");
 	By myStoreBtn=By.cssSelector(".fa-fw.fas.fa-store");
 	By giftCardsDashboardTab=By.xpath("//a[text()='Gift Cards Dashboard']");
 	By pageHeader=By.xpath("//h1[@class='header-title mb-0']");
@@ -22,14 +22,16 @@ public class SidePannel extends BasePage {
 	By manageBusinessAcc = By.xpath("//a[@class='sidebar-link fw-bold text-black collapsed' and text()='Manage Business']");
 	By CustomersBtn = By.cssSelector(".fa-fw.fas.fa-user-friends");
 
-	public By SearchBtn = By.xpath("//i[@class='align-middle me-2 fa-fw far fa-search']");
-	By PaymentHistoryBtn = By.xpath("//i[@class='align-middle me-2 fa-fw fas fa-history']");
+	public By SearchBtn = By.xpath("//div[@class='text-nowrap'and contains(text(),'Search')]");
+	By PaymentHistoryBtn = By.xpath("//div[@class='text-nowrap'and contains(text(),'Payment History')]");
 	By MyStuff = By.xpath("//a[text()='My Stuff']");
 	By RewardsProgramPage = By.xpath("//a[text()='Rewards Program']");
 	By dashboardTab = By.cssSelector("[href=\"/Stores/dashboard\"]");
+	By GiftCardBtn = By.xpath("(//div[@class ='text-nowrap' and contains(text(),'Gift Cards')])[2]");
+	public By RewardPointsBtn = By.xpath("(//div[@class ='text-nowrap' and contains(text(),'Reward Points')])");
+
 	//By RewardsProgramPage = By.xpath("//a[text()='Rewards Program']");
 
-	//By SearchBtn = By.cssSelector(".fa-search");
 
 	public SidePannel() {
 	}
@@ -65,6 +67,15 @@ public class SidePannel extends BasePage {
 	public Clickable getPaymentHistoryTab(){
 		return getElementBy(PaymentHistoryBtn);
 	}
+
+	public Clickable getGiftCardTab(){
+		return getElementBy(GiftCardBtn);
+	}
+
+	public Clickable getRewardPointsTab(){
+		return getElementBy(RewardPointsBtn);
+	}
+
 
 	//To click on My Stuff Tab
 	public Clickable getMyStuff() { return Clickable.getElementBy(MyStuff, "My Stuff"); }

@@ -508,9 +508,10 @@ public class ActionEngine extends BaseTest {
         js.executeScript("arguments[0].click();", getDriver().findElement(element));
     }
 
-    public void clickByMouseActions(By xpath) {
+    public By clickByMouseActions(By xpath) {
         Actions a = new Actions(getDriver());
         a.moveToElement(getDriver().findElement(xpath)).click().perform();
+        return xpath;
     }
     //Get Css value
     public String getCssValue(By element, String attribute) {

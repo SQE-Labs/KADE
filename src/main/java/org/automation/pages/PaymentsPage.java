@@ -18,7 +18,7 @@ public class PaymentsPage extends BasePage {
      */
     By cashBtn = By.xpath("//button[@name='payType']");
     By paidLabel = By.xpath("//div[contains(text(),'Paid')]");
-    public By paymentPopupTitle = By.xpath("//h5[text()='Receive Payment']");
+    public By paymentPopupTitle = By.xpath("//span[text()='Receive Payment']");
     By closeIcon = By.xpath("(//button[@class=\"btn-close\"])[1]");
     By cardNumberTbx = By.id("Field-numberInput");
     By expirationDateTbx = By.id("Field-expiryInput");
@@ -33,6 +33,7 @@ public class PaymentsPage extends BasePage {
     public By changeButton = By.xpath("//div[contains(text(),'Change')]");
     public By swipeBtn = By.xpath("//input[@type='range']");
     By closeBtn = By.xpath("//a[text()='Close']");
+
 
 
     /*
@@ -86,7 +87,7 @@ public class PaymentsPage extends BasePage {
     By tapToPayMoreLink = By.partialLinkText("Tap to pay more");
     //By tapToPayMoreLink=By.xpath("//a[text()='Tap to pay more']");
     By moreAmountTbx = By.xpath("//input[@lbl-title='Amount']");
-    By updateButton = By.xpath("(//button[contains(text(),'Update')])[2]");
+    By updateButton = By.xpath("//button[contains(text(),'Update')]");
     By swipeButton = By.xpath("//a[contains(@class,' -updateamount-')]");
     By savedZellePaymentButton = By.xpath("//div//span[text()='Zelle']");
     By zellePopup = By.xpath("//h5[@class='modal-title']//span");
