@@ -19,7 +19,7 @@ public class SidePannel extends BasePage {
 	By reportBtn=By.xpath("(//a[@class='sidebar-link'])[11]");
 	By signOutBtn = By.xpath("//a[text()='Sign out']");
 	By qrCodeDashboardBtn = By.xpath("//a[text()='QR Code Dashboard']");
-	By manageBusinessAcc = By.xpath("//a[@class='sidebar-link collapsed' and text()='Manage Business']");
+	By manageBusinessAcc = By.xpath("//a[@class='sidebar-link fw-bold text-black collapsed' and text()='Manage Business']");
 	By CustomersBtn = By.cssSelector(".fa-fw.fas.fa-user-friends");
 
 	public By SearchBtn = By.xpath("//div[@class='text-nowrap'and contains(text(),'Search')]");
@@ -28,9 +28,10 @@ public class SidePannel extends BasePage {
 	By RewardsProgramPage = By.xpath("//a[text()='Rewards Program']");
 	By dashboardTab = By.cssSelector("[href=\"/Stores/dashboard\"]");
 	By GiftCardBtn = By.xpath("(//div[@class ='text-nowrap' and contains(text(),'Gift Cards')])[2]");
+	public By RewardPointsBtn = By.xpath("(//div[@class ='text-nowrap' and contains(text(),'Reward Points')])");
+
 	//By RewardsProgramPage = By.xpath("//a[text()='Rewards Program']");
 
-	//By SearchBtn = By.cssSelector(".fa-search");
 
 	public SidePannel() {
 	}
@@ -69,6 +70,10 @@ public class SidePannel extends BasePage {
 
 	public Clickable getGiftCardTab(){
 		return getElementBy(GiftCardBtn);
+	}
+
+	public Clickable getRewardPointsTab(){
+		return getElementBy(RewardPointsBtn);
 	}
 
 

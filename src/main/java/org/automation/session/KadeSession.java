@@ -90,7 +90,10 @@ public class KadeSession extends BaseTest {
 
     public RewardsProgramPage getRewardsProgramPage() {return new RewardsProgramPage();}
 
-    }
+    public RewardPointsPage getRewardPointsPage() {return new RewardPointsPage();}
+
+
+}
 
 
 

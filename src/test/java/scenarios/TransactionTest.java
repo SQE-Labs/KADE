@@ -975,14 +975,56 @@ public class TransactionTest extends BaseTest {
 
     }
 
-    @Test(description = "TRS 16 : Verify Processing Fee when Credit card is used on any terminal.")
-    public void VerifyProcessingFeeUsingCreditCard()
+    @Test(description = "TRS 16 : Verify Amount displayed under processing fees for credit card transactions on 'Store Configuration' Page.")
+    public void VerifyProcessingFeeAmountWhileUsingCreditCard()
     {
 
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().clickbyJS();
         session.getSidePannel().getMyStoresTab().click();
+        session.getTransactionsPage().getConfigureStore().clickbyJS();
+        session.getTransactionsPage().getPaymentProcessing().clickbyJS();
+        session.getTransactionsPage().getProcessingFeeBtn().clickbyJS();
+        String fee1 = (session.getTransactionsPage().getFeeDetails1().getText().split(":"))[1].trim();
+        String fee2 = (session.getTransactionsPage().getFeeDetails2().getText().split(":"))[1].trim();
+        Assertions.assertEquals(fee1,Constants.ProcessingFee);
+        Assertions.assertEquals(fee2,Constants.ProcessingFee);
+
     }
+
+    @Test(description = "TRS 17, 18 : Verify service fee charges displayed while making a payment automatically via terminal.")
+    public void VerifyTerminalAndManualServiceFee()
+    {
+        KadeSession session = KadeSession.login(KadeUserAccount.Default);
+        session.getSidePannel().getTransactionButton().click();
+        session.getTransactionsPage().selectStore(Constants.ProcessingStore);
+
+        session.getTransactionsPage().getNewChargeTab().click();
+
+        // Enter amount in new charge popup
+        session.getNewChargePopup().getNewChargeAmountField().setText(Constants.ProcessingFeeAmount);
+        session.getNewChargePopup().getDescriptionfield().setText(Constants.ProcessingFeeDescription);
+        session.getNewChargePopup().getNewChargeConfirmButton().click();
+        WebdriverWaits.waitForElementVisible(session.getTransactionsPage().TerminalServiceFee,15);
+        //WebdriverWaits.sleep(15000);
+        String ActualTerminalFee = session.getTransactionsPage().getTerminalServiceFee().getText().split(":")[1].trim();
+        Assertions.assertEquals(ActualTerminalFee,Constants.ExpectedTerminalFee);
+        session.getTransactionsPage().getCloseBtn().click();
+        session.getTransactionsPage().getNewCharge().click();
+        session.getNewChargePopup().getNewChargeConfirmButton().click();
+
+        session.getTransactionsPage().getCancelBtn().click();
+
+        session.getTransactionsPage().getManualBtn().click();
+        WebdriverWaits.sleep(5000);
+
+        session.getTransactionsPage().getManualCloseBtn().clickByMouse();
+        String ActualManualFee = session.getTransactionsPage().getManualServiceFee().getText();
+        Assertions.assertEquals(ActualManualFee,Constants.ExpectedManualFee);
+
+    }
+
+
 }
 
 

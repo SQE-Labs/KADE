@@ -76,8 +76,20 @@ public class TransactionsPage extends BasePage {
     public By capturedButton = By.cssSelector("[value='captured']");
     By failedButton = By.cssSelector(".mx-3");
     By recurringIcon = By.cssSelector(".fa.fa-repeat.me-1");
-    By ConfigureStore = By.xpath("");
-    //div[@class='d-flex flex-column align-items-center']/h6[contains(text(),'Automation Processing Fee')]
+    By ConfigureStore = By.xpath("//a[@href=\"/Stores/manageStore/3980\"]");
+    By PaymentProcessing = By.xpath("//a[contains(text(),'Payment Processing')]");
+    By ProcessingFeeBtn = By.xpath("(//button[@class='btn-sm p-0 btn btn-link collapsed'])[1]");
+    By FeeDetails1 = By.xpath("(//div[@class='mb-2 fs-pn15']/ul/li)[1]");
+    By FeeDetails2 = By.xpath("(//div[@class='mb-2 fs-pn15']/ul/li)[2]");
+    public By TerminalServiceFee = By.xpath("//span[@class='text-danger fw-bold ']");
+    By CloseBtn = By.xpath("(//div[@class='modal-header']/button)[2]");
+    By ManualCloseBtn = By.xpath("(//div[@class='modal-header'])[4]/button");
+    By NewCharge = By.xpath("(//div[@class='col-4 col-sm-3']/button)[2]");
+    By CancelBtn = By.xpath("(//button[contains(text(),'Cancel')])[2]");
+    By ManualBtn = By.xpath("//div[contains(text(),'Manual')]");
+    By ManualServiceFee = By.xpath("//div[@class='text-warning']/span[@class='ms-2']");
+
+
 
     public Clickable getFailedButton() {
         return Clickable.getElementBy(failedButton, "failed Button ");
@@ -101,6 +113,19 @@ public class TransactionsPage extends BasePage {
     public Clickable getLastTransactionRow() {
         return Clickable.getElementBy(transactionRow, "Last Transaction");
     }
+    public Clickable getConfigureStore() { return Clickable.getElementBy(ConfigureStore, "Configure Store");}
+    public Clickable getPaymentProcessing() { return Clickable.getElementBy(PaymentProcessing, "Payment Processing");}
+    public Editable getFeeDetails1() {return Editable.getElementBy(FeeDetails1, "Fee Details");}
+    public Editable getFeeDetails2() {return Editable.getElementBy(FeeDetails2, "Fee Details");}
+    public Editable getTerminalServiceFee() { return Editable.getElementBy(TerminalServiceFee, "Terminal Service Fee Details");}
+    public Clickable getManualBtn() { return Clickable.getElementBy(ManualBtn, "Manual Button"); }
+    public Clickable getCloseBtn() { return Clickable.getElementBy(CloseBtn,"Close Button"); }
+    public Clickable getNewCharge() { return Clickable.getElementBy(NewCharge, "New Charge");}
+    public Clickable getCancelBtn() { return Clickable.getElementBy(CancelBtn,"Cancel Button"); }
+    public Clickable getManualCloseBtn() { return Clickable.getElementBy(ManualCloseBtn,"Manual Close Button"); }
+    public Editable getManualServiceFee() { return Editable.getElementBy(ManualServiceFee, "Manual Service Fee Details");}
+
+
 
     public Clickable getBillAmount() {
         return Clickable.getElementBy(billAmount, "Bill Amount");
@@ -109,6 +134,7 @@ public class TransactionsPage extends BasePage {
     public Clickable getUniqueTransactionId() {
         return Clickable.getElementBy(uniqueTransactionId, "Transaction ID");
     }
+    public Clickable getProcessingFeeBtn() { return Clickable.getElementBy(ProcessingFeeBtn, "Processing Fee Btn");}
 
     public Clickable getCloseTransactionPopupButton() {
         return Clickable.getElementBy(closeTransactionPopupBtn, "Close button");
