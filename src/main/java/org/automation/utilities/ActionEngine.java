@@ -574,4 +574,26 @@ public class ActionEngine extends BaseTest {
             return null;
         }
     }
+
+    public static String DeleteFile(String fileName) {
+        String home = System.getProperty("user.home");
+        String file_with_location;
+
+        if (System.getProperty("os.name").contains("Windows")) {
+            file_with_location = home + "Downloads" + fileName;
+        } else {
+            file_with_location = home + "/Downloads/" + fileName;
+        }
+        File file = new File(file_with_location);
+
+        if (file.exists()) {
+            if (file.delete()) {
+                return "File deleted successfully.";
+            } else {
+                return "Failed to delete the file.";
+            }
+        } else {
+            return "File does not exist.";
+        }
+    }
 }
