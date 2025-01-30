@@ -1,6 +1,7 @@
 package scenarios;
 
 import org.automation.base.BaseTest;
+import org.automation.data.Constants;
 import org.automation.data.KadeUserAccount;
 import org.automation.session.KadeSession;
 import org.automation.utilities.Assertions;
@@ -16,7 +17,7 @@ import java.time.Duration;
 public class CustomersTest extends BaseTest {
 
     @Test(description = "Verify that Store's customers page opens up displaying all the options")
-    public void c_01storeCustomersPage() {
+    public void verifystoreCustomersPage() {
         //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
@@ -41,7 +42,7 @@ public class CustomersTest extends BaseTest {
     }
 
     @Test(description = "Adding a new customer with Phone number", dataProvider = "phoneNumberData")
-    public void c_02addCustomerWithPhoneNumber(String phoneNumber, String expectedValidationMessage) {
+    public void verifyAddCustomerWithPhoneNumber(String phoneNumber, String expectedValidationMessage) {
         // Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
@@ -76,7 +77,7 @@ public class CustomersTest extends BaseTest {
 
 
     @Test(description = "Adding a new customer with Email")
-    public void c_03AddCustomerWithEmail() {
+    public void verifyAddCustomerWithEmail() {
         //Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().expandManageBusinessAccordionBttn().click();
@@ -116,7 +117,7 @@ public class CustomersTest extends BaseTest {
     }
 
     @Test(description = "Creating a bill and searching for the customer on Customers page")
-    public void c_04CreateBillAndSearch() {
+    public void verifyCreateBillAndSearch() {
         //Login
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 
@@ -135,52 +136,47 @@ public class CustomersTest extends BaseTest {
     }
 
     @Test(description = "Filtering out using Phone number")
-    public void c_05FilterWithPhoneNumber() {
-        //Login and navigate to Customers page.
+    public void verifyFilterWithPhoneNumber() {
+        // Login and navigate to Customers page.
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
-        session.getSidePannel().expandManageBusinessAccordionBttn().click();
-        session.getSidePannel().getCustomersTab().click();
-        session.getCustomersPage().storeSelection();
-        session.getCustomersPage().continuebtn().click();
+        session.getCustomersPage().navigateToCustomersPage(session);
 
-        //Open 'Filter' pop up
-        session.getCustomersPage().filter().click();
-        WebDriverWait wait = new WebDriverWait(getDriver(), Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//h5[@class='offcanvas-title']")));
-        //Filter by valid name
-        session.getCustomersPage().filterByPhnNumber().setText("9011017524");
-        session.getCustomersPage().filterApply().click();
+        // Filter by valid name
+        session.getCustomersPage().applyFilter(session, Constants.phnNumberInput);
 
-        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn,10);
-        session.getCustomersPage().filter().click();
-        //Filter by invalid number
-        session.getCustomersPage().filterByPhnNumber().setText("1231");
-        session.getCustomersPage().filterApply().click();
+        // Wait for filter to be applied
+        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn, 10);
+
+        // Check for a valid phone number but of a non-existing customer
+        session.getCustomersPage().applyFilter(session, Constants.phnNumberInput2);
+        Assertions.assertTrue(session.getCustomersPage().getNoResult().isDisplayed());
+
+        // Check if the field accepts more than 22 characters
+        session.getCustomersPage().applyFilter(session, Constants.phnNumberInput3);
         Assertions.assertTrue(session.getCustomersPage().alertValidation().isDisplayed());
-        String filterPhnNumberTooltip = session.getCustomersPage().invalidFilterByPhnNumber().getToolTipMessage();
-        Assertions.assertEquals(filterPhnNumberTooltip,"Invalid phone number");
-        session.getCustomersPage().closeFilterBtn().click();
+        Assertions.assertEquals(
+                session.getCustomersPage().invalidFilterByPhnNumber().getToolTipMessage(),
+                Constants.maxPhnFieldCharValidation
+        );
 
-
-        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().closefilter,10);
-        session.getCustomersPage().filter().click();
-        //Check if the field accepts more than 22 characters
-        session.getCustomersPage().invalidFilterByPhnNumber().setText("12345678901234567890123");
-        session.getCustomersPage().filterApply().click();
-        Assertions.assertTrue(session.getCustomersPage().alertValidation().isDisplayed());
-        String filterPhoneNumberTooltip = session.getCustomersPage().invalidFilterByPhnNumber().getToolTipMessage();
-        Assertions.assertEquals(filterPhoneNumberTooltip,"Please enter no more than 22 characters.");
+        // Clear field and apply empty filter
         session.getCustomersPage().invalidFilterByPhnNumber().setText(" ");
         session.getCustomersPage().filterApply().click();
 
-        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn,10);
-        session.getCustomersPage().filter().click();
-        //Check for a valid phone number but of a non-existing customer
-        session.getCustomersPage().filterByPhnNumber().setText("1232233223");
-        session.getCustomersPage().filterApply().click();
-        Assertions.assertTrue(session.getCustomersPage().getNoResult().isDisplayed());
+        // Wait for filter to be applied
+        WebdriverWaits.waitForElementInVisible(session.getCustomersPage().filterApplyBtn, 10);
 
+        // Filter by invalid number
+        session.getCustomersPage().applyFilter(session, Constants.phnNumberInput4);
+        Assertions.assertTrue(session.getCustomersPage().alertValidation().isDisplayed());
+        Assertions.assertEquals(
+                session.getCustomersPage().invalidFilterByPhnNumber().getToolTipMessage(),
+                Constants.invalidPhnValidation
+        );
     }
+
+
+
 
     @Test(description = "Filtering out using Email")
     public void c_06FilterWithEmail() {

@@ -27,7 +27,9 @@ public class SidePannel extends BasePage {
 	By MyStuff = By.xpath("//a[text()='My Stuff']");
 	By RewardsProgramPage = By.xpath("//a[text()='Rewards Program']");
 	By dashboardTab = By.cssSelector("[href=\"/Stores/dashboard\"]");
+	By reportsTab = By.cssSelector(".align-middle.me-2.fa-fw.far.fa-ballot");
 	//By RewardsProgramPage = By.xpath("//a[text()='Rewards Program']");
+	By rewardsPointsPage = By.xpath("(//i[@class='align-middle me-2 fa-fw far fa-trophy-alt'])[2]");
 
 	//By SearchBtn = By.cssSelector(".fa-search");
 
@@ -115,6 +117,12 @@ public class SidePannel extends BasePage {
 	public Clickable getDashboardTab(){
 		return Clickable.getElementBy(dashboardTab, "Dashboard Tab");
 	}
+
+	public Clickable getReportsTab() {return Clickable.getElementBy(reportsTab,"Reports tab");}
+
+	public Clickable getRewardsPointsPage() {return Clickable.getElementBy(rewardsPointsPage,"Rewards Points Page");}
+
+
 
 }
 

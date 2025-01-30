@@ -117,7 +117,6 @@ public class BasicInformationPageTest extends BaseTest {
         fileInput.sendKeys(filePath);
         Assertions.assertTrue(session.getBasicInfoPage().getValidationMsg().isDisplayed());
         Assertions.assertEquals(session.getBasicInfoPage().getValidationMsg().getText(),"Not a valid image file");
-
     }
 
 }
