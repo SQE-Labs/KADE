@@ -29,10 +29,10 @@ public class Clickable extends ActionEngine {
         return null;
     }
 
-    public WebElement clickbyJS() {
-        performClickOperation(() -> clickElementByJS(target));
-        return null;
-    }
+        public WebElement clickbyJS() {
+            performClickOperation(() -> clickElementByJS(target));
+            return null;
+        }
 
     public void scrollPopupAndClick(){scrollPopupAndClick(() -> clickBy(target, label));}
 

@@ -46,6 +46,7 @@ public class SecurityAndPassword extends BasePage {
     By deletePhoneBtn = By.xpath("//button[@data-action='/users/_userProfile_deletePhone']");
     By deletePhoneValidationMsg = By.xpath("//p[text()='You cannot remove the phone number from a Business account.']");
     By deleteEmailValidationMsg = By.xpath("//p[text()='You cannot remove the email address from a Business account.']");
+    By closeAndDeletebtn = By.cssSelector(".btn.btn-danger");
 
     public Clickable getDelPhoneValidationMsg() {return Clickable.getElementBy(deletePhoneValidationMsg,"validation message showing You cannot remove the phone number from a Business account.");}
 

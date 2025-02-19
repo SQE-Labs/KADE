@@ -772,6 +772,7 @@ public class BillTest extends BaseTest {
         WebdriverWaits.waitForElementVisible(session.getBillPage().paidExpiryField,30);
         bill.getExpiryField().clickByMouse();
         String expiresIn = "20";
+        WebdriverWaits.sleep(3000);
         bill.getExpiresInField().setText(expiresIn);
         bill.getExpiryDropDown().click();
         bill.getExpiryDropDownOption().click();

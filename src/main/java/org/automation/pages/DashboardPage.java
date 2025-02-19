@@ -2,8 +2,11 @@ package org.automation.pages;
 
 import org.automation.ReturnObjects.Clickable;
 import org.automation.base.BaseTest;
+import org.automation.utilities.WebdriverWaits;
 import org.checkerframework.checker.units.qual.C;
 import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.interactions.Actions;
 
 public class DashboardPage extends BaseTest {
     By yourBusinessTitle = By.cssSelector("div.card-body h5:nth-child(1)");
@@ -26,7 +29,7 @@ public class DashboardPage extends BaseTest {
     By pymtmethodPopularityTitle = By.xpath("//h5[text()='Payment Methods Popularity']");
     By contactSupportLink = By.cssSelector(".card-title +h6 a");
     By myStore = By.cssSelector("[class^='card p-2 border w-20c overflow-hidden']");
-    By storeCountDashboard = By.xpath("(//span [@class=\"badge rounded-pill bg-dark ms-n1\"])[2]");
+    By storeCountDashboard = By.xpath("(//span[@class='badge rounded-pill bg-dark ms-n1'])[2]");
     By listofStoreNameonPopup = By.cssSelector("div.popover-body span:nth-child(1)");
     By getFirstStore = By.cssSelector(".popover-body >div a:nth-child(1)");
     By settingIcon = By.cssSelector("a.p-0.float-end");
@@ -34,8 +37,18 @@ public class DashboardPage extends BaseTest {
     By messagePage = By.cssSelector("nav.navbar >h1 ");
     By storeConfigurationTitle = By.cssSelector("h1.header-title");
     By storeName = By.cssSelector(".d-flex.flex-column h3");
-    By BankAccountBar = By.xpath("//*[@seriesName='BankxAccount' and @id='SvgjsG1179']");
-    By cashGraph = By.xpath("//*[@seriesName='Cash' and @id='SvgjsG1188']");
+    public By bankAccountGraph = By.cssSelector("g[id^=\"Svgjs\"] path.apexcharts-pie-area.apexcharts-polararea-slice-0");
+    By graphContainer = By.cssSelector("g.apexcharts-inner .apexcharts-pie");
+    public By paths = By.cssSelector("g.apexcharts-pie g.apexcharts-series >path");
+    By paymentNames = By.cssSelector(".chart .apexcharts-legend.apexcharts-align-center >div");
+    // Customer Trends
+    By monthsLabel = By.cssSelector(".apexcharts-xaxis-texts-g >text");
+    By newLabel = By.xpath("//div[@class='apexcharts-legend-series' and @seriesname='New']");
+    By repeatingLabel = By.xpath("//div[@class='apexcharts-legend-series' and @seriesname='Repeating']");
+    By customerCount = By.cssSelector(" div.apexcharts-tooltip.apexcharts-theme-light div.apexcharts-tooltip-y-group >span");
+    By custGraphLine = By.xpath("(//*[name()='rect' and @class='apexcharts-grid-row'])[4]");
+    By lastDEC= By.xpath("(//*[contains(@id,'SvgjsText')])[6]");
+
 
 
     public Clickable getYourBusinessTitle() {
@@ -122,4 +135,23 @@ public class DashboardPage extends BaseTest {
     public Clickable getMessagePage() { return Clickable.getElementBy(messagePage, "Message Page");}
     public Clickable getStoreName() { return Clickable.getElementBy(storeName, "Store Name");}
     public Clickable getTransactionPopupUnderRT() { return Clickable.getElementBy(transactionPopup, "Transaction popup under RT section");}
+    public Clickable getBankGraph() { return Clickable.getElementBy(bankAccountGraph, "bank Graph");}
+    public Clickable getPathsofGraph() { return Clickable.getElementBy(paths);}
+    public Clickable getGraphContainer() {return Clickable.getElementBy(graphContainer);}
+    public Clickable getPaymentNames() { return Clickable.getElementBy(paymentNames);}
+    public Clickable getMonthsLabel() { return Clickable.getElementBy(monthsLabel);}
+    public Clickable getNewLabel() { return Clickable.getElementBy(newLabel);}
+    public Clickable getRepeatingLabel() { return Clickable.getElementBy(repeatingLabel);}
+    public Clickable getCustomerCount() { return Clickable.getElementBy(customerCount);}
+    public Clickable getCustGraphLine() { return Clickable.getElementBy(custGraphLine);}
+
+    public void HoverToGraph() {
+        Actions actions = new Actions(getDriver());
+        WebElement hover = getDriver().findElement(custGraphLine);
+        WebElement last = getDriver().findElement(lastDEC);
+
+//        actions.moveToElement(hover).moveByOffset(0, -10).clickAndHold().moveByOffset(1, -100).release().perform();
+        actions.moveToElement(hover).dragAndDrop(hover,last).build().perform();
     }
+
+}

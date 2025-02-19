@@ -155,7 +155,7 @@ public class BillPage extends BasePage {
 
     By expCloseIcon = By.xpath("(//button[@class='btn-close'])[7]");
     By repeatCloseIcon = By.xpath("(//button[@class='btn-close'])[8]");
-    By expiresInField = By.cssSelector(".form-control.flex-grow-1.me-1");
+    By expiresInField= By.cssSelector(".form-control.flex-grow-1.me-1");
     By expDropDown = By.cssSelector(".form-control.form-select.max-10c");
     By expDropDownOption = By.xpath("//option[@value='minutes']");
     By addedExpTimer = By.cssSelector(".badge.bg-warning");

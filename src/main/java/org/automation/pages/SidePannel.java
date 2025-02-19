@@ -19,7 +19,7 @@ public class SidePannel extends BasePage {
 	By reportBtn=By.xpath("(//a[@class='sidebar-link'])[11]");
 	By signOutBtn = By.xpath("//a[text()='Sign out']");
 	By qrCodeDashboardBtn = By.xpath("//a[text()='QR Code Dashboard']");
-	By manageBusinessAcc = By.xpath("//a[@class='sidebar-link collapsed' and text()='Manage Business']");
+	By manageBusinessAcc = By.xpath("//li[@class='sidebar-item mb-2 bg-light']/ a[text()='Manage Business']");
 	By CustomersBtn = By.cssSelector(".fa-fw.fas.fa-user-friends");
 	By dashboardTab = By.cssSelector("[href=\"/Stores/dashboard\"]");
 	By RewardsProgramPage = By.xpath("//a[text()='Rewards Program']");

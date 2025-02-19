@@ -13,7 +13,7 @@ public class NewAccountPopup extends BasePage {
     By mobilePhoneField = By.cssSelector("[name='phone']");
     By emailBusinessField = By.cssSelector("[name='email']");
     By fullname= By.cssSelector("[name='name']");
-    By startOverLink = By.xpath("//button[text()='Start Over']");
+    By startOverLink = By.cssSelector(".far.fa-edit");
     By resendCode = By.xpath("//button[text()='Resend the code']");
     By ContinueButtonBusiness = By.xpath("(//button[@type='submit'][text()='Continue'])[2]");
     By securityCodeSendInfoMsg = By.cssSelector(".p-2.mb-2.fs-pn15");

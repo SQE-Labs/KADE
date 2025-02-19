@@ -488,7 +488,7 @@ public class ActionEngine extends BaseTest {
 
     }
 
-    public void scrollToBottomPage() {
+    public static void scrollToBottomPage() {
         JavascriptExecutor js = (JavascriptExecutor) getDriver();
         js.executeScript("window.scrollTo(0, document.body.scrollHeight);");
     }

@@ -30,6 +30,7 @@ public class PaymentsAndRefundTest extends BasePage {
         //Step 4: Create Bill
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true,2);
+        WebdriverWaits.sleep(3000);
 
         //Step 5: Logout as Store manager
         session.getSidePannel().getSignOutButton().click();
@@ -103,6 +104,7 @@ public class PaymentsAndRefundTest extends BasePage {
         //Creating Bill
         session.getBillPage().createBill(bills);
         session.getBillPage().getCloseLogoPopupBtn().clickIfExist(true, 2);
+        WebdriverWaits.sleep(3000);
 
         //Logout as Store manager
         session.getSidePannel().getSignOutButton().click(); // Signing out

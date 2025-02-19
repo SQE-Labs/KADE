@@ -16,7 +16,7 @@ public class TransactionsPage extends BasePage {
     By closeTransactionPopupBtn = By.xpath("(//button[@class='btn-close'])[1]");
     By storesCombobox = By.xpath("//span[@role='combobox']");
     By continueBtn = By.xpath("//button[@type='submit']");
-    By uniqueTransactionId = By.xpath("//span[@class='badge position-relative bg-light text-dark p-1 px-2 text-truncate']");
+    By uniqueTransactionId = By.xpath("//span[@class='badge position-relative bg-light text-dark p-1 px-2 text-truncate flex-shrink-0']");
     public By transactionID = By.cssSelector(".badge.position-relative.bg-light.text-dark.p-1");
     By store = By.xpath("//span[@class='fs-pn15 text-truncate']");
     By payment = By.cssSelector(".fs-pn25.ms-2");
