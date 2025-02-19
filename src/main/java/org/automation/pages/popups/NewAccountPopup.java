@@ -14,7 +14,7 @@ public class NewAccountPopup extends BasePage {
     By emailBusinessField = By.cssSelector("[name='email']");
     By fullname= By.cssSelector("[name='name']");
     By startOverLink = By.cssSelector(".far.fa-edit");
-    By resendCode = By.xpath("//button[text()='Resend the code']");
+    By resendCode = By.cssSelector(".-resend-.fs-pn15.btn.btn-link");
     By ContinueButtonBusiness = By.xpath("(//button[@type='submit'][text()='Continue'])[2]");
     By securityCodeSendInfoMsg = By.cssSelector(".p-2.mb-2.fs-pn15");
     By securityCodeAlertMessage = By.xpath("//p[text()='Invalid security code']");
