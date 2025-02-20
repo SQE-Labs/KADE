@@ -17,12 +17,12 @@ public class CustomersPage extends BasePage {
     By nameAddress = By.xpath("//div[@class='d-flex flex-column  overflow-hidden']");
     public By findAddCustomer = By.xpath("//button[@class='-addnew- btn btn-outline-dark']");
     By filter = By.cssSelector(".far.fa-2x.fa-sliders-h-square");
-    By phoneNumber = By.xpath("//input[@placeholder='Phone number']");
-    By goBtn = By.xpath("//button[text()=\"Go\"]");
-    public By emailGoBtn = By.xpath("(//button[text()=\"Go\"])[2]");
+    By phoneNumber = By.xpath("//input[@placeholder='Phone number. Existing or new']/..//button");
+    By goBtn = By.xpath("//input[@placeholder='Phone number. Existing or new']/..//button");
+    public By emailGoBtn = By.xpath("(//input[@placeholder='Email. Existing or new' and @name='email']/..//button");
     By customerName = By.xpath("(//input[@lbl-title=\"Customer's name?\"])[2]");
     By done = By.xpath("//button[text()=\"Done\"]");
-    By emailField = By.xpath("//input[@placeholder='Email']");
+    By emailField = By.xpath("//input[@placeholder='Email. Existing or new']");
     By filterPhoneNumber = By.xpath("(//input[@class='form-control'])[1]");
     By filterPhonenumberInvalid = By.xpath("(//input[@class='form-control is-invalid'])[1]");
     public By filterEmail = By.xpath("(//input[@class='form-control'])[2]");
@@ -60,8 +60,8 @@ public class CustomersPage extends BasePage {
     public By billPhoneGoBtn = By.xpath("(//button[@class='btn btn-primary'][text()='Go'])[1]");
     public By billSendBtn = By.xpath("//div[@class='d-none -link-cust-d-block']");
     By customerDisplayed = By.xpath("//span[text()=\"Santa\"]");
-    By searchField = By.xpath("//input[@placeholder=\"Search\"]");
-    By searchBtn = By.xpath("(//button[@class=\"btn btn-primary\"])[3]");
+    By searchField = By.xpath("//input[@placeholder=\"Search by name\"]");
+    By searchBtn = By.cssSelector("([name='phrase']+button");
     By alertValidation = By.xpath("//h4[@class=\"alert-heading\"]");
     By noResult = By.xpath("//div[@class='no-result-icon']");
     public By selectCustomerinFilter = By.xpath("//div[@class='d-flex align-items-center position-relative mb-3 rounded border']");

@@ -82,10 +82,10 @@ public class BillPage extends BasePage {
     By customerBtn = By.cssSelector(".border.p-2.mb-2.rounded-3.position-relative>label+div");
     public By phoneNoTbx = By.xpath("//input[@placeholder='Phone number. Existing or new']");
     public By emailTbx = By.xpath("//input[@placeholder='Email. Existing or new']");
-    public By searchTbx = By.xpath("//input[@placeholder='Search']");
+    public By searchTbx = By.xpath("//input[@placeholder=\"Search by name\"]");
     By goBtnPhnNo = By.xpath("//input[@placeholder='Phone number. Existing or new']/..//button");
     By goBtnEmail = By.xpath("//input[@placeholder='Email. Existing or new' and @name='email']/..//button");
-    By searcherName = By.xpath("(//div[@data-field='alias'])[2]");
+    By searcherName = By.cssSelector("([name='phrase']+button");
     By discardBtn = By.xpath("(//*[contains(text(),'discard')])[5]/.. //button[text()='Discard']");
     public By confirmBtn = By.xpath("//button[@name='method']");
     public By continueWithoutBtn = By.xpath("//*[@role='dialog'] //button[text()='Continue without']");
