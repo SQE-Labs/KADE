@@ -21,7 +21,7 @@ public class BillPage extends BasePage {
     public By alertMessage = By.xpath("//div[@class='alert-message']");
     public By transactionsLink = By.xpath("//div[text()='Transactions']");
     public By amtTbx = By.xpath("//input[@name='amount']");
-    public By selectedCustomer = By.cssSelector("(.border.p-2.mb-2.rounded-3.position-relative>label+div");
+    public By selectedCustomer = By.cssSelector(".border.p-2.mb-2.rounded-3.position-relative>label+div");
     public By suggestionList = By.xpath("//div[@class='border rounded-3 mb-1 p-2 position-relative clone']");
     By customerField = By.xpath("//div[@class='modal-content']//label[text()='Customer']");
     By moreOptionsField = By.xpath("//div[@class='modal-body'] //label[text()='More options']");
@@ -82,14 +82,14 @@ public class BillPage extends BasePage {
     By customerBtn = By.cssSelector(".border.p-2.mb-2.rounded-3.position-relative>label+div");
     public By phoneNoTbx = By.xpath("//input[@placeholder='Phone number. Existing or new']");
     public By emailTbx = By.xpath("//input[@placeholder='Email. Existing or new']");
-    public By searchTbx = By.xpath("//input[@placeholder=\"Search by name\"]");
+    public By searchTbx = By.xpath("//input[@placeholder='Search by name']");
     By goBtnPhnNo = By.xpath("//input[@placeholder='Phone number. Existing or new']/..//button");
     By goBtnEmail = By.xpath("//input[@placeholder='Email. Existing or new' and @name='email']/..//button");
     By searcherName = By.cssSelector("([name='phrase']+button");
     By discardBtn = By.xpath("(//*[contains(text(),'discard')])[5]/.. //button[text()='Discard']");
     public By confirmBtn = By.xpath("//button[@name='method']");
     public By continueWithoutBtn = By.xpath("//*[@role='dialog'] //button[text()='Continue without']");
-    public By selectACustomerBtn = By.xpath("//*[@role=\"dialog\"] //button[text()='Select a customer']");
+    public By selectACustomerBtn = By.xpath("//*[@role='dialog'] //button[text()='Select a customer']");
     By whichStorePopup = By.xpath("//p[text()='Which store?']");
     By newBusinessCard = By.xpath("div.overflow-hidden.border.border-info");
     By storesCombobox = By.xpath("//span[@role='combobox']");

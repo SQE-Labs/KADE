@@ -395,8 +395,7 @@ public class BillTest extends BaseTest {
     }
 
     @Test(description = "BC_09 Verify that creating a bill, when user has  Essential (Free) plan for his store")
-    public void
-    verifyingBillCreationWithEssentialFreePlan() {
+    public void verifyingBillCreationWithEssentialFreePlan() {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
         session.getSidePannel().getBillButton().click();
         BillPage bill = session.getBillPage();
