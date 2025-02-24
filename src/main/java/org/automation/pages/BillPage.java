@@ -21,7 +21,7 @@ public class BillPage extends BasePage {
     public By alertMessage = By.xpath("//div[@class='alert-message']");
     public By transactionsLink = By.xpath("//div[text()='Transactions']");
     public By amtTbx = By.xpath("//input[@name='amount']");
-    public By selectedCustomer = By.xpath("(//div[@data-field='name']/../../../..  //div[@class='d-none empty-d-block'])[2]");
+    public By selectedCustomer = By.cssSelector(".border.p-2.mb-2.rounded-3.position-relative>label+div");
     public By suggestionList = By.xpath("//div[@class='border rounded-3 mb-1 p-2 position-relative clone']");
     By customerField = By.xpath("//div[@class='modal-content']//label[text()='Customer']");
     By moreOptionsField = By.xpath("//div[@class='modal-body'] //label[text()='More options']");
@@ -79,17 +79,17 @@ public class BillPage extends BasePage {
     By description2 = By.xpath("//input[@name='items[1].description']");
     public By amtInput = By.xpath("//input[@name='amount']");
     By closeCustomerBtn = By.xpath("//span[text()='Customer']/../..//button");
-    By customerBtn = By.xpath("//span[text()='Bill']/../../../../../../div[2]/div/div/form/div[5]/div");
-    public By phoneNoTbx = By.xpath("//input[@placeholder='Phone number']");
-    public By emailTbx = By.xpath("//input[@placeholder='Email']");
-    public By searchTbx = By.xpath("//input[@placeholder='Search']");
-    By goBtnPhnNo = By.xpath("//input[@placeholder='Phone number']/..//button");
-    By goBtnEmail = By.xpath("//input[@placeholder='Email']/..//button");
-    By searcherName = By.xpath("(//div[@data-field='alias'])[2]");
+    By customerBtn = By.cssSelector(".border.p-2.mb-2.rounded-3.position-relative>label+div");
+    public By phoneNoTbx = By.xpath("//input[@placeholder='Phone number. Existing or new']");
+    public By emailTbx = By.xpath("//input[@placeholder='Email. Existing or new']");
+    public By searchTbx = By.xpath("//input[@placeholder='Search by name']");
+    By goBtnPhnNo = By.xpath("//input[@placeholder='Phone number. Existing or new']/..//button");
+    By goBtnEmail = By.xpath("//input[@placeholder='Email. Existing or new' and @name='email']/..//button");
+    By searcherName = By.cssSelector("([name='phrase']+button");
     By discardBtn = By.xpath("(//*[contains(text(),'discard')])[5]/.. //button[text()='Discard']");
     public By confirmBtn = By.xpath("//button[@name='method']");
     public By continueWithoutBtn = By.xpath("//*[@role='dialog'] //button[text()='Continue without']");
-    public By selectACustomerBtn = By.xpath("//*[@role=\"dialog\"] //button[text()='Select a customer']");
+    public By selectACustomerBtn = By.xpath("//*[@role='dialog'] //button[text()='Select a customer']");
     By whichStorePopup = By.xpath("//p[text()='Which store?']");
     By newBusinessCard = By.xpath("div.overflow-hidden.border.border-info");
     By storesCombobox = By.xpath("//span[@role='combobox']");
@@ -155,7 +155,7 @@ public class BillPage extends BasePage {
 
     By expCloseIcon = By.xpath("(//button[@class='btn-close'])[7]");
     By repeatCloseIcon = By.xpath("(//button[@class='btn-close'])[8]");
-    By expiresInField = By.cssSelector(".form-control.flex-grow-1.me-1");
+    By expiresInField= By.cssSelector(".form-control.flex-grow-1.me-1");
     By expDropDown = By.cssSelector(".form-control.form-select.max-10c");
     By expDropDownOption = By.xpath("//option[@value='minutes']");
     By addedExpTimer = By.cssSelector(".badge.bg-warning");

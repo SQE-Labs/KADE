@@ -78,7 +78,7 @@ public class MyStoreTest extends BasePage {
         //Step 11: Select Time Zone
         myStore.selectTimeZone();
 
-        //Verifying the minimum, maximum and default values of taxRate field
+            //Verifying the minimum, maximum and default values of taxRate field
         Assertions.assertEquals(myStore.getTaxRateField().getAttribute("min"), "0");
         Assertions.assertEquals(myStore.getTaxRateField().getAttribute("value"), "0.000");
         Assertions.assertEquals(myStore.getTaxRateField().getAttribute("max"), "100");

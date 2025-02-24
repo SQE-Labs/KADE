@@ -306,7 +306,6 @@ public class PaymentsAndRefundTest extends KadeSession {
         session.getTransactionsPage().getLastTransactionRow().click();
         Assertions.assertEquals(session.getTransactionsPage().getBillAmount().getText(),"$"+bills.getAmount());
         Assertions.assertTrue(session.getTransactionsPage().getUniqueTransactionId().isDisplayed());
-
         session.getTransactionsPage().getCloseTransactionPopupButton().click();
     }
     @Test(description = "PYMT5 : Bill Creation and partial payment of the bill through Store manager.")

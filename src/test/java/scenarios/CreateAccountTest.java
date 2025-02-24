@@ -231,7 +231,8 @@ public class CreateAccountTest extends BaseTest {
         session.getCreateAccountPage().getContinueButton().click();
 
         // Verify the start Over Link
-        Assertions.assertTrue(session.getNewAccountPopup().getStartOverLink().isDisplayed());
+        Assertions.assertTrue(session.getNewAccountPopup().getStartOverLink().isDisplayed()); // Start over link is replaced with the Edit icon now
+
 
         // Verify the Resend Code Link
         Assertions.assertTrue(session.getNewAccountPopup().getResendCode().isDisplayed());

@@ -37,6 +37,7 @@ public class ObjectBuilder {
                 myStore.getDeleteStoreIcon().clickByMouse();
                 KadeSession.session.getSidePannel().getMyStoresTab().click();
                 myStore.getRegisterNewBusinessButton().click();}
+
                 myStore.getStipeAccountButton().clickByMouse();
                 myStore.getTestStripeAccountButton().click();
                //Edit Store name

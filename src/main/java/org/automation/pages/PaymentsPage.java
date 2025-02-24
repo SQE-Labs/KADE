@@ -18,7 +18,7 @@ public class PaymentsPage extends BasePage {
      */
     By cashBtn = By.xpath("//button[@name='payType']");
     By paidLabel = By.xpath("//div[contains(text(),'Paid')]");
-    public By paymentPopupTitle = By.xpath("//h5[text()='Receive Payment']");
+    public By paymentPopupTitle = By.xpath("//span[text()='Receive Payment']");
     By closeIcon = By.xpath("(//button[@class=\"btn-close\"])[1]");
     By cardNumberTbx = By.id("Field-numberInput");
     By expirationDateTbx = By.id("Field-expiryInput");
