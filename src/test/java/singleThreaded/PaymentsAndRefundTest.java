@@ -75,6 +75,7 @@ public class PaymentsAndRefundTest extends BasePage {
 
         //Step 14: Upload Screenshot
         session.getPaymentsPage().getScreenshotButton ().click();
+        WebdriverWaits.sleep(1000);
         session.getPaymentsPage().uploadVenmoImageScreenshot();
         session.getPaymentsPage().getCheckButton().click();
 

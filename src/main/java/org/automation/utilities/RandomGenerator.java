@@ -3,6 +3,7 @@ package org.automation.utilities;
 import org.openqa.selenium.By;
 
 import java.util.Random;
+import java.util.UUID;
 
 public class RandomGenerator {
 
@@ -12,6 +13,10 @@ public class RandomGenerator {
             int randomNumber = objGenerator.nextInt(100);
             System.out.println("Random No : " + randomNumber);
         }
+    }
+    public static  String generateRandomEmail() {
+        String uniqueId = UUID.randomUUID().toString().replace("-", "").substring(0, 8);
+        return uniqueId + "@yopmail.com";
     }
 
     public static String requiredString(int n) {
