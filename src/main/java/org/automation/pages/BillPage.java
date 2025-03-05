@@ -103,6 +103,7 @@ public class BillPage extends BasePage {
     By documentIcon = By.xpath("(//button[contains(@onclick,'pdf')])[2]");
     By checkBtn = By.xpath("//button[@class='btn btn-dark -crop-']");
     By attachedImage = By.xpath("//img[@class='img-thumbnail  bg-black']");
+
     By notPaidBill = By.xpath("//div[contains(@class, 'row bg-white')][1]");
     By unPaidBill=By.xpath("(//div[contains(@class,'row bg-white ')])[1]/div[2]");
     public By deleteButton = By.cssSelector(".btn-outline-danger");
