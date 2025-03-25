@@ -3,6 +3,7 @@ package org.automation.pages;
 import org.automation.ReturnObjects.Clickable;
 import org.automation.ReturnObjects.Editable;
 import org.automation.base.BasePage;
+import org.automation.session.KadeSession;
 import org.automation.utilities.WebdriverWaits;
 import org.checkerframework.checker.units.qual.C;
 import org.openqa.selenium.By;
@@ -85,6 +86,19 @@ public class CustomersPage extends BasePage {
     By createGiftCardBtn = By.cssSelector(".btn.btn-success.btn-lg.w-100");
 
 
+
+    public void navigateToCustomersPage(KadeSession session) {
+        session.getSidePannel().expandManageBusinessAccordionBttn().click();
+        session.getSidePannel().getCustomersTab().click();
+        session.getCustomersPage().storeSelection();
+        session.getCustomersPage().continuebtn().click();
+    }
+
+    public void applyFilter(KadeSession session, String phoneNumber) {
+        session.getCustomersPage().filter().click();
+        session.getCustomersPage().filterByPhnNumber().setText(phoneNumber);
+        session.getCustomersPage().filterApply().click();
+    }
 
     public void storeSelection() {
         click(storesCombobox);

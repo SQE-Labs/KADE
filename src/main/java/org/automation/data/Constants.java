@@ -13,10 +13,10 @@ public class Constants {
     public static final String customerEmail ="yonro@yopmail.com" ;
     public static final String amt = "4999.00";
     public static final String expectedSearchValidation = "Nothing found!";
+    public static final String maxPhnFieldCharValidation = "Please enter no more than 22 characters.";
 
     public static final String userPhnEmailTooltip = "Invalid phone or email. Phone numbers must start with country code starting with +";
     public static final String invalidDateRange = "Invalid date range";
-
 
 
 
@@ -30,4 +30,15 @@ public class Constants {
     public static String AutomationPaymentHistory = "Automation Payment History";  // Flow 1 without plan
 
 
+    //Customers page constants
+    public static String phnNumberInput = "9011017524";
+    public static String phnNumberInput2 = "1232233223";
+    public static String phnNumberInput3 = "12345678901234567890123";
+    public static String phnNumberInput4 = "1231";
+
+    //Reports Page:
+    public static String filenameMonthly = "2962-2025-01-01.csv";
+    public static String fileNameDaily = "2962-2025-01-20.csv";
+    public static String dateRange = "01/01/2025 - 02/20/2025";
+    public static String filePresent = "File Present";
 }

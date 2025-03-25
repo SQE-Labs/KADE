@@ -141,23 +141,19 @@ public class WebdriverWaits extends BaseTest {
         // Wait until timeout is reached (dummy condition)
         wait.until(driver -> true); // A condition that always returns false, making it wait the full duration
     }
-
-    public static void waitForElementValueToUpdate(long timeoutInMillis, long pollingInMillis, By locator, String oldValue) {
+    public static void waitForElementValueToUpdate(long timeoutInMillis, By locator) {
         Wait<WebDriver> wait = new FluentWait<>(getDriver())
                 .withTimeout(Duration.ofMillis(timeoutInMillis))
-                .pollingEvery(Duration.ofMillis(pollingInMillis))
+                .pollingEvery(Duration.ofMillis(2000)) // Default polling interval
                 .ignoring(Exception.class);
 
-
-        WebElement element = wait.until(driver -> {
+        wait.until(driver -> {
             WebElement ele = driver.findElement(locator);
+            String initialValue = ele.getAttribute("value"); // Capture the initial value dynamically
             String currentValue = ele.getAttribute("value");
 
-            if (!currentValue.equals(oldValue)) {
-                return ele;
-            } else {
-                return null;
-            }
+            // Wait until the value changes
+            return !currentValue.equals(initialValue);
         });
     }
 
