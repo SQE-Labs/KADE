@@ -284,7 +284,7 @@ public class MyStoreTest extends BaseTest {
         //Step 14: Enter Reward Point Values
         myStore.getRewardPointsValueField().setText(rewardPoints);
 
-        //Step 15: Enter Website URL
+        //Step 15:Enter Website URL
         myStore.getWebsiteURLField().setText("www.KadePay" + RandomGenerator.requiredString(4) + ".com");
 
         //Step 16: Click on 'Earn Rewards Points' Toggle Button
@@ -364,7 +364,7 @@ public class MyStoreTest extends BaseTest {
         }
 
         //Verifying Maximum length of 'VenmoID' field
-        Assertions.assertEquals(myStore.getVenmoIdField().getAttribute("maxlength"), "40");
+            Assertions.assertEquals(myStore.getVenmoIdField().getAttribute("maxlength"), "40");
 
         //Step 6: Enter ID in 'Venmo ID" field
         myStore.getVenmoIdField().setText(RandomGenerator.requiredNumber(4));
@@ -566,7 +566,7 @@ public class MyStoreTest extends BaseTest {
         session.getAdminPage().selectedStoreDeleted(myStore.storeName);
     }
 
-    @Test(description="Verify that store creation and purchasing the 'Premium' yearly plan subscription for the store, on 'Store Configuration' page.")
+    @Test(description =" SC 09 -b Verify that store creation and purchasing the 'Premium' yearly plan subscription for the store, on 'Store Configuration' page.")
     public void verifyThatPurchasingPremiumYearlyPlan() throws InterruptedException {
         KadeSession session = KadeSession.login(KadeUserAccount.Default);
 

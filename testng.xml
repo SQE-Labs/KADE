@@ -3,7 +3,7 @@
 <suite name="Suite">
 	<parameter name="xmlFileName" value="Suite.xml" />
 	<test name="TestHeadless" thread-count="2" parallel="classes">
-		<parameter name="headless" value="true" />
+		<parameter name="headless" value="false" />
 	<packages>
 			<package name="scenarios"/>
 		</packages>

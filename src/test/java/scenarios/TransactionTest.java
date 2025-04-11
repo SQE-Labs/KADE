@@ -641,7 +641,7 @@ public class TransactionTest extends BaseTest {
         session.getPaymentsPage().getBlueCloseButton().clickbyJS();
         session.getSidePannel().getSignOutButton().click();
         WebdriverWaits.fluentWait_ElementIntactable(2000, 500, session.getLoginPage().userNameField);
-
+//*******************************************************************************
         // login as store manager
         session.getLoginPage().performSignIn("6465551114", "Test@123");
 
@@ -713,6 +713,7 @@ public class TransactionTest extends BaseTest {
 
         WebdriverWaits.waitForElementVisible(session.getTransactionsPage().filterIcon,10);
         session.getTransactionsPage().getFilterIcon().click();
+        // ****************
         WebdriverWaits.waitForElementVisible(session.getTransactionsPage().dateRangeField,15);
         transactions.getDateRangeField().click();
 
@@ -759,7 +760,7 @@ public class TransactionTest extends BaseTest {
         WebdriverWaits.waitForElementVisible(session.getTransactionsPage().quotionmarkSign,10);
 
         Assertions.assertTrue(transactions.getQuotionmarkSign().isDisplayed());
-
+// ........
         transactions.getFilterIcon().click();
         transactions.getPaymentStatusDropdown().click();
         transactions.getClearPaymentField().click();
@@ -969,8 +970,6 @@ public class TransactionTest extends BaseTest {
         TransactionsPage transaction = session.getTransactionsPage();
         transaction.getCurrentPaidBill().clickByMouse();
         transaction.getRecurringIcon().isDisplayed();
-
-
     }
 }
 

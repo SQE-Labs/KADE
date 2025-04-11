@@ -46,6 +46,7 @@ public class LoginTest extends BaseTest{
 	
 	@Test(description = "Log05 : Verify Tool Tip Appear on enter in invalid email")
     public void tc05_termsOfUsePage() {
+
 		session.getLoginPage().getTermOfUseButton().click();
 		session.getLoginPage().switchToWindow("Terms of Use Page");
 		String actualTitle = session.getLoginPage().getPageTitle();

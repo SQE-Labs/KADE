@@ -58,7 +58,7 @@ public class MyStorePage extends BasePage {
     By changePayMethodBtn = By.xpath("//button[text()='change']");
     By nextBillDate = By.xpath("(//div[@class='d-flex'])[2]");
     By configureBtnWithoutStripe = By.xpath("(//h6[text()='Automation Flow 3']/../..//a)[1]");
-    By settingsSubTab = By.xpath("//a[text()='Settings']");
+    By settingsSubTab = By.xpath("//div[text()='Settings']");
     By maxBillAmountTbx = By.xpath("//input[@name='maxBillAmountThreshold']");
     By tipGratuityToggleBtn = By.xpath("//span[@class='ms-2 custom-check-on'][text()='No']");
     By tipGratuityToggleOffBtn = By.xpath("//span[@class='ms-2 custom-check-off' and text()='Yes']");
@@ -83,8 +83,8 @@ public class MyStorePage extends BasePage {
     By websiteURLField = By.xpath("//input[@name='StoreURLTypes[0].url']");
     By earnRewardsToggleBtn = By.xpath("//label[text()=' Website']/../..//i[@class='far fa-toggle-off custom-check-off ']");
     By earnRewardsToggleOffBtn = By.xpath("//label[text()=' Website']/../..//i[@class='far fa-toggle-on custom-check-on ']");
-    By enterInPercentToggleBtn = By.xpath("//label[text()=' Enter in percentage']");
-    public By paymentProcessingSubTab = By.xpath("//a[text()='Payment Processing']");
+    By enterInPercentToggleBtn = By.cssSelector(".custom-checkbox.mb-2>span");
+    public By paymentProcessingSubTab = By.xpath("//div[text()='Payment Processing']");
     By acceptVenmoToggleBtn = By.xpath("(//span[text()='Accept Venmo'])[1]");
     By acceptZelleToggleBtn = By.xpath("//span[text()='Accept Zelle']");
     By venmoIDField = By.xpath("//label[text()='Venmo ID']/following-sibling::input");

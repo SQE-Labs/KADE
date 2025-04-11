@@ -17,7 +17,8 @@ public class LoginPage extends BasePage {
     By signUpLink = By.linkText("Sign up");
     By validation = By.xpath("//p[@class='alert-content']");
     By termsOfUse = By.linkText("Terms Of Use");
-    By popupTitle = By.xpath("//h5[normalize-space()='New Account']");
+    public By popupTitle = By.xpath("//h5[normalize-space()='New Account']");
+    By credentialsValidation  = By.cssSelector(".alert-content");
     // Methods
     public Editable getUserNameTextbox(){
         return Editable.getElementBy(userNameField,"User Name Textbox");
